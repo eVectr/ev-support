@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import 'bulma/css/bulma.css'
 
-function App() {
+import './styles/App.css'
+import Loginform from './views/component/Loginform.js'
+import StandardForm from './views/component/StandardForm'
+import MandatoryUploadsForm from './views/component/MandatoryUploadsForm'
+import Navbar from './views/component/Navbar'
+import SelectReason from './views/component/SelectReason'
+import Route from './views/Routes'
+
+function App () {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+     <Route />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
