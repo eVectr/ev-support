@@ -1,0 +1,2 @@
+export const SUCESSFULL_LOGIN = 'SUCESSFULL_LOGIN'
+export const USER_DATA = 'USER_DATA'
