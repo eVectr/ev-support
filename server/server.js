@@ -1,4 +1,4 @@
-const redis = require('redis')
+//const redis = require('redis')
 const mongoose = require('mongoose');
 const express = require('express')
 
@@ -16,11 +16,11 @@ var server = require('http').Server(app)
 app.use(bodyParser.json());
 
 
-let client = redis.createClient();
-client.on('connect', ()=>{
-    console.log("Redis Connected")
+// let client = redis.createClient();
+// client.on('connect', ()=>{
+//     console.log("Redis Connected")
 
-})
+// })
 mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',  (err) => {
    if (err) throw err;
    console.log('Mongoose connected');
