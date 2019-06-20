@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 import axios from 'axios'
 import Uploader from './Uploader'
+import ImageUploader from './ImageUploader'
 import Validation from '../../utils/Validation'
 import is from 'is_js'
 import '../../styles/login.css'
@@ -10,15 +11,17 @@ import Dropzone from 'react-dropzone'
 
 const ContactForm = (props) => {
 
-  const [data, setData] = useState({
-    name:'',
-    email:'',
-    subject:'',
-    message: '',
+    const [data, setData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
     })
 
     const [selectedClaim, setSelectedClaim] = useState(0)
     const [FileNames, setFileNames] = useState([])
+    const [ImageNames, setImageNames] = useState([])
+    const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
 
     const handleChange = e => {
@@ -31,126 +34,127 @@ const ContactForm = (props) => {
     }
 
     const onDrop = (files) => {
-        console.log("file name" , files)
+        console.log("file name", files)
         if (!files.length) {
             return
         }
 
-    setFileNames(prev => {
-        const update = prev.concat(files[0].name)
-        return update
-    })
-       // setLoading(true)
+        setFileNames(prev => {
+            console.log(prev,"prev")
+            const update = prev.concat(files[0].name)
+            return update
+        })
+        // setLoading(true)
         // let data = new FormData()
         // data.append('file', files[0])
         // setErrors({
         //     file: [],
         // })
-       // apiUploadFile(data).then(res => {
-            // setLoading(false)
-            // setFile(`${API_URL}/${res.uploadUrl}`)
+        // apiUploadFile(data).then(res => {
+        // setLoading(false)
+        // setFile(`${API_URL}/${res.uploadUrl}`)
         //})
     }
 
-    const onSubmit = () => {
+    const onDropImage = (files) => {
+       
+        if (!files.length) {
+            return
+        }
+        let data = new FormData()
+        data.append('file', files[0])
+        console.log("data 11111=>", data)
+        console.log("filess =>", files)
+        setImagePath(files[0].path)
+        setImageNames(prev => {
+            const update = prev.concat(files[0].name)
+            return update
+        })
+    }
+
+    let  generateCaseNo= ()=> {
+        return new Promise((resolve, reject)=>{
+         let date  = new Date
+         let sec = date.getSeconds() +1
+         console.log(sec)
+         let caseNo = 'SS'.concat( (Math.random() * 10000000000).toFixed()).concat('CONTACT')
+         resolve(caseNo)
+        }) 
+       }
+
+       const onSubmit = () => {
         const errors = Validation(data)
         if (!is.empty(errors)) {
             setErrors(errors)
-            return
+            
         }
+        generateCaseNo().then(res =>{
+          let Transaction_Number = ''
+          let  Name = data.name
+          let Email = data.email
+          let  Subject = data.subject
+          let Message = data.message
+          let  date = Date.now()
+          let Case_No = res
+          let Document = ''
+          let Image = ImagePath
+          let Link = ''
+    
+          axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Document, Image, Link })
+          .then(res =>{
+            console.log("ERRORS =>", Errors)
 
-        let { auth = {} } = props
-        let { userDetails = {} } = auth
-
-        let user_Id = userDetails.data[0]._id
-        let Name = userDetails.data[0].Name
-
-        axios.post(`http://localhost:7777/savecontact`, { user_Id: user_Id, Name: Name, Reason: data.reason, Message: data.message, date: Date.now() })
-            .then(res => {
-                console.log("saved response =>", res)
-            })
-    }
+          })
+        })
+      }
 
     const claims = ["Documents", "Images", "Links"]
 
-
-  const Documents = () => {
-      return (
-          <div>
-          <div> {
-            FileNames.map((file, index) => {
-                return (
-                    <ul>
-                        <li><h1>{file}</h1></li>
-                    </ul>
-                )
-            })
-          }</div>
-        <Uploader onDrop={onDrop}>
-        <div className='field'>
-            <div className='file is-small'>
-                <label className='file-label'>
-                    <span className={`file-cta font-1rem `}>
-                        <span className='file-icon'>
-                            <i className='fas fa-upload'></i>
-                        </span>
-                        <span className='file-label'>
-                            Upload 
-                    </span>
-                    </span>
-                </label>
-            </div>
-        </div>
-    </Uploader>
-    
-    </div>
-      )
-  }
-
-  const Images = () => {
-    return (
-        <div>
-        <div> {
-          FileNames.map((file, index) => {
-              return (
-                  <ul>
-                      <li><h1>{file}</h1></li>
-                  </ul>
-              )
-          })
-        }</div>
-      <Uploader onDrop={onDrop}>
-      <div className='field'>
-          <div className='file is-small'>
-              <label className='file-label'>
-                  <span className={`file-cta font-1rem `}>
-                      <span className='file-icon'>
-                          <i className='fas fa-upload'></i>
-                      </span>
-                      <span className='file-label'>
-                          Upload 
-                  </span>
-                  </span>
-              </label>
-          </div>
-      </div>
-  </Uploader>
-  
-  </div>
-  )
-}
-
-  const renderClaims = () => {
-
-    switch(selectedClaim) {
-        case 0: return Documents()
-        case 1 : return Images()
-        case 2 : return <input type = "text" placeholder ="Input link here" ></input>
+    console.log(" data =>", data)
+    console.log(" ImageNames =>", ImageNames)
+    const Documents = () => {
+        return (
+            <form onSubmit={onSubmit}>
+            <h1>File Upload</h1>
+            <input type="file" name="myImage" x />
+            <button type="submit">Upload</button>
+        </form>
+        )
     }
-  }
 
- 
-  console.log(" file names =>", FileNames)
+    let onChangeHandler = event => {
+        console.log("kjghghjg -=>",event.target.files)
+        setImageNames(event.target.files[0])
+    }
+    let onClickHandler = () => {
+        const data = new FormData()
+        for(var x = 0; x<ImageNames.length; x++) {
+            data.append('file', ImageNames[x])
+        }
+        axios.post(`http://localhost:7777/upload`, ImageNames).then(res => { // then print response status
+            console.log("res.statusText=>", res.statusText)
+        })
+    }
+
+    const Images = () => {
+        return (
+            <div>
+            <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
+            <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
+            </div>
+           
+        )
+    }
+   
+
+    const renderClaims = () => {
+
+        switch (selectedClaim) {
+            case 0: return Documents()
+            case 1: return Images()
+            case 2: return <input type="text" placeholder="Input link here" ></input>
+        }
+    }
 
     return (
         <div className="form-container">
@@ -159,7 +163,7 @@ const ContactForm = (props) => {
 
                 <div className="pading">
 
-          
+
                     <div className="field">
                         <div class="control has-icons-left has-icons-right">
                             <label className="label left_align">Name</label>
@@ -177,7 +181,7 @@ const ContactForm = (props) => {
                             <label className="label left_align">Email</label>
                             <div className="control">
                                 <input className="input" type="email" name="email" placeholder="Email (Mendatory)" value={data.email} onChange={handleChange} />
-                                <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
+                                <p className='error-message-text'>{(Errors.email && Errors.email[0]) || ''}</p>
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1"></i>
                                 </span>
@@ -209,30 +213,32 @@ const ContactForm = (props) => {
                     </div>
 
                     <div className="field">
-                    <div className="control">
-                    <div class="tabs  is-boxed">
-                        <ul>
-                            {
-                                claims.map((claim, index) => {
-                                    return (
-                                        <li class={index === selectedClaim  ? "is-active" : "" } key={index} onClick={ () => setSelectedClaim(index)}>
-                                            <a>
-                                                <span>{claim}</span>
-                                            </a>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
+                        <div className="control">
+                            <div class="tabs  is-boxed">
+                                <ul>
+                                    {
+                                        claims.map((claim, index) => {
+                                            return (
+                                                <li class={index === selectedClaim ? "is-active" : ""} key={index} onClick={() => setSelectedClaim(index)}>
+                                                    <a>
+                                                        <span>{claim}</span>
+                                                    </a>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                   
+                    
 
+                    
                     {
                         renderClaims()
                     }
-                  
+
+                    </div>
+                    </div>
+
                     <button className="button is-success" onClick={onSubmit} >Send</button>
                 </div>
             </div>

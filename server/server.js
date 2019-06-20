@@ -1,10 +1,11 @@
 //const redis = require('redis')
 const mongoose = require('mongoose');
 const express = require('express')
-
+var multer = require('multer')
+var fs = require('fs');
 
 const User = require('../db/user.js')
-const ContactForm = require('../db/ContactForm')
+const ContactForm = require('../db/contactForm')
 const ContactCategory = require('../db/contactcategory.js')
 
 let api = require("../api/api");
@@ -14,6 +15,23 @@ var bodyParser = require('body-parser')
 var server = require('http').Server(app)
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//   cb(null, 'public')
+// },
+// filename: function (req, file, cb) {
+//   cb(null, Date.now() + '-' +file.originalname )
+// }
+// })
+const storage = multer.diskStorage({
+  destination: "../files",
+  filename: function(req, file, cb){
+     cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage, }).array('userPhoto',2)
 
 
 // let client = redis.createClient();
@@ -51,6 +69,36 @@ app.use((req, res, next)=>{
 // })
 // contactcategory .save()
 
+app.post('/',upload,function(req,res,next){
+	console.log(req.files);
+	res.send(req.files);
+});
+
+// app.post('/upload',function(req,res){
+//   upload(req,res,function(err) {
+//       console.log(req.body);
+//       console.log(req.files);
+//       // if(err) {
+//       //     return res.end("Error uploading file.");
+//       // }
+//       // res.end("File is uploaded");
+//   });
+// });
+
+// app.post('/upload',function(req, res) { 
+//   let data = req.body
+//   console.log("data   ==>" ,req.files)   
+//   // upload(req, res, function (err) {
+//   //        if (err instanceof multer.MulterError) {
+//   //            return res.status(500).json(err)
+//   //        } else if (err) {
+//   //            return res.status(500).json(err)
+//   //        }
+//   //   return res.status(200).send(req.file)
+
+//   // })
+// })
+
 app.post('/saveContact', (req, res) => {
   let Transaction_Number = req.body.Transaction_Number 
   let Name = req.body.Name
@@ -60,7 +108,7 @@ app.post('/saveContact', (req, res) => {
   let date = req.body.date
   let Case_No = req.body.Case_No
   let Document = req.body.Document
-  let Image = req.body.Image
+  let Image = fs.readFileSync(req.body.Image)
   let Link = req.body.Link
 
   var contactForm = new ContactForm ({
