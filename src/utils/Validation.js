@@ -8,6 +8,7 @@ function Validation(data) {
          errorMsg: `Please enter Transaction Number`
        }
      },
+
      email: {
       required: {
           errorMsg: `Email is required`
@@ -16,6 +17,19 @@ function Validation(data) {
           errorMsg: `Enter a valid email`
       }
   },
+
+  username: {
+    required: {
+      errorMsg: `Please enter username`
+    }
+  },
+
+  password: {
+    required: {
+      errorMsg: `Please enter password`
+    }
+  }
+
    }, data)
 
    return errors

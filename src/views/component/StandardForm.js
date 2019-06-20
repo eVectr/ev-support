@@ -90,7 +90,7 @@ const handleChange = e => {
               <input className="input" type="email" name="email" placeholder="Email (Mendatory)" value={data.email} onChange={handleChange} />
               <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
               <span class="icon is-medium is-left icn">
-                  <i class="fas fa-id-card icn1"></i>
+              <i class="fas fa-envelope-square"></i>
                 </span>
             </div>
           </div>
