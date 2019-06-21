@@ -5,7 +5,7 @@ const Uploader = ({ children, onDrop, loading }) => {
    return (
        <Dropzone
            onDrop={onDrop}
-           accept={['.pdf', '.doc', '.txt', '.docx', '.jpg', '.jpeg' ]}
+           accept={['.jpg', '.jpeg' ]}
            multiple={true}
        >
        {({ getRootProps, getInputProps }) => (

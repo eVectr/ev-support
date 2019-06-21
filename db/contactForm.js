@@ -7,7 +7,7 @@ var ContactForm = new mongoose.Schema({
     Subject: String,
     Message: String,
     Document: String,
-    Image: { data: Buffer, contentType: String },
+    Image:  String,
     Link: String,
     Date:Date,
     Case_No: String

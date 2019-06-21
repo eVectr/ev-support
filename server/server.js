@@ -1,12 +1,12 @@
 //const redis = require('redis')
 const mongoose = require('mongoose');
 const express = require('express')
-var multer = require('multer')
-var fs = require('fs');
+var multer  = require('multer');
+var fs = require('fs')
 
 const User = require('../db/user.js')
 const ContactForm = require('../db/contactForm')
-const ContactCategory = require('../db/contactcategory.js')
+const ContactCategory = require('../db/Contactcategory.js')
 
 let api = require("../api/api");
 
@@ -16,28 +16,10 @@ var server = require('http').Server(app)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//   cb(null, 'public')
-// },
-// filename: function (req, file, cb) {
-//   cb(null, Date.now() + '-' +file.originalname )
-// }
-// })
-const storage = multer.diskStorage({
-  destination: "../files",
-  filename: function(req, file, cb){
-     cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage: storage, }).array('userPhoto',2)
-
 
 // let client = redis.createClient();
 // client.on('connect', ()=>{
 //     console.log("Redis Connected")
-
 // })
 mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',  (err) => {
    if (err) throw err;
@@ -46,6 +28,7 @@ mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',
 });
 
 api(app)
+
 
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -61,43 +44,22 @@ app.use((req, res, next)=>{
 // })
 // user.save()
 
+const storage = multer.diskStorage({
+  destination:function(req, file, cb){
+    cb(null, './uploads');
+  },
+  filename: function(req, file, cb){
+    cb(null, new Date().toISOString() + file.originalname )
+  }
+})
+const upload = multer({ storage: storage })
 
-// var contactcategory = new ContactCategory({
-//   Category_name: 'Request a Profile Audit',
-//   Subcategory_name: [{'name':'Report Fake Credentials' , 'Tempate_name':'Mandatory Uploads'}, {'name':'Report Misleading Claims' , 'Tempate_name':'Mandatory Uploads'},
-//   {'name':'Other Suspicious Activity' , 'Tempate_name':'Mandatory Uploads'}]
-// })
-// contactcategory .save()
+//const upload = multer({ dest: 'uploads/' })
 
-app.post('/',upload,function(req,res,next){
-	console.log(req.files);
-	res.send(req.files);
-});
-
-// app.post('/upload',function(req,res){
-//   upload(req,res,function(err) {
-//       console.log(req.body);
-//       console.log(req.files);
-//       // if(err) {
-//       //     return res.end("Error uploading file.");
-//       // }
-//       // res.end("File is uploaded");
-//   });
-// });
-
-// app.post('/upload',function(req, res) { 
-//   let data = req.body
-//   console.log("data   ==>" ,req.files)   
-//   // upload(req, res, function (err) {
-//   //        if (err instanceof multer.MulterError) {
-//   //            return res.status(500).json(err)
-//   //        } else if (err) {
-//   //            return res.status(500).json(err)
-//   //        }
-//   //   return res.status(200).send(req.file)
-
-//   // })
-// })
+app.post('/upload', upload.single('SelectedImage'), (req, res) => {
+    console.log(req.file)
+    res.send("done")
+})
 
 app.post('/saveContact', (req, res) => {
   let Transaction_Number = req.body.Transaction_Number 

@@ -20,7 +20,7 @@ const ContactForm = (props) => {
 
     const [selectedClaim, setSelectedClaim] = useState(0)
     const [FileNames, setFileNames] = useState([])
-    const [ImageNames, setImageNames] = useState([])
+    const [SelectedImage, setSelectedImage] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
 
@@ -65,8 +65,7 @@ const ContactForm = (props) => {
         data.append('file', files[0])
         console.log("data 11111=>", data)
         console.log("filess =>", files)
-        setImagePath(files[0].path)
-        setImageNames(prev => {
+        setSelectedImage(prev => {
             const update = prev.concat(files[0].name)
             return update
         })
@@ -110,39 +109,51 @@ const ContactForm = (props) => {
 
     const claims = ["Documents", "Images", "Links"]
 
-    console.log(" data =>", data)
-    console.log(" ImageNames =>", ImageNames)
+
     const Documents = () => {
         return (
-            <form onSubmit={onSubmit}>
-            <h1>File Upload</h1>
-            <input type="file" name="myImage" x />
-            <button type="submit">Upload</button>
-        </form>
+            <div>
+                <form>
+                    <input type="file" class="form-control" multiple onChange={onChangeHandler} />
+                    <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button>
+                </form>
+            </div>
         )
     }
 
     let onChangeHandler = event => {
-        console.log("kjghghjg -=>",event.target.files)
-        setImageNames(event.target.files[0])
+        console.log(event.target.files, "event.target.files")
+
+        // setFileNames(prev => {
+        //     const update = prev.concat(files[0].name)
+        //     return update
+        // })
+        setSelectedImage(event.target.files[0])
     }
+
     let onClickHandler = () => {
-        const data = new FormData()
-        for(var x = 0; x<ImageNames.length; x++) {
-            data.append('file', ImageNames[x])
-        }
-        axios.post(`http://localhost:7777/upload`, ImageNames).then(res => { // then print response status
-            console.log("res.statusText=>", res.statusText)
+        let formData = new FormData()
+        console.log("selected image =>", SelectedImage)
+        formData.append('SelectedImage', SelectedImage)
+       
+        axios.post(`http://localhost:7777/upload`, formData,{
+            headers: { 'content-type': 'multipart/form-data' }
+        }).then(res => { 
+            console.log("res =>", res)
+        }).catch(err =>{
+            console.log({...err},"err")
         })
     }
 
     const Images = () => {
         return (
             <div>
-            <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
-            <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
+                
+                <form>
+                    <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
+                    <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
+                </form>
             </div>
-           
         )
     }
    
