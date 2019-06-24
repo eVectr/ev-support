@@ -24,6 +24,7 @@ const ContactForm = (props) => {
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
     const[linkData, setlinkData] = useState('')
+    const[showLinks, setShowLinks] = useState([])
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -141,7 +142,7 @@ const ContactForm = (props) => {
           
             <div>
                 <input type="text" className='link-data' placeholder="Input link here" onChange={(e)=>setlinkData(e.target.value)} ></input>
-                <button type="button" className='link-btn'>Add</button> 
+                <button type="button" className='link-btn' onClick={()=>showLinkData() }>Add</button> 
             </div>
 
         )
@@ -155,6 +156,18 @@ const ContactForm = (props) => {
            // case 2: return <input type="text" placeholder="Input link here" ></input>
             case 2: return Links()
         }
+    }
+
+
+    // show link-data function
+
+    let showLinkData = () => {
+        let links = showLinks
+       links = [
+           ...showLinks,
+           linkData
+       ]
+       setShowLinks(links)
     }
 
     return (
@@ -171,7 +184,7 @@ const ContactForm = (props) => {
                             <div className="control">
                                 <input className="input contact-input" type="text" name="name" placeholder="Name (Optional)" value={data.name} onChange={handleChange} />
                                 <span class="icon is-medium is-left icn">
-                                    <i class="fas fa-id-card icn1 " ></i>
+                                    <i class="fas fa-id-card icn1" ></i>
                                 </span>
                             </div>
                         </div>

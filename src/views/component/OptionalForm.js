@@ -48,21 +48,21 @@ const ContactForm = (props) => {
     const onSubmit = () => {
 
         const errors = Validation(data)
+        console.log(errors)
         if (!is.empty(errors)) {
+            
             setErrors(errors)
             return
         }
 
-        let { auth = {} } = props
-        let { userDetails = {} } = auth
+    
+        alert('hello')
+     
 
-        let user_Id = userDetails.data[0]._id
-        let Name = userDetails.data[0].Name
-
-        axios.post(`http://localhost:7777/savecontact`, { user_Id: user_Id, Name: Name, Reason: data.reason, Message: data.message, date: Date.now() })
-            .then(res => {
-                console.log("saved response =>", res)
-            })
+        // axios.post(`http://localhost:7777/savecontact`, { user_Id: user_Id, Name: Name, Reason: data.reason, Message: data.message, date: Date.now() })
+        //     .then(res => {
+        //         console.log("saved response =>", res)
+        //     })
     }
 
     const claims = ["Documents", "Images", "Links"]
