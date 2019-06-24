@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import AdminModal from './AdminModal'
 import '../../styles/adminpanel.css'
 class AdminPanel extends Component {
-
-
-    
+ 
     render(){
         return(
             <div className='container '>
