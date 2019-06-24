@@ -17,7 +17,7 @@ const Routes = () =>
             <Route exact path="/contact/1" component={StandardForm} />
             <Route exact path="/contact/2" component={OptionalForm} />
             <Route exact path="/contact/3" component={OptionalForm} />
-            <Route exact path="/contact/4" component={AdminPanel} />
+            <Route exact path="/admin" component={AdminPanel} />
         </Switch>
     </BrowserRouter>
 

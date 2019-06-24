@@ -12,12 +12,14 @@ let logout = () =>{
     localStorage.clear()
     props.history.push('/')
 }
-let onHistory = () =>{
 
-     props.history.push('/ContactHistory')
-   
+let admin = () =>{
+    props.history.push('/admin')  
 }
 
+let home = () =>{
+    props.history.push('/')  
+}
 
    return (
        <div>
@@ -36,8 +38,12 @@ let onHistory = () =>{
 
                <div id="navbarBasicExample" class="navbar-menu">
                    <div class="navbar-start">
-                       <a class="navbar-item">
+                       <a class="navbar-item" onClick ={home}>
                            <strong>Home</strong>
+                     </a>
+
+                     <a class="navbar-item" onClick ={admin}>
+                           <strong>Admin</strong>
                      </a>
                 
                 </div>
