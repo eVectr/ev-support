@@ -23,6 +23,8 @@ const ContactForm = (props) => {
     const [Errors, setErrors] = useState('')
     const[linkData, setlinkData] = useState('')
     const[showLinks, setShowLinks] = useState([])
+    const[disable, setdisable] = useState(true)
+
    
    
     const handleChange = e => {
@@ -81,14 +83,31 @@ const ContactForm = (props) => {
        setSelectedImage(files)
     }
 
-    let showLinkData = () => {
-        let showAllLinks = []
-        showAllLinks.push([linkData])
-        console.log(showAllLinks, 'showAllLinks')
-        setShowLinks(showAllLinks)
-        
-        setlinkData('')
+    let deleteLink = (clickedLink) => {
+       let links = showLinks.filter((link, index) => {
+            return link !== clickedLink
+       }) 
+       setShowLinks(links)
     }
+
+
+
+    let showLinkData = () => {
+       let links = showLinks
+       links = [
+           ...showLinks,
+           linkData
+       ]
+       setShowLinks(links)
+    //    if( linkData.length){
+    //     setdisable(false)
+    //    }
+    //    else{
+    //     setdisable(true)
+    //    }
+    
+    }
+
 
     const Documents = () => {
         return (
@@ -144,8 +163,8 @@ const ContactForm = (props) => {
                                     <span className='file-icon'>
                                         <i className='fas fa-upload'></i>
                                     </span>
-                                    <span className='file-label'>
-                                        Add
+                                    <span className='file-label link-btn '>
+                                        Add files
                                  </span>
                                 </span>
                             </label>
@@ -160,15 +179,14 @@ const ContactForm = (props) => {
     const Link = () => {
         return (
             <div>
-                {
-                    showLinks.length ?
-                        showLinks.map((link, index) => {
-                            return <li key={index}>{link}</li>
-                        }) : null
+                {                    
+                     showLinks.map((link, index) => {
+                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
+                     }) 
                 }
-                <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={e => setlinkData(e.target.value)} />
-                <button onClick={() => showLinkData()}>Add</button>
-            </div>
+                <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
+                <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
+            </div>         
         )
     }
 

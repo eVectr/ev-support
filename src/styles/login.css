@@ -6,15 +6,16 @@ body {
   font-family: 'open sans', helvetica, arial, sans;
 }
 
+.login-form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:450px;
+}
+
 .log-form {
   width: 30%;
-  min-width: 320px;
-  max-width: 475px;
   background: #fff;
-  position: absolute;
-  top: 20%;
-  bottom: 20%;
-  left: 35%;
   padding: 2%;
   box-shadow: 0px 0px 1px rgba(0,0,0,.8); 
   border-radius:1px;
@@ -307,4 +308,30 @@ form {
     border-color: #00d1b2;
   }
 
+  .link-list{
+    list-style: none;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #00d1b2;
+    color:#00d1b2;
+  }
+
+  .link-btn{
+    padding: 10px 30px !important;
+    background: #00d1b2;
+    border: 1px solid #00d1b2;
+    box-shadow: none;
+    border-radius: 4px;
+    color:#fff;
+    font-size: 1rem;
+   }
+
+   .link-btn:focus{
+     outline: 0;
+     border-color:#00d1b2;
+   }
   

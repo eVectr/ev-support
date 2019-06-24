@@ -48,6 +48,7 @@ const onLogin = () => {
 }
 console.log(" login props =>", props)
 return (
+  <div className='login-form'>
 <div className="log-form">
   <h1 className = "header">LOGIN</h1>
   <div className="field">
@@ -69,6 +70,7 @@ return (
       <button class="button is-link submit-btn" onClick={onLogin} >Submit</button>
     </div>
   </div>
+</div>
 </div>
 )
 }
