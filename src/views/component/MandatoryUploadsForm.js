@@ -23,6 +23,7 @@ const ContactForm = (props) => {
     const [SelectedImage, setSelectedImage] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
+    console.log(ImageNames, 'ERRORS')
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -44,16 +45,7 @@ const ContactForm = (props) => {
             const update = prev.concat(files[0].name)
             return update
         })
-        // setLoading(true)
-        // let data = new FormData()
-        // data.append('file', files[0])
-        // setErrors({
-        //     file: [],
-        // })
-        // apiUploadFile(data).then(res => {
-        // setLoading(false)
-        // setFile(`${API_URL}/${res.uploadUrl}`)
-        //})
+        
     }
 
     const onDropImage = (files) => {
@@ -101,30 +93,28 @@ const ContactForm = (props) => {
     
           axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Document, Image, Link })
           .then(res =>{
-            console.log("ERRORS =>", Errors)
-
           })
         })
       }
 
     const claims = ["Documents", "Images", "Links"]
 
-
+    
     const Documents = () => {
         return (
-            <div>
-                <form>
-                    <input type="file" class="form-control" multiple onChange={onChangeHandler} />
-                    <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button>
-                </form>
-            </div>
+            <form className = 'file-upload' onSubmit={onSubmit}>
+            <h1>File Upload</h1>
+            <input type="file" name="myImage" x />
+            <button type="submit">Upload</button>
+        </form>
         )
     }
 
     let onChangeHandler = event => {
         console.log(event.target.files)
         //setSelectedImage(event.target.files)
-        setSelectedImage([1,2,3])
+        setSelectedImage(event.target.files)
+     //   setImageNames(event.target.files[0])
     }
 
     let onClickHandler = () => {
@@ -141,23 +131,15 @@ const ContactForm = (props) => {
         })
     }
 
+    
     const Images = () => {
         return (
+          
             <div>
-                 <div> {
-                    SelectedImage.map((file, index) => {
-                        return (
-                            <ul>
-                                <li><h1>{file}</h1></li>
-                            </ul>
-                        )
-                    })
-                }</div>
-                <form>
-                    <input type="file" class="form-control" multiple onChange={onChangeHandler} />
-                    <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button>
-                </form>
+                <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
+                <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
             </div>
+
         )
     }
 
@@ -183,7 +165,7 @@ const ContactForm = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <label className="label left_align">Name</label>
                             <div className="control">
-                                <input className="input" type="text" name="name" placeholder="Name (Optional)" value={data.name} onChange={handleChange} />
+                                <input className="input contact-input" type="text" name="name" placeholder="Name (Optional)" value={data.name} onChange={handleChange} />
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1 " ></i>
                                 </span>
@@ -195,8 +177,8 @@ const ContactForm = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <label className="label left_align">Email</label>
                             <div className="control">
-                                <input className="input" type="email" name="email" placeholder="Email (Mendatory)" value={data.email} onChange={handleChange} />
-                                <p className='error-message-text'>{(Errors.email && Errors.email[0]) || ''}</p>
+                                <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
+                                <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1"></i>
                                 </span>
@@ -208,7 +190,7 @@ const ContactForm = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <label className="label left_align">Subject</label>
                             <div className="control">
-                                <input className="input" type="text" name="subject" placeholder="Subject (Optional)" value={data.subject} onChange={handleChange} />
+                                <input className="input contact-input" type="text" name="subject" placeholder="Subject (Optional)" value={data.subject} onChange={handleChange} />
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1"></i>
                                 </span>
@@ -220,11 +202,12 @@ const ContactForm = (props) => {
                         <label className="label left_align">Messages</label>
                         <div className="control">
                             <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
+                            <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
                         </div>
                     </div>
 
                     <div className="field">
-                        <label className="label left_align">Options to Substantiate Claim (Mendatory)</label>
+                        <label className="label left_align">Options to Substantiate Claim (Mandatory)</label>
                     </div>
 
                     <div className="field">
@@ -237,11 +220,12 @@ const ContactForm = (props) => {
                                                 <li class={index === selectedClaim ? "is-active" : ""} key={index} onClick={() => setSelectedClaim(index)}>
                                                     <a>
                                                         <span>{claim}</span>
+                                                       
                                                     </a>
                                                 </li>
                                             )
                                         })
-                                    }
+                                    }                                    
                                 </ul>
                             </div>
                     

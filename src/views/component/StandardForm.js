@@ -75,7 +75,7 @@ const handleChange = e => {
             <div class="control has-icons-left has-icons-right">
               <label className="label left_align">Name</label>
               <div className="control">
-                <input className="input" type="text" name="name" placeholder="Name (Optional)" value={data.name} onChange={handleChange} />
+                <input className="input contact-input" type="text" name="name" placeholder="Name (Optional)" value={data.name} onChange={handleChange} />
                 <span class="icon is-medium is-left icn">
                   <i class="fas fa-id-card icn1 " ></i>
                 </span>
@@ -87,7 +87,7 @@ const handleChange = e => {
           <div class="control has-icons-left has-icons-right">
             <label className="label left_align">Email</label>
             <div className="control">
-              <input className="input" type="email" name="email" placeholder="Email (Mendatory)" value={data.email} onChange={handleChange} />
+              <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
               <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
               <span class="icon is-medium is-left icn">
                   <i class="fas fa-id-card icn1"></i>
@@ -100,7 +100,7 @@ const handleChange = e => {
           <div class="control has-icons-left has-icons-right">
             <label className="label left_align">Subject</label>
             <div className="control">
-              <input className="input" type="text" name="subject" placeholder="Subject (Optional)" value={data.subject} onChange={handleChange} />
+              <input className="input contact-input" type="text" name="subject" placeholder="Subject (Optional)" value={data.subject} onChange={handleChange} />
               <span class="icon is-medium is-left icn">
                   <i class="fas fa-id-card icn1"></i>
                 </span>
@@ -112,6 +112,7 @@ const handleChange = e => {
             <label className="label left_align">Messages</label>
             <div className="control">
               <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
+              <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
           </div>
           </div>
           <button class="button is-success" onClick={onSubmit} >Send</button>
