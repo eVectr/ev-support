@@ -14,7 +14,7 @@ const Routes = () =>
             <Route exact path="/" component={Loginform} />
             <Route exact path="/contact" component={SelectReason} />
             <Route exact path="/contact/1" component={StandardForm} />
-            <Route exact path="/contact/2" component={MandatoryUploadsForm} />
+            <Route exact path="/contact/2" component={OptionalForm} />
             <Route exact path="/contact/3" component={OptionalForm} />
         </Switch>
     </BrowserRouter>

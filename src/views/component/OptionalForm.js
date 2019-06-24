@@ -21,9 +21,9 @@ const ContactForm = (props) => {
     const [FileNames, setFileNames] = useState([])
     const [SelectedImage, setSelectedImage] = useState([])
     const [Errors, setErrors] = useState('')
-    const[linkData, setlinkData] = useState('')
-    const[showLinks, setShowLinks] = useState([])
-    const[disable, setdisable] = useState(true)
+    const [linkData, setlinkData] = useState('')
+    const [showLinks, setShowLinks] = useState([])
+    const [disable, setdisable] = useState(true)
 
    
    
@@ -41,10 +41,14 @@ const ContactForm = (props) => {
             return
         }
 
-    setFileNames(prev => {
-        const update = prev.concat(files[0].name)
-        return update
-    })
+        if (files.length > 1) {
+            setFileNames(files)
+        } else {
+            setFileNames(prev => {
+                const update = prev.concat(files[0])
+                return update
+            })
+        }
     }
 
     const onDropImage = (files) => {
@@ -75,12 +79,18 @@ const ContactForm = (props) => {
     const claims = ["Documents", "Images", "Links"]
 
     let deleteFile = (file) => {
-        alert(SelectedImage)
-        let files =  SelectedImage.filter((filename, index) => {
-       // alert(filename)
-        return filename !== file
+        let files = FileNames.filter((filename, index) => {
+            console.log(filename, 'filename')
+            return filename.name !== file
+        })
+        setFileNames(files)
+    }
+
+    let deleteImage = (image) => {
+        let images =  SelectedImage.filter((imagename, index) => {
+        return imagename.name!== image
     })
-       setSelectedImage(files)
+       setSelectedImage(images)
     }
 
     let deleteLink = (clickedLink) => {
@@ -108,21 +118,20 @@ const ContactForm = (props) => {
     
     }
 
-
     const Documents = () => {
         return (
             <div>
                 <div> {
-                    SelectedImage.map((image, index) => {
+                    FileNames.map((file, index) => {
                         return (
                             <ul>
-                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteFile(image.name)}></i></li>
+                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={()=> deleteFile (file.name)} ></i></li>
                             </ul>
                         )
                     })
                 }</div>
 
-                <Uploader onDrop={onDropImage}>
+                <Uploader onDrop={onDrop}>
                     <div className='field'>
                         <div className='file is-small'>
                             <label className='file-label'>
@@ -150,7 +159,7 @@ const ContactForm = (props) => {
                     SelectedImage.map((image, index) => {
                         return (
                             <ul>
-                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteFile(image.name)}></i></li>
+                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name)}></i></li>
                             </ul>
                         )
                     })
@@ -163,8 +172,8 @@ const ContactForm = (props) => {
                                     <span className='file-icon'>
                                         <i className='fas fa-upload'></i>
                                     </span>
-                                    <span className='file-label link-btn '>
-                                        Add files
+                                    <span className='file-label '>
+                                        Add 
                                  </span>
                                 </span>
                             </label>
@@ -218,8 +227,8 @@ const ContactForm = (props) => {
                 let Case_No = no
                 let Link = []
                 let formData = new FormData()
-                for (let i = 0; i < SelectedImage.length; i++) {
-                    formData.append('SelectedImage', SelectedImage[i])
+                for (let i = 0; i < FileNames.length; i++) {
+                    formData.append('SelectedImage', FileNames[i])
                 }
                 axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
@@ -240,7 +249,6 @@ const ContactForm = (props) => {
                 let Message = data.message
                 let Case_No = no
                 let Link = []
-                console.log("Selected image=>",SelectedImage)
                 let formData = new FormData()
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
@@ -263,14 +271,11 @@ const ContactForm = (props) => {
                 let Subject = data.subject
                 let Message = data.message
                 let Case_No = no
-                let Link = []
-                console.log("Selected image=>", SelectedImage)
                 let formData = new FormData()
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-
-                axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
                         console.log(res)
                     })
@@ -279,6 +284,8 @@ const ContactForm = (props) => {
     
     }
 
+    
+    console.log("ihxfdglukxdjz/;S:")
     return (
         <div className="form-container">
             <div className="contact-form">
@@ -286,18 +293,22 @@ const ContactForm = (props) => {
 
                 <div className="pading">
 
-                    <div className="field">
-                        <div class="control has-icons-left has-icons-right">
-                         <label className="label left_align">Transaction Number</label>
-                         <div className="control">
-                             <input className="input contact-input" type="text" name="transaction_number" placeholder="Input Transaction Number (Mandatory)" value={data.transaction_number} onChange={handleChange} />
-                             <p className='error-message-text'>{(Errors.transaction_number && Errors.transaction_number[0]) || ''}</p>
-                             <span class="icon is-medium is-left icn">
-                                 <i class="fas fa-id-card icn1 " ></i>
-                             </span>
+                    {props.match.path == '/contact/3'?
+                        <div className="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <label className="label left_align">Transaction Number</label>
+                                <div className="control">
+                                    <input className="input contact-input" type="text" name="transaction_number" placeholder="Input Transaction Number (Mandatory)" value={data.transaction_number} onChange={handleChange} />
+                                    <p className='error-message-text'>{(Errors.transaction_number && Errors.transaction_number[0]) || ''}</p>
+                                    <span class="icon is-medium is-left icn">
+                                        <i class="fas fa-id-card icn1 " ></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        :''
+
+                }
 
                     <div className="field">
                         <div class="control has-icons-left has-icons-right">

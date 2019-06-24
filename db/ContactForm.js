@@ -10,7 +10,7 @@ var ContactForm = new mongoose.Schema({
     Document: Array,
     Image:  Array,
     Link: Array,
-    Date:Date,
+    date:Date,
 });
 
 module.exports = mongoose.model('ContactForm', ContactForm)

@@ -23,10 +23,7 @@ const ContactForm = (props) => {
     const [SelectedImage, setSelectedImage] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
-<<<<<<< HEAD
-=======
     const[linkData, setlinkData] = useState('')
->>>>>>> new-design
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -145,9 +142,6 @@ const ContactForm = (props) => {
 
         )
     }
-<<<<<<< HEAD
-
-=======
    
     const Links = () => {
         return (
@@ -159,7 +153,6 @@ const ContactForm = (props) => {
 
         )
     }
->>>>>>> new-design
 
     const renderClaims = () => {
 
