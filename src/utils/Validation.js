@@ -28,6 +28,12 @@ function Validation(data) {
     required: {
       errorMsg: `Please enter password`
     }
+  },
+
+  message: {
+    required: {
+      errorMsg: `please enter message`
+    }
   }
 
    }, data)

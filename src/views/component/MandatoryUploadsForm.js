@@ -23,6 +23,7 @@ const ContactForm = (props) => {
     const [ImageNames, setImageNames] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
+    console.log(ImageNames, 'ERRORS')
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -44,16 +45,7 @@ const ContactForm = (props) => {
             const update = prev.concat(files[0].name)
             return update
         })
-        // setLoading(true)
-        // let data = new FormData()
-        // data.append('file', files[0])
-        // setErrors({
-        //     file: [],
-        // })
-        // apiUploadFile(data).then(res => {
-        // setLoading(false)
-        // setFile(`${API_URL}/${res.uploadUrl}`)
-        //})
+        
     }
 
     const onDropImage = (files) => {
@@ -102,19 +94,16 @@ const ContactForm = (props) => {
     
           axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Document, Image, Link })
           .then(res =>{
-            console.log("ERRORS =>", Errors)
-
           })
         })
       }
 
     const claims = ["Documents", "Images", "Links"]
 
-    console.log(" data =>", data)
-    console.log(" ImageNames =>", ImageNames)
+    
     const Documents = () => {
         return (
-            <form onSubmit={onSubmit}>
+            <form className = 'file-upload' onSubmit={onSubmit}>
             <h1>File Upload</h1>
             <input type="file" name="myImage" x />
             <button type="submit">Upload</button>
@@ -123,26 +112,27 @@ const ContactForm = (props) => {
     }
 
     let onChangeHandler = event => {
-        console.log("kjghghjg -=>",event.target.files)
         setImageNames(event.target.files[0])
     }
+
     let onClickHandler = () => {
         const data = new FormData()
         for(var x = 0; x<ImageNames.length; x++) {
             data.append('file', ImageNames[x])
         }
-        axios.post(`http://localhost:7777/upload`, ImageNames).then(res => { // then print response status
-            console.log("res.statusText=>", res.statusText)
+        axios.post(`http://localhost:7777/upload`, ImageNames).then(res => { 
         })
     }
 
+    
     const Images = () => {
         return (
+          
             <div>
-            <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
-            <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
+                <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
+                <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
             </div>
-           
+
         )
     }
    
@@ -205,6 +195,7 @@ const ContactForm = (props) => {
                         <label className="label left_align">Messages</label>
                         <div className="control">
                             <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
+                            <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
                         </div>
                     </div>
 
@@ -222,11 +213,12 @@ const ContactForm = (props) => {
                                                 <li class={index === selectedClaim ? "is-active" : ""} key={index} onClick={() => setSelectedClaim(index)}>
                                                     <a>
                                                         <span>{claim}</span>
+                                                       
                                                     </a>
                                                 </li>
                                             )
                                         })
-                                    }
+                                    }                                    
                                 </ul>
                             </div>
                     

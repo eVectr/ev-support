@@ -48,6 +48,7 @@ body {
 
 .field.is-grouped{
   display:block!important;
+  margin-top: 25px;
 }
 
 .sel-reason {
@@ -187,7 +188,7 @@ form {
     display: block;
     margin: auto auto;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: .5em 0;
     border: none;    
     color: #757575;
@@ -260,3 +261,50 @@ form {
      padding-left:45px!important;
    }
  
+
+   /*----------------------------------------uploding-file-css---------------------------*/
+   /*----------------------------------------uploding-file-css---------------------------*/
+   /*----------------------------------------uploding-file-css---------------------------*/
+
+
+   .uploding-file{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+
+   .file-name{
+     border-style: none;
+   }
+
+   .dropzone{
+     display: inline-block;
+   }
+
+
+
+   /* ---------------------------------Mandatory-Upload-css-------------------------------- */
+   /* ---------------------------------Mandatory-Upload-css-------------------------------- */
+   /* ---------------------------------Mandatory-Upload-css-------------------------------- */
+
+
+   .file-upload{
+     padding: 0;
+   }
+
+   .link-text{
+     text-align: left;
+     color:#999;
+   }
+
+   .link-data{
+     border:1px solid #999;
+     border-radius: 4px;
+    
+  }
+
+  .link-data:focus{
+    border-color: #00d1b2;
+  }
+
+  

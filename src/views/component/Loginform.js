@@ -53,14 +53,14 @@ return (
   <div className="field">
     <label className="label left_align" >Username</label>
     <div className="control">
-      <input className="input"  name="username" type="text" placeholder="Enter username" value={data.username} onChange={handleChange} />
+      <input className="input login"  name="username" type="text" placeholder="Enter username" value={data.username} onChange={handleChange} />
       <p className='error-message-text'>{(Errors.username && Errors. username[0]) || ''}</p>
     </div>
   </div>
-  <div className="field">
+  <div className="field login-password ">
     <label className="label left_align" >Password</label>
     <div className="control">
-      <input className="input" type="password"  name="password" placeholder="Enter Password"  value={data.password} onChange={handleChange} />
+      <input className="input login" type="password"  name="password" placeholder="Enter Password"  value={data.password} onChange={handleChange} />
       <p className='error-message-text'>{(Errors.password && Errors. password[0]) || ''}</p>
     </div>
   </div>
