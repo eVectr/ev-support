@@ -52,13 +52,14 @@ const storage = multer.diskStorage({
     cb(null, new Date().toISOString() + file.originalname )
   }
 })
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage }).array('SelectedImage')
 
-//const upload = multer({ dest: 'uploads/' })
-
-app.post('/upload', upload.single('SelectedImage'), (req, res) => {
-    console.log(req.file)
+app.post('/upload', (req, res) => {
+  console.log("req.body.type = >",req.body.type)
+  upload(req, res, function (err) {
+    //console.log(req.file)
     res.send("done")
+  })
 })
 
 app.post('/saveContact', (req, res) => {

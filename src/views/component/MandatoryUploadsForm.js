@@ -122,20 +122,16 @@ const ContactForm = (props) => {
     }
 
     let onChangeHandler = event => {
-        console.log(event.target.files, "event.target.files")
-
-        // setFileNames(prev => {
-        //     const update = prev.concat(files[0].name)
-        //     return update
-        // })
-        setSelectedImage(event.target.files[0])
+        console.log(event.target.files)
+        //setSelectedImage(event.target.files)
+        setSelectedImage([1,2,3])
     }
 
     let onClickHandler = () => {
         let formData = new FormData()
-        console.log("selected image =>", SelectedImage)
-        formData.append('SelectedImage', SelectedImage)
-       
+        for(let i = 0; i< SelectedImage.length ; i++){
+            formData.append('SelectedImage', SelectedImage[i])
+        }
         axios.post(`http://localhost:7777/upload`, formData,{
             headers: { 'content-type': 'multipart/form-data' }
         }).then(res => { 
@@ -148,15 +144,23 @@ const ContactForm = (props) => {
     const Images = () => {
         return (
             <div>
-                
+                 <div> {
+                    SelectedImage.map((file, index) => {
+                        return (
+                            <ul>
+                                <li><h1>{file}</h1></li>
+                            </ul>
+                        )
+                    })
+                }</div>
                 <form>
-                    <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
-                    <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
+                    <input type="file" class="form-control" multiple onChange={onChangeHandler} />
+                    <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button>
                 </form>
             </div>
         )
     }
-   
+
 
     const renderClaims = () => {
 
@@ -166,7 +170,7 @@ const ContactForm = (props) => {
             case 2: return <input type="text" placeholder="Input link here" ></input>
         }
     }
-
+    
     return (
         <div className="form-container">
             <div className="contact-form">
