@@ -21,6 +21,8 @@ const ContactForm = (props) => {
     const [Errors, setErrors] = useState('')
     const[linkData, setlinkData] = useState('')
     const[showLinks, setShowLinks] = useState([])
+    const[disable, setdisable] = useState(true)
+
    
    
     const handleChange = e => {
@@ -75,17 +77,31 @@ const ContactForm = (props) => {
         setFileNames(files)
     }
 
+    let deleteLink = (clickedLink) => {
+       let links = showLinks.filter((link, index) => {
+            return link !== clickedLink
+       }) 
+       setShowLinks(links)
+    }
 
 
 
     let showLinkData = () => {
-        let showAllLinks = []
-        showAllLinks.push([linkData])
-        console.log(showAllLinks, 'showAllLinks')
-        setShowLinks(showAllLinks)
-        
-        setlinkData('')
+       let links = showLinks
+       links = [
+           ...showLinks,
+           linkData
+       ]
+       setShowLinks(links)
+    //    if( linkData.length){
+    //     setdisable(false)
+    //    }
+    //    else{
+    //     setdisable(true)
+    //    }
+    
     }
+
 
     const Documents = () => {
         return (
@@ -107,10 +123,10 @@ const ContactForm = (props) => {
                                 <span className={`file-cta font-1rem `}>
                                     <span className='file-icon'>
                                         <i className='fas fa-upload'></i>
-                                    </span>
-                                    <span className='file-label'>
-                                        Upload
-                                    </span>
+                                    </span>                                   
+                                    <span className='file-label '>
+                                        Add Files
+                                    </span>  
                                 </span>
                             </label>
                         </div>
@@ -141,8 +157,8 @@ const ContactForm = (props) => {
                                     <span className='file-icon'>
                                         <i className='fas fa-upload'></i>
                                     </span>
-                                    <span className='file-label'>
-                                        Upload
+                                    <span className='file-label link-btn '>
+                                        Add files
                                  </span>
                                 </span>
                             </label>
@@ -157,14 +173,13 @@ const ContactForm = (props) => {
     const Link = () => {
         return (
             <div>
-                {
-                     showLinks.length ?
+                {                    
                      showLinks.map((link, index) => {
-                         return <li key={index}>{link}</li>
-                     }) : null
+                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
+                     }) 
                 }
                 <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
-                <button onClick= {()=> showLinkData()}>Add</button> 
+                <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
             </div>         
         )
     }
@@ -179,7 +194,7 @@ const ContactForm = (props) => {
             case 2: return Link ()
         }
     }
-
+    
     return (
         <div className="form-container">
             <div className="contact-form">

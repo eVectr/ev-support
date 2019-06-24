@@ -23,7 +23,7 @@ const ContactForm = (props) => {
     const [ImageNames, setImageNames] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
-    console.log(ImageNames, 'ERRORS')
+    const[linkData, setlinkData] = useState('')
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -136,13 +136,24 @@ const ContactForm = (props) => {
         )
     }
    
+    const Links = () => {
+        return (
+          
+            <div>
+                <input type="text" className='link-data' placeholder="Input link here" onChange={(e)=>setlinkData(e.target.value)} ></input>
+                <button type="button" className='link-btn'>Add</button> 
+            </div>
+
+        )
+    }
 
     const renderClaims = () => {
 
         switch (selectedClaim) {
             case 0: return Documents()
             case 1: return Images()
-            case 2: return <input type="text" placeholder="Input link here" ></input>
+           // case 2: return <input type="text" placeholder="Input link here" ></input>
+            case 2: return Links()
         }
     }
 
