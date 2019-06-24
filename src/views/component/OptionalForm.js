@@ -284,8 +284,6 @@ const ContactForm = (props) => {
     
     }
 
-    
-    console.log("ihxfdglukxdjz/;S:")
     return (
         <div className="form-container">
             <div className="contact-form">
