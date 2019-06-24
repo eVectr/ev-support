@@ -18,17 +18,17 @@ function Validation(data) {
       }
   },
 
-  username: {
-    required: {
-      errorMsg: `Please enter username`
-    }
-  },
+  // username: {
+  //   required: {
+  //     errorMsg: `Please enter username`
+  //   }
+  // },
 
-  password: {
-    required: {
-      errorMsg: `Please enter password`
-    }
-  },
+  // password: {
+  //   required: {
+  //     errorMsg: `Please enter password`
+  //   }
+  // },
 
   message: {
     required: {

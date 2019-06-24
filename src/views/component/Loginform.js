@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
-import Validation from '../../utils/Validation'
+import loginValidation from '../../utils/LoginValidation'
 import is from 'is_js'
 
 
@@ -28,7 +28,8 @@ const handleChange = e => {
 
 const onLogin = () => {
 
-  const errors = Validation(data)
+  const errors = loginValidation(data)
+  console.log(errors)
     if (!is.empty(errors)) {
         setErrors(errors)
         
