@@ -1,12 +1,12 @@
 //const redis = require('redis')
 const mongoose = require('mongoose');
 const express = require('express')
-var multer = require('multer')
-var fs = require('fs');
+var multer  = require('multer');
+var fs = require('fs')
 
 const User = require('../db/user.js')
 const ContactForm = require('../db/contactForm')
-const ContactCategory = require('../db/contactcategory.js')
+const ContactCategory = require('../db/Contactcategory.js')
 
 let api = require("../api/api");
 
@@ -16,28 +16,10 @@ var server = require('http').Server(app)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//   cb(null, 'public')
-// },
-// filename: function (req, file, cb) {
-//   cb(null, Date.now() + '-' +file.originalname )
-// }
-// })
-const storage = multer.diskStorage({
-  destination: "../files",
-  filename: function(req, file, cb){
-     cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage: storage, }).array('userPhoto',2)
-
 
 // let client = redis.createClient();
 // client.on('connect', ()=>{
 //     console.log("Redis Connected")
-
 // })
 mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',  (err) => {
    if (err) throw err;
@@ -47,6 +29,7 @@ mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',
 
 api(app)
 
+
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -54,50 +37,46 @@ app.use((req, res, next)=>{
     next();
 })
 
-
 // var user = new User({
 //     Name: 'Nitin',
 //     Password: 'nitin@123'
 // })
 // user.save()
 
+const storage = multer.diskStorage({
+  destination:function(req, file, cb){
+    cb(null, './uploads');
+  },
+  filename: function(req, file, cb){
+    cb(null, new Date().toISOString() + file.originalname )
+  }
+})
+const upload = multer({ storage: storage }).array('SelectedImage')
 
-// var contactcategory = new ContactCategory({
-//   Category_name: 'Request a Profile Audit',
-//   Subcategory_name: [{'name':'Report Fake Credentials' , 'Tempate_name':'Mandatory Uploads'}, {'name':'Report Misleading Claims' , 'Tempate_name':'Mandatory Uploads'},
-//   {'name':'Other Suspicious Activity' , 'Tempate_name':'Mandatory Uploads'}]
-// })
-// contactcategory .save()
+let imagepaths = []
+let filepaths = []
 
-app.post('/',upload,function(req,res,next){
-	console.log(req.files);
-	res.send(req.files);
-});
+app.post('/upload', (req, res) => {
+  upload(req, res, function (err) {
+    let path = req.files.map((file, index) => {
+      imagepaths.push(file.path)
+      console.log(imagepaths)
+    })
+    console.log("req.file =>", req.files)
+    res.send("done")
+  })
+})
 
-// app.post('/upload',function(req,res){
-//   upload(req,res,function(err) {
-//       console.log(req.body);
-//       console.log(req.files);
-//       // if(err) {
-//       //     return res.end("Error uploading file.");
-//       // }
-//       // res.end("File is uploaded");
-//   });
-// });
-
-// app.post('/upload',function(req, res) { 
-//   let data = req.body
-//   console.log("data   ==>" ,req.files)   
-//   // upload(req, res, function (err) {
-//   //        if (err instanceof multer.MulterError) {
-//   //            return res.status(500).json(err)
-//   //        } else if (err) {
-//   //            return res.status(500).json(err)
-//   //        }
-//   //   return res.status(200).send(req.file)
-
-//   // })
-// })
+app.post('/fileupload', (req, res) => {
+  upload(req, res, function (err) {
+    let path = req.files.map((file, index) => {
+      filepaths.push(file.path)
+      console.log(filepaths)
+    })
+    console.log("req.file =>", req.files)
+    res.send("done")
+  })
+})
 
 app.post('/saveContact', (req, res) => {
   let Transaction_Number = req.body.Transaction_Number 
@@ -105,10 +84,10 @@ app.post('/saveContact', (req, res) => {
   let Email = req.body.Email
   let Subject = req.body.Subject
   let Message = req.body.Message
-  let date = req.body.date
+  let date = Date.now()
   let Case_No = req.body.Case_No
-  let Document = req.body.Document
-  let Image = fs.readFileSync(req.body.Image)
+  let Document = filepaths
+  let Image = imagepaths
   let Link = req.body.Link
 
   var contactForm = new ContactForm ({
@@ -123,8 +102,14 @@ app.post('/saveContact', (req, res) => {
      Image: Image,
      Link: Link
   })
-  contactForm.save()
-  res.send("saved")
+  contactForm.save((err, data)=>{
+    if(err){
+      console.log("err =>", err)
+      console.log("data =>", data )
+    }
+  })
+  console.log(" contact saved")
+  res.send("contact saved")
 })
 
 
@@ -186,8 +171,6 @@ app.post('/login', (req, res) => {
       }
     })
   })
-
-  
 
 server.listen(7777, () => {
     console.log("server connected")

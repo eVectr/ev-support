@@ -20,7 +20,7 @@ const ContactForm = (props) => {
 
     const [selectedClaim, setSelectedClaim] = useState(0)
     const [FileNames, setFileNames] = useState([])
-    const [ImageNames, setImageNames] = useState([])
+    const [SelectedImage, setSelectedImage] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
     const[linkData, setlinkData] = useState('')
@@ -58,8 +58,7 @@ const ContactForm = (props) => {
         data.append('file', files[0])
         console.log("data 11111=>", data)
         console.log("filess =>", files)
-        setImagePath(files[0].path)
-        setImageNames(prev => {
+        setSelectedImage(prev => {
             const update = prev.concat(files[0].name)
             return update
         })
@@ -113,15 +112,23 @@ const ContactForm = (props) => {
     }
 
     let onChangeHandler = event => {
-        setImageNames(event.target.files[0])
+        console.log(event.target.files)
+        //setSelectedImage(event.target.files)
+        setSelectedImage(event.target.files)
+     //   setImageNames(event.target.files[0])
     }
 
     let onClickHandler = () => {
-        const data = new FormData()
-        for(var x = 0; x<ImageNames.length; x++) {
-            data.append('file', ImageNames[x])
+        let formData = new FormData()
+        for(let i = 0; i< SelectedImage.length ; i++){
+            formData.append('SelectedImage', SelectedImage[i])
         }
-        axios.post(`http://localhost:7777/upload`, ImageNames).then(res => { 
+        axios.post(`http://localhost:7777/upload`, formData,{
+            headers: { 'content-type': 'multipart/form-data' }
+        }).then(res => { 
+            console.log("res =>", res)
+        }).catch(err =>{
+            console.log({...err},"err")
         })
     }
 

@@ -4,6 +4,7 @@ import axios from 'axios'
 import is from 'is_js'
 import '../../styles/login.css'
 import Validation from '../../utils/Validation'
+import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
 
 const ContactForm = (props) => {
@@ -18,6 +19,7 @@ const ContactForm = (props) => {
 
     const [selectedClaim, setSelectedClaim] = useState(0)
     const [FileNames, setFileNames] = useState([])
+    const [SelectedImage, setSelectedImage] = useState([])
     const [Errors, setErrors] = useState('')
     const[linkData, setlinkData] = useState('')
     const[showLinks, setShowLinks] = useState([])
@@ -45,36 +47,40 @@ const ContactForm = (props) => {
     })
     }
 
-    const onSubmit = () => {
-
-        const errors = Validation(data)
-        console.log(errors)
-        if (!is.empty(errors)) {
-            
-            setErrors(errors)
+    const onDropImage = (files) => {
+        if (!files.length) {
             return
         }
+        if (files.length > 1) {
+            setSelectedImage(files)
+        } else {
+            setSelectedImage(prev => {
+                const update = prev.concat(files[0])
+                return update
+            })
+        }
+    }
 
-    
-        alert('hello')
-     
+    let generateCaseNo = () => {
 
-        // axios.post(`http://localhost:7777/savecontact`, { user_Id: user_Id, Name: Name, Reason: data.reason, Message: data.message, date: Date.now() })
-        //     .then(res => {
-        //         console.log("saved response =>", res)
-        //     })
+        return new Promise((resolve, reject) => {
+            let date = new Date
+            let sec = date.getSeconds() + 1
+            console.log(sec)
+            let caseNo = 'SS'.concat((Math.random() * 10000000000).toFixed()).concat('CONTACT')
+            resolve(caseNo)
+        })
     }
 
     const claims = ["Documents", "Images", "Links"]
 
-
-
-
     let deleteFile = (file) => {
-        let files =  FileNames.filter((filename, index) => {
+        alert(SelectedImage)
+        let files =  SelectedImage.filter((filename, index) => {
+       // alert(filename)
         return filename !== file
     })
-        setFileNames(files)
+       setSelectedImage(files)
     }
 
     let deleteLink = (clickedLink) => {
@@ -107,26 +113,26 @@ const ContactForm = (props) => {
         return (
             <div>
                 <div> {
-                    FileNames.map((file, index) => {
+                    SelectedImage.map((image, index) => {
                         return (
                             <ul>
-                                <li className='uploding-file'><h1 className ='file-name'>{file}</h1><i className="fas fa-times" onClick={()=> deleteFile(file)}></i></li>
+                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteFile(image.name)}></i></li>
                             </ul>
                         )
                     })
                 }</div>
 
-                <Uploader onDrop={onDrop}>
+                <Uploader onDrop={onDropImage}>
                     <div className='field'>
                         <div className='file is-small'>
                             <label className='file-label'>
                                 <span className={`file-cta font-1rem `}>
                                     <span className='file-icon'>
                                         <i className='fas fa-upload'></i>
-                                    </span>                                   
-                                    <span className='file-label '>
-                                        Add Files
-                                    </span>  
+                                    </span>
+                                    <span className='file-label'>
+                                        Add
+                                    </span>
                                 </span>
                             </label>
                         </div>
@@ -134,22 +140,22 @@ const ContactForm = (props) => {
                 </Uploader>
 
             </div>
-        )
+       )
     }
 
     const Images = () => {
         return (
             <div>
                 <div> {
-                    FileNames.map((file, index) => {
+                    SelectedImage.map((image, index) => {
                         return (
                             <ul>
-                                <li className='uploding-file'><h1 className='file-name'>{file} </h1><i class="fas fa-times" onClick={()=> deleteFile(file)}></i></li>
+                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteFile(image.name)}></i></li>
                             </ul>
                         )
                     })
                 }</div>
-                <Uploader onDrop={onDrop}>
+                <ImageUploader onDrop={onDropImage}>
                     <div className='field'>
                         <div className='file is-small'>
                             <label className='file-label'>
@@ -164,7 +170,7 @@ const ContactForm = (props) => {
                             </label>
                         </div>
                     </div>
-                </Uploader>
+                </ImageUploader>
 
             </div>
         )
@@ -173,14 +179,15 @@ const ContactForm = (props) => {
     const Link = () => {
         return (
             <div>
-                {                    
-                     showLinks.map((link, index) => {
-                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
-                     }) 
+                {
+                    showLinks.length ?
+                        showLinks.map((link, index) => {
+                            return <li key={index}>{link}</li>
+                        }) : null
                 }
-                <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
-                <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
-            </div>         
+                <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={e => setlinkData(e.target.value)} />
+                <button onClick={() => showLinkData()}>Add</button>
+            </div>
         )
     }
 
@@ -190,11 +197,89 @@ const ContactForm = (props) => {
         switch (selectedClaim) {
             case 0: return Documents()
             case 1: return Images()
-            // case 2: return <input type="text" name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }></input>
             case 2: return Link ()
         }
     }
+
+
+    const onSubmit = () => {
+        // const errors = Validation(data)
+        // console.log("error =>", errors)
+        //  if (!is.empty(errors)) {
+        //     setErrors(errors)
+        //     return
+        // }
+        if(selectedClaim == 0){
+            generateCaseNo().then(no => {
+                let Transaction_Number = data.transaction_number
+                let Name = data.name
+                let Email = data.email
+                let Subject = data.subject
+                let Message = data.message
+                let Case_No = no
+                let Link = []
+                let formData = new FormData()
+                for (let i = 0; i < SelectedImage.length; i++) {
+                    formData.append('SelectedImage', SelectedImage[i])
+                }
+                axios.post(`http://localhost:7777/fileupload`, formData,
+                ).then(res => {
+                    console.log("res =>", res)
+                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                        .then(res => {
+                            console.log(res)
+                        })
+                })
+            })
+        }
+        else if(selectedClaim == 1){
+            generateCaseNo().then(no => {
+                let Transaction_Number = data.transaction_number
+                let Name = data.name
+                let Email = data.email
+                let Subject = data.subject
+                let Message = data.message
+                let Case_No = no
+                let Link = []
+                console.log("Selected image=>",SelectedImage)
+                let formData = new FormData()
+                for (let i = 0; i < SelectedImage.length; i++) {
+                    formData.append('SelectedImage', SelectedImage[i])
+                }
+                axios.post(`http://localhost:7777/upload`, formData,
+                ).then(res => {
+                    console.log("res =>", res)
+                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                        .then(res => {
+                            console.log(res)
+                        })
+                })
+            })
+        }
+        else{
+            generateCaseNo().then(no => {
+                let Transaction_Number = data.transaction_number
+                let Name = data.name
+                let Email = data.email
+                let Subject = data.subject
+                let Message = data.message
+                let Case_No = no
+                let Link = []
+                console.log("Selected image=>", SelectedImage)
+                let formData = new FormData()
+                for (let i = 0; i < SelectedImage.length; i++) {
+                    formData.append('SelectedImage', SelectedImage[i])
+                }
+
+                axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    .then(res => {
+                        console.log(res)
+                    })
+            })
+        }
     
+    }
+
     return (
         <div className="form-container">
             <div className="contact-form">
