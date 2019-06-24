@@ -37,7 +37,6 @@ app.use((req, res, next)=>{
     next();
 })
 
-
 // var user = new User({
 //     Name: 'Nitin',
 //     Password: 'nitin@123'
@@ -54,10 +53,27 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage }).array('SelectedImage')
 
+let imagepaths = []
+let filepaths = []
+
 app.post('/upload', (req, res) => {
-  console.log("req.body.type = >",req.body.type)
   upload(req, res, function (err) {
-    //console.log(req.file)
+    let path = req.files.map((file, index) => {
+      imagepaths.push(file.path)
+      console.log(imagepaths)
+    })
+    console.log("req.file =>", req.files)
+    res.send("done")
+  })
+})
+
+app.post('/fileupload', (req, res) => {
+  upload(req, res, function (err) {
+    let path = req.files.map((file, index) => {
+      filepaths.push(file.path)
+      console.log(filepaths)
+    })
+    console.log("req.file =>", req.files)
     res.send("done")
   })
 })
@@ -68,10 +84,10 @@ app.post('/saveContact', (req, res) => {
   let Email = req.body.Email
   let Subject = req.body.Subject
   let Message = req.body.Message
-  let date = req.body.date
+  let date = Date.now()
   let Case_No = req.body.Case_No
-  let Document = req.body.Document
-  let Image = fs.readFileSync(req.body.Image)
+  let Document = filepaths
+  let Image = imagepaths
   let Link = req.body.Link
 
   var contactForm = new ContactForm ({
@@ -86,8 +102,14 @@ app.post('/saveContact', (req, res) => {
      Image: Image,
      Link: Link
   })
-  contactForm.save()
-  res.send("saved")
+  contactForm.save((err, data)=>{
+    if(err){
+      console.log("err =>", err)
+      console.log("data =>", data )
+    }
+  })
+  console.log(" contact saved")
+  res.send("contact saved")
 })
 
 
@@ -149,8 +171,6 @@ app.post('/login', (req, res) => {
       }
     })
   })
-
-  
 
 server.listen(7777, () => {
     console.log("server connected")

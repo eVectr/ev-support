@@ -43,13 +43,13 @@ const handleChange = e => {
         setErrors(errors)
         
     }
-    generateCaseNo().then(res =>{
+    generateCaseNo().then(res => {
       let Transaction_Number = ''
-      let  Name = data.name
+      let Name = data.name
       let Email = data.email
-      let  Subject = data.subject
+      let Subject = data.subject
       let Message = data.message
-      let  date = Date.now()
+      let date = Date.now()
       let Case_No = res
       let Document = ''
       let Image = ''
@@ -57,7 +57,6 @@ const handleChange = e => {
 
       axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Document, Image, Link })
       .then(res =>{
-        console.log("ERRORS =>", Errors)
         setSuccessMessage('Contact Data Saved Successfuly')
       })
     })

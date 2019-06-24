@@ -23,7 +23,6 @@ const ContactForm = (props) => {
     const [SelectedImage, setSelectedImage] = useState([])
     const [ImagePath, setImagePath] = useState([])
     const [Errors, setErrors] = useState('')
-    console.log(ImageNames, 'ERRORS')
 
     const handleChange = e => {
         const { name, value } = e.target

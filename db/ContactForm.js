@@ -6,11 +6,11 @@ var ContactForm = new mongoose.Schema({
     Email: String,
     Subject: String,
     Message: String,
-    Document: String,
-    Image:  String,
-    Link: String,
+    Case_No: String,
+    Document: Array,
+    Image:  Array,
+    Link: Array,
     Date:Date,
-    Case_No: String
 });
 
 module.exports = mongoose.model('ContactForm', ContactForm)
