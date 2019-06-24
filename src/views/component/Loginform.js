@@ -14,6 +14,7 @@ const Loginform = (props) => {
     password: '',
 })
 
+const [LoginCheck, setLoginCheck] = useState([])
 const [Errors, setErrors] = useState('')
 
 const handleChange = e => {
@@ -43,6 +44,8 @@ const onLogin = () => {
       if(res.data.check){
         props.history.push('/contact')
         props.dispatch(userDetailsAction(res.data))
+      }else{
+        setLoginCheck(['Invalid Username or Password'])
       } 
   })
 }
@@ -68,6 +71,7 @@ return (
   <div className="field is-grouped">
     <div className="control">
       <button class="button is-link submit-btn" onClick={onLogin} >Submit</button>
+      <p>{LoginCheck[0]}</p>
     </div>
   </div>
 </div>

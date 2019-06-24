@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux' 
 import axios from 'axios'
 import Validation from '../../utils/Validation'
@@ -55,7 +55,12 @@ const handleChange = e => {
 
       axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
-        setSuccessMessage('Contact Data Saved Successfuly')
+        console.log("res =>", res)
+        if(res.status == 200){
+          setSuccessMessage('Contact Data Saved Successfuly')
+        }else{
+          setSuccessMessage('Something Went Wrong')
+        }
       })
     })
   }
@@ -108,7 +113,7 @@ const handleChange = e => {
           <div className="field">
             <label className="label left_align">Messages</label>
             <div className="control">
-              <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
+              <textarea className="textarea" name="message" placeholder="Enter Message (Mandatory)" value={data.message} onChange={handleChange} />
               <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
           </div>
           </div>

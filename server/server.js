@@ -108,8 +108,8 @@ app.post('/saveContact', (req, res) => {
       console.log("data =>", data )
     }
   })
-  console.log(" contact saved")
-  res.send("contact saved")
+  console.log("contact saved")
+  res.send("saved")
 })
 
 
@@ -119,7 +119,6 @@ ContactCategory.find({}, function (err, docs) {
     console.log("error")
     res.send(err)
   } else {
-    console.log(docs)
     res.send(docs)
   }
 })
@@ -166,8 +165,13 @@ app.post('/login', (req, res) => {
         console.log("error")
         res.send("error")
       } else {
-        console.log(true)
-        res.send({check:true, data:docs})
+        if(docs.length > 0){
+          console.log(docs)
+          res.send({check:true, data:docs})
+        }else{
+          console.log(docs)
+          res.send({check:false, data:docs})
+        }
       }
     })
   })
