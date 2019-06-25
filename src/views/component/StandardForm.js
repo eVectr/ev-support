@@ -56,7 +56,7 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`${api_url}/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
+      axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
         console.log("res =>", res)
         if(res.status == 200){

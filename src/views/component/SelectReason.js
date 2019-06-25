@@ -13,7 +13,7 @@ const Loginform = (props) => {
 
   useEffect(() => {
     console.log("inside useEffect")
-    axios.get(`${api_url}/findcontact`)
+    axios.get(`http://18.219.191.74:7777/findcontact`)
       .then(res => {
         console.log("res =>", res.data)
         setReason(res.data)

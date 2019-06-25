@@ -230,10 +230,10 @@ const ContactForm = (props) => {
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`${api_url}/fileupload`, formData,
+                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
@@ -253,10 +253,10 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`${api_url}/upload`, formData,
+                axios.post(`http://18.219.191.74:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
@@ -275,7 +275,7 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
+                axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
                         console.log(res)
                     })
