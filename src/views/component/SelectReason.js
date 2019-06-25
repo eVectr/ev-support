@@ -28,13 +28,13 @@ const Loginform = (props) => {
       props.history.push('/contact/1')
     }
     else if (selectedReason == 'Mandatory Uploads') {
-      props.history.push('contact/2')
+      props.history.push('2')
     }
     else {
       props.history.push('/contact/3')
     }
   }
-
+console.log("selected reason =>", selectedReason)
   return (
     <div className="sel-reason">
       <h1 className="header">Reason for Contacting Us</h1>

@@ -33,7 +33,8 @@ const handleChange = e => {
     let date  = new Date
     let sec = date.getSeconds() +1
     console.log(sec)
-    let caseNo = 'SS'.concat( (Math.random() * 10000000000).toFixed()).concat('CONTACT')
+    //let caseNo = 'SS'.concat( (Math.random() * 100000000).toFixed())
+    let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
     resolve(caseNo)
    }) 
   }
@@ -45,6 +46,7 @@ const handleChange = e => {
         
     }
     generateCaseNo().then(res => {
+      console.log("res =>", res)
       let Transaction_Number = ''
       let Name = data.name
       let Email = data.email
@@ -66,7 +68,6 @@ const handleChange = e => {
     })
   }
 
-  console.log("success mEssage =>", successMessage)
   console.log("ERRORS1 =>", Errors)
   return (
     <div className = "form-container">

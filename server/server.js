@@ -14,6 +14,7 @@ var app = express()
 var bodyParser = require('body-parser')
 var server = require('http').Server(app)
 
+app.use(express.static('uploads'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -174,6 +175,14 @@ app.post('/login', (req, res) => {
         }
       }
     })
+  })
+
+  ContactForm.find({Case_No:'SS00001294124274'}, (err, data)=>{
+    if(err){
+      console.log("err =>", err)
+    }else{
+      console.log(data)
+    }
   })
 
 server.listen(7777, () => {

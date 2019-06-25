@@ -72,7 +72,7 @@ const ContactForm = (props) => {
             let date = new Date
             let sec = date.getSeconds() + 1
             console.log(sec)
-            let caseNo = 'SS'.concat((Math.random() * 10000000000).toFixed()).concat('CONTACT')
+            let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
             resolve(caseNo)
         })
     }
@@ -380,7 +380,6 @@ const ContactForm = (props) => {
                             </div>
                         </div>
                     </div>
-                   
 
                     {
                         renderClaims()
