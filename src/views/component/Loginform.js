@@ -14,6 +14,9 @@ const Loginform = (props) => {
     password: '',
 })
 
+const local_url = 'http://localhost:7777/'
+const server_url =  'http://18.219.191.74:7777/'
+
 const [LoginCheck, setLoginCheck] = useState([])
 const [Errors, setErrors] = useState('')
 
@@ -39,7 +42,7 @@ const onLogin = () => {
     let password = data.password
 
 
-    axios.post(`http://18.219.191.74:3000/login`, {username:username, password:password})
+    axios.post(`server_url/login`, {username:username, password:password})
     .then(res =>{
       console.log("res.data", res.data.check)
       if(res.data.check){
