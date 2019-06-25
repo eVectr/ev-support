@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // let client = redis.createClient();
 // client.on('connect', ()=>{
-//     console.log("Redis Connected")
+//     console.log("Redis database Connected")
 // })
 mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',  (err) => {
    if (err) throw err;
