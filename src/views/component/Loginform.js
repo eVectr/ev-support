@@ -33,18 +33,18 @@ const onLogin = () => {
   const errors = loginValidation(data)
   console.log(errors)
     if (!is.empty(errors)) {
-        setErrors(errors)
-        
+        setErrors(errors) 
     }
 
     let username = data.username
     let password = data.password
 
-
-    axios.post(`${api_url}/login`, {username:username, password:password})
+    axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})
+    //axios.post(`http://localhost:7777/login`, {username:username, password:password})
     .then(res =>{
-      console.log("res.data", res.data.check)
+      console.log("res.data", res.data)
       if(res.data.check){
+        localStorage.setItem('user', JSON.stringify(res.data.data[0]))
         props.history.push('/contact')
         props.dispatch(userDetailsAction(res.data))
       }else{
