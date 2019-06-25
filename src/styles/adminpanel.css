@@ -34,13 +34,17 @@
     position: absolute;
     right: 0px;
 }
-
 .card{
-    border-radius: 5px;
-    border: 1px solid #999;
+   
     padding:25px;
-    box-shadow: 0px 0px 1px rgba(0,0,0,.8)
+    box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5);
+    transition: 0.8s;
+    border-radius:1px;
 }
+
+.card:hover {
+    box-shadow: 0 10px 20px 0 rgba(79, 174, 252, 1);
+  }
 .admin-cases{
     display: flex;
     justify-content: space-between;
