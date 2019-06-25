@@ -1,15 +1,9 @@
 import microValidator from "micro-validator"
 
-function Validation(data) {
+function contactValidation(data) {
 
    const errors = microValidator.validate({
-    transaction_number: {
-       required: {
-         errorMsg: `Please enter Transaction Number`
-       }
-     },
-
-     email: {
+    email: {
       required: {
           errorMsg: `Email is required`
       },
@@ -28,4 +22,4 @@ function Validation(data) {
 
    return errors
 }
-export default Validation
+export default contactValidation

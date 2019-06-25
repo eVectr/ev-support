@@ -3,7 +3,7 @@ import Row from '../component/Layout/Row'
 import Col from '../component/Layout/Col'
 
 const AdminModal = ({ isModalOpen, children, title = '', setModalState }) => 
-    <div className={`modal ${isModalOpen ? 'is-active' : ''}`} >
+    <div className={`modal ${true ? 'is-active' : ''}`} >
         <div className="modal-background"></div>
         <div className="modal-card">
             <section className="modal-card-body">

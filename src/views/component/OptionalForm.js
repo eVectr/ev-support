@@ -212,12 +212,11 @@ const ContactForm = (props) => {
 
 
     const onSubmit = () => {
-        // const errors = Validation(data)
-        // console.log("error =>", errors)
-        //  if (!is.empty(errors)) {
-        //     setErrors(errors)
-        //     return
-        // }
+        const errors = Validation(data)
+         if (!is.empty(errors)) {
+            setErrors(errors)
+            return
+        }
         if(selectedClaim == 0){
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
