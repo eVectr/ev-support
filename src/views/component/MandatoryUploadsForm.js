@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Uploader from './Uploader'
 import ImageUploader from './ImageUploader'
-import Validation from '../../utils/Validation'
+import contactValidation from '../../utils/contactValidation'
 import is from 'is_js'
 import '../../styles/login.css'
 
@@ -25,6 +25,7 @@ const ContactForm = (props) => {
     const [Errors, setErrors] = useState('')
     const[linkData, setlinkData] = useState('')
     const[showLinks, setShowLinks] = useState([])
+   
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -75,7 +76,7 @@ const ContactForm = (props) => {
        }
 
        const onSubmit = () => {
-        const errors = Validation(data)
+        const errors = contactValidation(data)
         if (!is.empty(errors)) {
             setErrors(errors)
             
