@@ -6,7 +6,7 @@ var fs = require('fs')
 
 const User = require('../db/user.js')
 const ContactForm = require('../db/ContactForm')
-const ContactCategory = require('../db/Contactcategory.js')
+const ContactCategory = require('../db/contactcategory.js')
 
 let api = require("../api/api");
 
