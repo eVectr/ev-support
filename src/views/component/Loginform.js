@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
+import { showNotificationAction } from '../../redux/actions/notification/notification.js';
 import loginValidation from '../../utils/LoginValidation'
 import is from 'is_js'
 
@@ -44,6 +45,10 @@ const onLogin = () => {
       console.log("res.data", res.data.check)
       if(res.data.check){
         props.history.push('/contact')
+        props.dispatch(showNotificationAction({
+          text: 'Login Sucessfull',
+          show: true
+        }))
         props.dispatch(userDetailsAction(res.data))
       }else{
         setLoginCheck(['Invalid Username or Password'])

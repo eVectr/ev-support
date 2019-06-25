@@ -7,4 +7,5 @@ export const userDetailsAction = (userDetails) => {
             userDetails
         }
     }
- }
+}
+

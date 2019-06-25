@@ -1,4 +1,4 @@
-import { SUCESSFULL_LOGIN, USER_DATA } from '../types/types'
+import { USER_DATA } from '../types/types'
 
 let initialState = {
    userDetails: {}
@@ -14,3 +14,6 @@ const userDetailsReducer =  (state = initialState, action) => {
 }
 
 export default userDetailsReducer
+
+
+

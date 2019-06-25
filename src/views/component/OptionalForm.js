@@ -4,8 +4,10 @@ import axios from 'axios'
 import is from 'is_js'
 import '../../styles/login.css'
 import Validation from '../../utils/Validation'
+import contactValidation from '../../utils/contactValidation'
 import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
+
 
 const ContactForm = (props) => {
 
@@ -23,7 +25,7 @@ const ContactForm = (props) => {
     const [Errors, setErrors] = useState('')
     const [linkData, setlinkData] = useState('')
     const [showLinks, setShowLinks] = useState([])
-    const [disable, setdisable] = useState(true)
+
 
    
    
@@ -109,13 +111,6 @@ const ContactForm = (props) => {
            linkData
        ]
        setShowLinks(links)
-    //    if( linkData.length){
-    //     setdisable(false)
-    //    }
-    //    else{
-    //     setdisable(true)
-    //    }
-    
     }
 
     const Documents = () => {
@@ -210,12 +205,53 @@ const ContactForm = (props) => {
     }
 
 
+    // const onSubmit = () => {
+
+
+
+    //     const errors = Validation(data)
+    //     console.log(errors, 'Errors')
+    //      if (!is.empty(errors)) {
+    //         setErrors(errors)
+    //         return
+           
+    //     }
+
+
+    // -----------------------------------ERRORS------------------------- //
+
     const onSubmit = () => {
-        const errors = Validation(data)
+
+        if(props.match.path == '/contact/3'){
+            const errors = Validation(data)
+            console.log(errors, 'Errors')
          if (!is.empty(errors)) {
             setErrors(errors)
             return
         }
+
+        else {
+            const errors = contactValidation(data)
+            console.log(errors, 'Errors')
+         if (!is.empty(errors)) {
+            setErrors(errors)
+            return
+        }
+
+        }
+
+        }
+
+
+    
+        
+
+    // -----------------------------------ERRORS------------------------- //
+
+   
+        
+
+    
         if(selectedClaim == 0){
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
@@ -304,8 +340,7 @@ const ContactForm = (props) => {
                             </div>
                         </div>
                         :''
-
-                }
+                    }
 
                     <div className="field">
                         <div class="control has-icons-left has-icons-right">
@@ -386,6 +421,7 @@ const ContactForm = (props) => {
                     <button class="button is-success" onClick={onSubmit} >Send</button>
                 </div>
             </div>
+       
         </div>
     )
 }

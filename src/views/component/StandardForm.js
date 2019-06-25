@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux' 
 import axios from 'axios'
-import Validation from '../../utils/Validation'
+import contactValidation from '../../utils/contactValidation'
 import '../../styles/login.css'
 import is from 'is_js'
 
@@ -38,11 +38,15 @@ const handleChange = e => {
   }
 
   const onSubmit = () => {
-    const errors = Validation(data)
+    const errors = contactValidation(data)
+    
     if (!is.empty(errors)) {
-        setErrors(errors)
-        
+        setErrors(errors) 
+        return 
     }
+
+    alert('hello')
+    
     generateCaseNo().then(res => {
       let Transaction_Number = ''
       let Name = data.name
@@ -66,7 +70,6 @@ const handleChange = e => {
   }
 
   console.log("success mEssage =>", successMessage)
-  console.log("ERRORS1 =>", Errors)
   return (
     <div className = "form-container">
     <div className="contact-form">

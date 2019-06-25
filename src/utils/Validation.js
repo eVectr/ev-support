@@ -4,10 +4,10 @@ function Validation(data) {
 
    const errors = microValidator.validate({
     transaction_number: {
-       required: {
-         errorMsg: `Please enter Transaction Number`
-       }
-     },
+      required: {
+        errorMsg: `Please enter Transaction number`
+      }
+    },
 
      email: {
       required: {

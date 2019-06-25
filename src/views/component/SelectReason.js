@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
+import SuccessfulNoitification from '../component/SuccessfulNotification'
 
 
 const Loginform = (props) => {
 
   const [reason, setReason] = useState([])
   const [selectedReason, setSelectedReason] = useState([])
+  
 
   useEffect(() => {
     console.log("inside useEffect")
@@ -33,8 +35,18 @@ const Loginform = (props) => {
       props.history.push('/contact/3')
     }
   }
+  
+//  console.log(props, 'All Action')
+
+//  let { notificationreducer = {} } = props
+//  let { notification = {} } = notificationreducer
+//  let { text , show } = notification
+ 
+
 
   return (
+    <div>
+    {/* <SuccessfulNoitification text={text} show ={show} /> */}
     <div className="sel-reason">
       <h1 className="header">Reason for Contacting Us</h1>
       <p className="sel-reason_p">Please select the reason within the list below of why you are contacting us and press
@@ -56,6 +68,7 @@ const Loginform = (props) => {
         }
       </select>
       <button class="button is-success" onClick={onSelectReason}>Continue</button>
+    </div>
     </div>
   )
 }

@@ -1,7 +1,6 @@
-import dummyReducer from './dummy'
 import auth from '../reducers/auth'
-
+import notification from '../reducers/notification'
 export default {
-    dummyReducer,
-    auth
+    auth,
+    notificationreducer :notification
 }
