@@ -22,7 +22,6 @@ class AdminPanel extends Component {
                     </div>
                     <button className='link-btn'>Replay</button>
                 </div>
-                <AdminModal/>
             </div>
         )
     }
