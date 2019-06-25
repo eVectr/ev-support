@@ -6,6 +6,7 @@ import '../../styles/login.css'
 import Validation from '../../utils/Validation'
 import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
+import api_url from '../../utils/Const'
 
 const ContactForm = (props) => {
 
@@ -230,10 +231,10 @@ const ContactForm = (props) => {
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://localhost:7777/fileupload`, formData,
+                axios.post(`${api_url}/fileupload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
@@ -253,10 +254,10 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://localhost:7777/upload`, formData,
+                axios.post(`${api_url}/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
@@ -275,7 +276,7 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
+                axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
                         console.log(res)
                     })

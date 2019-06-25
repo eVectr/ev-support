@@ -4,6 +4,7 @@ import axios from 'axios'
 import Validation from '../../utils/Validation'
 import '../../styles/login.css'
 import is from 'is_js'
+import api_url from '../../utils/Const'
 
 const ContactForm = (props) => {
 
@@ -53,7 +54,7 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
+      axios.post(`${api_url}/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
         console.log("res =>", res)
         if(res.status == 200){

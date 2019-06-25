@@ -5,6 +5,8 @@ import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
 import loginValidation from '../../utils/LoginValidation'
 import is from 'is_js'
+import api_url from '../../utils/Const'
+
 
 
 const Loginform = (props) => {
@@ -13,9 +15,6 @@ const Loginform = (props) => {
     username: '',
     password: '',
 })
-
-const local_url = 'http://localhost:7777/'
-const server_url =  'http://18.219.191.74:7777/'
 
 const [LoginCheck, setLoginCheck] = useState([])
 const [Errors, setErrors] = useState('')
@@ -42,7 +41,7 @@ const onLogin = () => {
     let password = data.password
 
 
-    axios.post(`server_url/login`, {username:username, password:password})
+    axios.post(`${api_url}/login`, {username:username, password:password})
     .then(res =>{
       console.log("res.data", res.data.check)
       if(res.data.check){

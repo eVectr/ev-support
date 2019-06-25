@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './redux/store'
+console.log(process.env, 'process.env')
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

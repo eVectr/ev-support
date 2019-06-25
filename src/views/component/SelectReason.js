@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
+import api_url from '../../utils/Const'
 
 
 const Loginform = (props) => {
@@ -12,7 +13,7 @@ const Loginform = (props) => {
 
   useEffect(() => {
     console.log("inside useEffect")
-    axios.get(`http://localhost:7777/findcontact`)
+    axios.get(`${api_url}/findcontact`)
       .then(res => {
         console.log("res =>", res.data)
         setReason(res.data)
