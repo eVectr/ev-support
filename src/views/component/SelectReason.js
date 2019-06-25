@@ -28,7 +28,7 @@ const Loginform = (props) => {
       props.history.push('/contact/1')
     }
     else if (selectedReason == 'Mandatory Uploads') {
-      props.history.push('2')
+      props.history.push('/contact/2')
     }
     else {
       props.history.push('/contact/3')
