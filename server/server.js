@@ -5,7 +5,7 @@ var multer  = require('multer');
 var fs = require('fs')
 
 const User = require('../db/user.js')
-const ContactForm = require('../db/contactForm')
+const ContactForm = require('../db/ContactForm')
 const ContactCategory = require('../db/Contactcategory.js')
 
 let api = require("../api/api");
