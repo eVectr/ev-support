@@ -30,7 +30,7 @@ const AdminPanel = (props) => {
             </div>
             {
                 contacts.map(
-                    (contact, index) =>
+                    (contact, i) =>
 
                         <div className='card'>
                             <div className='admin-cases'>
