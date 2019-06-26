@@ -1,0 +1,366 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400,300,600);
+
+*{box-sizing:border-box;}
+
+body {
+  font-family: 'open sans', helvetica, arial, sans;
+}
+
+.login-form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:450px;
+}
+
+.log-form {
+  width: 30%;
+  background: #fff;
+  padding: 2%;
+  box-shadow: 0px 0px 1px rgba(0,0,0,.8); 
+  border-radius:1px;
+}
+
+.header {
+  font-size:25px!important;
+  font-weight:600!important;
+  color:#999;
+  text-align: center;
+  margin-top: 1%;
+  margin-bottom: 6%;
+}
+
+.label {
+  font-size: .9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color:#999;
+}
+
+.lable .input {
+  font-size: .7rem!important;
+  color:#999;
+}
+
+.submit-btn {
+  background-color: #00d1b2!important;
+  width: 100% !important;
+}
+
+.field.is-grouped {
+  display:block!important;
+  margin-top: 25px;
+}
+
+.sel-reason {
+  margin-top: 8%;
+  width: 40%;
+  background: #fff;
+  position: relative;
+  top: 20%;
+  left: 35%;
+  box-shadow: 0px 2px 5px rgba(0,0,0,.25); 
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size: .9rem;
+}
+
+.sel-reason_p {
+  justify-content: left;
+  padding-left: 2%;
+  padding-bottom: 3%;
+  position: relative;
+
+}
+
+.sel-reason_input {
+  padding-left: 2%;
+  padding-bottom: 2%;
+
+}
+
+.sel-reason .header {
+  text-align: left;
+  padding-left: 2%;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: lightgray
+
+}
+
+.sel-reason .button {
+  width:60%;
+  margin-left: 20%;
+  margin-right:20%;
+  margin-bottom:2%;
+  margin-top:3%;
+  height: 3 em;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-form .header {
+  background-color: #00d1b2;
+  text-align: center;
+  width: 100%;
+  margin-top:0;
+  margin-bottom: 4%;
+  font-weight: 400;
+  font-size: 25px;
+  padding: 10px 0;
+  color:#fff;
+ }
+
+ .contact-form .pading {
+  padding: 2%;
+ }
+
+ .contact-form .icn {
+  background-color: lightgray;
+  
+ }
+
+ .contact-form .icn1 {
+  color: #696969;
+ }
+
+
+.contact-form {
+  border: 1px solid;
+  border-color: #00d1b2;
+  top:10%;
+  margin-bottom: 5%;
+  width: 50%;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0px 2px 5px rgba(0,0,0,.25); 
+}
+
+.contact-form .button {
+  width: 100%;
+  font-size: 22px;
+  margin-top:6%;
+  background-color: #00d1b2;
+}
+
+.contact-form .button:hover {
+  background-color: #00d1b2;
+}
+
+.left_align{
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+
+form {
+    display: block;
+    width: 100%;
+    padding: 2em;
+  }
+
+  .input_padding { 
+    padding-left:20px;
+  }
+ 
+  h2 {
+    width: 100%;
+    color: lighten(grey, 20%);
+    display: block;
+    width: 100%;
+    padding: 2em;
+    font-size: 1.35em;
+    display: block;
+    background:grey;
+    text-transform: uppercase;
+    padding: .75em 1em .75em 1.5em;
+    box-shadow:inset 0px 1px 1px fadeout(white, 95%);
+    border: 1px solid darken(grey, 5%);
+    text-shadow: 0px 1px 1px darken(grey, 5%);
+    margin: 0;
+    font-weight: 200;
+  }
+  
+  input {
+    font-size: 16px;
+    display: block;
+    margin: auto auto;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: .5em 0;
+    border: none;    
+    color: #757575;
+   
+  }
+
+  .input:focus {
+    box-shadow: none;
+    outline: 0;
+    border-color:#00d1b2;
+  }
+
+  .btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+  }
+
+  .addbtn {
+    border: 1px solid darken(grey, 5%);
+    border-radius: 10px;
+    display: flex;
+    justify-content: left;
+    background-color:white;
+    color: black;
+    width:10%;
+    padding:2%;
+    font-size: 20px;
+  }
+  
+   .reason_select {
+    width:80%;
+    margin-left: 10%;
+    margin-right:10%;
+    margin-bottom:2%;
+    font-size: 18px;
+    height: 2.25em;
+   }
+
+   .reason_select .text {
+    width: 100%;
+    padding: 2em;
+    font-size: 4em;
+   }
+
+   .text-center {
+     outline:0!important;
+     border:none!important;
+   }
+ 
+
+   .error-message-text {
+     color:rgb(255, 0, 0)
+   }
+
+
+   .textarea:focus {
+     box-shadow: none;
+     border-color: #00d1b2
+   }
+
+   .contact-input {
+     padding-left:45px!important;
+   }
+ 
+
+   /*----------------------------------------uploding-file-css---------------------------*/
+   /*----------------------------------------uploding-file-css---------------------------*/
+   /*----------------------------------------uploding-file-css---------------------------*/
+
+
+   .uploding-file {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+
+   .file-name { 
+     border-style: none;
+   }
+
+   .dropzone {
+     display: inline-block;
+   }
+
+
+
+   /* ---------------------------------Mandatory-Upload-css-------------------------------- */
+   /* ---------------------------------Mandatory-Upload-css-------------------------------- */
+   /* ---------------------------------Mandatory-Upload-css-------------------------------- */
+
+
+   .file-upload {
+     padding: 0;
+   }
+
+   .link-text {
+     text-align: left;
+     color:#999;
+   }
+
+   .link-data {
+     border:1px solid #999;
+     border-radius: 4px;
+    
+  }
+
+  .link-data:focus {
+    border-color: #00d1b2;
+  }
+
+  .link-list {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #00d1b2;
+    color:#00d1b2;
+  }
+
+  .link-btn { 
+    padding: 10px 30px !important;
+    background: #00d1b2;
+    border: 1px solid #00d1b2;
+    box-shadow: none;
+    border-radius: 4px;
+    color:#fff;
+    font-size: 1rem;
+   }
+
+   .link-btn:focus {
+     outline: 0;
+     border-color:#00d1b2;
+   }
+  
+
+
+   /* -----------------------------------------Notification-Css-------------------------------- */
+
+   .notification {
+    width:100%;
+    height: 50px;
+    background-color: #3273dc;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+
+    /* -----------------------------------------Notification-Css-------------------------------- */
+
+
+    /* ---------------------------------------Loading-Css-Start---------------------------------------- */
+
+    .loading{
+      width: 40px!important;
+      height:40px;
+    }
+
+    /* ---------------------------------------Loading-Css-Start---------------------------------------- */
+
+
+  
