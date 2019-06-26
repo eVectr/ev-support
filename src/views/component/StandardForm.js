@@ -4,7 +4,6 @@ import axios from 'axios'
 import Validation from '../../utils/Validation'
 import '../../styles/login.css'
 import is from 'is_js'
-import api_url from '../../utils/Const'
 
 const ContactForm = (props) => {
 

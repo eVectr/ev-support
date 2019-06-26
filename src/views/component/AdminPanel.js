@@ -20,7 +20,7 @@ class AdminPanel extends Component {
                         <span>Case Number:12345</span>
                         <span>Date:24|06|2019</span>
                     </div>
-                    <button className='link-btn'>View</button>
+                    <AdminModal></AdminModal>
                 </div>
             </div>
         )
