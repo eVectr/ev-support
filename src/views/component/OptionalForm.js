@@ -7,6 +7,7 @@ import Validation from '../../utils/Validation'
 import contactValidation from '../../utils/contactValidation'
 import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
+import api_url from '../../utils/Const'
 
 
 const ContactForm = (props) => {
@@ -75,7 +76,7 @@ const ContactForm = (props) => {
             let date = new Date
             let sec = date.getSeconds() + 1
             console.log(sec)
-            let caseNo = 'SS'.concat((Math.random() * 10000000000).toFixed()).concat('CONTACT')
+            let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
             resolve(caseNo)
         })
     }
@@ -269,7 +270,7 @@ console.log(message, 'message')
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://localhost:7777/fileupload`, formData,
+                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
@@ -292,10 +293,10 @@ console.log(message, 'message')
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://localhost:7777/upload`, formData,
+                axios.post(`http://18.219.191.74:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
@@ -314,7 +315,7 @@ console.log(message, 'message')
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
+                axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
                         console.log(res)
                     })
@@ -418,7 +419,6 @@ console.log(message, 'message')
                             </div>
                         </div>
                     </div>
-                   
 
                     {
                         renderClaims()

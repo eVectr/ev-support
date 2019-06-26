@@ -32,7 +32,8 @@ const handleChange = e => {
     let date  = new Date
     let sec = date.getSeconds() +1
     console.log(sec)
-    let caseNo = 'SS'.concat( (Math.random() * 10000000000).toFixed()).concat('CONTACT')
+    //let caseNo = 'SS'.concat( (Math.random() * 100000000).toFixed())
+    let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
     resolve(caseNo)
    }) 
   }
@@ -48,6 +49,7 @@ const handleChange = e => {
     alert('hello')
     
     generateCaseNo().then(res => {
+      console.log("res =>", res)
       let Transaction_Number = ''
       let Name = data.name
       let Email = data.email
@@ -57,7 +59,7 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
+      axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
         console.log("res =>", res)
         if(res.status == 200){
@@ -69,7 +71,11 @@ const handleChange = e => {
     })
   }
 
+<<<<<<< HEAD
   console.log("success mEssage =>", successMessage)
+=======
+  console.log("ERRORS1 =>", Errors)
+>>>>>>> 9182c51b9ef91f9f68b248af04823d4723c8f28e
   return (
     <div className = "form-container">
     <div className="contact-form">
