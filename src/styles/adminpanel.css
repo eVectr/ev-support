@@ -35,7 +35,7 @@
     right: 0px;
 }
 .card{
-   
+    margin: 3%;
     padding:25px;
     box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5);
     transition: 0.8s;
@@ -62,8 +62,19 @@
     font-size: 1rem;
 }
 
+.case-number{
+    margin-right: 10px;
+}
 
+.admin-cases{
+    display: flex;
+}
 
+.show-admin-case{
+    display: flex;
+    align-items: center;
+
+}
 /* ---------------------------------------------------ADMIN-MODAL-CSS------------------------------------- */
 
 

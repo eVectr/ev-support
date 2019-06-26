@@ -115,14 +115,14 @@ app.post('/saveContact', (req, res) => {
 
 
 app.get('/findcontact', (req, res) => {
-ContactCategory.find({}, function (err, docs) {
-  if (err) {
-    console.log("error")
-    res.send(err)
-  } else {
-    res.send(docs)
-  }
-})
+  ContactCategory.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      res.send(docs)
+    }
+  })
 })
 
 // app.post('/savecontact', (req, res) => {
@@ -177,12 +177,16 @@ app.post('/login', (req, res) => {
     })
   })
 
-  ContactForm.find({Case_No:'SS00001294124274'}, (err, data)=>{
-    if(err){
-      console.log("err =>", err)
-    }else{
-      console.log(data)
-    }
+  app.get('/getcontacts', (req, res) => {
+    
+    ContactForm.find({}, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        res.send(docs)
+      }
+    })
   })
 
 server.listen(7777, () => {
