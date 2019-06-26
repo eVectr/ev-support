@@ -68,9 +68,60 @@
 
 
 .admin-modal{
-    height: 400px;
     padding: 30px;
+    
     background: #9090909c;
     box-shadow: 0px 0px 1px rgba(0,0,0,.8);
     border: 1px solid #999;
+}
+
+.styles_modal__gNwvD{
+    width: 500px!important;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+
+.uploaded-name{
+    display: flex;
+    margin-bottom: 5px;
+    font-size: .9rem;
+    justify-content: space-between;
+}
+
+.uploaded-name label {
+    margin-right: 20px;
+}
+
+.reply-msg{
+    margin-bottom: 20px!important;
+}
+
+.send-btn{
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.upload-msg{
+    display: flex;
+    flex-direction: column;
+    background-color: #9999991f;
+    padding: 7px;
+   
+}
+
+.show-msg{
+    margin-bottom: 20px;
+}
+
+.uploaded-image{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.uploaded-image-data{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }

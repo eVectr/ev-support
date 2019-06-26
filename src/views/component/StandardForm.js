@@ -71,11 +71,7 @@ const handleChange = e => {
     })
   }
 
-<<<<<<< HEAD
-  console.log("success mEssage =>", successMessage)
-=======
   console.log("ERRORS1 =>", Errors)
->>>>>>> 9182c51b9ef91f9f68b248af04823d4723c8f28e
   return (
     <div className = "form-container">
     <div className="contact-form">

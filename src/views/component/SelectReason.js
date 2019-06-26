@@ -3,11 +3,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
-<<<<<<< HEAD
 import SuccessfulNoitification from '../component/SuccessfulNotification'
-=======
 import api_url from '../../utils/Const'
->>>>>>> 9182c51b9ef91f9f68b248af04823d4723c8f28e
 
 
 const Loginform = (props) => {
@@ -39,19 +36,7 @@ const Loginform = (props) => {
       props.history.push('/contact/3')
     }
   }
-<<<<<<< HEAD
-  
-//  console.log(props, 'All Action')
-
-//  let { notificationreducer = {} } = props
-//  let { notification = {} } = notificationreducer
-//  let { text , show } = notification
- 
-
-
-=======
 console.log("selected reason =>", selectedReason)
->>>>>>> 9182c51b9ef91f9f68b248af04823d4723c8f28e
   return (
     <div>
     {/* <SuccessfulNoitification text={text} show ={show} /> */}
