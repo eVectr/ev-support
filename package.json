@@ -17,6 +17,8 @@
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.5",
+    "react-flash-message": "^1.0.2",
+    "react-loading": "^2.0.3",
     "react-micro-validator": "^1.0.0",
     "react-redux": "^7.1.0",
     "react-responsive-modal": "^4.0.1",

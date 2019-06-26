@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import FlashMassage from 'react-flash-message';
 import axios from 'axios'
 import is from 'is_js'
 import '../../styles/login.css'
@@ -8,6 +9,7 @@ import contactValidation from '../../utils/contactValidation'
 import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
 import api_url from '../../utils/Const'
+import Loader from '../component/Loader'
 
 
 const ContactForm = (props) => {
@@ -27,10 +29,11 @@ const ContactForm = (props) => {
     const [linkData, setlinkData] = useState('')
     const [showLinks, setShowLinks] = useState([])
     const [message, setmessage] = useState('')
-    const [loading, setloading] = useState(false)
+    const [successmsg, setsuccessmsg] = useState('')
+    const [showFlashMsg, setshowFlashMsg] = useState(false)
+    const [selectDocument, setselectDocument] = useState('')
 
-
-   
+  
    
     const handleChange = e => {
         const { name, value } = e.target
@@ -131,6 +134,7 @@ const ContactForm = (props) => {
 
                 <Uploader onDrop={onDrop}>
                     <div className='field'>
+                    <p>{selectDocument}</p>
                         <div className='file is-small'>
                             <label className='file-label'>
                                 <span className={`file-cta font-1rem `}>
@@ -164,6 +168,7 @@ const ContactForm = (props) => {
                 }</div>
                 <ImageUploader onDrop={onDropImage}>
                     <div className='field'>
+                    <p>{selectDocument}</p>
                         <div className='file is-small'>
                             <label className='file-label'>
                                 <span className={`file-cta font-1rem `}>
@@ -233,6 +238,7 @@ console.log(message, 'message')
             return
         }
 
+    }
 
 
         else{
@@ -245,16 +251,30 @@ console.log(message, 'message')
 
         }
 
-        }
+       
 
-
-    
         
 
+       
+
+
+        // if(showLinks.length == 0){
+        //     setselectDocument(' Please Select Document')
+        //     return
+        // } 
+
+    //    switch(FileNames.length == 0 || SelectedImage.length == 0 || showLinks.length == 0 ){
+    //     case:1
+    //     FileNames.length() == 0
+
+    //    }
+    
+        
+       
     // -----------------------------------ERRORS------------------------- //
 
    
-        
+            
 
     
         if(selectedClaim == 0){
@@ -275,12 +295,21 @@ console.log(message, 'message')
                     console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
-                            console.log(res)
+                            // console.log(res.data, 'Document Response')
+                            setshowFlashMsg(true)
                         })
-                })
+                        if(res.data == 'done'){
+                            setsuccessmsg('Data saved Successfully ')
+                        }
+                     })
+                     setshowFlashMsg(false)
             })
         }
         else if(selectedClaim == 1){
+            if(SelectedImage.length ==0){
+                setselectDocument(' Please Select Document')
+                return
+            }
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -298,9 +327,15 @@ console.log(message, 'message')
                     console.log("res =>", res)
                     axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
-                            console.log(res)
+                            console.log(res.data, 'Image')
+                            setshowFlashMsg(true)
                         })
+                        if(res.data == 'done'){
+                            setsuccessmsg('Data saved Successfully ')
+                        }
+
                 })
+                setshowFlashMsg(false)
             })
         }
         else{
@@ -317,15 +352,23 @@ console.log(message, 'message')
                 }
                 axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
-                        console.log(res)
+                        console.log(res.data, 'link')
+                        setshowFlashMsg(true)
+                        if(res.data == 'saved'){
+                            setsuccessmsg('Data saved Successfully ')
+                        }
                     })
+                    setshowFlashMsg(false)
             })
         }
     
     }
 
+    console.log(successmsg, 'MESSAGE')
+
     return (
         <div className="form-container">
+            <Loader/>
             <div className="contact-form">
                 <div className="header"> <span>Contact Us</span> </div>
                 <div className="pading">
@@ -397,7 +440,6 @@ console.log(message, 'message')
                         <label className="label left_align">Options to Substantiate Claim (Mendatory)</label>
                     </div>
 
-
                     <div className="field">
                     <div className="control">
                     <div class="tabs  is-boxed">
@@ -423,8 +465,16 @@ console.log(message, 'message')
                     {
                         renderClaims()
                     }
-                    {loading ? <img src={require('../../images/loader.gif')} className="loading"/>: null}
+                  
                     <button class="button is-success" onClick={onSubmit} >Send</button>
+                    {/* <p className='successmsg'>{successmsg}</p> */}
+
+                    { 
+                        showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
+                            <p>{successmsg}</p>
+                        </FlashMassage>  : null 
+                    } 
+                    
                 </div>
             </div>
        

@@ -20,8 +20,8 @@ const Routes = (props) => {
     return(
     <BrowserRouter>
     <RouterChangeObserver>
-        <SuccessfulNotification text={text} show={show} />
         <Navbar/>
+        <SuccessfulNotification text={text} show={show} />
         <Switch>
             <Route exact path="/" component={Loginform} />
             <Route exact path="/contact" component={SelectReason} />
