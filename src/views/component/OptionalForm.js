@@ -25,6 +25,8 @@ const ContactForm = (props) => {
     const [Errors, setErrors] = useState('')
     const [linkData, setlinkData] = useState('')
     const [showLinks, setShowLinks] = useState([])
+    const [message, setmessage] = useState('')
+    const [loading, setloading] = useState(false)
 
 
    
@@ -217,7 +219,7 @@ const ContactForm = (props) => {
            
     //     }
 
-
+console.log(message, 'message')
     // -----------------------------------ERRORS------------------------- //
 
     const onSubmit = () => {
@@ -230,11 +232,13 @@ const ContactForm = (props) => {
             return
         }
 
-        else {
+
+
+        else{
             const errors = contactValidation(data)
             console.log(errors, 'Errors')
          if (!is.empty(errors)) {
-            setErrors(errors)
+            setmessage(errors)
             return
         }
 
@@ -267,7 +271,7 @@ const ContactForm = (props) => {
                 }
                 axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
-                    console.log("res =>", res)
+                    console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
@@ -323,7 +327,6 @@ const ContactForm = (props) => {
         <div className="form-container">
             <div className="contact-form">
                 <div className="header"> <span>Contact Us</span> </div>
-
                 <div className="pading">
 
                     {props.match.path == '/contact/3'?
@@ -360,6 +363,7 @@ const ContactForm = (props) => {
                             <div className="control">
                                 <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
                                 <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
+                                <p className='error-message-text'>{(message.email && message. email[0]) || ''}</p>
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1"></i>
                                 </span>
@@ -384,6 +388,7 @@ const ContactForm = (props) => {
                         <div className="control">
                             <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
                             <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
+                            <p className='error-message-text'>{(message.message && message. message[0]) || ''}</p>
                         </div>
                     </div>
 
@@ -418,6 +423,7 @@ const ContactForm = (props) => {
                     {
                         renderClaims()
                     }
+                    {loading ? <img src={require('../../images/loader.gif')} className="loading"/>: null}
                     <button class="button is-success" onClick={onSubmit} >Send</button>
                 </div>
             </div>
