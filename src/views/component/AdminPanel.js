@@ -10,7 +10,7 @@ const AdminPanel = (props) => {
     const [contacts, setContacts] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:7777/getcontacts`)
+        axios.get(`http://18.219.191.74:7777/getcontacts`)
             .then(res => {
                 setContacts(res.data)
             })
