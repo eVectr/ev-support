@@ -1,16 +1,27 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Loginform from './component/Loginform.js'
 import StandardForm from './component/StandardForm'
-import MandatoryUploadsForm from './component/MandatoryUploadsForm'
 import OptionalForm from './component/OptionalForm'
 import Navbar from './component/Navbar'
 import SelectReason  from './component/SelectReason'
 import AdminPanel from './component/AdminPanel'
+import RouterChangeObserver from './component/RouterChangeObserver'
+import SuccessfulNotification from './component/SuccessfulNotification'
 
-const Routes = () => 
+const Routes = (props) => {
+    let { notificationreducer = {} } = props
+    let { notification = {} } = notificationreducer
+    let { text = '' , show = false } = notification
+    console.log(text, 'text')
+    console.log(show, 'show')
+
+    return(
     <BrowserRouter>
-    <Navbar></Navbar>
+    <RouterChangeObserver>
+        <SuccessfulNotification text={text} show={show} />
+        <Navbar/>
         <Switch>
             <Route exact path="/" component={Loginform} />
             <Route exact path="/contact" component={SelectReason} />
@@ -19,7 +30,8 @@ const Routes = () =>
             <Route exact path="/contact/3" component={OptionalForm} />
             <Route exact path="/admin" component={AdminPanel} />
         </Switch>
+    </RouterChangeObserver>
     </BrowserRouter>
-
-export default Routes
+)}
+export default connect(({dispatch, notificationReducer}) => ({dispatch, notificationReducer}))(Routes)
 

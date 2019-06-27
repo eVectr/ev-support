@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux' 
 import axios from 'axios'
-import Validation from '../../utils/Validation'
+import contactValidation from '../../utils/contactValidation'
 import '../../styles/login.css'
 import is from 'is_js'
-import api_url from '../../utils/Const'
 
 const ContactForm = (props) => {
 
@@ -40,11 +39,12 @@ const handleChange = e => {
   }
 
   const onSubmit = () => {
-    const errors = Validation(data)
+    
+    const errors = contactValidation(data)
     if (!is.empty(errors)) {
-        setErrors(errors)
-        
+        setErrors(errors)  
     }
+    console.log("errors =>", errors)
     generateCaseNo().then(res => {
       console.log("res =>", res)
       let Transaction_Number = ''
@@ -56,7 +56,7 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`${api_url}/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
+      axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
         console.log("res =>", res)
         if(res.status == 200){

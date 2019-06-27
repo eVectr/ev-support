@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
+import SuccessfulNoitification from '../component/SuccessfulNotification'
 import api_url from '../../utils/Const'
 
 
@@ -10,10 +11,11 @@ const Loginform = (props) => {
 
   const [reason, setReason] = useState([])
   const [selectedReason, setSelectedReason] = useState([])
+  
 
   useEffect(() => {
     console.log("inside useEffect")
-    axios.get(`${api_url}/findcontact`)
+    axios.get(`http://18.219.191.74:7777/findcontact`)
       .then(res => {
         console.log("res =>", res.data)
         setReason(res.data)
@@ -21,8 +23,6 @@ const Loginform = (props) => {
   }, [])
 
   const handleChange = e => setSelectedReason(e.target.value)
-
-
   let onSelectReason = () => {
     if (selectedReason == 'Standard') {
       props.history.push('/contact/1')
@@ -36,6 +36,8 @@ const Loginform = (props) => {
   }
 console.log("selected reason =>", selectedReason)
   return (
+    <div>
+    {/* <SuccessfulNoitification text={text} show ={show} /> */}
     <div className="sel-reason">
       <h1 className="header">Reason for Contacting Us</h1>
       <p className="sel-reason_p">Please select the reason within the list below of why you are contacting us and press
@@ -57,6 +59,7 @@ console.log("selected reason =>", selectedReason)
         }
       </select>
       <button class="button is-success" onClick={onSelectReason}>Continue</button>
+    </div>
     </div>
   )
 }

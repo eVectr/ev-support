@@ -21,7 +21,7 @@ body {
   border-radius:1px;
 }
 
-.header{
+.header {
   font-size:25px!important;
   font-weight:600!important;
   color:#999;
@@ -42,12 +42,12 @@ body {
   color:#999;
 }
 
-.submit-btn{
+.submit-btn {
   background-color: #00d1b2!important;
   width: 100% !important;
 }
 
-.field.is-grouped{
+.field.is-grouped {
   display:block!important;
   margin-top: 25px;
 }
@@ -66,7 +66,7 @@ body {
   font-size: .9rem;
 }
 
-.sel-reason_p{
+.sel-reason_p {
   justify-content: left;
   padding-left: 2%;
   padding-bottom: 3%;
@@ -74,13 +74,13 @@ body {
 
 }
 
-.sel-reason_input{
+.sel-reason_input {
   padding-left: 2%;
   padding-bottom: 2%;
 
 }
 
-.sel-reason .header{
+.sel-reason .header {
   text-align: left;
   padding-left: 2%;
   font-weight: bold;
@@ -89,7 +89,7 @@ body {
 
 }
 
-.sel-reason .button{
+.sel-reason .button {
   width:60%;
   margin-left: 20%;
   margin-right:20%;
@@ -98,7 +98,7 @@ body {
   height: 3 em;
 }
 
-.form-container{
+.form-container {
   display: flex;
   justify-content: center;
 }
@@ -140,14 +140,14 @@ body {
   box-shadow: 0px 2px 5px rgba(0,0,0,.25); 
 }
 
-.contact-form .button{
+.contact-form .button {
   width: 100%;
   font-size: 22px;
   margin-top:6%;
   background-color: #00d1b2;
 }
 
-.contact-form .button:hover{
+.contact-form .button:hover {
   background-color: #00d1b2;
 }
 
@@ -162,7 +162,7 @@ form {
     padding: 2em;
   }
 
-  .input_padding{
+  .input_padding { 
     padding-left:20px;
   }
  
@@ -196,7 +196,7 @@ form {
    
   }
 
-  .input:focus{
+  .input:focus {
     box-shadow: none;
     outline: 0;
     border-color:#00d1b2;
@@ -216,7 +216,7 @@ form {
 
   }
 
-  .addbtn{
+  .addbtn {
     border: 1px solid darken(grey, 5%);
     border-radius: 10px;
     display: flex;
@@ -228,7 +228,7 @@ form {
     font-size: 20px;
   }
   
-   .reason_select{
+   .reason_select {
     width:80%;
     margin-left: 10%;
     margin-right:10%;
@@ -236,7 +236,8 @@ form {
     font-size: 18px;
     height: 2.25em;
    }
-   .reason_select .text{
+
+   .reason_select .text {
     width: 100%;
     padding: 2em;
     font-size: 4em;
@@ -248,17 +249,17 @@ form {
    }
  
 
-   .error-message-text{
+   .error-message-text {
      color:rgb(255, 0, 0)
    }
 
 
-   .textarea:focus{
+   .textarea:focus {
      box-shadow: none;
      border-color: #00d1b2
    }
 
-   .contact-input{
+   .contact-input {
      padding-left:45px!important;
    }
  
@@ -268,17 +269,17 @@ form {
    /*----------------------------------------uploding-file-css---------------------------*/
 
 
-   .uploding-file{
+   .uploding-file {
       display: flex;
       justify-content: space-between;
       align-items: center;
    }
 
-   .file-name{
+   .file-name { 
      border-style: none;
    }
 
-   .dropzone{
+   .dropzone {
      display: inline-block;
    }
 
@@ -289,26 +290,26 @@ form {
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */
 
 
-   .file-upload{
+   .file-upload {
      padding: 0;
    }
 
-   .link-text{
+   .link-text {
      text-align: left;
      color:#999;
    }
 
-   .link-data{
+   .link-data {
      border:1px solid #999;
      border-radius: 4px;
     
   }
 
-  .link-data:focus{
+  .link-data:focus {
     border-color: #00d1b2;
   }
 
-  .link-list{
+  .link-list {
     list-style: none;
     text-align: left;
     display: flex;
@@ -320,7 +321,7 @@ form {
     color:#00d1b2;
   }
 
-  .link-btn{
+  .link-btn { 
     padding: 10px 30px !important;
     background: #00d1b2;
     border: 1px solid #00d1b2;
@@ -330,8 +331,36 @@ form {
     font-size: 1rem;
    }
 
-   .link-btn:focus{
+   .link-btn:focus {
      outline: 0;
      border-color:#00d1b2;
    }
+  
+
+
+   /* -----------------------------------------Notification-Css-------------------------------- */
+
+   .notification {
+    width:100%;
+    height: 50px;
+    background-color: #3273dc;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+
+    /* -----------------------------------------Notification-Css-------------------------------- */
+
+
+    /* ---------------------------------------Loading-Css-Start---------------------------------------- */
+
+    .loading{
+      width: 40px!important;
+      height:40px;
+    }
+
+    /* ---------------------------------------Loading-Css-Start---------------------------------------- */
+
+
   

@@ -4,6 +4,7 @@ import axios from 'axios'
 import is from 'is_js'
 import '../../styles/login.css'
 import Validation from '../../utils/Validation'
+import contactValidation from '../../utils/contactValidation'
 import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
 import api_url from '../../utils/Const'
@@ -24,7 +25,9 @@ const ContactForm = (props) => {
     const [Errors, setErrors] = useState('')
     const [linkData, setlinkData] = useState('')
     const [showLinks, setShowLinks] = useState([])
-    const [disable, setdisable] = useState(true)
+    const [message, setmessage] = useState('')
+    const [loading, setloading] = useState(false)
+
 
    
    
@@ -110,13 +113,6 @@ const ContactForm = (props) => {
            linkData
        ]
        setShowLinks(links)
-    //    if( linkData.length){
-    //     setdisable(false)
-    //    }
-    //    else{
-    //     setdisable(true)
-    //    }
-    
     }
 
     const Documents = () => {
@@ -211,13 +207,41 @@ const ContactForm = (props) => {
     }
 
 
+    // const onSubmit = () => {
+
+
+
+    //     const errors = Validation(data)
+    //     console.log(errors, 'Errors')
+    //      if (!is.empty(errors)) {
+    //         setErrors(errors)
+    //         return
+           
+    //     }
+
+console.log(message, 'message')
+    // -----------------------------------ERRORS------------------------- //
+
     const onSubmit = () => {
-        const errors = Validation(data)
-         if (!is.empty(errors)) {
-            setErrors(errors)
-            return
+        if (props.match.path == '/contact/3') {
+            const errors = Validation(data)
+            console.log(errors, 'Errors')
+            if (!is.empty(errors)) {
+                setErrors(errors)
+                return
+            }
+            else {
+                const errors = contactValidation(data)
+                console.log(errors, 'Errors')
+                if (!is.empty(errors)) {
+                    setmessage(errors)
+                    return
+                }
+
+            }
+
         }
-        if(selectedClaim == 0){
+        if (selectedClaim == 0) {
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -230,17 +254,17 @@ const ContactForm = (props) => {
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`${api_url}/fileupload`, formData,
+                axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
                 })
             })
         }
-        else if(selectedClaim == 1){
+        else if (selectedClaim == 1) {
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -253,17 +277,17 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`${api_url}/upload`, formData,
+                axios.post(`http://localhost:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res)
                         })
                 })
             })
         }
-        else{
+        else {
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -275,20 +299,18 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`${api_url}/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
+                axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link: showLinks })
                     .then(res => {
                         console.log(res)
                     })
             })
         }
-    
     }
 
     return (
         <div className="form-container">
             <div className="contact-form">
                 <div className="header"> <span>Contact Us</span> </div>
-
                 <div className="pading">
 
                     {props.match.path == '/contact/3'?
@@ -305,8 +327,7 @@ const ContactForm = (props) => {
                             </div>
                         </div>
                         :''
-
-                }
+                    }
 
                     <div className="field">
                         <div class="control has-icons-left has-icons-right">
@@ -326,6 +347,7 @@ const ContactForm = (props) => {
                             <div className="control">
                                 <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
                                 <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
+                                <p className='error-message-text'>{(message.email && message. email[0]) || ''}</p>
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1"></i>
                                 </span>
@@ -350,6 +372,7 @@ const ContactForm = (props) => {
                         <div className="control">
                             <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
                             <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
+                            <p className='error-message-text'>{(message.message && message. message[0]) || ''}</p>
                         </div>
                     </div>
 
@@ -383,9 +406,11 @@ const ContactForm = (props) => {
                     {
                         renderClaims()
                     }
+                    {loading ? <img src={require('../../images/loader.gif')} className="loading"/>: null}
                     <button class="button is-success" onClick={onSubmit} >Send</button>
                 </div>
             </div>
+       
         </div>
     )
 }

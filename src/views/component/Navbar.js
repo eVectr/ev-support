@@ -21,6 +21,19 @@ let home = () =>{
     props.history.push('/')  
 }
 
+    console.log("nav props ==>", props.auth.userDetails)
+   console.log(" localStorage =>", (localStorage.user))
+     let admincheck
+     if(localStorage.user != undefined){
+        if (JSON.parse(localStorage.user).Type == 'admin') {
+            admincheck = true
+        } else {
+            admincheck = false
+        }
+     }else{
+        admincheck = false
+     }
+   
    return (
        <div>
            <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
@@ -41,9 +54,9 @@ let home = () =>{
                        <a class="navbar-item" onClick ={home}>
                            <strong>Home</strong>
                      </a>
-
+                        
                      <a class="navbar-item" onClick ={admin}>
-                           <strong>Admin</strong>
+                          {admincheck?<strong>Admin</strong>:''} 
                      </a>
                 
                 </div>
@@ -52,7 +65,7 @@ let home = () =>{
                    <div class="navbar-item">
                     <div class="buttons">
                 
-                 {(props.auth.userDetails.check)?
+                 {(localStorage.user != undefined)?
                      <a class="button is-light" onClick ={logout}>
                      Logout
                     </a>:<a class="button is-light" onClick ={logout}>
