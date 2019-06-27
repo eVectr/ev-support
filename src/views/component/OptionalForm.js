@@ -67,27 +67,31 @@ const ContactForm = (props) => {
             return
         }
         if (files.length > 1) {
-
             setSelectedImage(files)
-
-            let reader = new FileReader()
-            reader.onloadend = () => {
-                setimagePreviewUrl(prev => {
-                    const update = prev.concat([reader.result])
-                    return update
-                })
-            }
-            for (let i = 0; i < files.length; i++) {
-                if (files[i]) {
-                    try {
-                        reader.readAsDataURL(files[i])
-                    }
-                    catch (err) {
-                        console.log(err)
-                    }
-
+            for (let file of files) {
+                let temp = Math.random().toString()
+                 temp = new FileReader()
+                temp.onloadend = () => {
+                    console.log("reader.result ==>", temp.result)
+                    setimagePreviewUrl(prev => {
+                        const update = prev.concat([temp.result])
+                        return update
+                    })
+                }
+                
+                    if (file) {
+                        try {
+                            temp.readAsDataURL(file)
+                        }
+                        catch (err) {
+                            console.log(err)
+                        }
+    
+                    
                 }
             }
+            
+         
 
         } else {
             setSelectedImage(prev => {
