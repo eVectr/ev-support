@@ -23,8 +23,6 @@ const Loginform = (props) => {
   }, [])
 
   const handleChange = e => setSelectedReason(e.target.value)
-
-
   let onSelectReason = () => {
     if (selectedReason == 'Standard') {
       props.history.push('/contact/1')

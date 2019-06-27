@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 const express = require('express')
 var multer  = require('multer');
+const nodemailer = require('nodemailer')
+const path = require('path')
 var fs = require('fs')
 
 const User = require('../db/user.js')
@@ -26,10 +28,8 @@ mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',
    if (err) throw err;
    console.log('Mongoose connected');
  
-});
-
+})
 api(app)
-
 
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -39,8 +39,9 @@ app.use((req, res, next)=>{
 })
 
 // var user = new User({
-//     Name: 'Nitin',
-//     Password: 'nitin@123'
+//     Name: 'Admin',
+//     Password: 'admin@123',
+//     Type:'admin'
 // })
 // user.save()
 
@@ -61,7 +62,6 @@ app.post('/upload', (req, res) => {
   upload(req, res, function (err) {
     let path = req.files.map((file, index) => {
       imagepaths.push(file.path)
-      console.log(imagepaths)
     })
     console.log("req.file =>", req.files)
     res.send("done")
@@ -70,6 +70,7 @@ app.post('/upload', (req, res) => {
 
 app.post('/fileupload', (req, res) => {
   upload(req, res, function (err) {
+    console.log("req.file ====>", req.file)
     let path = req.files.map((file, index) => {
       filepaths.push(file.path)
       console.log(filepaths)
@@ -107,22 +108,27 @@ app.post('/saveContact', (req, res) => {
     if(err){
       console.log("err =>", err)
       console.log("data =>", data )
+    }else{
+      imagepaths.splice(0,imagepaths.length)
+      filepaths.splice(0,imagepaths.length)
     }
   })
   console.log("contact saved")
+  imagepaths.splice(0,imagepaths.length)
+  filepaths.splice(0,imagepaths.length)
   res.send("saved")
 })
 
 
 app.get('/findcontact', (req, res) => {
-ContactCategory.find({}, function (err, docs) {
-  if (err) {
-    console.log("error")
-    res.send(err)
-  } else {
-    res.send(docs)
-  }
-})
+  ContactCategory.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      res.send(docs)
+    }
+  })
 })
 
 // app.post('/savecontact', (req, res) => {
@@ -177,12 +183,61 @@ app.post('/login', (req, res) => {
     })
   })
 
-  ContactForm.find({Case_No:'SS00001294124274'}, (err, data)=>{
-    if(err){
-      console.log("err =>", err)
-    }else{
-      console.log(data)
+  app.get('/getcontacts', (req, res) => {
+    ContactForm.find({}, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        res.send(docs)
+      }
+    })
+  })
+
+  app.post('/getbycaseno', (req, res) => {
+    let caseNo = req.body.caseNo
+    console.log("case no  ===>",caseNo )
+    ContactForm.find({Case_No:caseNo}, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        console.log(docs)
+        res.send(docs)
+      }
+    })
+  })
+
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, 
+    auth: {
+      user: 'eamil045@gmail.com', 
+      pass: 'pass'
+    },
+    tils:{
+      rejectUnauthorized:false
     }
+  });
+ 
+  app.post('/sendmail', (req, res) => {
+    let message = req.body.message
+    let email = req.body.email
+    let mailOptions = {
+      from: ' "p2p Support" <verma.akash045@gmail.com>',
+      to: email,
+      subject: 'Reply',
+      text: message
+    }
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log("error =>",error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    })
   })
 
 server.listen(7777, () => {

@@ -23,6 +23,8 @@ const ContactForm = (props) => {
         message: '',
     })
 
+    const [imagePreviewUrl, setimagePreviewUrl] = useState([])
+
     const [selectedClaim, setSelectedClaim] = useState(0)
     const [FileNames, setFileNames] = useState([])
     const [SelectedImage, setSelectedImage] = useState([])
@@ -33,7 +35,8 @@ const ContactForm = (props) => {
     const [successmsg, setsuccessmsg] = useState('')
     const [showFlashMsg, setshowFlashMsg] = useState(false)
     const [selectDocument, setselectDocument] = useState('')
-    
+    const [test, setTest] = useState(null)
+
   
    
     const handleChange = e => {
@@ -66,11 +69,44 @@ const ContactForm = (props) => {
         }
         if (files.length > 1) {
             setSelectedImage(files)
+            let reader = new FileReader()
+            reader.onloadend = () => {
+                setimagePreviewUrl(prev => {
+                    const update = prev.concat([reader.result])
+                    return update
+                })
+              
+            }
+            for(let i = 0; i<files.length ; i++){
+                if (files[i]) {
+                    try {
+                        reader.readAsDataURL(files[i])
+                      }
+                      catch(err) {
+                      console.log(err)
+                      }
+                    
+                }
+            }
+          
         } else {
             setSelectedImage(prev => {
                 const update = prev.concat(files[0])
                 return update
             })
+            let reader = new FileReader()
+            reader.onloadend = () => {
+                setimagePreviewUrl(prev => {
+                    const update = prev.concat([reader.result])
+                    return update
+                })
+              
+            }
+            for(let i = 0; i<files.length ; i++){
+                if (files[i]) {
+                    reader.readAsDataURL(files[i])
+                }
+            }
         }
     }
 
@@ -166,6 +202,7 @@ const ContactForm = (props) => {
                         return (
                             <ul>
                                 <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name)}></i></li>
+                                <img src={imagePreviewUrl[index]} />
                             </ul>
                         )
                     })
@@ -234,7 +271,7 @@ const ContactForm = (props) => {
            
     //     }
 
-console.log(message, 'message')
+console.log(SelectedImage, '<==Selected image')
     // -----------------------------------ERRORS------------------------- //
 
     const onSubmit = () => {
@@ -248,8 +285,6 @@ console.log(message, 'message')
         }
 
     }
-
-
         else{
             const errors = contactValidation(data)
             console.log(errors, 'Errors')
@@ -259,15 +294,6 @@ console.log(message, 'message')
         }
 
         }
-
-  
-        
-       
-    // -----------------------------------ERRORS------------------------- //
-
-   
-            
-
     
         if(selectedClaim == 0){
            if(FileNames.length == 0)  {
@@ -287,7 +313,7 @@ console.log(message, 'message')
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
+                axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
@@ -321,15 +347,16 @@ console.log(message, 'message')
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://18.219.191.74:7777/upload`, formData,
+                axios.post(`http://localhost:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
                         })
                         if(res.data == 'done'){
+                            setSelectedImage([])
                             setsuccessmsg('Data saved Successfully ')
                         }
 
@@ -367,10 +394,8 @@ console.log(message, 'message')
                     setshowFlashMsg(false)
             })
         }
-    
     }
 
-    console.log(successmsg, 'MESSAGE')
 
     return (
         <div className="form-container">
