@@ -7,9 +7,5 @@ export const userDetailsAction = (userDetails) => {
             userDetails
         }
     }
-<<<<<<< HEAD
- }
-=======
 }
 
->>>>>>> new-code

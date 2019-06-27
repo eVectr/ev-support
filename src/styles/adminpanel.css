@@ -34,15 +34,6 @@
     position: absolute;
     right: 0px;
 }
-<<<<<<< HEAD
-
-.card{
-    border-radius: 5px;
-    border: 1px solid #999;
-    padding:25px;
-    box-shadow: 0px 0px 1px rgba(0,0,0,.8)
-}
-=======
 .card{
     margin: 3%;
     padding:25px;
@@ -54,7 +45,6 @@
 .card:hover {
     box-shadow: 0 10px 20px 0 rgba(79, 174, 252, 1);
   }
->>>>>>> new-code
 .admin-cases{
     display: flex;
     justify-content: space-between;
@@ -72,10 +62,6 @@
     font-size: 1rem;
 }
 
-<<<<<<< HEAD
-
-
-=======
 .case-number{
     margin-right: 10px;
 }
@@ -89,18 +75,10 @@
     align-items: center;
 
 }
->>>>>>> new-code
 /* ---------------------------------------------------ADMIN-MODAL-CSS------------------------------------- */
 
 
 .admin-modal{
-<<<<<<< HEAD
-    height: 400px;
-    padding: 30px;
-    background: #9090909c;
-    box-shadow: 0px 0px 1px rgba(0,0,0,.8);
-    border: 1px solid #999;
-=======
     padding: 30px;
     
     background: #9090909c;
@@ -158,5 +136,4 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
->>>>>>> new-code
 }

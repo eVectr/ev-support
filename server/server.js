@@ -2,11 +2,8 @@
 const mongoose = require('mongoose');
 const express = require('express')
 var multer  = require('multer');
-<<<<<<< HEAD
-=======
 const nodemailer = require('nodemailer')
 const path = require('path')
->>>>>>> new-code
 var fs = require('fs')
 
 const User = require('../db/user.js')
@@ -19,11 +16,7 @@ var app = express()
 var bodyParser = require('body-parser')
 var server = require('http').Server(app)
 
-<<<<<<< HEAD
-app.use(express.static('uploads'))
-=======
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
->>>>>>> new-code
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -35,17 +28,9 @@ mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',
    if (err) throw err;
    console.log('Mongoose connected');
  
-<<<<<<< HEAD
-});
-
-api(app)
-
-
-=======
 })
 api(app)
 
->>>>>>> new-code
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -54,14 +39,9 @@ app.use((req, res, next)=>{
 })
 
 // var user = new User({
-<<<<<<< HEAD
-//     Name: 'Nitin',
-//     Password: 'nitin@123'
-=======
 //     Name: 'Admin',
 //     Password: 'admin@123',
 //     Type:'admin'
->>>>>>> new-code
 // })
 // user.save()
 
@@ -136,16 +116,6 @@ app.post('/saveContact', (req, res) => {
 
 
 app.get('/findcontact', (req, res) => {
-<<<<<<< HEAD
-ContactCategory.find({}, function (err, docs) {
-  if (err) {
-    console.log("error")
-    res.send(err)
-  } else {
-    res.send(docs)
-  }
-})
-=======
   ContactCategory.find({}, function (err, docs) {
     if (err) {
       console.log("error")
@@ -154,7 +124,6 @@ ContactCategory.find({}, function (err, docs) {
       res.send(docs)
     }
   })
->>>>>>> new-code
 })
 
 // app.post('/savecontact', (req, res) => {
@@ -209,14 +178,6 @@ app.post('/login', (req, res) => {
     })
   })
 
-<<<<<<< HEAD
-  ContactForm.find({Case_No:'SS00001294124274'}, (err, data)=>{
-    if(err){
-      console.log("err =>", err)
-    }else{
-      console.log(data)
-    }
-=======
   app.get('/getcontacts', (req, res) => {
     ContactForm.find({}, function (err, docs) {
       if (err) {
@@ -272,7 +233,6 @@ app.post('/login', (req, res) => {
         console.log('Email sent: ' + info.response);
       }
     })
->>>>>>> new-code
   })
 
 server.listen(7777, () => {
