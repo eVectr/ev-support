@@ -16,7 +16,7 @@ var app = express()
 var bodyParser = require('body-parser')
 var server = require('http').Server(app)
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use(express.static('uploads'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -62,7 +62,6 @@ app.post('/upload', (req, res) => {
   upload(req, res, function (err) {
     let path = req.files.map((file, index) => {
       imagepaths.push(file.path)
-      console.log(imagepaths)
     })
     console.log("req.file =>", req.files)
     res.send("done")
@@ -71,6 +70,7 @@ app.post('/upload', (req, res) => {
 
 app.post('/fileupload', (req, res) => {
   upload(req, res, function (err) {
+    console.log("req.file ====>", req.file)
     let path = req.files.map((file, index) => {
       filepaths.push(file.path)
       console.log(filepaths)
@@ -108,9 +108,14 @@ app.post('/saveContact', (req, res) => {
     if(err){
       console.log("err =>", err)
       console.log("data =>", data )
+    }else{
+      imagepaths.splice(0,imagepaths.length)
+      filepaths.splice(0,imagepaths.length)
     }
   })
   console.log("contact saved")
+  imagepaths.splice(0,imagepaths.length)
+  filepaths.splice(0,imagepaths.length)
   res.send("saved")
 })
 

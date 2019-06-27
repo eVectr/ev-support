@@ -262,7 +262,7 @@ const ContactForm = (props) => {
            
     //     }
 
-console.log(imagePreviewUrl, '<==imagePreviewUrl')
+console.log(SelectedImage, '<==Selected image')
     // -----------------------------------ERRORS------------------------- //
 
     const onSubmit = () => {
@@ -276,8 +276,6 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
         }
 
     }
-
-
         else{
             const errors = contactValidation(data)
             console.log(errors, 'Errors')
@@ -287,27 +285,6 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
         }
 
         }
-
-    
-
-        // if(showLinks.length == 0){
-        //     setselectDocument(' Please Select Document')
-        //     return
-        // } 
-
-    //    switch(FileNames.length == 0 || SelectedImage.length == 0 || showLinks.length == 0 ){
-    //     case:1
-    //     FileNames.length() == 0
-
-    //    }
-    
-        
-       
-    // -----------------------------------ERRORS------------------------- //
-
-   
-            
-
     
         if(selectedClaim == 0){
             generateCaseNo().then(no => {
@@ -322,7 +299,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
+                axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
@@ -354,15 +331,16 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://18.219.191.74:7777/upload`, formData,
+                axios.post(`http://localhost:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
                         })
                         if(res.data == 'done'){
+                            setSelectedImage([])
                             setsuccessmsg('Data saved Successfully ')
                         }
 
@@ -395,7 +373,6 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
         }
     }
 
-    console.log(test, '<==test')
 
     return (
         <div className="form-container">
