@@ -8,7 +8,7 @@ class SuccessfulNotification extends Component{
         console.log(prevProps.show, 'prevProps.show ')
         setTimeout(() => {
             this.props.dispatch(showNotificationAction({show: false, text:'' }))
-        }, 2000);
+        }, 5000);
         // if (prevProps.show !== this.props.show) {
         //      setTimeout(() => { this.props.dispatch(showNotificationAction({show: false, text:'' }))}, 3500)
         // }

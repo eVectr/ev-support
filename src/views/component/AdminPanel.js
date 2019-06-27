@@ -15,12 +15,17 @@ class AdminPanel extends Component {
                             </div>
                         </div>
                     </div>
-                <div className='card'>
+                {/* <div className='card'> */}
+                <div className='table'>
                     <div className='admin-cases'>
-                        <span>Case Number:12345</span>
+                        <span>Case Number:12345</span> 
+                        <span>Name:Kripal Ramola</span>
+                        <span>Email:Kripalramola16@gmail.com</span>
                         <span>Date:24|06|2019</span>
+                        
                     </div>
                     <AdminModal></AdminModal>
+                {/* </div> */}
                 </div>
             </div>
         )
