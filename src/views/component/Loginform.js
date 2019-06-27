@@ -48,7 +48,7 @@ const onLogin = () => {
         localStorage.setItem('user', JSON.stringify(res.data.data[0]))
         props.history.push('/contact')
         props.dispatch(showNotificationAction({
-          text: 'Login Sucessfull',
+          text: 'Login Successfully',
           show: true
         }))
         props.dispatch(userDetailsAction(res.data))

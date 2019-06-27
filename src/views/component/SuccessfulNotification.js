@@ -20,12 +20,14 @@ class SuccessfulNotification extends Component{
         let { notificationreducer = {} } = this.props
         let { notification = {} } = notificationreducer
         let { text, show } = notification
-          // const{text, show} = this.props     
+        // const{text, show} = this.props     
         return (
           <Fragment>
               {
                   show ?
-                  <div class="notification is-link">{text}</div> : null
+                    <div className='show-notification-msg'>
+                        <div class="notification is-link">{text}</div>
+                    </div> : null
               }
           </Fragment>
             

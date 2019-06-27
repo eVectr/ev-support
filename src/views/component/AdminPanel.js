@@ -81,5 +81,4 @@ const AdminPanel = (props) => {
     )
 }
 
-
 export default AdminPanel

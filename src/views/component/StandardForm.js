@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux' 
+import FlashMassage from 'react-flash-message';
+
 import axios from 'axios'
 import contactValidation from '../../utils/contactValidation'
 import '../../styles/login.css'
 import is from 'is_js'
+// import Message from '../component/FlashMessage'
 
 const ContactForm = (props) => {
 
   const [successMessage, setSuccessMessage] = useState('')
+  const [showFlashMsg, setshowFlashMsg] = useState(false)
 
   const [data, setData] = useState({
     name:'',
@@ -17,6 +21,7 @@ const ContactForm = (props) => {
 })
 
 const [Errors, setErrors] = useState('')
+
 
 const handleChange = e => {
   const { name, value } = e.target
@@ -39,12 +44,14 @@ const handleChange = e => {
   }
 
   const onSubmit = () => {
-    
     const errors = contactValidation(data)
+    
     if (!is.empty(errors)) {
-        setErrors(errors)  
+        setErrors(errors) 
+        return 
     }
-    console.log("errors =>", errors)
+
+        
     generateCaseNo().then(res => {
       console.log("res =>", res)
       let Transaction_Number = ''
@@ -58,13 +65,16 @@ const handleChange = e => {
 
       axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
-        console.log("res =>", res)
+        
+          console.log("res =>", res)
+          setshowFlashMsg(true)
         if(res.status == 200){
           setSuccessMessage('Contact Data Saved Successfuly')
         }else{
           setSuccessMessage('Something Went Wrong')
         }
       })
+      setshowFlashMsg(false)
     })
   }
 
@@ -120,7 +130,12 @@ const handleChange = e => {
           </div>
           </div>
           <button class="button is-success" onClick={onSubmit} >Send</button>
-          <p>{successMessage}</p>
+          {/* <p>{successMessage}</p> */}
+           { 
+             showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
+                <p>{successMessage}</p>
+              </FlashMassage>  : null 
+            }  
         </div>
       </div>
     </div>
