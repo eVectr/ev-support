@@ -295,7 +295,17 @@ form {
      display: inline-block;
    }
 
+   .uploaded-images{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 10px;
+   }
 
+   .uploaded-images img{
+     width: 30%;
+     height: 30%;
+   }
 
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */
@@ -385,4 +395,7 @@ form {
   
     
 
-    /* -------------------- */
+    .document{
+      display: flex;
+      flex-direction:column;
+    }

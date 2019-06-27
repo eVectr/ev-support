@@ -101,9 +101,9 @@ const AdminModal = (caseNo) => {
                             </div>
                         </div>
                     </div>
-
+                    <div className='uploaded-documents'>
                     <div class="control has-icons-left has-icons-right">
-                        <span className='uploaded-name'>
+                        <span className='uploaded-name document'>
                             <label className="label left_align name">Uploaded Document:</label>
                             {
                                  Documents.map((document, index) => {
@@ -138,7 +138,7 @@ const AdminModal = (caseNo) => {
                             <p>{contacts.Link}</p>
                         </span>
                     </div>
-
+                    </div>
                     <div className="field">
                         <label className="label left_align reply-msg">Reply</label>
                         <div className="control">
@@ -147,8 +147,7 @@ const AdminModal = (caseNo) => {
                             <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
                         </div>
                     </div>
-
-            </Modal>
+                </Modal>
         </div>
     );
 }

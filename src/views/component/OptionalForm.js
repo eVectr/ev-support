@@ -200,7 +200,7 @@ const ContactForm = (props) => {
                 <div> {
                     SelectedImage.map((image, index) => {
                         return (
-                            <ul>
+                            <ul className='uploaded-images'>
                                 <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name)}></i></li>
                                 <img src={imagePreviewUrl[index]} />
                             </ul>
