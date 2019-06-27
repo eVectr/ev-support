@@ -67,27 +67,28 @@ const ContactForm = (props) => {
             return
         }
         if (files.length > 1) {
+
             setSelectedImage(files)
+
             let reader = new FileReader()
             reader.onloadend = () => {
                 setimagePreviewUrl(prev => {
                     const update = prev.concat([reader.result])
                     return update
                 })
-              
             }
-            for(let i = 0; i<files.length ; i++){
+            for (let i = 0; i < files.length; i++) {
                 if (files[i]) {
                     try {
                         reader.readAsDataURL(files[i])
-                      }
-                      catch(err) {
-                      console.log(err)
-                      }
-                    
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+
                 }
             }
-          
+
         } else {
             setSelectedImage(prev => {
                 const update = prev.concat(files[0])
@@ -95,13 +96,13 @@ const ContactForm = (props) => {
             })
             let reader = new FileReader()
             reader.onloadend = () => {
+                console.log("reader.result ==>", reader.result)
                 setimagePreviewUrl(prev => {
                     const update = prev.concat([reader.result])
                     return update
                 })
-              
             }
-            for(let i = 0; i<files.length ; i++){
+            for (let i = 0; i < files.length; i++) {
                 if (files[i]) {
                     reader.readAsDataURL(files[i])
                 }
@@ -262,7 +263,7 @@ const ContactForm = (props) => {
            
     //     }
 
-console.log(SelectedImage, '<==Selected image')
+console.log(imagePreviewUrl, '<==imagePreviewUrl')
     // -----------------------------------ERRORS------------------------- //
 
     const onSubmit = () => {
