@@ -304,7 +304,7 @@ form {
 
    .uploaded-images img{
      width: 30%;
-     height: 30%;
+     height:120px!important;
    }
 
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */

@@ -327,6 +327,13 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                      Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
+                            setData({
+                                transaction_number: '',
+                                name: '',
+                                email: '',
+                                subject: '',
+                                message: '',
+                            })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
                         })
@@ -362,6 +369,13 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
                     Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
+                            setData({
+                                transaction_number: '',
+                                name: '',
+                                email: '',
+                                subject: '',
+                                message: '',
+                            })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
                         })
@@ -397,12 +411,20 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                  Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                     .then(res => {
                         console.log(res.data, 'link')
+                        setData({
+                            transaction_number: '',
+                            name: '',
+                            email: '',
+                            subject: '',
+                            message: '',
+                        })
                         setshowFlashMsg(true)
                         if(res.data == 'saved'){
                             setsuccessmsg('Data saved Successfully ')
                         }
+                        
                     })
-                    setshowFlashMsg(false)
+                    setshowFlashMsg(false)                
             })
         }
     }
