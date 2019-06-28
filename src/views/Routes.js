@@ -18,7 +18,7 @@ const Routes = (props) => {
     console.log(text, 'text')
     console.log(show, 'show')
 
-    console.log("routess =>", localStorage.user)
+    console.log("routess storage =>", localStorage.user)
     return(
     <BrowserRouter>
     <RouterChangeObserver>
@@ -26,12 +26,12 @@ const Routes = (props) => {
         <SuccessfulNotification text={text} show={show} />
         <Switch>
             <Route exact path="/" component={localStorage.user?SelectReason:Loginform} />
-            <Route exact path="/contact" component={SelectReason} />
+            <Route exact path="/contact" component={localStorage.user?SelectReason:Loginform} />
             <Route exact path="/contact/1" component={StandardForm} />
             <Route exact path="/contact/2" component={OptionalForm} />
             <Route exact path="/contact/3" component={OptionalForm} />
             <Route exact path="/admin" component={AdminPanel} />
-            <Route exact path="/support" component={Support} />
+            <Route exact path="/support" component={localStorage.user?Support:Loginform} />
         </Switch>
     </RouterChangeObserver>
     </BrowserRouter>

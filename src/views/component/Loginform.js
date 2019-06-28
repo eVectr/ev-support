@@ -53,6 +53,7 @@ const onLogin = () => {
           show: true
         }))
         props.dispatch(userDetailsAction(res.data))
+        window.location.reload()
       }else{
         setLoginCheck(['Invalid Username or Password'])
       } 
