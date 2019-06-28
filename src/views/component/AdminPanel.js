@@ -99,20 +99,20 @@ const AdminPanel = (props) => {
                         <div className='card admin-card'  onClick={() => onOpenModal(contact.Case_No)}>
                             <div className='admin-cases'>  
                                 <div>
-                                    <b>Name:</b><span className='case-number'>Kripal Ramola</span>
+                                    <b>Name:</b><span className='case-number'>{contact.Name}</span>
                                 </div>
                     
                                 <div>
-                                <b>Email:</b> <span className='case-number'>kripalramola16@gmail.com</span>
+                                <b>Email:</b> <span className='case-number'>{contact.Email}</span>
                                 </div> 
                             </div>    
 
                             <div className='admin-cases'>
                                 <div>
-                                    <span className='case-number'><b>Subject:</b>kfjxz,mcnvj</span>
+                                    <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
                                 </div>
                                 <div >
-                                    <span className='case-number'><b>Status:</b>kxzmcn</span>
+                                    <span className='case-number'><b>Status:</b>{contact.Status}</span>
                                 </div>
                             </div>   
 
@@ -202,8 +202,6 @@ const AdminPanel = (props) => {
                                         <div className='column-img'>
                                             <img src={imgsrc} className="uploaded-image-data columns" />
                                         </div>
-                                  
-                               
                               )
                           })
                         }
@@ -237,4 +235,3 @@ export default AdminPanel
 
 
 
-//--------------------------------------------------------------------//

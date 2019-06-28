@@ -215,6 +215,20 @@ app.post('/login', (req, res) => {
     })
   })
 
+  app.post('/getbyuserid', (req, res) => {
+    let UserId = req.body.UserId
+    console.log("UserId  ===>",UserId )
+    ContactForm.find({UserId:UserId}, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        console.log(docs)
+        res.send(docs)
+      }
+    })
+  })
+
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,

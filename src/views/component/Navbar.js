@@ -10,6 +10,7 @@ const Navbar = (props) => {
 let logout = () =>{
    localStorage.clear()
    props.history.push('/')
+   window.location.reload()
 }
 
 let admin = () =>{
@@ -17,7 +18,12 @@ let admin = () =>{
 }
 
 let home = () =>{
-   props.history.push('/')
+    if(localStorage.user){
+        props.history.push('/contact')
+    }else{
+        props.history.push('/')
+    }
+  
 }
 
 let support = () =>{
@@ -34,7 +40,7 @@ let support = () =>{
     }else{
        admincheck = false
     }
-
+console.log("loacal storage ==>", localStorage)
   return (
       <div>
           <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
@@ -56,13 +62,21 @@ let support = () =>{
                           <strong>Home</strong>
                     </a>
 
+                {
+                    admincheck?
                     <a class="navbar-item" onClick ={admin}>
-                         {admincheck?<strong>Admin</strong>:''}
-                    </a>
+                         <strong>Admin</strong>
+                    </a>:''
+                }
+                    
 
+                {
+                    !admincheck && localStorage.user != undefined?
                     <a class="navbar-item" onClick ={support}>
-                         {!admincheck && localStorage.user != undefined?<strong>Support</strong>:''}
-                    </a>
+                    <strong>Support</strong>
+                    </a>:''
+                }
+                   
 
                </div>
 

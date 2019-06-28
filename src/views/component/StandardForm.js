@@ -86,7 +86,17 @@ const handleChange = e => {
     })
     
   }
-console.log("props ==>", props.notificationreducer.selectedReason)
+  function myFunction() {
+    setTimeout(function(){ 
+      props.history.push('/contact')
+     }, 3000)
+  }
+  
+    if (props.notificationreducer.selectedReason == undefined) {
+      props.history.push('/contact')
+    } 
+  
+// console.log("props ==>", props.notificationreducer.selectedReason.template)
   return (
     <div className = "form-container">
     <div className="contact-form">

@@ -428,7 +428,9 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
             })
         }
     }
-
+    if (props.notificationreducer.selectedReason == undefined) {
+        props.history.push('/contact')
+      } 
 
     return (
         <div className="form-container">
