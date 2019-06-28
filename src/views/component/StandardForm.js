@@ -6,7 +6,6 @@ import axios from 'axios'
 import contactValidation from '../../utils/contactValidation'
 import '../../styles/login.css'
 import is from 'is_js'
-// import Message from '../component/FlashMessage'
 
 const ContactForm = (props) => {
 
@@ -21,6 +20,7 @@ const ContactForm = (props) => {
 })
 
 const [Errors, setErrors] = useState('')
+const [loader, setloader] = useState(false)
 
 
 const handleChange = e => {
@@ -52,6 +52,7 @@ const handleChange = e => {
         return 
     }
 
+    setloader(true)
         
     generateCaseNo().then(res => {
       console.log("res =>", res)
@@ -66,9 +67,9 @@ const handleChange = e => {
 
       axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
-        
           console.log("res =>", res)
           setshowFlashMsg(true)
+          setloader(false)
         if(res.status == 200){
           setSuccessMessage('Contact Data Saved Successfuly')
         }else{
@@ -85,9 +86,6 @@ const handleChange = e => {
     
   }
 
-  
-
-  console.log("ERRORS1 =>", Errors)
   return (
     <div className = "form-container">
     <div className="contact-form">
@@ -139,12 +137,14 @@ const handleChange = e => {
           </div>
           </div>
           <button class="button is-success" onClick={onSubmit} >Send</button>
-          {/* <p>{successMessage}</p> */}
-           { 
-             showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
-                <p>{successMessage}</p>
-              </FlashMassage>  : null 
-            }  
+          {
+            loader ? <img src = {require('../../images/loader.gif')}/> : ''
+          }
+          { 
+            showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
+              <p>{successMessage}</p>
+            </FlashMassage>  : null 
+          }  
         </div>
       </div>
     </div>

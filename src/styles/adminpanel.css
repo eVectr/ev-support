@@ -40,11 +40,14 @@
     /* box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5); */
     /* transition: 0.8s; */
     border-radius:1px;
+    background-color: #4e434312;
+    border: 1px solid #999;
+
 }
 
-/* .card:hover {
+.card:hover {
     box-shadow: 0 10px 20px 0 rgba(79, 174, 252, 1);
-  } */
+  }
 
 .admin-cases {
     width: 33.33%;
