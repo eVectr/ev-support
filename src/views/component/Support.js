@@ -15,7 +15,7 @@ const SupportTicket = (props) => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        axios.post(`http://localhost:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
+        axios.post(`http://18.219.191.74:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
             .then(res => {
                 let { data = [] } = res
                 setContacts(data.reverse())
@@ -29,7 +29,7 @@ const SupportTicket = (props) => {
 
     let onSearch = ()=>{
         
-        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:caseNo})
+        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:caseNo})
              .then(res => {
                 if(res.data.length >0 ){
                     setContacts([])
@@ -44,7 +44,7 @@ const SupportTicket = (props) => {
 
 
     let onOpenModal = (CaseNo) => {
-        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:CaseNo})
+        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:CaseNo})
              .then(res => {
                setContact(res.data[0])
             })
@@ -56,7 +56,7 @@ const SupportTicket = (props) => {
     }
 
     let sendMail = () =>{
-        axios.post(`http://localhost:7777/sendmail`, {message:message, email:contact.Email})
+        axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contact.Email})
         .then(res => {
           console.log("res ==>", res)
        })
@@ -184,7 +184,7 @@ const SupportTicket = (props) => {
                         <label className="label left_align name">Uploaded Document:</label>
                         {
                              Documents.map((document, index) => {
-                               let doc = 'http://localhost:7777/'.concat(document)
+                               let doc = 'http://18.219.191.74:7777/'.concat(document)
                               return (
                                 <a href={doc}>{document}</a>
   
@@ -201,7 +201,7 @@ const SupportTicket = (props) => {
                         <div className='row image-row'>
                         {
                              Images.map((image, index) => {
-                               let imgsrc = 'http://localhost:7777/'.concat(image)
+                               let imgsrc = 'http://18.219.191.74:7777/'.concat(image)
                               return (
                                     
                                         <div className='column-img'>
