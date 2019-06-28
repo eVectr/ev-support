@@ -10,6 +10,7 @@ import api_url from '../../utils/Const'
 
 
 
+
 const Loginform = (props) => {
 
   const [data, setData] = useState({
@@ -19,6 +20,7 @@ const Loginform = (props) => {
 
 const [LoginCheck, setLoginCheck] = useState([])
 const [Errors, setErrors] = useState('')
+const [loader, setloader] = useState(false)
 
 const handleChange = e => {
   const { name, value } = e.target
@@ -43,8 +45,10 @@ const onLogin = () => {
 
    // axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})
     axios.post(`http://localhost:7777/login`, {username:username, password:password})
+    
     .then(res =>{
       console.log("res.data", res.data)
+      setloader(true)
       if(res.data.check){
         localStorage.setItem('user', JSON.stringify(res.data.data[0]))
         props.history.push('/contact')
@@ -81,6 +85,7 @@ return (
   <div className="field is-grouped">
     <div className="control">
       <button class="button is-link submit-btn" onClick={onLogin} >Submit</button>
+     
       <p className='error-message-text'>{LoginCheck[0]}</p>
     </div>
   </div>

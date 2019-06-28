@@ -35,6 +35,7 @@ const ContactForm = (props) => {
     const [showFlashMsg, setshowFlashMsg] = useState(false)
     const [selectDocument, setselectDocument] = useState('')
     const [test, setTest] = useState(null)
+    const [loader, setloader] = useState(false)
 
   
    
@@ -283,7 +284,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
     // -----------------------------------ERRORS------------------------- //
 
     const onSubmit = () => {
-
+       
         if(props.match.path == '/contact/3'){
             const errors = Validation(data)
             console.log(errors, 'Errors')
@@ -302,6 +303,8 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
         }
 
         }
+
+        
     
         if(selectedClaim == 0){
            if(FileNames.length == 0)  {
@@ -309,6 +312,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 
                 return
             }
+            setloader(true)
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -327,6 +331,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                      Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
+                            setloader(false)
                             setData({
                                 transaction_number: '',
                                 name: '',
@@ -336,13 +341,17 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
+                           
                         })
                         if(res.data == 'done'){
+                            setFileNames([])
                             setsuccessmsg('Data saved Successfully ')
                         }
+                       
                      })
                      setshowFlashMsg(false)
                      setselectDocument('')
+                    
             })
         }
         else if(selectedClaim == 1){
@@ -350,6 +359,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 setselectDocument(' Please Add Image')
                 return
             }
+            setloader(true)
             
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
@@ -369,6 +379,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
                     Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
+                            setloader(false)
                             setData({
                                 transaction_number: '',
                                 name: '',
@@ -378,6 +389,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
+                            
                         })
                         if(res.data == 'done'){
                             setSelectedImage([])
@@ -392,9 +404,9 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
         else{
             if(showLinks.length == 0)  {
                 setselectDocument(' Please Select Link')
-               
                 return
             }
+            setloader(true)
             
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
@@ -410,6 +422,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                  Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                     .then(res => {
+                        setloader(false)
                         console.log(res.data, 'link')
                         setData({
                             transaction_number: '',
@@ -419,8 +432,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             message: '',
                         })
                         setshowFlashMsg(true)
+                        
                         if(res.data == 'saved'){
                             setsuccessmsg('Data saved Successfully ')
+                            setShowLinks([])
                         }
                         
                     })
@@ -434,7 +449,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
 
     return (
         <div className="form-container">
-            <Loader/>
+            
             <div className="contact-form">
                 <div className="header"> <span>Contact Us</span> </div>
                 <div className="pading">
@@ -538,6 +553,8 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             <p>{successmsg}</p>
                         </FlashMassage>  : null 
                     } 
+
+                   {loader ? <img src ={require('../../images/loader.gif')}/> : ''}
                     
                 </div>
             </div>
