@@ -318,10 +318,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://localhost:7777/fileupload`, formData,
+                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
@@ -352,10 +352,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://localhost:7777/upload`, formData,
+                axios.post(`http://18.219.191.74:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
