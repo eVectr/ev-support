@@ -48,6 +48,7 @@ const handleChange = e => {
     
     if (!is.empty(errors)) {
         setErrors(errors) 
+        setData('')
         return 
     }
 
@@ -63,7 +64,7 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
+      axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
       .then(res =>{
         
           console.log("res =>", res)
@@ -73,10 +74,18 @@ const handleChange = e => {
         }else{
           setSuccessMessage('Something Went Wrong')
         }
+        setData({name:'',
+          email:'',
+          subject:'',
+          message: '',
+        });
       })
       setshowFlashMsg(false)
     })
+    
   }
+
+  
 
   console.log("ERRORS1 =>", Errors)
   return (

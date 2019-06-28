@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { connect } from 'react-redux'
 import FlashMassage from 'react-flash-message';
 import axios from 'axios'
@@ -10,6 +10,7 @@ import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
 import api_url from '../../utils/Const'
 import Loader from '../component/Loader'
+import { set } from 'mongoose';
 
 
 const ContactForm = (props) => {
@@ -174,21 +175,24 @@ const ContactForm = (props) => {
                 }</div>
 
                 <Uploader onDrop={onDrop}>
-                    <div className='field'>
-                    <p>{selectDocument}</p>
-                        <div className='file is-small'>
-                            <label className='file-label'>
-                                <span className={`file-cta font-1rem `}>
-                                    <span className='file-icon'>
-                                        <i className='fas fa-upload'></i>
+                    <Fragment>
+                        {/* <div className='field'>
+                            <div className='file is-small'>
+                                <label className='file-label'>
+                                    <span className={`file-cta font-1rem `}>
+                                        <span className='file-icon'>
+                                            <i className='fas fa-upload'></i>
+                                        </span>
+                                        <span className='file-label'>
+                                            Add
+                                        </span>
                                     </span>
-                                    <span className='file-label'>
-                                        Add
-                                    </span>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
+                                </label>
+                            </div>
+                        </div>     */}
+                        <button className='link-btn'>Add</button>
+                        <p className="show-document-msg">{selectDocument}</p>
+                    </Fragment>
                 </Uploader>
 
             </div>
@@ -201,7 +205,7 @@ const ContactForm = (props) => {
                 <div> {
                     SelectedImage.map((image, index) => {
                         return (
-                            <ul>
+                            <ul className='uploaded-images'>
                                 <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name)}></i></li>
                                 <img src={imagePreviewUrl[index]} />
                             </ul>
@@ -209,7 +213,7 @@ const ContactForm = (props) => {
                     })
                 }</div>
                 <ImageUploader onDrop={onDropImage}>
-                    <div className='field'>
+                    {/* <div className='field'>
                     <p>{selectDocument}</p>
                         <div className='file is-small'>
                             <label className='file-label'>
@@ -223,7 +227,11 @@ const ContactForm = (props) => {
                                 </span>
                             </label>
                         </div>
-                    </div>
+                    </div> */}
+                    <Fragment>
+                        <button className='link-btn'>Add</button>
+                        <p className="show-document-msg">{selectDocument}</p>
+                    </Fragment>
                 </ImageUploader>
 
             </div>
@@ -239,6 +247,7 @@ const ContactForm = (props) => {
                      }) 
                 }
                 <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
+                <p>{selectDocument}</p>
                 <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
             </div>         
         )
@@ -292,6 +301,11 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
         }
     
         if(selectedClaim == 0){
+           if(FileNames.length == 0)  {
+                setselectDocument(' Please Add Document')
+                
+                return
+            }
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -309,7 +323,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
-                            // console.log(res.data, 'Document Response')
+                            console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
                         })
                         if(res.data == 'done'){
@@ -317,13 +331,15 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                         }
                      })
                      setshowFlashMsg(false)
+                     setselectDocument('')
             })
         }
         else if(selectedClaim == 1){
-            if(SelectedImage.length ==0){
-                setselectDocument(' Please Select Document')
+            if(SelectedImage.length == 0)  {
+                setselectDocument(' Please Add Image')
                 return
             }
+            
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -351,9 +367,16 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
 
                 })
                 setshowFlashMsg(false)
+
             })
         }
-        else {
+        else{
+            if(showLinks.length == 0)  {
+                setselectDocument(' Please Select Link')
+               
+                return
+            }
+            
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -362,8 +385,8 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 let Message = data.message
                 let Case_No = no
                 let formData = new FormData()
-                for (let i = 0; i < SelectedImage.length; i++) {
-                    formData.append('SelectedImage', SelectedImage[i])
+                for (let i = 0; i < showLinks.length; i++) {
+                    formData.append('SelectedImage', showLinks[i])
                 }
                 axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
@@ -480,8 +503,6 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     }
                   
                     <button class="button is-success" onClick={onSubmit} >Send</button>
-                    {/* <p className='successmsg'>{successmsg}</p> */}
-
                     { 
                         showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
                             <p>{successmsg}</p>

@@ -36,10 +36,10 @@ const Loginform = (props) => {
   }
 console.log("selected reason =>", selectedReason)
   return (
-    <div>
-    {/* <SuccessfulNoitification text={text} show ={show} /> */}
+    <div className='select-reason'>
     <div className="sel-reason">
-      <h1 className="header">Reason for Contacting Us</h1>
+    <div className='selected-reason-data'></div>
+      <h1 className="header select-header">Reason for Contacting Us</h1>
       <p className="sel-reason_p">Please select the reason within the list below of why you are contacting us and press
       CONTINUE after you have completed doing this.</p>
       <select className="reason_select" onChange={handleChange}>

@@ -10,15 +10,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height:450px;
+  height:500px;
 }
 
 .log-form {
   width: 30%;
   background: #fff;
   padding: 2%;
-  box-shadow: 0px 0px 1px rgba(0,0,0,.8); 
+  box-shadow: 0px 0px 1px rgba(0,0,0,.8);  
   border-radius:1px;
+  border:1px solid #dbdbdb;
 }
 
 .header {
@@ -45,6 +46,7 @@ body {
 .submit-btn {
   background-color: #00d1b2!important;
   width: 100% !important;
+  margin-bottom: 10px;
 }
 
 .field.is-grouped {
@@ -53,12 +55,8 @@ body {
 }
 
 .sel-reason {
-  margin-top: 8%;
   width: 40%;
   background: #fff;
-  position: relative;
-  top: 20%;
-  left: 35%;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25); 
 }
 
@@ -67,11 +65,10 @@ body {
 }
 
 .sel-reason_p {
-  justify-content: left;
-  padding-left: 2%;
-  padding-bottom: 3%;
-  position: relative;
-
+    padding-bottom: 3%;
+    font-size: 1rem;
+    padding: 12px 54px;
+    text-align: left;
 }
 
 .sel-reason_input {
@@ -81,26 +78,26 @@ body {
 }
 
 .sel-reason .header {
-  text-align: left;
   padding-left: 2%;
   font-weight: bold;
   font-size: 20px;
-  background-color: lightgray
-
+  background-color: lightgray;
+  margin-bottom: 0;
 }
 
 .sel-reason .button {
-  width:60%;
-  margin-left: 20%;
-  margin-right:20%;
-  margin-bottom:2%;
-  margin-top:3%;
-  height: 3 em;
+  width: 80%;
+  margin-bottom: 8%;
+  margin-top: 3%;
 }
 
 .form-container {
   display: flex;
   justify-content: center;
+}
+
+.error-message-text {
+  font-size: .9rem;
 }
 
 .contact-form .header {
@@ -230,17 +227,15 @@ form {
   
    .reason_select {
     width:80%;
-    margin-left: 10%;
-    margin-right:10%;
     margin-bottom:2%;
-    font-size: 18px;
+    font-size: 16px;
     height: 2.25em;
    }
 
    .reason_select .text {
     width: 100%;
     padding: 2em;
-    font-size: 4em;
+    font-size: 1em;
    }
 
    .text-center {
@@ -263,6 +258,23 @@ form {
      padding-left:45px!important;
    }
  
+/* -------------------------------------------SELECTED-REASON-CSS---------------------------------------- */
+.select-reason{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    justify-content: center;
+}
+
+.select-header{
+  margin-top: 0;
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 3%; 
+}
+
+
+
 
    /*----------------------------------------uploding-file-css---------------------------*/
    /*----------------------------------------uploding-file-css---------------------------*/
@@ -283,7 +295,17 @@ form {
      display: inline-block;
    }
 
+   .uploaded-images{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 10px;
+   }
 
+   .uploaded-images img{
+     width: 30%;
+     height: 30%;
+   }
 
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */
@@ -346,13 +368,13 @@ form {
    }
 
    .show-notification-msg .notification{
-    width: 50%;
-    background-color: #20bc56;
-    color: #fff;
+    width: 100%;
+    background-color: #ff240036;
+    color: #ff003bc2;
     border-radius: 0;
+    font-size: 14px;
     padding: 10px;
-    font-size: 20px;
-    font-weight: 600;
+    font-weight: bold;
    }
 
     /* -----------------------------------------Notification-Css-------------------------------- */
@@ -367,5 +389,13 @@ form {
 
     /* ---------------------------------------Loading-Css-Start---------------------------------------- */
 
-
+    .show-document-msg{
+      color:green;
+    }
   
+    
+
+    .document{
+      display: flex;
+      flex-direction:column;
+    }
