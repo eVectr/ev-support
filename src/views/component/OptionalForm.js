@@ -318,6 +318,13 @@ console.log(SelectedImage, '<==Selected image')
                     console.log("response =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
+                            setData({
+                                transaction_number: '',
+                                name: '',
+                                email: '',
+                                subject: '',
+                                message: '',
+                            })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
                         })
@@ -352,6 +359,13 @@ console.log(SelectedImage, '<==Selected image')
                     console.log("res =>", res)
                     axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
                         .then(res => {
+                            setData({
+                                transaction_number: '',
+                                name: '',
+                                email: '',
+                                subject: '',
+                                message: '',
+                            })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
                         })
@@ -386,12 +400,20 @@ console.log(SelectedImage, '<==Selected image')
                 axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
                     .then(res => {
                         console.log(res.data, 'link')
+                        setData({
+                            transaction_number: '',
+                            name: '',
+                            email: '',
+                            subject: '',
+                            message: '',
+                        })
                         setshowFlashMsg(true)
                         if(res.data == 'saved'){
                             setsuccessmsg('Data saved Successfully ')
                         }
+                        
                     })
-                    setshowFlashMsg(false)
+                    setshowFlashMsg(false)                
             })
         }
     }

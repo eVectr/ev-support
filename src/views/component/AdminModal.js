@@ -6,7 +6,7 @@ import { resolve } from 'path';
 
 
 
-const AdminModal = (caseNo) => {
+const AdminModal = (caseNo, show) => {
     const styles = {
         fontFamily: "sans-serif",
         textAlign: "center"
@@ -58,9 +58,12 @@ const AdminModal = (caseNo) => {
            })
         }
    
+    
+
     return (
+        
         <div style={styles}>
-            <button className="button is-success send-btn" onClick={onOpenModal}>View</button>
+             {/* <button className="button is-success send-btn" onClick={onOpenModal}>View</button>  */}
             <Modal open={open} onClose={onCloseModal}>
                 
                     <div className="pading">
@@ -120,15 +123,23 @@ const AdminModal = (caseNo) => {
                     <div class="control has-icons-left has-icons-right">
                         <span className='uploaded-image'>
                             <label className="label left_align name">Uploaded Image:</label>
-            
+                            <div className='container image-container'>
+                            <div className='row image-row'>
                             {
                                  Images.map((image, index) => {
                                    let imgsrc = 'http://localhost:7777/'.concat(image)
                                   return (
-                                    <img src={imgsrc} className="uploaded-image-data" />
+                                        
+                                            <div className='column-img'>
+                                                <img src={imgsrc} className="uploaded-image-data columns" />
+                                            </div>
+                                      
+                                   
                                   )
                               })
                             }
+                             </div>
+                             </div>
                         </span>
                     </div>
 

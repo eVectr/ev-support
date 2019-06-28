@@ -36,20 +36,22 @@
 }
 .card{
    margin: 3%;
-    padding:25px;
-    box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5);
-    transition: 0.8s;
+    padding:15px;
+    /* box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5); */
+    /* transition: 0.8s; */
     border-radius:1px;
 }
 
-.card:hover {
+/* .card:hover {
     box-shadow: 0 10px 20px 0 rgba(79, 174, 252, 1);
-  }
-.admin-cases{
+  } */
+
+.admin-cases {
+    width: 33.33%;
+    margin-left: 20px;
     display: flex;
-    justify-content: space-between;
-   align-items: center;
-    border-radius: 5px;
+    flex-direction: column;
+    text-align: left;
 }
 
 .link-btn {
@@ -78,7 +80,13 @@
 /* ---------------------------------------------------ADMIN-MODAL-CSS------------------------------------- */
 
 .styles_closeButton__20ID4 {
-   top: 8px;  
+   top: 0px;  
+  right:0;
+}
+
+.styles_closeButton__20ID4:focus{
+    outline: 0;
+    border: none;
 }
 
 .modal-form {
@@ -131,7 +139,7 @@
 
 .uploaded-image{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     margin-bottom: 10px;
 }
@@ -139,10 +147,45 @@
 .uploaded-image-data{
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+
 }
 
-.uploaded-document{
-    border-bottom: 1px solid #000;
-    margin-bottom: 25px;
+.uploaded-documents{
+    border-bottom: 1px solid #999;
+    margin-bottom: 10px;
+}
+
+
+.styles_closeIcon__1QwbI{
+    font-size:18px!important;
+}
+
+.image-container{
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-row{
+    width:100%;
+    margin-left: 50px;
+}
+.column-img{
+    width: 33.33%;
+    float: left;
+    margin: 10px 0 30px 0;
+}
+
+
+.admin-card{
+    display: flex;
+    cursor: pointer;
+}
+
+.admin-cases b{
+    margin-right: 8px;
+}
+
+.admin-cases span{
+    font-size:.9rem;
 }
