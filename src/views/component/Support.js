@@ -5,7 +5,7 @@ import AdminModal from './AdminModal'
 import '../../styles/adminpanel.css'
 
 
-const AdminPanel = (props) => {
+const SupportTicket = (props) => {
 
     const [contacts, setContacts] = useState([])
     const [caseNo, setCaseNo] = useState('')
@@ -48,7 +48,7 @@ const AdminPanel = (props) => {
         <div className='container '>
             <div className='row'>
                 <div className='admin-panel'>
-                    <h3 className='admin-header'>Admin Panel</h3>
+                    <h3 className='admin-header'>Support Tickets</h3>
                     <div className='search-cases'>
                         <input type="text" className='link-data search' onChange={handleSearchChange}></input>
                         <button type="button" className='search-btn' onClick ={onSearch}>Search</button>
@@ -81,4 +81,4 @@ const AdminPanel = (props) => {
     )
 }
 
-export default AdminPanel
+export default SupportTicket

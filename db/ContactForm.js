@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
 var ContactForm = new mongoose.Schema({
+    Reason:String,
+    UserId:String,
     Transaction_Number: String,
     Name: String,
     Email: String,
@@ -11,6 +13,8 @@ var ContactForm = new mongoose.Schema({
     Image:  Array,
     Link: Array,
     date:Date,
+    Status:String,
+    Template:String
 });
 
 module.exports = mongoose.model('ContactForm', ContactForm)

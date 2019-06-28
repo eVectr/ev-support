@@ -7,6 +7,7 @@ import OptionalForm from './component/OptionalForm'
 import Navbar from './component/Navbar'
 import SelectReason  from './component/SelectReason'
 import AdminPanel from './component/AdminPanel'
+import Support from './component/Support'
 import RouterChangeObserver from './component/RouterChangeObserver'
 import SuccessfulNotification from './component/SuccessfulNotification'
 
@@ -29,6 +30,7 @@ const Routes = (props) => {
             <Route exact path="/contact/2" component={OptionalForm} />
             <Route exact path="/contact/3" component={OptionalForm} />
             <Route exact path="/admin" component={AdminPanel} />
+            <Route exact path="/support" component={Support} />
         </Switch>
     </RouterChangeObserver>
     </BrowserRouter>

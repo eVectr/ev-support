@@ -24,7 +24,6 @@ const ContactForm = (props) => {
     })
 
     const [imagePreviewUrl, setimagePreviewUrl] = useState([])
-
     const [selectedClaim, setSelectedClaim] = useState(0)
     const [FileNames, setFileNames] = useState([])
     const [SelectedImage, setSelectedImage] = useState([])
@@ -73,7 +72,7 @@ const ContactForm = (props) => {
                 let temp = Math.random().toString()
                  temp = new FileReader()
                 temp.onloadend = () => {
-                    console.log("reader.result ==>", temp.result)
+            
                     setimagePreviewUrl(prev => {
                         const update = prev.concat([temp.result])
                         return update
@@ -91,8 +90,6 @@ const ContactForm = (props) => {
                     
                 }
             }
-            
-         
 
         } else {
             setSelectedImage(prev => {
@@ -101,7 +98,6 @@ const ContactForm = (props) => {
             })
             let reader = new FileReader()
             reader.onloadend = () => {
-                console.log("reader.result ==>", reader.result)
                 setimagePreviewUrl(prev => {
                     const update = prev.concat([reader.result])
                     return update
@@ -116,12 +112,11 @@ const ContactForm = (props) => {
     }
 
     let generateCaseNo = () => {
-
         return new Promise((resolve, reject) => {
             let date = new Date
             let sec = date.getSeconds() + 1
             console.log(sec)
-            let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
+            let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed() * sec)
             resolve(caseNo)
         })
     }
@@ -136,29 +131,37 @@ const ContactForm = (props) => {
         setFileNames(files)
     }
 
-    let deleteImage = (image) => {
-        let images =  SelectedImage.filter((imagename, index) => {
-        return imagename.name!== image
-    })
-       setSelectedImage(images)
+    let deletepreviewimage = (previewimage) =>{
+        let previewimages = imagePreviewUrl.filter((url, index) =>{
+            return url !==previewimage
+        })
+        setimagePreviewUrl([previewimages])
+    }
+
+    let deleteImage = (image, previewimage) => {
+        deletepreviewimage(previewimage)
+        let images = SelectedImage.filter((imagename, index) => {
+            return imagename.name !== image
+        })
+        setSelectedImage(images)
     }
 
     let deleteLink = (clickedLink) => {
-       let links = showLinks.filter((link, index) => {
+        let links = showLinks.filter((link, index) => {
             return link !== clickedLink
-       }) 
-       setShowLinks(links)
+        })
+        setShowLinks(links)
     }
 
 
 
     let showLinkData = () => {
-       let links = showLinks
-       links = [
-           ...showLinks,
-           linkData
-       ]
-       setShowLinks(links)
+        let links = showLinks
+        links = [
+            ...showLinks,
+            linkData
+        ]
+        setShowLinks(links)
     }
 
     const Documents = () => {
@@ -206,7 +209,7 @@ const ContactForm = (props) => {
                     SelectedImage.map((image, index) => {
                         return (
                             <ul className='uploaded-images'>
-                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name)}></i></li>
+                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name, imagePreviewUrl[index])}></i></li>
                                 <img src={imagePreviewUrl[index]} />
                             </ul>
                         )
@@ -318,10 +321,11 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
+                axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
-                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                     Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
@@ -352,10 +356,11 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://18.219.191.74:7777/upload`, formData,
+                axios.post(`http://localhost:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                    Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
@@ -388,7 +393,8 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-                axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link:showLinks })
+                axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                 Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                     .then(res => {
                         console.log(res.data, 'link')
                         setshowFlashMsg(true)

@@ -39,9 +39,9 @@ app.use((req, res, next)=>{
 })
 
 // var user = new User({
-//     Name: 'Admin',
-//     Password: 'admin@123',
-//     Type:'admin'
+//     Name: 'Rajat',
+//     Password: 'rajat@123',
+//     Type:'user'
 // })
 // user.save()
 
@@ -81,6 +81,7 @@ app.post('/fileupload', (req, res) => {
 })
 
 app.post('/saveContact', (req, res) => {
+  let UserId = req.body.UserId
   let Transaction_Number = req.body.Transaction_Number 
   let Name = req.body.Name
   let Email = req.body.Email
@@ -91,8 +92,11 @@ app.post('/saveContact', (req, res) => {
   let Document = filepaths
   let Image = imagepaths
   let Link = req.body.Link
+  let Reason = req.body.Reason
+  let  Template = req.body.Template
 
   var contactForm = new ContactForm ({
+    UserId:UserId,
     Transaction_Number : Transaction_Number,
      Name : Name,
      Email : Email,
@@ -102,7 +106,10 @@ app.post('/saveContact', (req, res) => {
      Case_No : Case_No,
      Document: Document,
      Image: Image,
-     Link: Link
+     Link: Link,
+     Status:'Open',
+     Reason:Reason,
+     Template: Template
   })
   contactForm.save((err, data)=>{
     if(err){

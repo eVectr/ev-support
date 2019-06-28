@@ -20,8 +20,10 @@ let home = () =>{
    props.history.push('/')
 }
 
-   console.log("nav props ==>", props.auth.userDetails)
-  console.log(" localStorage =>", (localStorage.user))
+let support = () =>{
+    props.history.push('/support')
+ }
+
     let admincheck
     if(localStorage.user != undefined){
        if (JSON.parse(localStorage.user).Type == 'admin') {
@@ -56,6 +58,10 @@ let home = () =>{
 
                     <a class="navbar-item" onClick ={admin}>
                          {admincheck?<strong>Admin</strong>:''}
+                    </a>
+
+                    <a class="navbar-item" onClick ={support}>
+                         {!admincheck && localStorage.user != undefined?<strong>Support</strong>:''}
                     </a>
 
                </div>

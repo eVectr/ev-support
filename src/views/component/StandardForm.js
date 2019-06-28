@@ -64,7 +64,9 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link })
+      axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, 
+      Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link, 
+      Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template})
       .then(res =>{
         
           console.log("res =>", res)
@@ -84,10 +86,7 @@ const handleChange = e => {
     })
     
   }
-
-  
-
-  console.log("ERRORS1 =>", Errors)
+console.log("props ==>", props.notificationreducer.selectedReason)
   return (
     <div className = "form-container">
     <div className="contact-form">

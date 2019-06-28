@@ -18,7 +18,7 @@ const AdminModal = (caseNo) => {
 
 
     let onOpenModal = () => {
-        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:CaseNo})
+        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:CaseNo})
              .then(res => {
                setContacts(res.data[0])
             })
@@ -30,7 +30,7 @@ const AdminModal = (caseNo) => {
     }
 
     let sendMail = () =>{
-        axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contacts.Email})
+        axios.post(`http://localhost:7777/sendmail`, {message:message, email:contacts.Email})
         .then(res => {
           console.log("res ==>", res)
        })
@@ -123,7 +123,8 @@ const AdminModal = (caseNo) => {
             
                             {
                                  Images.map((image, index) => {
-                                   let imgsrc = 'http://18.219.191.74:7777:7777/'.concat(image)
+                                   let imgsrc = 'http://localhost:7777/'.concat(image)
+                                   console.log("imgsrc ==>", imgsrc)
                                   return (
                                     <img src={imgsrc} className="uploaded-image-data" />
                                   )
