@@ -65,7 +65,7 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`http://18.219.191.74:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, 
+      axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, 
       Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link, 
       Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template})
       .then(res =>{

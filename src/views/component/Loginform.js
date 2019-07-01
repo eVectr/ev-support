@@ -43,8 +43,8 @@ const onLogin = () => {
     let username = data.username
     let password = data.password
 
-    axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})
-   // axios.post(`http://localhost:7777/login`, {username:username, password:password})
+    //axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})
+    axios.post(`http://localhost:7777/login`, {username:username, password:password})
     
     .then(res =>{
       console.log("res.data", res.data)

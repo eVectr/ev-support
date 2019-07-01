@@ -192,3 +192,23 @@
 .admin-cases span{
     font-size:.9rem;
 }
+
+.previous {
+    background-color: #f1f1f1;
+    border-radius: 10%;
+    color: black;
+    height: 30px;
+    margin: 10px
+  }
+  
+  .next {
+    background-color: #f1f1f1;
+    border-radius: 10%;
+    color: black;
+    height: 30px;
+    margin: 10px
+  }
+
+  .prevactive{
+    background-color: #4CAF50;
+  }

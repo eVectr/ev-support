@@ -4,6 +4,7 @@ import axios from 'axios'
 import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
+import filterArray from '../../utils/Common'
 
 
 const SupportTicket = (props) => {
@@ -13,9 +14,11 @@ const SupportTicket = (props) => {
     const [contact, setContact] = useState({})
     const [message, setMessage] = useState('')
     const [open, setOpen] = useState(false)
+    const [start, setStart] = useState(0)
+    const [limit, setLimit] = useState(5)
 
     useEffect(() => {
-        axios.post(`http://18.219.191.74:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
+        axios.post(`http://localhost:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
             .then(res => {
                 let { data = [] } = res
                 setContacts(data.reverse())
@@ -29,7 +32,7 @@ const SupportTicket = (props) => {
 
     let onSearch = ()=>{
         
-        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:caseNo})
+        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:caseNo})
              .then(res => {
                 if(res.data.length >0 ){
                     setContacts([])
@@ -44,7 +47,7 @@ const SupportTicket = (props) => {
 
 
     let onOpenModal = (CaseNo) => {
-        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:CaseNo})
+        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:CaseNo})
              .then(res => {
                setContact(res.data[0])
             })
@@ -56,7 +59,7 @@ const SupportTicket = (props) => {
     }
 
     let sendMail = () =>{
-        axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contact.Email})
+        axios.post(`http://localhost:7777/sendmail`, {message:message, email:contact.Email})
         .then(res => {
           console.log("res ==>", res)
        })
@@ -83,8 +86,17 @@ const SupportTicket = (props) => {
           Documents.push(itemArr[1])
            })
         }
+
+        let nextPage = () => {
+            setStart(start + limit)
+          }
+          
+        let prevPage = () => {
+            setStart(start - limit)
+          }
    
-    
+    const searchCases = filterArray(contacts, 'Case_No', caseNo)
+    const filteredContacts = searchCases.slice(start, start + limit)
     
     return (
         <div className='container '>
@@ -92,13 +104,13 @@ const SupportTicket = (props) => {
                 <div className='admin-panel'>
                     <h3 className='admin-header'>Support Tickets</h3>
                     <div className='search-cases'>
-                        <input type="text" className='link-data search' onChange={handleSearchChange}></input>
-                        <button type="button" className='search-btn' onClick ={onSearch}>Search</button>
+                        <input type="text" placeholder ="Search by Case No....."  className='link-data search' onChange={handleSearchChange}></input>
+        
                     </div>
                 </div>
             </div>
-            {
-                contacts.map(
+            {searchCases.length?
+                filteredContacts.map(
                     (contact, index) =>
 
                         <div className='card admin-card'  onClick={() => onOpenModal(contact.Case_No)}>
@@ -136,7 +148,11 @@ const SupportTicket = (props) => {
                         </div>
 
                 )
+                :<h1>No cases found!</h1>
             }
+            <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`}>&laquo; Previous</button>
+            <button disabled={searchCases.length <= (start + limit)} 
+            onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`}>Next &raquo;</button>
 
 
             <Modal open={open} onClose={onCloseModal}>
@@ -184,7 +200,7 @@ const SupportTicket = (props) => {
                         <label className="label left_align name">Uploaded Document:</label>
                         {
                              Documents.map((document, index) => {
-                               let doc = 'http://18.219.191.74:7777/'.concat(document)
+                               let doc = 'http://localhost:7777/'.concat(document)
                               return (
                                 <a href={doc}>{document}</a>
   
@@ -201,7 +217,7 @@ const SupportTicket = (props) => {
                         <div className='row image-row'>
                         {
                              Images.map((image, index) => {
-                               let imgsrc = 'http://18.219.191.74:7777/'.concat(image)
+                               let imgsrc = 'http://localhost:7777/'.concat(image)
                               return (
                                     
                                         <div className='column-img'>
