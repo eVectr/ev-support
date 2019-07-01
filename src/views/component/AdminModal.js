@@ -128,7 +128,7 @@ const AdminModal = (caseNo, show) => {
                             {
                                  Images.map((image, index) => {
                                    let imgsrc = 'http://18.219.191.74:7777'.concat(image)
-                                   console.log("imgsrc ==>", imgsrc)
+                                   console.log("imgsource ==>", imgsrc)
                                   return (
                                         
                                             <div className='column-img'>
