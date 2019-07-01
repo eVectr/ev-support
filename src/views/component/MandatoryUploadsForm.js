@@ -93,7 +93,7 @@ const ContactForm = (props) => {
           let Image = ImagePath
           let Link = ''
     
-          axios.post(`http://localhost:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Document, Image, Link })
+          axios.post(`http://18.219.191.74:7777/saveContact`, {Transaction_Number,Name, Email, Subject, Message,date, Case_No, Document, Image, Link })
           .then(res =>{
           })
         })
@@ -124,7 +124,7 @@ const ContactForm = (props) => {
         for(let i = 0; i< SelectedImage.length ; i++){
             formData.append('SelectedImage', SelectedImage[i])
         }
-        axios.post(`http://localhost:7777/upload`, formData,{
+        axios.post(`http://18.219.191.74:7777/upload`, formData,{
             headers: { 'content-type': 'multipart/form-data' }
         }).then(res => { 
             console.log("res =>", res)
