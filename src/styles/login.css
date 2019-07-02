@@ -335,7 +335,11 @@ form {
    .link-data {
      border:1px solid #999;
      border-radius: 4px;
-     padding: 5px;
+    
+  }
+
+  .links{
+    padding: 5px;
   }
 
   .link-data:focus {

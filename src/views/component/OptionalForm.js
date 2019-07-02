@@ -242,7 +242,7 @@ const ContactForm = (props) => {
                          return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
                      }) 
                 }
-                <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
+                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
                 <p>{selectDocument}</p>
                 <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
             </div>         
