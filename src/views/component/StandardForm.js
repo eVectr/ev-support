@@ -72,7 +72,7 @@ const handleChange = e => {
           setshowFlashMsg(true)
           setloader(false)
         if(res.status == 200){
-          setSuccessMessage('Contact Data Saved Successfuly')
+          setSuccessMessage('Your query has been recorded')
         }else{
           setSuccessMessage('Something Went Wrong')
         }

@@ -22,6 +22,8 @@ const AdminPanel = (props) => {
             })
     }, [])
 
+
+
     let handleSearchChange = e =>{
         const { value } = e.target
         setCaseNo(value)
@@ -45,6 +47,8 @@ const AdminPanel = (props) => {
             })
         setOpen(true)
     }
+
+    console.log(contact,'contact')
 
     let onCloseModal = () => {
         setOpen(false)
@@ -127,7 +131,6 @@ const AdminPanel = (props) => {
                                     </span>
                                 </div>
                             </div>
-                            {/* <AdminModal caseNo={contact.Case_No}></AdminModal> */}
                         </div>
 
                 )
@@ -138,7 +141,7 @@ const AdminPanel = (props) => {
                 <div className="pading">
                     <div className="field">
                         <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
+                            <span className='name uploaded-name'>
                                 <label className="label left_align name">Name:</label>
                                 <p>{contact.Name}</p>
                             </span>
@@ -168,29 +171,33 @@ const AdminPanel = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <span className='uploaded-name upload-msg '>
                                 <label className="label left_align name">Message:</label>
-                                <p className='show-msg '>{contact.Message}</p>
+                                <p className='show-msg'>{contact.Message}</p>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div className='uploaded-documents'>
-                <div class="control has-icons-left has-icons-right">
-                    <span className='uploaded-name document'>
+                 <div class="control has-icons-left has-icons-right">
+                    
+                          <span className='uploaded-name document'>
                         <label className="label left_align name">Uploaded Document:</label>
                         {
-                             Documents.map((document, index) => {
-                               let doc = 'http://localhost:7777/'.concat(document)
-                              return (
+                            Documents.map((document, index) => {
+                            let doc = 'http://localhost:7777/'.concat(document)
+                            return (
                                 <a href={doc}>{document}</a>
-  
-                              )
-                          })
+
+                            )
+                        })
                         }
-                    </span>
-                </div>
+                    </span> 
+                    
+                       
+                    </div>
 
                 <div class="control has-icons-left has-icons-right">
                     <span className='uploaded-image'>
+                
                         <label className="label left_align name">Uploaded Image:</label>
                         <div className='container image-container'>
                         <div className='row image-row'>
@@ -198,13 +205,10 @@ const AdminPanel = (props) => {
                              Images.map((image, index) => {
                                let imgsrc = 'http://localhost:7777/'.concat(image)
                               return (
-                                    
-                                        <div className='column-img'>
-                                            <img src={imgsrc} className="uploaded-image-data columns" />
-                                        </div>
-                                  
-                               
-                              )
+                                    <div className='column-img'>
+                                        <img src={imgsrc} className="uploaded-image-data columns" />
+                                    </div>
+                                )
                           })
                         }
                          </div>

@@ -336,7 +336,7 @@ console.log(SelectedImage, '<==Selected image')
                         })
                         if(res.data == 'done'){
                             setFileNames([])
-                            setsuccessmsg('Data saved Successfully ')
+                            setsuccessmsg('Your query has been recorded ')
                         }
                        
                      })
@@ -384,7 +384,7 @@ console.log(SelectedImage, '<==Selected image')
                         })
                         if(res.data == 'done'){
                             setSelectedImage([])
-                            setsuccessmsg('Data saved Successfully ')
+                            setsuccessmsg('Your query has been recorded')
                         }
 
                 })
@@ -424,7 +424,7 @@ console.log(SelectedImage, '<==Selected image')
                         setshowFlashMsg(true)
                         
                         if(res.data == 'saved'){
-                            setsuccessmsg('Data saved Successfully ')
+                            setsuccessmsg('Your query has been recorded')
                             setShowLinks([])
                         }
                         
@@ -506,7 +506,7 @@ console.log(SelectedImage, '<==Selected image')
                     </div>
 
                     <div className="field">
-                        <label className="label left_align">Options to Substantiate Claim (Mendatory)</label>
+                        <label className="label left_align">Options to Substantiate Claim (Mandatory)</label>
                     </div>
 
                     <div className="field">
