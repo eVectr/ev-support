@@ -199,3 +199,7 @@
 .name{
     margin-top: 5px;;
 }
+
+.uploaded-link-data{
+    flex-direction: column;
+}

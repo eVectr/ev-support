@@ -129,12 +129,10 @@ const AdminModal = (caseNo, show) => {
                                    let imgsrc = 'http://localhost:7777/'.concat(image)
                                   return (
                                         
-                                            <div className='column-img'>
-                                                <img src={imgsrc} className="uploaded-image-data columns" />
-                                            </div>
-                                      
-                                   
-                                  )
+                                    <div className='column-img'>
+                                        <img src={imgsrc} className="uploaded-image-data columns" />
+                                    </div>
+                                )
                               })
                             }
                              </div>

@@ -13,7 +13,7 @@ const AdminPanel = (props) => {
     const [contact, setContact] = useState({})
     const [message, setMessage] = useState('')
     const [open, setOpen] = useState(false)
-
+   
     useEffect(() => {
         axios.get(`http://18.219.191.74:7777/getcontacts`)
             .then(res => {
@@ -48,7 +48,7 @@ const AdminPanel = (props) => {
         setOpen(true)
     }
 
-    console.log(contact,'contact')
+    
 
     let onCloseModal = () => {
         setOpen(false)
@@ -82,8 +82,6 @@ const AdminPanel = (props) => {
           Documents.push(itemArr[1])
            })
         }
-   
-    
     
     return (
         <div className='container '>
@@ -176,63 +174,65 @@ const AdminPanel = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className='uploaded-documents'>
-                 <div class="control has-icons-left has-icons-right">
-                    
-                          <span className='uploaded-name document'>
-                        <label className="label left_align name">Uploaded Document:</label>
-                        {
-                            Documents.map((document, index) => {
-                            let doc = 'http://localhost:7777/'.concat(document)
-                            return (
-                                <a href={doc}>{document}</a>
+                    <div className='uploaded-documents'>
+                        <div class="control has-icons-left has-icons-right">
+                            {
+                                Documents.length>0 ?  <span className='uploaded-name document'>
+                                <label className="label left_align name">Uploaded Document:</label>
+                                {
+                                    Documents.map((document, index) => {
+                                    let doc = 'http://localhost:7777/'.concat(document)
+                                    return (
+                                        <a href={doc}>{document}</a>
 
-                            )
-                        })
-                        }
-                    </span> 
-                    
-                       
+                                    )
+                                })
+                                }
+                            </span> : ''
+                            }
+                        </div>
+
+                        <div class="control has-icons-left has-icons-right">
+                                {
+                                Images.length>0 ?  <span className='uploaded-image'>
+
+                                <label className="label left_align name">Uploaded Image:</label>
+                                    <div className='container image-container'>
+                                        <div className='row image-row'>
+                                {
+                                    Images.map((image, index) => {
+                                        let imgsrc = 'http://localhost:7777/'.concat(image)
+                                        return (
+                                            <div className='column-img'>
+                                                <img src={imgsrc} className="uploaded-image-data columns" />
+                                            </div>
+                                        )
+                                    })
+                                }
+                                </div>
+                                </div>
+                            </span> :  ''
+                            }
+                        </div>
+
+                        <div class="control has-icons-left has-icons-right">
+                           {
+                               contact.Link == '' ?  '' :  <span className='uploaded-name uploaded-link-data'>
+                               <label className="label left_align name">Uploaded Link</label>
+                               <p>{contact.Link}</p>
+                           </span>
+                           }
+                        </div>
                     </div>
-
-                <div class="control has-icons-left has-icons-right">
-                    <span className='uploaded-image'>
-                
-                        <label className="label left_align name">Uploaded Image:</label>
-                        <div className='container image-container'>
-                        <div className='row image-row'>
-                        {
-                             Images.map((image, index) => {
-                               let imgsrc = 'http://localhost:7777/'.concat(image)
-                              return (
-                                    <div className='column-img'>
-                                        <img src={imgsrc} className="uploaded-image-data columns" />
-                                    </div>
-                                )
-                          })
-                        }
-                         </div>
-                         </div>
-                    </span>
-                </div>
-
-                <div class="control has-icons-left has-icons-right">
-                    <span className='uploaded-name'>
-                        <label className="label left_align name">Uploaded Link</label>
-                        <p>{contacts.Link}</p>
-                    </span>
-                </div>
-                </div>
-                <div className="field">
-                    <label className="label left_align reply-msg">Reply</label>
-                    <div className="control">
-                        <textarea className="textarea reply-msg" name="message" placeholder="Enter Message (Mandatory)" 
-                         value={message.body} onChange={handleMessageChange} />
-                        <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
-                    </div>
-                </div>
+                    <div className="field">
+                        <label className="label left_align reply-msg">Reply</label>
+                        <div className="control">
+                            <textarea className="textarea reply-msg" name="message" placeholder="Enter Message (Mandatory)" 
+                            value={message.body} onChange={handleMessageChange} />
+                            <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
+                        </div>
+                    </div> 
             </Modal>
-
         </div>
     )
 }
