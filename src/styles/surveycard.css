@@ -1,0 +1,130 @@
+.App{
+    text-align: left;
+}
+.survey-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-header {
+  background-color: #bdb8b83d!important;
+  margin-bottom: 30px;
+}
+
+.card-heading{
+    color:#000;
+    font-size: 1rem!important;
+    font-weight: 400!important;
+    border-radius: 3px;
+
+}
+
+.card-heading .fa-cog {
+    font-weight: 600!important;
+    margin-right: 10px;
+
+}
+
+.card{
+padding-bottom: 50px;
+ width: 50%;
+}
+
+.checkboxes{
+    padding:0 0 20px 50px;
+    
+}
+
+.checkbox-inline{
+    font-size: .9rem;
+}
+
+.checkbox-inline input[type='checkbox']{
+    margin-right: 30px;
+    width: .9rem; 
+    height: .9rem;
+    cursor: pointer;
+}
+
+.survey-question{
+    margin-bottom: 15px;
+    font-size: .9rem;
+}
+
+.lable-text{
+    margin-right:60px;
+}
+
+.survey-complaint{
+    margin-left: 45px;
+}
+
+.survey-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.survey-btn a{
+    width: 350px;
+}
+
+.btn-angle-down{
+    display: flex;
+    height: 15px;
+    width: 15px;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.btn-angle-down i{
+    color:#00b89c;
+    font-size: .7rem;
+}
+
+.address{
+    padding: .75rem;
+}
+
+.address input{
+    border:1px solid #999999;
+    padding: 5px;
+}
+.address input:focus{
+    box-shadow: none;
+    outline: 0;
+}
+
+.control.has-icons-left .input {
+    padding-left: 3rem;
+}
+
+.icon {
+    background-color:#bdb8b83d!important;
+    margin-right: 10px;
+}
+
+
+.control textarea{
+    border:1px solid #999999;
+    padding: 5px;
+}
+.control textarea:focus{
+    box-shadow: none;
+    outline: 0;
+}
+
+
+.checkbox-data{
+    display: flex;
+}
+
+.checkbox-inline{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}

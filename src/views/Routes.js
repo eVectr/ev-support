@@ -9,6 +9,7 @@ import SelectReason  from './component/SelectReason'
 import AdminPanel from './component/AdminPanel'
 import RouterChangeObserver from './component/RouterChangeObserver'
 import SuccessfulNotification from './component/SuccessfulNotification'
+import SurveyCard from './component/SurveyCard.js';
 
 const Routes = (props) => {
     let { notificationreducer = {} } = props
@@ -29,6 +30,7 @@ const Routes = (props) => {
             <Route exact path="/contact/2" component={OptionalForm} />
             <Route exact path="/contact/3" component={OptionalForm} />
             <Route exact path="/admin" component={AdminPanel} />
+            <Route exact path="/contact/4" component={SurveyCard} />
         </Switch>
     </RouterChangeObserver>
     </BrowserRouter>

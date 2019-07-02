@@ -48,9 +48,10 @@ const handleChange = e => {
     
     if (!is.empty(errors)) {
         setErrors(errors) 
-        setData('')
         return 
     }
+
+    console.log(errors, 'errors')
 
     setloader(true)
         
