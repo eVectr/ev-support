@@ -9,7 +9,8 @@ var fs = require('fs')
 const User = require('../db/user.js')
 const ContactForm = require('../db/ContactForm')
 const ContactCategory = require('../db/contactcategory.js')
-
+const ClientSurvey = require('../db/clientSurvey')
+const TransactionSurvey = require('../db/TransactionSurvey')
 let api = require("../api/api");
 
 var app = express()
@@ -44,6 +45,12 @@ app.use((req, res, next)=>{
 //     Type:'user'
 // })
 // user.save()
+
+// var transactionSurvey = new TransactionSurvey({
+//     Question: 'If no would you like to file a complaint?',
+//     Options: ['YES', 'NO']
+// })
+//transactionSurvey.save()
 
 const storage = multer.diskStorage({
   destination:function(req, file, cb){
