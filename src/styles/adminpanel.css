@@ -21,6 +21,7 @@
 
 .search{
     width:100%;
+    padding: 5px;
 }
 
 .search-btn{
@@ -81,7 +82,9 @@
 
 }
 /* ---------------------------------------------------ADMIN-MODAL-CSS------------------------------------- */
-
+.styles_modal__gNwvD{
+    padding: 25px;
+}
 .styles_closeButton__20ID4 {
    top: 0px;  
   right:0;
@@ -137,7 +140,8 @@
 
 
 .show-msg{
-    margin-bottom: 20px;
+  background-color: #99999957;
+  padding: 5px;
 }
 
 .uploaded-image{
@@ -160,7 +164,7 @@
 
 
 .styles_closeIcon__1QwbI{
-    font-size:18px!important;
+   padding: 2px;
 }
 
 .image-container{
@@ -212,3 +216,10 @@
   .prevactive{
     background-color: #4CAF50;
   }
+.name{
+    margin-top: 5px;;
+}
+.page-data{
+    width: 100%;
+    text-align: center;
+}

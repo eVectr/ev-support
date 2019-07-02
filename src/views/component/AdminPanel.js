@@ -25,6 +25,8 @@ const AdminPanel = (props) => {
             })
     }, [])
 
+
+
     let handleSearchChange = e =>{
         const { value } = e.target
         setCaseNo(value)
@@ -38,6 +40,8 @@ const AdminPanel = (props) => {
             })
         setOpen(true)
     }
+
+    console.log(contact,'contact')
 
     let onCloseModal = () => {
         setOpen(false)
@@ -128,22 +132,22 @@ const AdminPanel = (props) => {
                                     </span>
                                 </div>
                             </div>
-                            {/* <AdminModal caseNo={contact.Case_No}></AdminModal> */}
                         </div>
 
                 ):
                 <h1>No cases found!</h1>
             }
+            <div className='page-data'>
             <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`}>&laquo; Previous</button>
             <button disabled={searchCases.length <= (start + limit)} 
             onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`}>Next &raquo;</button>
-
+            </div>
 
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">
                     <div className="field">
                         <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
+                            <span className='name uploaded-name'>
                                 <label className="label left_align name">Name:</label>
                                 <p>{contact.Name}</p>
                             </span>
@@ -173,29 +177,33 @@ const AdminPanel = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <span className='uploaded-name upload-msg '>
                                 <label className="label left_align name">Message:</label>
-                                <p className='show-msg '>{contact.Message}</p>
+                                <p className='show-msg'>{contact.Message}</p>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div className='uploaded-documents'>
-                <div class="control has-icons-left has-icons-right">
-                    <span className='uploaded-name document'>
+                 <div class="control has-icons-left has-icons-right">
+                    
+                          <span className='uploaded-name document'>
                         <label className="label left_align name">Uploaded Document:</label>
                         {
-                             Documents.map((document, index) => {
-                               let doc = 'http://18.219.191.74:7777'.concat(document)
-                              return (
+                            Documents.map((document, index) => {
+                            let doc = 'http://localhost:7777/'.concat(document)
+                            return (
                                 <a href={doc}>{document}</a>
-  
-                              )
-                          })
+
+                            )
+                        })
                         }
-                    </span>
-                </div>
+                    </span> 
+                    
+                       
+                    </div>
 
                 <div class="control has-icons-left has-icons-right">
                     <span className='uploaded-image'>
+                
                         <label className="label left_align name">Uploaded Image:</label>
                         <div className='container image-container'>
                         <div className='row image-row'>

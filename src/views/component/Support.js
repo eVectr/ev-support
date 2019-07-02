@@ -150,10 +150,11 @@ const SupportTicket = (props) => {
                 )
                 :<h1>No cases found!</h1>
             }
+            <div className='page-data'>
             <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`}>&laquo; Previous</button>
             <button disabled={searchCases.length <= (start + limit)} 
             onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`}>Next &raquo;</button>
-
+            </div>
 
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">

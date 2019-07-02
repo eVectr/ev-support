@@ -40,6 +40,8 @@ const onLogin = () => {
         return
     }
 
+    setloader(true)
+
     let username = data.username
     let password = data.password
 
@@ -48,7 +50,7 @@ const onLogin = () => {
     
     .then(res =>{
       console.log("res.data", res.data)
-      setloader(true)
+      setloader(false)
       if(res.data.check){
         localStorage.setItem('user', JSON.stringify(res.data.data[0]))
         props.history.push('/contact')
@@ -84,8 +86,10 @@ return (
   </div>
   <div className="field is-grouped">
     <div className="control">
-      <button class="button is-link submit-btn" onClick={onLogin} >Submit</button>
-     
+      <button class="button  is-link submit-btn" onClick={onLogin} >Submit</button>
+      {
+        loader ? <div className='loading'><img src = {require('../../images/loader.gif')} /> </div>: ''
+      }
       <p className='error-message-text'>{LoginCheck[0]}</p>
     </div>
   </div>

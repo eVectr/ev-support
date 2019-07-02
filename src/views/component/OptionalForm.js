@@ -250,7 +250,7 @@ const ContactForm = (props) => {
                          return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
                      }) 
                 }
-                <input type="text" className='link-data' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
+                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
                 <p>{selectDocument}</p>
                 <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
             </div>         
@@ -333,7 +333,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                         })
                         if(res.data == 'done'){
                             setFileNames([])
-                            setsuccessmsg('Data saved Successfully ')
+                            setsuccessmsg('Your query has been recorded ')
                         }
                        
                      })
@@ -381,7 +381,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                         })
                         if(res.data == 'done'){
                             setSelectedImage([])
-                            setsuccessmsg('Data saved Successfully ')
+                            setsuccessmsg('Your query has been recorded')
                         }
 
                 })
@@ -422,7 +422,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                         setshowFlashMsg(true)
                         
                         if(res.data == 'saved'){
-                            setsuccessmsg('Data saved Successfully ')
+                            setsuccessmsg('Your query has been recorded')
                             setShowLinks([])
                         }
                         
@@ -506,7 +506,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     </div>
 
                     <div className="field">
-                        <label className="label left_align">Options to Substantiate Claim (Mendatory)</label>
+                        <label className="label left_align">Options to Substantiate Claim (Mandatory)</label>
                     </div>
 
                     <div className="field">

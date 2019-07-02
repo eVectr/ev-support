@@ -51,6 +51,7 @@ const Loginform = (props) => {
       <h1 className="header select-header">Reason for Contacting Us</h1>
       <p className="sel-reason_p">Please select the reason within the list below of why you are contacting us and press
       CONTINUE after you have completed doing this.</p>
+      <div className='select-data'> 
       <select className="reason_select" onChange={handleChange}>
         <option value="" disabled selected>Specify your reason for contacting us</option>
         {
@@ -69,7 +70,10 @@ const Loginform = (props) => {
           )
         }
       </select>
-      <button class="button is-success" onClick={onSelectReason}>Continue</button>
+      </div>
+      <div className='select-data'>
+        <button class="button is-success" onClick={onSelectReason}>Continue</button>
+      </div>
     </div>
     </div>
   )

@@ -63,7 +63,6 @@ const AdminModal = (caseNo, show) => {
     return (
         
         <div style={styles}>
-             {/* <button className="button is-success send-btn" onClick={onOpenModal}>View</button>  */}
             <Modal open={open} onClose={onCloseModal}>
                 
                     <div className="pading">
