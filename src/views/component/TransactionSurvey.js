@@ -17,6 +17,7 @@ const SurveyCard = (props) => {
   let [question5, setQuestion5 ] = useState()
   let [question5check, setQuestion5check ] = useState('')
   let [promotionField, setPromotionField ] = useState()
+  let [directMessage, setDirectMessage ] = useState()
 
   let showQuestions = (Case) =>{
     switch(Case) {
@@ -38,11 +39,24 @@ const SurveyCard = (props) => {
       case 'case7':
         setQuestion5(false)
         setQuestion3(false)
+        setPromotionField(false)
         break;
       case 'case8':
         setPromotionField(true)
+        setQuestion4(false)
         break;
-       
+      case 'case9':
+        setPromotionField(false)
+        setDirectMessage(false)
+        setQuestion4(true)
+        break;
+      case 'case10':
+        setDirectMessage(true)
+        break;
+      case 'case11':
+        setDirectMessage(false)
+        break;
+      
     }
   }
 
@@ -59,7 +73,10 @@ const SurveyCard = (props) => {
         break;
       case 5:
         setQuestion5check(val)
-        
+        break;
+      case 4:
+        setQuestion4check(val)
+        break;
     }
   }
 
@@ -118,7 +135,7 @@ console.log("survey ==>", survey)
               : ''}
 
             {question3 ?
-              <div className="checkboxes">
+              <div className="checkboxes survey-complaint">
                 <p className='survey-question'>{survey.length ? survey[2].Question : 'No Q'}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
@@ -132,7 +149,7 @@ console.log("survey ==>", survey)
               : ''}
 
             {promotionField?
-              <div>
+              <div className="checkboxes survey-complaint">
                 <div class="field address">
                   <p class="control has-icons-left">
                     <input class="input" type="text" placeholder="Name" />
@@ -167,33 +184,36 @@ console.log("survey ==>", survey)
              </div>
             :''}
            
-            {false ?
+            {question4 ?
               <div>
                 <div className="checkboxes">
-                  <p className='survey-question'>Would You like to provide direct feedback?</p>
+                  <p className='survey-question'>{survey.length?survey[3].Question:'No Q'}</p>
                   <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
-                      <input type="checkbox" value="" /> YES
+                      <input type="checkbox" value="YES" checked={question4check =='YES'} onChange={(event) =>handleradioleChange(4, 'case10', event)} /> YES
                     </label>
 
                     <label class="checkbox-inline">
-                      <input type="checkbox" value="" />NO
+                      <input type="checkbox" value="NO" checked={question4check == 'NO'}   onChange={(event) =>handleradioleChange(4, 'case11', event)}/>NO
                     </label>
                   </div>
                 </div>
 
 
+              {directMessage?
+                <div className="checkboxes survey-complaint">
                 <div class="field address">
-                  <div class="control">
-                    <textarea class="textarea" placeholder="Provide any feedback here"></textarea>
-                  </div>
+                <div class="control">
+                  <textarea class="textarea" placeholder="Provide any feedback here"></textarea>
                 </div>
+                </div>
+              </div>:''
+              }
+                
+
               </div> : ''
 
             }
-
-           
-
 
             <div className='survey-btn'>
               <a class="button is-primary"><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>
