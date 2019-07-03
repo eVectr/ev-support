@@ -203,3 +203,13 @@
 .uploaded-link-data{
     flex-direction: column;
 }
+
+.admin-panel-loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-panel-loader img{
+    height: 40px;
+}

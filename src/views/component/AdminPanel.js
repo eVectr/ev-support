@@ -13,12 +13,15 @@ const AdminPanel = (props) => {
     const [contact, setContact] = useState({})
     const [message, setMessage] = useState('')
     const [open, setOpen] = useState(false)
+    const [loader, setLoader] = useState(false)
    
     useEffect(() => {
+        setLoader(true)
         axios.get(`http://18.219.191.74:7777/getcontacts`)
             .then(res => {
                 let { data = [] } = res
                 setContacts(data.reverse())
+                setLoader(false)
             })
     }, [])
 
@@ -41,6 +44,7 @@ const AdminPanel = (props) => {
 
 
     let onOpenModal = (CaseNo) => {
+        
         axios.post(`http://localhost:7777/getbycaseno`, {caseNo:CaseNo})
              .then(res => {
                setContact(res.data[0])
@@ -93,11 +97,16 @@ const AdminPanel = (props) => {
                         <button type="button" className='search-btn' onClick ={onSearch}>Search</button>
                     </div>
                 </div>
+                {
+                    loader ?    <div className="admin-panel-loader">  
+                        <img src = {require('../../images/loader.gif')}/>
+                    </div> : ''
+                }
             </div>
             {
                 contacts.map(
                     (contact, index) =>
-
+                        
                         <div className='card admin-card'  onClick={() => onOpenModal(contact.Case_No)}>
                             <div className='admin-cases'>  
                                 <div>
@@ -116,8 +125,10 @@ const AdminPanel = (props) => {
                                 <div >
                                     <span className='case-number'><b>Status:</b>kxzmcn</span>
                                 </div>
-                            </div>   
-
+                               
+                               
+                            </div> 
+                           
                             <div className='admin-cases'>
                             <div>
                                 <span className='case-number'><b>Case Number:</b>{contact.Case_No}</span>
