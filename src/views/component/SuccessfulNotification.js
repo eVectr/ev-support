@@ -4,14 +4,10 @@ import { showNotificationAction } from '../../redux/actions/notification/notific
 class SuccessfulNotification extends Component{
 
     componentDidUpdate (prevProps) {
-        console.log(prevProps.show, 'prevProps.show ')
-        console.log(prevProps.show, 'prevProps.show ')
+        
         setTimeout(() => {
             this.props.dispatch(showNotificationAction({show: false, text:'' }))
         }, 5000);
-        // if (prevProps.show !== this.props.show) {
-        //      setTimeout(() => { this.props.dispatch(showNotificationAction({show: false, text:'' }))}, 3500)
-        // }
     }
     
 
@@ -20,7 +16,7 @@ class SuccessfulNotification extends Component{
         let { notificationreducer = {} } = this.props
         let { notification = {} } = notificationreducer
         let { text, show } = notification
-        // const{text, show} = this.props     
+
         return (
           <Fragment>
               {
@@ -35,6 +31,4 @@ class SuccessfulNotification extends Component{
         )
     }
 }
-
-// export default SuccessfulNotification
 export default connect(({dispatch, notificationreducer}) => ({dispatch, notificationreducer}))(SuccessfulNotification)

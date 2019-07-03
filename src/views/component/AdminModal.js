@@ -130,12 +130,10 @@ const AdminModal = (caseNo, show) => {
                                    console.log("imgsource ==>", imgsrc)
                                   return (
                                         
-                                            <div className='column-img'>
-                                                <img src={imgsrc} className="uploaded-image-data columns" />
-                                            </div>
-                                      
-                                   
-                                  )
+                                    <div className='column-img'>
+                                        <img src={imgsrc} className="uploaded-image-data columns" />
+                                    </div>
+                                )
                               })
                             }
                              </div>

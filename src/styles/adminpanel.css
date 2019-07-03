@@ -36,7 +36,7 @@
     right: 0px;
 }
 .card{
-   margin: 3%;
+   margin-bottom:3%;
     padding:15px;
     /* box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5); */
     /* transition: 0.8s; */
@@ -219,7 +219,27 @@
 .name{
     margin-top: 5px;;
 }
+
+.uploaded-link-data{
+    flex-direction: column;
+}
+
+.admin-panel-loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-panel-loader img{
+    height: 40px;
+}    
 .page-data{
     width: 100%;
     text-align: center;
 }
+
+.admin-panel-error{
+    display: block;
+    text-align: center;
+}
+

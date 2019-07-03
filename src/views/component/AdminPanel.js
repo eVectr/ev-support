@@ -14,14 +14,19 @@ const AdminPanel = (props) => {
     const [contact, setContact] = useState({})
     const [message, setMessage] = useState('')
     const [open, setOpen] = useState(false)
+    const [loader, setLoader] = useState(false)
+    const [show, setShow] = useState(false)
     const [start, setStart] = useState(0)
     const [limit, setLimit] = useState(5)
 
     useEffect(() => {
+        setLoader(true)
         axios.get(`http://18.219.191.74:7777/getcontacts`)
             .then(res => {
                 let { data = [] } = res
                 setContacts(data.reverse())
+                setLoader(false)
+                setShow(true)
             })
     }, [])
 
@@ -34,14 +39,15 @@ const AdminPanel = (props) => {
 
 
     let onOpenModal = (CaseNo) => {
-        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:CaseNo})
+        
+        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:CaseNo})
              .then(res => {
                setContact(res.data[0])
             })
         setOpen(true)
     }
 
-    console.log(contact,'contact')
+    
 
     let onCloseModal = () => {
         setOpen(false)
@@ -90,17 +96,25 @@ const AdminPanel = (props) => {
     return (
         <div className='container '>
             <div className='row'>
+               
                 <div className='admin-panel'>
                     <h3 className='admin-header'>Admin Panel</h3>
                     <div className='search-cases'>
                         <input type="text" placeholder ="Search by Case No....." className='link-data search' onChange={handleSearchChange}></input>
                     </div>
                 </div>
+                
+                {
+                    loader ?    <div className="admin-panel-loader"> 
+                        <img src = {require('../../images/loader.gif')}/>
+                    </div> : ''
+                }
+
             </div>
             {searchCases.length?
                 filteredContacts.map(
                     (contact, index) =>
-
+                        
                         <div className='card admin-card'  onClick={() => onOpenModal(contact.Case_No)}>
                             <div className='admin-cases'>  
                                 <div>
@@ -119,8 +133,10 @@ const AdminPanel = (props) => {
                                 <div >
                                     <span className='case-number'><b>Status:</b>{contact.Status}</span>
                                 </div>
-                            </div>   
-
+                               
+                               
+                            </div> 
+                           
                             <div className='admin-cases'>
                             <div>
                                 <span className='case-number'><b>Case Number:</b>{contact.Case_No}</span>
@@ -135,13 +151,14 @@ const AdminPanel = (props) => {
                         </div>
 
                 ):
-                <h1>No cases found!</h1>
+                <h1 className='admin-panel-error'>{loader?'':'No Match found'}</h1>
             }
-            <div className='page-data'>
-            <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`}>&laquo; Previous</button>
-            <button disabled={searchCases.length <= (start + limit)} 
-            onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`}>Next &raquo;</button>
-            </div>
+            
+            { show ? <div className='page-data'>
+                <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`} >&laquo; Previous</button>
+                <button disabled={searchCases.length <= (start + limit)} 
+            onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`} >Next &raquo;</button>
+            </div> : '' }
 
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">
@@ -182,64 +199,65 @@ const AdminPanel = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className='uploaded-documents'>
-                 <div class="control has-icons-left has-icons-right">
-                    
-                          <span className='uploaded-name document'>
-                        <label className="label left_align name">Uploaded Document:</label>
-                        {
-                            Documents.map((document, index) => {
-                            let doc = 'http://localhost:7777/'.concat(document)
-                            return (
-                                <a href={doc}>{document}</a>
+                    <div className='uploaded-documents'>
+                        <div class="control has-icons-left has-icons-right">
+                            {
+                                Documents.length>0 ?  <span className='uploaded-name document'>
+                                <label className="label left_align name">Uploaded Document:</label>
+                                {
+                                    Documents.map((document, index) => {
+                                    let doc = 'http://localhost:7777/'.concat(document)
+                                    return (
+                                        <a href={doc}>{document}</a>
 
-                            )
-                        })
-                        }
-                    </span> 
-                    
-                       
+                                    )
+                                })
+                                }
+                            </span> : ''
+                            }
+                        </div>
+
+                        <div class="control has-icons-left has-icons-right">
+                                {
+                                Images.length>0 ?  <span className='uploaded-image'>
+
+                                <label className="label left_align name">Uploaded Image:</label>
+                                    <div className='container image-container'>
+                                        <div className='row image-row'>
+                                {
+                                    Images.map((image, index) => {
+                                        let imgsrc = 'http://localhost:7777/'.concat(image)
+                                        return (
+                                            <div className='column-img'>
+                                                <img src={imgsrc} className="uploaded-image-data columns" />
+                                            </div>
+                                        )
+                                    })
+                                }
+                                </div>
+                                </div>
+                            </span> :  ''
+                            }
+                        </div>
+
+                        <div class="control has-icons-left has-icons-right">
+                           {
+                               contact.Link == '' ?  '' :  <span className='uploaded-name uploaded-link-data'>
+                               <label className="label left_align name">Uploaded Link</label>
+                               <p>{contact.Link}</p>
+                           </span>
+                           }
+                        </div>
                     </div>
-
-                <div class="control has-icons-left has-icons-right">
-                    <span className='uploaded-image'>
-                
-                        <label className="label left_align name">Uploaded Image:</label>
-                        <div className='container image-container'>
-                        <div className='row image-row'>
-                        {
-                             Images.map((image, index) => {
-                               let imgsrc = 'http://18.219.191.74:7777'.concat(image)
-                              return (
-                                    
-                                        <div className='column-img'>
-                                            <img src={imgsrc} className="uploaded-image-data columns" />
-                                        </div>
-                              )
-                          })
-                        }
-                         </div>
-                         </div>
-                    </span>
-                </div>
-
-                <div class="control has-icons-left has-icons-right">
-                    <span className='uploaded-name'>
-                        <label className="label left_align name">Uploaded Link</label>
-                        <p>{contacts.Link}</p>
-                    </span>
-                </div>
-                </div>
-                <div className="field">
-                    <label className="label left_align reply-msg">Reply</label>
-                    <div className="control">
-                        <textarea className="textarea reply-msg" name="message" placeholder="Enter Message (Mandatory)" 
-                         value={message.body} onChange={handleMessageChange} />
-                        <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
-                    </div>
-                </div>
+                    <div className="field">
+                        <label className="label left_align reply-msg">Reply</label>
+                        <div className="control">
+                            <textarea className="textarea reply-msg" name="message" placeholder="Enter Message (Mandatory)" 
+                            value={message.body} onChange={handleMessageChange} />
+                            <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
+                        </div>
+                    </div> 
             </Modal>
-
         </div>
     )
 }

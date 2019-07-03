@@ -15,6 +15,10 @@ const Loginform = (props) => {
   
 
   useEffect(() => {
+    // localStorage.getItem('user', JSON.parse())
+    // if () {
+    //   prop
+    // }
     axios.get(`http://18.219.191.74:7777/findcontact`)
       .then(res => {
         console.log("res =>", res.data)
