@@ -4,7 +4,8 @@ import axios from 'axios'
 import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
-import filterArray from '../../utils/Common'
+import {filterArray,  authRoutes} from '../../utils/Common'
+
 
 
 const SupportTicket = (props) => {
@@ -18,22 +19,16 @@ const SupportTicket = (props) => {
     const [limit, setLimit] = useState(5)
 
     useEffect(() => {
-        // let user = JSON.parse(localStorage.getItem('user'))
-        // let {_id = ''} = user || {}
-        // if(_id) {
-        //     props.history.push('/')
-        // }
-
-        let user = JSON.parse(localStorage.getItem( 'user' ));
-        let { _id = '' } = user || {}
-        if(!_id){
-            props.history.push('/')
-        }
-        axios.post(`http://18.219.191.74:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
+        authRoutes(props)
+        let user = JSON.parse(localStorage.getItem('user'))
+        let { _id = ''} = user || {}
+        if(_id){
+            axios.post(`http://18.219.191.74:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
             .then(res => {
                 let { data = [] } = res
                 setContacts(data.reverse())
             })
+        }
     }, [])
 
     let handleSearchChange = e =>{

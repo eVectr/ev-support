@@ -4,7 +4,7 @@ import axios from 'axios'
 import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
-import filterArray from '../../utils/Common'
+import {filterArray, authRoutes} from '../../utils/Common'
 
 
 const AdminPanel = (props) => {
@@ -20,7 +20,18 @@ const AdminPanel = (props) => {
     const [limit, setLimit] = useState(5)
 
     useEffect(() => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        console.log(user, 'user')
+            let { _id = '', Type = '' } = user || {}
+            console.log(Type)
+            console.log(Type !== 'user', 'user check')
+            console.log(Type !== 'admin', 'admin check')
+    
+            if (Type != 'admin') {
+                props.history.push('/')
+            }
         setLoader(true)
+
         axios.get(`http://18.219.191.74:7777/getcontacts`)
             .then(res => {
                 let { data = [] } = res

@@ -5,6 +5,7 @@ import '../../styles/login.css'
 import SuccessfulNoitification from '../component/SuccessfulNotification'
 import api_url from '../../utils/Const'
 import { SelectedReason } from '../../redux/actions/notification/notification';
+import { authRoutes } from '../../utils/Common';
 
 
 const Loginform = (props) => {
@@ -16,12 +17,7 @@ const Loginform = (props) => {
   console.log(props, 'PROPS')
 
   useEffect(() => {
-  let user = JSON.parse(localStorage.getItem( 'user' ));
-  let { _id = '' } = user || {}
-  if(!_id){
-    props.history.push('/')
-  }
-    
+  authRoutes(props)
     axios.get(`http://18.219.191.74:7777/findcontact`)
       .then(res => {
         console.log("res =>", res.data)
