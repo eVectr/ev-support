@@ -27,7 +27,8 @@ const Routes = (props) => {
         <SuccessfulNotification text={text} show={show} />
         <Switch>
             <Route exact path="/" component={localStorage.user?SelectReason:Loginform} />
-            <Route exact path="/contact" component={localStorage.user?SelectReason:Loginform} />
+            {/* <Route exact path="/contact" component={localStorage.user?SelectReason:Loginform} /> */}
+            <Route exact path="/contact" component={SelectReason} />
             <Route exact path="/contact/1" component={StandardForm} />
             <Route exact path="/contact/2" component={OptionalForm} />
             <Route exact path="/contact/3" component={OptionalForm} />

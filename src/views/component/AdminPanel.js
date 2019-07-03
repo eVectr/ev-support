@@ -15,7 +15,7 @@ const AdminPanel = (props) => {
     const [message, setMessage] = useState('')
     const [open, setOpen] = useState(false)
     const [loader, setLoader] = useState(false)
-   
+    const [show, setShow] = useState(false)
     const [start, setStart] = useState(0)
     const [limit, setLimit] = useState(5)
 
@@ -26,6 +26,7 @@ const AdminPanel = (props) => {
                 let { data = [] } = res
                 setContacts(data.reverse())
                 setLoader(false)
+                setShow(true)
             })
     }, [])
 
@@ -95,17 +96,20 @@ const AdminPanel = (props) => {
     return (
         <div className='container '>
             <div className='row'>
+               
                 <div className='admin-panel'>
                     <h3 className='admin-header'>Admin Panel</h3>
                     <div className='search-cases'>
                         <input type="text" placeholder ="Search by Case No....." className='link-data search' onChange={handleSearchChange}></input>
                     </div>
                 </div>
+                
                 {
-                    loader ?    <div className="admin-panel-loader">  
+                    loader ?    <div className="admin-panel-loader"> 
                         <img src = {require('../../images/loader.gif')}/>
                     </div> : ''
                 }
+
             </div>
             {searchCases.length?
                 filteredContacts.map(
@@ -147,13 +151,14 @@ const AdminPanel = (props) => {
                         </div>
 
                 ):
-                <h1>No cases found!</h1>
+                <h1 className='admin-panel-error'>{loader?'':'No Match found'}</h1>
             }
-            <div className='page-data'>
-            <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`}>&laquo; Previous</button>
-            <button disabled={searchCases.length <= (start + limit)} 
-            onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`}>Next &raquo;</button>
-            </div>
+            
+            { show ? <div className='page-data'>
+                <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`} >&laquo; Previous</button>
+                <button disabled={searchCases.length <= (start + limit)} 
+            onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`} >Next &raquo;</button>
+            </div> : '' }
 
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">
