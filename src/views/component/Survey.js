@@ -45,7 +45,7 @@ const SurveyCard = (props) => {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:7777/getclientsurvey`)
+    axios.get(`http://18.219.191.74:7777/getclientsurvey`)
       .then(res => {
         let { data = [] } = res
         console.log("data ==>", data)
