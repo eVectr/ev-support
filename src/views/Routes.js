@@ -34,9 +34,10 @@ const Routes = (props) => {
             <Route exact path="/contact/3" component={OptionalForm} />
             <Route exact path="/admin" component={localStorage.user == undefined?Loginform:
              JSON.parse(localStorage.user).Type == 'admin'?AdminPanel:SelectReason} />
-            <Route exact path="/support" component={localStorage.user == undefined?Loginform:
-             JSON.parse(localStorage.user).Type == 'user'?Support:SelectReason} />
-            <Route exact path="/contact/4" component={Survey} />
+            {/* <Route exact path="/support" component={localStorage.user == undefined?Loginform:
+             JSON.parse(localStorage.user).Type == 'user'?Support:SelectReason} /> */}
+            <Route exact path="/support" component= {Support} />
+            <Route exact path="/contact/4" component={Survey}/>
         </Switch>
     </RouterChangeObserver>
     </BrowserRouter>

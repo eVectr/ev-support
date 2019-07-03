@@ -13,18 +13,23 @@ const Loginform = (props) => {
   const [selectedReason, setSelectedReason] = useState([])
   const [template, setSelectedTemplate] = useState([])
   
+  console.log(props, 'PROPS')
 
   useEffect(() => {
-    // localStorage.getItem('user', JSON.parse())
-    // if () {
-    //   prop
-    // }
+  let user = JSON.parse(localStorage.getItem( 'user' ));
+  let { _id = '' } = user || {}
+  if(!_id){
+    props.history.push('/')
+  }
+    
     axios.get(`http://18.219.191.74:7777/findcontact`)
       .then(res => {
         console.log("res =>", res.data)
         setReason(res.data)
       })
   }, [])
+
+
 
   const handleChange = e => {
     console.log("e.target.value  =>", e.target.value)

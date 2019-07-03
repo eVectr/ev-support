@@ -18,6 +18,17 @@ const SupportTicket = (props) => {
     const [limit, setLimit] = useState(5)
 
     useEffect(() => {
+        // let user = JSON.parse(localStorage.getItem('user'))
+        // let {_id = ''} = user || {}
+        // if(_id) {
+        //     props.history.push('/')
+        // }
+
+        let user = JSON.parse(localStorage.getItem( 'user' ));
+        let { _id = '' } = user || {}
+        if(!_id){
+            props.history.push('/')
+        }
         axios.post(`http://18.219.191.74:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
             .then(res => {
                 let { data = [] } = res
@@ -144,7 +155,7 @@ const SupportTicket = (props) => {
                                     </span>
                                 </div>
                             </div>
-                            {/* <AdminModal caseNo={contact.Case_No}></AdminModal> */}
+                            
                         </div>
 
                 )

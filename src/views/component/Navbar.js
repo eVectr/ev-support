@@ -13,6 +13,10 @@ let logout = () =>{
    window.location.reload()
 }
 
+const [show, setShow] = useState(false)
+
+
+
 let admin = () =>{
    props.history.push('/admin')
 }
@@ -24,6 +28,10 @@ let home = () =>{
         props.history.push('/')
     }
   
+}
+
+let showNavMenu = ()=> {
+    setShow(!show)
 }
 
 let support = () =>{
@@ -40,25 +48,27 @@ let support = () =>{
     }else{
        admincheck = false
     }
-console.log("loacal storage ==>", localStorage)
+
+
   return (
       <div>
-          <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+          <nav class="navbar is-primary is-active " role="navigation" aria-label="main navigation">
+          
               <div class="navbar-brand">
                   <a class="navbar-item" href="https://bulma.io">
 
                   </a>
 
-                  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <a class={`navbar-burger burger ${show ? 'is-active' : '' }`} aria-label="menu" aria-expanded="false" data-target="navMenu" onClick ={() => showNavMenu()}>
                       <span aria-hidden="true"></span>
                       <span aria-hidden="true"></span>
                       <span aria-hidden="true"></span>
                   </a>
               </div>
 
-              <div id="navbarBasicExample" class="navbar-menu">
+              <div id="navbarMenu" class={`navbar-menu ${show ? 'is-active' : ''}`}>
                   <div class="navbar-start">
-                      <a class="navbar-item" onClick ={home}>
+                      <a class="navbar-item is-active" onClick ={home}>
                           <strong>Home</strong>
                     </a>
 
@@ -82,10 +92,10 @@ console.log("loacal storage ==>", localStorage)
 
                   <div class="navbar-end">
                   <div class="navbar-item">
-                   <div class="buttons">
+                   <div class="buttons ">
 
                 {(localStorage.user != undefined)?
-                    <a class="button is-light" onClick ={logout}>
+                    <a class="button is-light " onClick ={logout}>
                     Logout
                    </a>:<a class="button is-light" onClick ={logout}>
                     Login
@@ -96,6 +106,7 @@ console.log("loacal storage ==>", localStorage)
            </div>
            </div>
               </div>
+              
           </nav>
       </div>
 
