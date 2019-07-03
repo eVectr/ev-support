@@ -4,21 +4,44 @@ import '../../styles/surveycard.css'
 
 const SurveyCard = (props) => {
 
-  const [selectedOption, setSelectedOption] = useState('')
-  const [question, setQusetion] = useState([])
   const [survey, setSurvey] = useState([])
-  let handleradioleChange = (index, e) => {
+  let [selectedOption, setSelectedOption ] = useState('')
+  let [question1check, setQuestion1check ] = useState('')
+  let [question2, setQuestion2 ] = useState(null)
+  let [question2check, setQuestion2check ] = useState('')
+  let [question3, setQuestion3 ] = useState()
+  let [question3check, setQuestion3check ] = useState('')
+ 
+
+  let showQuestions = (Case) =>{
+    switch(Case) {
+      case 'case1':
+        setQuestion2(true)
+        break;
+      case 'case2':
+        setQuestion2(false)
+      
+    }
+  }
+
+  let optionCheck = (index, val) =>{
+    switch(index) {
+      case 1:
+        setQuestion1check(val)
+        break;
+      case 2:
+        setQuestion2check(val)
+        break;
+      case 3:
+        setQuestion3check(val)
+      
+    }
+  }
+
+  let handleradioleChange = (index,Case, e) => {
     let val = e.target.value
-    // setSelectedOption(prev => {
-    //   const update = prev.concat(val)
-    //   return update
-    // })
-    setSelectedOption(e.target.value)
-    setQusetion(prev => {
-      const update = prev.concat(index)
-      return update
-  })
-   // setQusetion(index)
+    showQuestions(Case)
+    optionCheck(index, val)
   }
 
   useEffect(() => {
@@ -30,11 +53,8 @@ const SurveyCard = (props) => {
       })
   }, [])
 
-
-    console.log("question ===>", question)
-    console.log("includes ==>",question.includes(0))
-    console.log(" selectedOption ==>", selectedOption)
-  
+  console.log("question2 =>", question2)
+ 
     return(
       <div className="container">
         <div className="row">
@@ -49,25 +69,25 @@ const SurveyCard = (props) => {
                     <p className='survey-question'>{survey.length?survey[0].Question:'No Q'}</p>
                     <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
-                    <input type="checkbox" value='YES' checked={question.includes(0) && selectedOption.includes('YES')}  onChange={(event) =>handleradioleChange(0,event)}/> YES
+                    <input type="checkbox" value='YES' checked={question1check =='YES'}  onChange={(event) =>handleradioleChange(1, 'case1', event)}/> YES
                     </label>
 
                     <label class="checkbox-inline">
-                    <input type="checkbox" value='NO'  checked={question.includes(0) && selectedOption.includes('NO')}  onChange={(event) =>handleradioleChange(0, event)}/>NO
+                    <input type="checkbox" value='NO'  checked={question1check == 'NO'}  onChange={(event) =>handleradioleChange(1, 'case2', event)}/>NO
                     </label>
                 </div>
               </div>
 
-              {question.includes(0) && selectedOption.includes('YES')?
+              {question2 ?
                 <div className="checkboxes">
                   <p className='survey-question'>{survey.length?survey[1].Question:'No Q'}</p>
                   <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
-                      <input type="checkbox" value='YES' checked={question.includes(1) && selectedOption.includes('YES')} onChange={(event) =>handleradioleChange(1,event)} /> YES
+                      <input type="checkbox" value='YES' checked={question2check == 'YES'} onChange={(event) =>handleradioleChange(2,'case3',event)} /> YES
                  </label>
 
                     <label class="checkbox-inline">
-                      <input type="checkbox" value='NO' checked={question.includes(1) && selectedOption.includes('NO')} onChange={(event) =>handleradioleChange(1,event)} />NO
+                      <input type="checkbox" value='NO' checked={question2check == 'NO'} onChange={(event) =>handleradioleChange(2,'case4',event)} />NO
                  </label>
                   </div>
                 </div>:
@@ -75,22 +95,21 @@ const SurveyCard = (props) => {
               }
              
 
-            {question.includes(0) && selectedOption.includes('NO') ?
+            {question2 == false?
               <div className="checkboxes survey-complaint">
                 <p className='survey-question'>{survey.length ? survey[2].Question : 'No Q'}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
-                    <input type="checkbox" value='YES' checked={question.includes(2) && selectedOption.includes('YES')} onChange={(event) =>handleradioleChange(2,event)}  /> YES
+                    <input type="checkbox" value='YES' checked={question3check == 'YES'} onChange={(event) =>handleradioleChange(3,'case4', event)}  /> YES
                 </label>
 
                   <label class="checkbox-inline">
-                    <input type="checkbox" value='NO' checked={question.includes(2) && selectedOption.includes('NO')} onChange={(event) =>handleradioleChange(2,event)} />NO
+                    <input type="checkbox" value='NO' checked={question3check == 'NO'} onChange={(event) =>handleradioleChange(3, 'case5', event)} />NO
                </label>
                 </div>
               </div>:
               ''
               }
-
 
             <div className='survey-btn'>
               <a class="button is-primary"><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>

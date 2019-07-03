@@ -10,7 +10,8 @@ import AdminPanel from './component/AdminPanel'
 import Support from './component/Support'
 import RouterChangeObserver from './component/RouterChangeObserver'
 import SuccessfulNotification from './component/SuccessfulNotification'
-import Survey from './component/Survey';
+import Survey from './component/Survey'
+import TransactionSurvey from './component/TransactionSurvey'
 
 const Routes = (props) => {
     let { notificationreducer = {} } = props
@@ -36,6 +37,7 @@ const Routes = (props) => {
             <Route exact path="/support" component={localStorage.user == undefined?Loginform:
              JSON.parse(localStorage.user).Type == 'user'?Support:SelectReason} />
             <Route exact path="/contact/4" component={Survey} />
+            <Route exact path="/contact/5" component={TransactionSurvey} />
         </Switch>
     </RouterChangeObserver>
     </BrowserRouter>

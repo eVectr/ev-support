@@ -157,6 +157,18 @@ app.get('/getclientsurvey', (req, res) => {
   })
 })
 
+app.get('/gettransactionsurvey', (req, res) => {
+  TransactionSurvey.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      console.log(" client survey ==>", docs)
+      res.send(docs)
+    }
+  })
+})
+
 // app.post('/savecontact', (req, res) => {
 // let user_Id = req.body.user_Id
 // let Name = req.body.Name
