@@ -6,7 +6,9 @@
     align-items: center;
     justify-content: center;
 }
-
+.survey-card .card{
+    box-shadow: none;
+}
 .card-header {
   background-color: #bdb8b83d!important;
   margin-bottom: 30px;

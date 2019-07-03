@@ -9,7 +9,8 @@ var fs = require('fs')
 const User = require('../db/user.js')
 const ContactForm = require('../db/ContactForm')
 const ContactCategory = require('../db/contactcategory.js')
-
+const ClientSurvey = require('../db/clientSurvey')
+const TransactionSurvey = require('../db/TransactionSurvey')
 let api = require("../api/api");
 
 var app = express()
@@ -39,11 +40,17 @@ app.use((req, res, next)=>{
 })
 
 // var user = new User({
-//     Name: 'Admin',
-//     Password: 'admin@123',
-//     Type:'admin'
+//     Name: 'Rajat',
+//     Password: 'rajat@123',
+//     Type:'user'
 // })
 // user.save()
+
+// var transactionSurvey = new TransactionSurvey({
+//     Question: 'If no would you like to file a complaint?',
+//     Options: ['YES', 'NO']
+// })
+//transactionSurvey.save()
 
 const storage = multer.diskStorage({
   destination:function(req, file, cb){
@@ -81,6 +88,7 @@ app.post('/fileupload', (req, res) => {
 })
 
 app.post('/saveContact', (req, res) => {
+  let UserId = req.body.UserId
   let Transaction_Number = req.body.Transaction_Number 
   let Name = req.body.Name
   let Email = req.body.Email
@@ -91,8 +99,11 @@ app.post('/saveContact', (req, res) => {
   let Document = filepaths
   let Image = imagepaths
   let Link = req.body.Link
+  let Reason = req.body.Reason
+  let  Template = req.body.Template
 
   var contactForm = new ContactForm ({
+    UserId:UserId,
     Transaction_Number : Transaction_Number,
      Name : Name,
      Email : Email,
@@ -102,7 +113,10 @@ app.post('/saveContact', (req, res) => {
      Case_No : Case_No,
      Document: Document,
      Image: Image,
-     Link: Link
+     Link: Link,
+     Status:'Open',
+     Reason:Reason,
+     Template: Template
   })
   contactForm.save((err, data)=>{
     if(err){
@@ -126,6 +140,18 @@ app.get('/findcontact', (req, res) => {
       console.log("error")
       res.send(err)
     } else {
+      res.send(docs)
+    }
+  })
+})
+
+app.get('/getclientsurvey', (req, res) => {
+  ClientSurvey.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      console.log(" client survey ==>", docs)
       res.send(docs)
     }
   })
@@ -198,6 +224,20 @@ app.post('/login', (req, res) => {
     let caseNo = req.body.caseNo
     console.log("case no  ===>",caseNo )
     ContactForm.find({Case_No:caseNo}, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        console.log(docs)
+        res.send(docs)
+      }
+    })
+  })
+
+  app.post('/getbyuserid', (req, res) => {
+    let UserId = req.body.UserId
+    console.log("UserId  ===>",UserId )
+    ContactForm.find({UserId:UserId}, function (err, docs) {
       if (err) {
         console.log("error")
         res.send(err)

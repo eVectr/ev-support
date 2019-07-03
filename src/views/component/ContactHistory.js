@@ -11,7 +11,7 @@ const ContactHistory = (props) => {
 
   let onHistory = () =>{
     let id = props.auth.userDetails.data[0]._id
-    axios.post(`http://localhost:7777/contacthistory`, {id:id})
+    axios.post(`http://18.219.191.74:7777/contacthistory`, {id:id})
     .then(res =>{
       console.log("res =>", res.data)
       setContactHistory(res.data)

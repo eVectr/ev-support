@@ -4,6 +4,7 @@ import axios from 'axios'
 import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
+import filterArray from '../../utils/Common'
 
 
 const AdminPanel = (props) => {
@@ -15,6 +16,9 @@ const AdminPanel = (props) => {
     const [open, setOpen] = useState(false)
     const [loader, setLoader] = useState(false)
    
+    const [start, setStart] = useState(0)
+    const [limit, setLimit] = useState(5)
+
     useEffect(() => {
         setLoader(true)
         axios.get(`http://18.219.191.74:7777/getcontacts`)
@@ -31,16 +35,6 @@ const AdminPanel = (props) => {
         const { value } = e.target
         setCaseNo(value)
     }
-
-    let onSearch = ()=>{
-        setContacts([])
-        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:caseNo})
-             .then(res => {
-                 console.log("search case =>",res )
-               setContacts([res.data[0]])
-            })
-    }
-
 
 
     let onOpenModal = (CaseNo) => {
@@ -59,7 +53,7 @@ const AdminPanel = (props) => {
     }
 
     let sendMail = () =>{
-        axios.post(`http://localhost:7777/sendmail`, {message:message, email:contact.Email})
+        axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contact.Email})
         .then(res => {
           console.log("res ==>", res)
        })
@@ -69,6 +63,14 @@ const AdminPanel = (props) => {
         const { value } = e.target
         setMessage(value)
        }
+
+    let nextPage = () => {
+        setStart(start + limit)
+      }
+      
+    let prevPage = () => {
+        setStart(start - limit)
+      }
 
     let Images = []
     if(contact.Image){
@@ -85,16 +87,18 @@ const AdminPanel = (props) => {
           let itemArr = item.split('/')
           Documents.push(itemArr[1])
            })
-        }
-    
+    }
+
+    const searchCases = filterArray(contacts, 'Case_No', caseNo)
+    const filteredContacts = searchCases.slice(start, start + limit)
+ 
     return (
         <div className='container '>
             <div className='row'>
                 <div className='admin-panel'>
                     <h3 className='admin-header'>Admin Panel</h3>
                     <div className='search-cases'>
-                        <input type="text" className='link-data search' onChange={handleSearchChange}></input>
-                        <button type="button" className='search-btn' onClick ={onSearch}>Search</button>
+                        <input type="text" placeholder ="Search by Case No....." className='link-data search' onChange={handleSearchChange}></input>
                     </div>
                 </div>
                 {
@@ -103,27 +107,27 @@ const AdminPanel = (props) => {
                     </div> : ''
                 }
             </div>
-            {
-                contacts.map(
+            {searchCases.length?
+                filteredContacts.map(
                     (contact, index) =>
                         
                         <div className='card admin-card'  onClick={() => onOpenModal(contact.Case_No)}>
                             <div className='admin-cases'>  
                                 <div>
-                                    <b>Name:</b><span className='case-number'>Kripal Ramola</span>
+                                    <b>Name:</b><span className='case-number'>{contact.Name}</span>
                                 </div>
                     
                                 <div>
-                                <b>Email:</b> <span className='case-number'>kripalramola16@gmail.com</span>
+                                <b>Email:</b> <span className='case-number'>{contact.Email}</span>
                                 </div> 
                             </div>    
 
                             <div className='admin-cases'>
                                 <div>
-                                    <span className='case-number'><b>Subject:</b>kfjxz,mcnvj</span>
+                                    <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
                                 </div>
                                 <div >
-                                    <span className='case-number'><b>Status:</b>kxzmcn</span>
+                                    <span className='case-number'><b>Status:</b>{contact.Status}</span>
                                 </div>
                                
                                
@@ -142,9 +146,14 @@ const AdminPanel = (props) => {
                             </div>
                         </div>
 
-                )
+                ):
+                <h1>No cases found!</h1>
             }
-
+            <div className='page-data'>
+            <button disabled={!start}  onClick={start ? prevPage : () => {prevPage()}} className={`previous ${(!start)?'':'prevactive'}`}>&laquo; Previous</button>
+            <button disabled={searchCases.length <= (start + limit)} 
+            onClick={searchCases.length <= (start + limit) ? () => {nextPage()} : nextPage}className={`next ${(searchCases.length <= (start + limit))?'':'prevactive'}`}>Next &raquo;</button>
+            </div>
 
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">
@@ -252,4 +261,3 @@ export default AdminPanel
 
 
 
-//--------------------------------------------------------------------//

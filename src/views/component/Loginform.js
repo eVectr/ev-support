@@ -45,8 +45,8 @@ const onLogin = () => {
     let username = data.username
     let password = data.password
 
-    //axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})
-    axios.post(`http://localhost:7777/login`, {username:username, password:password})
+    axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})
+    //axios.post(`http://localhost:7777/login`, {username:username, password:password})
     
     .then(res =>{
       console.log("res.data", res.data)
@@ -59,12 +59,13 @@ const onLogin = () => {
           show: true
         }))
         props.dispatch(userDetailsAction(res.data))
+        window.location.reload()
       }else{
         setLoginCheck(['Invalid Username or Password'])
       } 
   })
 }
-console.log(" login props =>", props)
+
 return (
   <div className='login-form'>
 <div className="log-form">
