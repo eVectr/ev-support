@@ -150,12 +150,15 @@ const handleChange = e => {
           </div>
           </div>
           <button class="button is-success" onClick={onSubmit} >Send</button>
+          <div className='send-success-msg'>
           {
+            
             loader ? <img src = {require('../../images/loader.gif')}/> : ''
           }
+          </div>
           { 
             showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
-              <p>{successMessage}</p>
+              <p className='send-success-msg'>{successMessage}</p>
             </FlashMassage>  : null 
           }  
         </div>

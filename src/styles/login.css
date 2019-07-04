@@ -387,11 +387,12 @@ form {
    .show-notification-msg .notification{
     width: 100%;
     background-color: #b3ffb3;
-    color: #fdc0cec2;
+    color: #fff;
     border-radius: 0;
     font-size: 14px;
     padding: 10px;
     font-weight: bold;
+    text-align: center;
    }
 
 
@@ -430,4 +431,11 @@ form {
       display: flex;
       align-items: center;
       justify-content:center;
+    }
+
+    .send-success-msg{
+      color:#008000;
+      width: 100%;
+      font-weight:600;
+      text-align: center;
     }
