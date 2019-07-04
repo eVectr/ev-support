@@ -381,16 +381,18 @@ form {
   .show-notification-msg{
       display: flex;
       justify-content:center;
+      align-items: center;
    }
 
    .show-notification-msg .notification{
     width: 100%;
     background-color: #ff240036;
-    color: #ff003bc2;
+    color: #fff;
     border-radius: 0;
     font-size: 14px;
     padding: 10px;
     font-weight: bold;
+    text-align: center;
    }
 
 

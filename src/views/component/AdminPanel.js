@@ -139,7 +139,7 @@ const AdminPanel = (props) => {
 
                             <div className='admin-cases'>
                                 <div>
-                                    <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
+                                    <span className='case-number'><b>Subject:</b>{contact.Subject}dgvdf</span>
                                 </div>
                                 <div >
                                     <span className='case-number'><b>Status:</b>{contact.Status}</span>
