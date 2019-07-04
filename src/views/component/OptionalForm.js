@@ -538,11 +538,12 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     <button class="button is-success" onClick={onSubmit} >Send</button>
                     { 
                         showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
-                            <p>{successmsg}</p>
+                            <p className='send-success-msg'>{successmsg}</p>
                         </FlashMassage>  : null 
                     } 
-
-                   {loader ? <img src ={require('../../images/loader.gif')}/> : ''}
+                    <div className='send-success-msg'>
+                        {loader ? <img src ={require('../../images/loader.gif')}/> : ''}
+                   </div>
                     
                 </div>
             </div>

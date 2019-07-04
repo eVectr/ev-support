@@ -432,3 +432,10 @@ form {
       align-items: center;
       justify-content:center;
     }
+
+    .send-success-msg{
+      color:#008000;
+      width: 100%;
+      font-weight:600;
+      text-align: center;
+    }
