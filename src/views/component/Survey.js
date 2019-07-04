@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect } from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 import '../../styles/surveycard.css'
+import { SelectedReason } from '../../redux/actions/notification/notification';
 
 const SurveyCard = (props) => {
 
@@ -70,6 +72,7 @@ const SurveyCard = (props) => {
 
   let onSubmit = () =>{
     if(question3check == 'YES' || question4check == 'YES'){
+      props.dispatch(SelectedReason('clientsurvey'))
       props.history.push('/contact/3')
     } 
   }
@@ -78,7 +81,7 @@ const SurveyCard = (props) => {
       <div className="container">
         <div className="row">
           <div className='survey-card'>
-            <div class="card">
+            <div class="surveycard">
 
               <div className='card-header '>
                 <p className="card-header-title card-heading "> <i class="fas fa-cog"></i> Client Survey</p>
@@ -157,6 +160,4 @@ const SurveyCard = (props) => {
   )
 }
 
-
-
-export default SurveyCard 
+export default connect(state => state)(SurveyCard )

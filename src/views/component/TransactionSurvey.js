@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/surveycard.css'
+import { SelectedReason } from '../../redux/actions/notification/notification';
 
 
 const SurveyCard = (props) => {
@@ -32,6 +34,9 @@ const SurveyCard = (props) => {
       setQuestion3(false)
         setQuestion2(false)
         setQuestion5(false)
+        setPromotionField(false)
+        setDirectMessage(false)
+        setQuestion4(false)
         break;
       case 'case6':
       setQuestion5(true)
@@ -40,7 +45,9 @@ const SurveyCard = (props) => {
       case 'case7':
         setQuestion5(false)
         setQuestion3(false)
+        setQuestion4(false)
         setPromotionField(false)
+        setDirectMessage(false)
         break;
       case 'case8':
         setPromotionField(true)
@@ -98,6 +105,7 @@ const SurveyCard = (props) => {
 
   let onSubmit = () =>{
     if(question5check == 'YES'){
+      props.dispatch(SelectedReason('transactionsurvey'))
       props.history.push('/contact/3')
     } 
   }
@@ -106,7 +114,7 @@ const SurveyCard = (props) => {
     <div className="container">
       <div className="row">
         <div className='survey-card'>
-          <div class="card">
+          <div class="surveycard">
 
             <div className='card-header '>
               <p className="card-header-title card-heading "> <i class="fas fa-cog"></i> Completed Transaction Survey</p>
@@ -228,5 +236,5 @@ const SurveyCard = (props) => {
     </div>
   )
 }
-
-export default SurveyCard 
+export default connect(state => state)(SurveyCard )
+ 

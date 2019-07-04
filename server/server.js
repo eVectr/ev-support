@@ -50,7 +50,7 @@ app.use((req, res, next)=>{
 //     Question: 'If no would you like to file a complaint?',
 //     Options: ['YES', 'NO']
 // })
-//transactionSurvey.save()
+// transactionSurvey.save()
 
 const storage = multer.diskStorage({
   destination:function(req, file, cb){
@@ -276,6 +276,7 @@ app.post('/login', (req, res) => {
   app.post('/sendmail', (req, res) => {
     let message = req.body.message
     let email = req.body.email
+    console.log("email ==", email)
     let mailOptions = {
       from: ' "p2p Support" <verma.akash045@gmail.com>',
       to: email,
@@ -287,7 +288,8 @@ app.post('/login', (req, res) => {
       if (error) {
         console.log("error =>",error);
       } else {
-        console.log('Email sent: ' + info.response);
+        console.log('Email sent: ' + info.response)
+        res.send("sent")
       }
     })
   })
