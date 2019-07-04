@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Moment from 'react-moment'
+import FlashMassage from 'react-flash-message'
 import axios from 'axios'
 import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
@@ -22,6 +23,7 @@ const AdminPanel = (props) => {
     const [limit, setLimit] = useState(5)
     const [emailStatus, setEmailStatus] = useState('')
     const [emailCheck, setEmailcheck] = useState(false)
+    const [showFlashMsg, setshowFlashMsg] = useState(false)
 
     useEffect(() => {
         setLoader(true)
@@ -66,18 +68,30 @@ const AdminPanel = (props) => {
         setOpen(false)
     }
 
+
+    let  clearemailcheck = () => {
+        setTimeout(function(){setEmailStatus('')}, 3000);
+    }
+
     let sendMail = () =>{
+        setLoader(true)
         axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contact.Email})
         .then(res => {
             console.log("email response ===>", res)
+            setLoader(false)
+            setshowFlashMsg(true)
             if(res.status == 200){
                 setEmailcheck(true)
                 setEmailStatus("Email sent succesfully")
+                clearemailcheck()
             }else{
                 setEmailcheck(true)
                 setEmailStatus("Something went wrong")
+                clearemailcheck()
             }
        })
+       setshowFlashMsg(false)
+       
     }
    
     const handleMessageChange = e => {
@@ -194,7 +208,7 @@ const AdminPanel = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <span className='uploaded-name upload-msg '>
                                 <label className="label left_align name">Message:</label>
-                                <p className='show-msg'>{contact.Message}11111</p>
+                                <p className='show-msg'>{contact.Message}</p>
                             </span>
                         </div>
                     </div>
@@ -254,8 +268,21 @@ const AdminPanel = (props) => {
                         <label className="label left_align reply-msg">Reply</label>
                         <div className="control">
                             <textarea className="textarea reply-msg" name="message" placeholder="Enter Message" 
-                            value={message.body} onChange={handleMessageChange} />
-                            <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
+                            value={message.body} onChange={handleMessageChange} required/>
+                            <div className='send-email-btn'>
+                                <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
+                            </div>
+                            {
+                                loader ? <div className = 'admin-panel-loader'>
+                                <img src = {require('../../images/loader.gif')} />
+                            </div> : ''
+                            }   
+                           
+                            {
+                       showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
+                           <p className='send-email-success'>{emailStatus}</p>
+                       </FlashMassage>  : null
+                   }
                         </div>
                     </div> 
             </Modal>
