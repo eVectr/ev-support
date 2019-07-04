@@ -5,6 +5,8 @@ import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
 import {filterArray, authRoutes} from '../../utils/Common'
+import Navbar from '../component/Navbar'
+import { longStackSupport } from 'q';
 
 
 const AdminPanel = (props) => {
@@ -20,18 +22,16 @@ const AdminPanel = (props) => {
     const [limit, setLimit] = useState(5)
 
     useEffect(() => {
-        let user = JSON.parse(localStorage.getItem('user'));
-        console.log(user, 'user')
-            let { _id = '', Type = '' } = user || {}
-            console.log(Type)
-            console.log(Type !== 'user', 'user check')
-            console.log(Type !== 'admin', 'admin check')
-    
-            if (Type != 'admin') {
-                props.history.push('/')
-            }
         setLoader(true)
-
+        authRoutes(props)
+        let user = JSON.parse(localStorage.getItem('user'));
+        let { _id = '', Type = '' } = user || {}
+       
+        if (Type !== 'admin' ) {
+            props.history.push('/contact')       
+        }
+       
+        
         axios.get(`http://18.219.191.74:7777/getcontacts`)
             .then(res => {
                 let { data = [] } = res

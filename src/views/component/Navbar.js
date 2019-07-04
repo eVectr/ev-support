@@ -42,13 +42,14 @@ let support = () =>{
     if(localStorage.user != undefined){
        if (JSON.parse(localStorage.user).Type == 'admin') {
            admincheck = true
-       } else {
+       }else {
            admincheck = false
        }
     }else{
        admincheck = false
     }
 
+    console.log(localStorage, 'localstorage')
 
   return (
       <div>

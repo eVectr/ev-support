@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux' 
 import axios from 'axios'
 import '../../styles/login.css'
@@ -29,13 +29,28 @@ const handleChange = e => {
   setErrors({})
 }
 
+useEffect(() => {
+  let user = JSON.parse(localStorage.getItem('user'))
+  let { _id = '', Type = ''} = user || {}
+  
+  if(Type == 'admin'){  
+    props.history.push('/contact')          
+  }
+
+  if(Type == 'user'){
+    props.history.push('/contact')
+  }
+
+  
+}, [])
+
 const onLogin = () => {
 
   const errors = loginValidation(data)
-    if (!is.empty(errors)) {
+    if(!is.empty(errors)) {
         setErrors(errors) 
         return
-    }
+      }
 
     setloader(true)
 

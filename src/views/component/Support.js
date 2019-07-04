@@ -21,7 +21,7 @@ const SupportTicket = (props) => {
     useEffect(() => {
         authRoutes(props)
         let user = JSON.parse(localStorage.getItem('user'))
-        let { _id = ''} = user || {}
+        let { _id = '', Type = ''} = user || {}
         if(_id){
             axios.post(`http://18.219.191.74:7777/getbyuserid`,{UserId:JSON.parse(localStorage.user)._id})
             .then(res => {
@@ -29,6 +29,13 @@ const SupportTicket = (props) => {
                 setContacts(data.reverse())
             })
         }
+        
+        if(Type !== 'user'){  
+                    
+            props.history.push('/contact')          
+        }
+
+        
     }, [])
 
     let handleSearchChange = e =>{
