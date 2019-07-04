@@ -16,7 +16,8 @@ const AdminPanel = (props) => {
     const [open, setOpen] = useState(false)
     const [start, setStart] = useState(0)
     const [limit, setLimit] = useState(5)
-    const [emailStatus, setEmailStatus] = useState(false)
+    const [emailStatus, setEmailStatus] = useState('')
+    const [emailCheck, setEmailcheck] = useState(false)
 
     useEffect(() => {
         axios.get(`http://18.219.191.74:7777/getcontacts`)
@@ -51,8 +52,13 @@ const AdminPanel = (props) => {
     let sendMail = () =>{
         axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contact.Email})
         .then(res => {
+            console.log("email response ===>", res)
             if(res.status == 200){
-                setEmailStatus(true)
+                setEmailcheck(true)
+                setEmailStatus("Email sent succesfully")
+            }else{
+                setEmailcheck(true)
+                setEmailStatus("Something went wrong")
             }
        })
     }
@@ -219,7 +225,7 @@ const AdminPanel = (props) => {
                         <textarea className="textarea reply-msg" name="message" placeholder="Enter Message (Mandatory)" 
                          value={message.body} onChange={handleMessageChange} />
                         <button className="button is-success send-btn" onClick ={sendMail}>Send Email</button>
-                        {emailStatus?<p>Email Sent Successfuly</p>:''}
+                        {emailCheck?<p>{emailStatus}</p>:''}
                     </div>
                 </div>
             </Modal>

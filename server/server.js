@@ -286,6 +286,7 @@ app.post('/login', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        res.send("err")
         console.log("error =>",error);
       } else {
         console.log('Email sent: ' + info.response)

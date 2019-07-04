@@ -175,7 +175,7 @@ const SurveyCard = (props) => {
 
                 <div class="field address">
                   <div class="control">
-                    <textarea class="textarea" placeholder="Normal textarea"></textarea>
+                    <textarea class="textarea" placeholder="Input any complimentary comment(s) here"></textarea>
                   </div>
                 </div>
               </div>
