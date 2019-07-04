@@ -53,7 +53,7 @@ const AdminPanel = (props) => {
 
     let onOpenModal = (CaseNo) => {
         
-        axios.post(`http://localhost:7777/getbycaseno`, {caseNo:CaseNo})
+        axios.post(`http://18.219.191.74:7777/getbycaseno`, {caseNo:CaseNo})
              .then(res => {
                setContact(res.data[0])
             })
@@ -159,7 +159,7 @@ const AdminPanel = (props) => {
                            
                             <div className='admin-cases'>
                             <div>
-                                <span className='case-number'><b>Case Number:</b>{contact.Case_No}</span>
+                                <span className='case-number'><b>Case Number:</b>{contact.Case_No}1243</span>
                             </div>
                                 <div>
                                     <span>
@@ -194,7 +194,7 @@ const AdminPanel = (props) => {
                         <div class="control has-icons-left has-icons-right">
                             <span className='uploaded-name upload-msg '>
                                 <label className="label left_align name">Message:</label>
-                                <p className='show-msg'>{contact.Message}</p>
+                                <p className='show-msg'>{contact.Message}11111</p>
                             </span>
                         </div>
                     </div>
@@ -206,7 +206,7 @@ const AdminPanel = (props) => {
                                 <label className="label left_align name">Uploaded Document:</label>
                                 {
                                     Documents.map((document, index) => {
-                                    let doc = 'http://localhost:7777/'.concat(document)
+                                    let doc = 'http://18.219.191.74:7777/'.concat(document)
                                     return (
                                         <a href={doc}>{document}</a>
 
@@ -226,7 +226,7 @@ const AdminPanel = (props) => {
                                         <div className='row image-row'>
                                 {
                                     Images.map((image, index) => {
-                                        let imgsrc = 'http://localhost:7777/'.concat(image)
+                                        let imgsrc = 'http://18.219.191.74:7777/'.concat(image)
                                         return (
                                             <div className='column-img'>
                                                 <img src={imgsrc} className="uploaded-image-data columns" />
