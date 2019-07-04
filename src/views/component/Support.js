@@ -228,7 +228,7 @@ const SupportTicket = (props) => {
                 <div class="control has-icons-left has-icons-right">
                     <span className='uploaded-name'>
                         <label className="label left_align name">Uploaded Link:</label>
-                        <p>{contacts.Link}</p>
+                        <p className='link-text'>{contacts.Link}</p>
                     </span>
                 </div>
                 </div>

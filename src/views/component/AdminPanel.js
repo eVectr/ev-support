@@ -244,7 +244,8 @@ const AdminPanel = (props) => {
                            {
                                contact.Link == '' ?  '' :  <span className='uploaded-name uploaded-link-data'>
                                <label className="label left_align name">Uploaded Link</label>
-                               <p>{contact.Link}</p>
+    
+                               <a href = {contact.Link} className='link-text'>{contact.Link}</a>
                            </span>
                            }
                         </div>
@@ -252,7 +253,7 @@ const AdminPanel = (props) => {
                     <div className="field">
                         <label className="label left_align reply-msg">Reply</label>
                         <div className="control">
-                            <textarea className="textarea reply-msg" name="message" placeholder="Enter Message (Mandatory)" 
+                            <textarea className="textarea reply-msg" name="message" placeholder="Enter Message" 
                             value={message.body} onChange={handleMessageChange} />
                             <button className="button is-success send-btn" onClick ={sendMail}>Send</button>
                         </div>
