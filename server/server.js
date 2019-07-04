@@ -50,7 +50,7 @@ app.use((req, res, next)=>{
 //     Question: 'If no would you like to file a complaint?',
 //     Options: ['YES', 'NO']
 // })
-//transactionSurvey.save()
+// transactionSurvey.save()
 
 const storage = multer.diskStorage({
   destination:function(req, file, cb){
@@ -157,6 +157,18 @@ app.get('/getclientsurvey', (req, res) => {
   })
 })
 
+app.get('/gettransactionsurvey', (req, res) => {
+  TransactionSurvey.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      console.log(" client survey ==>", docs)
+      res.send(docs)
+    }
+  })
+})
+
 // app.post('/savecontact', (req, res) => {
 // let user_Id = req.body.user_Id
 // let Name = req.body.Name
@@ -253,8 +265,8 @@ app.post('/login', (req, res) => {
     port: 587,
     secure: false, 
     auth: {
-      user: 'eamil045@gmail.com', 
-      pass: 'pass'
+      user: 'verma.akash045@gmail.com', 
+      pass: 'A9576227153'
     },
     tils:{
       rejectUnauthorized:false
@@ -264,6 +276,7 @@ app.post('/login', (req, res) => {
   app.post('/sendmail', (req, res) => {
     let message = req.body.message
     let email = req.body.email
+    console.log("email ==", email)
     let mailOptions = {
       from: ' "p2p Support" <verma.akash045@gmail.com>',
       to: email,
@@ -273,9 +286,11 @@ app.post('/login', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        res.send("err")
         console.log("error =>",error);
       } else {
-        console.log('Email sent: ' + info.response);
+        console.log('Email sent: ' + info.response)
+        res.send("sent")
       }
     })
   })

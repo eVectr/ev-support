@@ -434,6 +434,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
     if (props.notificationreducer.selectedReason == undefined) {
         props.history.push('/contact')
       } 
+    console.log("optional props ==>", props)
 
     return (
         <div className="form-container">

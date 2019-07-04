@@ -172,31 +172,11 @@ const SupportTicket = (props) => {
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">
                     <div className="field">
-                        <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
-                                <label className="label left_align name">Name:</label>
-                                <p>{contact.Name}</p>
-                            </span>
-                        </div>
-
-                        <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
-                                <label className="label left_align name">Email:</label>
-                                <p>{contact.Email}</p>
-                            </span>
-                        </div>
-
+                       
                         <div class="control has-icons-left has-icons-right">
                             <span className='uploaded-name'>
                                 <label className="label left_align name">Transaction Number:</label>
                                 <p>{contact.Transaction_Number}</p>
-                            </span>
-                        </div>
-
-                        <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
-                                <label className="label left_align name">Subject:</label>
-                                <p>{contact.Subject}</p>
                             </span>
                         </div>
 

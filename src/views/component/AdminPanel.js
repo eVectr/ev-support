@@ -20,6 +20,8 @@ const AdminPanel = (props) => {
     const [show, setShow] = useState(false)
     const [start, setStart] = useState(0)
     const [limit, setLimit] = useState(5)
+    const [emailStatus, setEmailStatus] = useState('')
+    const [emailCheck, setEmailcheck] = useState(false)
 
     useEffect(() => {
         setLoader(true)
@@ -67,7 +69,14 @@ const AdminPanel = (props) => {
     let sendMail = () =>{
         axios.post(`http://18.219.191.74:7777/sendmail`, {message:message, email:contact.Email})
         .then(res => {
-          console.log("res ==>", res)
+            console.log("email response ===>", res)
+            if(res.status == 200){
+                setEmailcheck(true)
+                setEmailStatus("Email sent succesfully")
+            }else{
+                setEmailcheck(true)
+                setEmailStatus("Something went wrong")
+            }
        })
     }
    
@@ -174,31 +183,11 @@ const AdminPanel = (props) => {
             <Modal open={open} onClose={onCloseModal}>
                 <div className="pading">
                     <div className="field">
-                        <div class="control has-icons-left has-icons-right">
-                            <span className='name uploaded-name'>
-                                <label className="label left_align name">Name:</label>
-                                <p>{contact.Name}</p>
-                            </span>
-                        </div>
-
-                        <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
-                                <label className="label left_align name">Email:</label>
-                                <p>{contact.Email}</p>
-                            </span>
-                        </div>
 
                         <div class="control has-icons-left has-icons-right">
                             <span className='uploaded-name'>
                                 <label className="label left_align name">Transaction Number:</label>
                                 <p>{contact.Transaction_Number}</p>
-                            </span>
-                        </div>
-
-                        <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
-                                <label className="label left_align name">Subject:</label>
-                                <p>{contact.Subject}</p>
                             </span>
                         </div>
 

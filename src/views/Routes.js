@@ -10,7 +10,8 @@ import AdminPanel from './component/AdminPanel'
 import Support from './component/Support'
 import RouterChangeObserver from './component/RouterChangeObserver'
 import SuccessfulNotification from './component/SuccessfulNotification'
-import Survey from './component/Survey';
+import Survey from './component/Survey'
+import TransactionSurvey from './component/TransactionSurvey'
 
 const Routes = (props) => {
     let { notificationreducer = {} } = props
