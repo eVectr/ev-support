@@ -29,6 +29,7 @@ const SurveyCard = (props) => {
         setQuestion2(false)
         break;
       case 'case5':
+      setQuestion3(false)
         setQuestion2(false)
         setQuestion5(false)
         break;
@@ -95,7 +96,12 @@ const SurveyCard = (props) => {
       })
   }, [])
 
-console.log("survey ==>", survey)
+  let onSubmit = () =>{
+    if(question5check == 'YES'){
+      props.history.push('/contact/3')
+    } 
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -166,9 +172,6 @@ console.log("survey ==>", survey)
                 </div>
               </div>
             :''}
-
-
-
             {question5 == false?
              <div className="checkboxes survey-complaint">
              <p className='survey-question'>{survey.length?survey[4].Question:'No Q'}</p>
@@ -216,7 +219,7 @@ console.log("survey ==>", survey)
             }
 
             <div className='survey-btn'>
-              <a class="button is-primary"><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>
+              <a class="button is-primary" onClick = {onSubmit}><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>
             </div>
 
           </div>

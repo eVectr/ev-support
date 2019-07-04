@@ -11,15 +11,27 @@ const SurveyCard = (props) => {
   let [question2check, setQuestion2check ] = useState('')
   let [question3, setQuestion3 ] = useState()
   let [question3check, setQuestion3check ] = useState('')
+  let [question4, setQuestion4 ] = useState()
+  let [question4check, setQuestion4check ] = useState('')
  
 
   let showQuestions = (Case) =>{
     switch(Case) {
       case 'case1':
         setQuestion2(true)
+        setQuestion3(false)
         break;
       case 'case2':
+        setQuestion4(false)
         setQuestion2(false)
+        setQuestion3(true)
+        break;
+      case 'case3':
+        setQuestion4(false)
+        break;
+      case 'case8':
+        setQuestion4(true)
+        break;
       
     }
   }
@@ -34,6 +46,9 @@ const SurveyCard = (props) => {
         break;
       case 3:
         setQuestion3check(val)
+        break;
+      case 4:
+        setQuestion4check(val)
       
     }
   }
@@ -53,7 +68,11 @@ const SurveyCard = (props) => {
       })
   }, [])
 
-  console.log("question2 =>", question2)
+  let onSubmit = () =>{
+    if(question3check == 'YES' || question4check == 'YES'){
+      props.history.push('/contact/3')
+    } 
+  }
  
     return(
       <div className="container">
@@ -87,7 +106,7 @@ const SurveyCard = (props) => {
                  </label>
 
                     <label class="checkbox-inline">
-                      <input type="checkbox" value='NO' checked={question2check == 'NO'} onChange={(event) =>handleradioleChange(2,'case4',event)} />NO
+                      <input type="checkbox" value='NO' checked={question2check == 'NO'} onChange={(event) =>handleradioleChange(2,'case8',event)} />NO
                  </label>
                   </div>
                 </div>:
@@ -95,7 +114,7 @@ const SurveyCard = (props) => {
               }
              
 
-            {question2 == false?
+            {question3?
               <div className="checkboxes survey-complaint">
                 <p className='survey-question'>{survey.length ? survey[2].Question : 'No Q'}</p>
                 <div className='checkbox-data'>
@@ -111,8 +130,24 @@ const SurveyCard = (props) => {
               ''
               }
 
+            {question4?
+              <div className="checkboxes survey-complaint">
+                <p className='survey-question'>{survey.length ? survey[3].Question : 'No Q'}</p>
+                <div className='checkbox-data'>
+                  <label class="checkbox-inline lable-text ">
+                    <input type="checkbox" value='YES' checked={question4check == 'YES'} onChange={(event) =>handleradioleChange(4,'case6', event)}  /> YES
+                </label>
+
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value='NO' checked={question4check == 'NO'} onChange={(event) =>handleradioleChange(4, 'case7', event)} />NO
+               </label>
+                </div>
+              </div>:
+              ''
+              }
+
             <div className='survey-btn'>
-              <a class="button is-primary"><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>
+              <a class="button is-primary" onClick = {onSubmit}><span className='btn-angle-down'><i class="fas fa-angle-down" ></i></span>SUBMIT</a>
             </div>
 
           </div>
