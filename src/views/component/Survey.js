@@ -22,7 +22,7 @@ const SurveyCard = (props) => {
   let [question4check, setQuestion4check ] = useState('')
   let [loader, setLoader] = useState(false)
   let [successMsg, setSuccessMsg] = useState('')
-  let [show, setShow] = useState(false)
+ 
 
   let showQuestions = (Case) =>{
     switch(Case) {
@@ -79,7 +79,7 @@ const SurveyCard = (props) => {
       .then(res => {
         let { data = [] } = res
         console.log("data ==>", data)
-        setSuccessMsg('Your Message Successfully Saved')
+       
         setSurvey(data)
         setLoader(false)
       })
@@ -114,11 +114,19 @@ const SurveyCard = (props) => {
     axios.post(`http://localhost:7777/clientSurveyResponse`, {Question1Response, Question2Response,
     Question3Response, Question4Response})
       .then(res => {
+        if(res.status='200'){
+          setSuccessMsg('Your Message Successfully Saved')
+        }
+
+      
+       
         console.log("response ===???", res)
       })
-  } 
 
-  console.log("survey ------==>", survey)
+      
+  } 
+ 
+  
     return(
       <div className="container">
         <div className="row">
@@ -200,9 +208,7 @@ const SurveyCard = (props) => {
             <div className='survey-btn'>
               <a class="button is-primary" onClick = {onSubmit}><span className='btn-angle-down'><i class="fas fa-angle-down" ></i></span>SUBMIT</a>
             </div>
-              {
-                show ? <p className='send-success-msg'>{successMsg}</p> : ''
-              } 
+              <p className='send-success-msg'>{successMsg}</p>
           </div>
         </div>
       </div>

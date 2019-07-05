@@ -77,7 +77,7 @@ app.post('/clientSurveyResponse', (req, res) => {
   clientSurveyResponse.save((err, data)=>{
     if(err){
       console.log(err)
-      res.send(err)
+      res.send('err')
     }else{
       console.log("data    =>", data)
       res.send(data)
