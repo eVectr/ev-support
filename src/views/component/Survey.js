@@ -118,7 +118,7 @@ const SurveyCard = (props) => {
       })
   } 
 
-  console.log("survey ------==>", survey)
+  console.log("props survey ------==>",props )
     return(
       <div className="container">
         <div className="row">

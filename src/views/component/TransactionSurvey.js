@@ -252,7 +252,6 @@ const SurveyCard = (props) => {
 
             }
 
-            
 
             <div className='survey-btn'>
               <a class="button is-primary" onClick = {onSubmit}><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>
