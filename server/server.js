@@ -11,7 +11,8 @@ const ContactForm = require('../db/ContactForm')
 const ContactCategory = require('../db/contactcategory.js')
 const ClientSurvey = require('../db/clientSurvey')
 const TransactionSurvey = require('../db/TransactionSurvey')
-let api = require("../api/api");
+const ClientSurveyResponse = require('../db/clientSurveyResoponse')
+let api = require("../api/api")
 
 var app = express()
 var bodyParser = require('body-parser')
@@ -46,11 +47,44 @@ app.use((req, res, next)=>{
 // })
 // user.save()
 
+// let option1data = {
+//   Option1Type: 'CheckBox',
+//   OptionValue: ['YES', 'NO']
+// }
+
+
 // var transactionSurvey = new TransactionSurvey({
-//     Question: 'If no would you like to file a complaint?',
-//     Options: ['YES', 'NO']
+//   Question: 'f NO would you like to file a complaint?',
+//   Option1:option1data
 // })
 // transactionSurvey.save()
+
+
+app.post('/clientSurveyResponse', (req, res) => {
+  let UserId = req.body.UserId
+  let Question1Response = req.body.Question1Response
+  let Question2Response= req.body.Question2Response
+  let Question3Response = req.body.Question3Response
+  let Question4Response= req.body.Question4Response
+
+  var clientSurveyResponse = new ClientSurveyResponse({
+    UserId: UserId,
+    Question1Response: Question1Response,
+    Question2Response: Question2Response,
+    Question3Response: Question3Response,
+    Question4Response: Question4Response
+  })
+  clientSurveyResponse.save((err, data)=>{
+    if(err){
+      console.log(err)
+      res.send(err)
+    }else{
+      console.log("data    =>", data)
+      res.send(data)
+    }
+  })
+  
+})
 
 const storage = multer.diskStorage({
   destination:function(req, file, cb){

@@ -145,11 +145,11 @@ const SurveyCard = (props) => {
                     <p className='survey-question'>{survey.length?survey[0].Question:''}</p>
                     <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
-                    <input type="checkbox" value='YES' checked={question1check =='YES'}  onChange={(event) =>handleradioleChange(1, 'case1', event)}/> YES
+                    <input type="checkbox" value= {survey.length?survey[0].Option1.OptionValue[0]:''} checked={question1check =='YES'}  onChange={(event) =>handleradioleChange(1, 'case1', event)}/>  {survey.length?survey[0].Option1.OptionValue[0]:''}
                     </label>
 
                     <label class="checkbox-inline">
-                    <input type="checkbox" value='NO'  checked={question1check == 'NO'}  onChange={(event) =>handleradioleChange(1, 'case5', event)}/>NO
+                    <input type="checkbox" value= {survey.length?survey[0].Option1.OptionValue[1]:''}  checked={question1check == 'NO'}  onChange={(event) =>handleradioleChange(1, 'case5', event)}/> {survey.length?survey[0].Option1.OptionValue[1]:''}
                     </label>
                 </div>
               </div>
@@ -159,11 +159,11 @@ const SurveyCard = (props) => {
                 <p className='survey-question'>{survey.length?survey[1].Question:''}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
-                    <input type="checkbox" value="YES" checked={question2check =='YES'}  onChange={(event) =>handleradioleChange(2, 'case6', event)}/> YES
+                    <input type="checkbox" value={survey.length?survey[1].Option1.OptionValue[0]:''} checked={question2check =='YES'}  onChange={(event) =>handleradioleChange(2, 'case6', event)}/> {survey.length?survey[1].Option1.OptionValue[0]:''}
                      </label>
 
                   <label class="checkbox-inline">
-                    <input type="checkbox" checked={question2check =='NO'} value="NO" onChange={(event) =>handleradioleChange(2, 'case7', event)} />NO
+                    <input type="checkbox" checked={question2check =='NO'} value={survey.length?survey[1].Option1.OptionValue[1]:''} onChange={(event) =>handleradioleChange(2, 'case7', event)} />{survey.length?survey[1].Option1.OptionValue[1]:''}
                      </label>
                 </div>
               </div>
@@ -174,10 +174,10 @@ const SurveyCard = (props) => {
                 <p className='survey-question'>{survey.length ? survey[2].Question : ''}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
-                    <input type="checkbox" value="YES" checked={question3check == 'YES'} onChange={(event) => handleradioleChange(3, 'case8', event)} /> YES
+                    <input type="checkbox" value={survey.length?survey[2].Option1.OptionValue[0]:''} checked={question3check == 'YES'} onChange={(event) => handleradioleChange(3, 'case8', event)} /> {survey.length?survey[2].Option1.OptionValue[0]:''}
                      </label>
                   <label class="checkbox-inline">
-                    <input type="checkbox" checked={question3check == 'NO'} value="NO" onChange={(event) => handleradioleChange(3, 'case9', event)} />NO
+                    <input type="checkbox" checked={question3check == 'NO'} value={survey.length?survey[2].Option1.OptionValue[1]:''} onChange={(event) => handleradioleChange(3, 'case9', event)} />{survey.length?survey[2].Option1.OptionValue[1]:''}
                      </label>
                 </div>
               </div>
@@ -209,11 +209,11 @@ const SurveyCard = (props) => {
              <p className='survey-question'>{survey.length?survey[4].Question:''}</p>
                      <div className='checkbox-data'>
                      <label class="checkbox-inline lable-text ">
-                     <input type="checkbox" value='YES' checked={question5check =='YES'}  onChange={(event) =>handleradioleChange(5, 'case3', event)}/> YES
+                     <input type="checkbox" value={survey.length?survey[4].Option1.OptionValue[0]:''} checked={question5check =='YES'}  onChange={(event) =>handleradioleChange(5, 'case3', event)}/> {survey.length?survey[4].Option1.OptionValue[0]:''}
                      </label>
  
                      <label class="checkbox-inline">
-                     <input type="checkbox" value='NO'  checked={question5check == 'NO'}  onChange={(event) =>handleradioleChange(5, 'case4', event)}/>NO
+                     <input type="checkbox" value={survey.length?survey[4].Option1.OptionValue[1]:''}  checked={question5check == 'NO'}  onChange={(event) =>handleradioleChange(5, 'case4', event)}/>{survey.length?survey[4].Option1.OptionValue[1]:''}
                      </label>
                  </div>
              </div>
