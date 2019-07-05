@@ -111,7 +111,7 @@ const SurveyCard = (props) => {
       props.history.push('/contact/3')
     }
 
-    axios.post(`http://localhost:7777/clientSurveyResponse`, {Question1Response, Question2Response,
+    axios.post(`http://18.219.191.74:7777/clientSurveyResponse`, {Question1Response, Question2Response,
     Question3Response, Question4Response})
       .then(res => {
         if(res.status='200'){

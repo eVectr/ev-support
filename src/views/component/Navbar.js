@@ -67,13 +67,11 @@ let onTransactionSurvey = () => {
 
   return (
       <div>
-          <nav class="navbar is-primary is-active " role="navigation" aria-label="main navigation">
+          <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
           
               <div class="navbar-brand">
-                  <a class="navbar-item" href="https://bulma.io">
-
+                  <a class="navbar-item" href="">
                   </a>
-
                     <a class={`navbar-burger burger ${show ? 'is-active' : '' }`} aria-label="menu" aria-expanded="false" data-target="navMenu" onClick ={() => showNavMenu()}>
                       <span aria-hidden="true"></span>
                       <span aria-hidden="true"></span>
@@ -83,7 +81,7 @@ let onTransactionSurvey = () => {
 
               <div id="navbarMenu" class={`navbar-menu ${show ? 'is-active' : ''}`}>
                   <div class="navbar-start">
-                      <a class="navbar-item is-active" onClick ={home}>
+                      <a class="navbar-item" onClick ={home}>
                           <strong>Home</strong>
                     </a>
 
