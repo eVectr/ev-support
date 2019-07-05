@@ -21,7 +21,7 @@
 
 .search{
     width:100%;
-    padding: 5px;
+    padding: 10px;
 }
 
 .search-btn{
@@ -38,9 +38,6 @@
 .card{
    margin-bottom:3%;
     padding:15px;
-    /* opacity: 0.6; */
-    /* box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5); */
-    /* transition: 0.8s; */
     border-radius:1px;
     background-color: #4e434312;
     border: 1px solid #999;
@@ -85,7 +82,11 @@
     align-items: center;
 
 }
+
+
 /* ---------------------------------------------------ADMIN-MODAL-CSS------------------------------------- */
+
+
 .styles_modal__gNwvD{
     padding: 25px;
 }

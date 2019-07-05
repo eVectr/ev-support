@@ -206,7 +206,7 @@ const SupportTicket = (props) => {
                     </div>
                 </div>
 
-                <div className='uploaded-documents'>
+                <div className='uploaded-documents uploaded-data'>
                     {
                         Documents.length>0 ?   <div class="control has-icons-left has-icons-right">
                         <span className='uploaded-name document'>
@@ -223,20 +223,7 @@ const SupportTicket = (props) => {
                         </span>
                     </div> : ''
                     }
-                        {/* <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name document'>
-                                <label className="label left_align name">Uploaded Document:</label>
-                                {
-                                    Documents.map((document, index) => {
-                                    let doc = 'http://18.219.191.74:7777/'.concat(document)
-                                    return (
-                                        <a href={doc}>{document}</a>
-        
-                                    )
-                                })
-                                }
-                            </span>
-                        </div> */}
+                    
 
                     <div class="control has-icons-left has-icons-right">
                         {
@@ -259,24 +246,7 @@ const SupportTicket = (props) => {
                             </div>
                         </span> : ''
                         }
-                        {/* <span className='uploaded-image'>
-                            <label className="label left_align name">Uploaded Image:</label>
-                            <div className='container image-container'>
-                                <div className='row image-row'>
-                                {
-                                    Images.map((image, index) => {
-                                    let imgsrc = 'http://18.219.191.74:7777/'.concat(image)
-                                    return (
-                                            
-                                        <div className='column-img'>
-                                            <img src={imgsrc} className="uploaded-image-data columns" />
-                                        </div>
-                                    )
-                                })
-                                }
-                                </div>
-                            </div>
-                        </span> */}
+                        
                     </div>
 
                     <div class="control has-icons-left has-icons-right">

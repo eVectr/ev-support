@@ -439,3 +439,7 @@ form {
       font-weight:600;
       text-align: center;
     }
+
+    .uploaded-data{
+      border-bottom: none!important;
+    }

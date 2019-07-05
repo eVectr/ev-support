@@ -49,7 +49,21 @@ let support = () =>{
        admincheck = false
     }
 
-    console.log(localStorage, 'localstorage')
+let onClientSurvey = () => {
+    let user = JSON.parse(localStorage.getItem('user'))
+    let { _id = '', Type = ''} = user || {}
+    if(Type == 'user'){
+        props.history.push('/clientsurvey')
+    }
+}
+
+let onTransactionSurvey = () => {
+    let user = JSON.parse(localStorage.getItem('user'))
+    let { _id = '', Type = ''} = user || {}
+    if(Type == 'user'){
+        props.history.push('/transactionsurvey')
+    }
+}
 
   return (
       <div>
@@ -87,7 +101,24 @@ let support = () =>{
                     <strong>Support</strong>
                     </a>:''
                 }
-                   
+
+                    
+                {/* <a className='navbar-item' onClick={onClientSurvey}>ClientSurvey</a> */}
+
+                {
+                    !admincheck && localStorage.user != undefined?
+                    <a class="navbar-item" onClick ={onClientSurvey}>
+                    <strong>ClientSurvey</strong>
+                    </a>:''
+                }
+
+{
+                    !admincheck && localStorage.user != undefined?
+                    <a class="navbar-item" onClick ={onTransactionSurvey}>
+                    <strong>TransactionSurvey</strong>
+                    </a>:''
+                }
+
 
                </div>
 

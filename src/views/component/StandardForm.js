@@ -30,14 +30,13 @@ const handleChange = e => {
       ...data,
       [name]: value,
   })
+  setErrors({})
  }
 
  let  generateCaseNo= ()=> {
    return new Promise((resolve, reject)=>{
     let date  = new Date
     let sec = date.getSeconds() +1
-    console.log(sec)
-    //let caseNo = 'SS'.concat( (Math.random() * 100000000).toFixed())
     let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
     resolve(caseNo)
    }) 
@@ -98,7 +97,7 @@ const handleChange = e => {
       props.history.push('/contact')
     } 
   
-// console.log("props ==>", props.notificationreducer.selectedReason.template)
+
   return (
     <div className = "form-container">
     <div className="contact-form">

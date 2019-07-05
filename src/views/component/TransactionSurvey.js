@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import '../../styles/surveycard.css'
 import { SelectedReason } from '../../redux/actions/notification/notification';
+import { authRoutes } from '../../utils/Common';
+import { set } from 'mongoose';
 
 
 const SurveyCard = (props) => {
@@ -20,6 +22,9 @@ const SurveyCard = (props) => {
   let [question5check, setQuestion5check ] = useState('')
   let [promotionField, setPromotionField ] = useState()
   let [directMessage, setDirectMessage ] = useState()
+  let [loader, setLoader] = useState(false)
+  let [successMsg, setSuccessMsg] = useState('')
+  let [show, setShow] = useState(false)
 
   let showQuestions = (Case) =>{
     switch(Case) {
@@ -95,12 +100,21 @@ const SurveyCard = (props) => {
   }
 
   useEffect(() => {
+    authRoutes(props)
+    let user = JSON.parse(localStorage.getItem('user'))
+    const { Type = ''} = user || {}
+    setLoader(true)
     axios.get(`http://18.219.191.74:7777/gettransactionsurvey`)
       .then(res => {
         let { data = [] } = res
         console.log("data ==>", data)
+        setSuccessMsg('Your Message Successfully Saved')
         setSurvey(data)
+        setLoader(false)
       })
+      if(Type !== 'user'){
+        props.history.push('/contact')
+      }
   }, [])
 
   let onSubmit = () =>{
@@ -108,7 +122,10 @@ const SurveyCard = (props) => {
       props.dispatch(SelectedReason('transactionsurvey'))
       props.history.push('/contact/3')
     } 
+    setShow(true)
   }
+
+  
 
   return (
     <div className="container">
@@ -117,11 +134,15 @@ const SurveyCard = (props) => {
           <div class="surveycard">
 
             <div className='card-header '>
-              <p className="card-header-title card-heading "> <i class="fas fa-cog"></i> Completed Transaction Survey</p>
+              <p className="card-header-title card-heading "> <i class="fas fa-cog"></i>Transaction Survey</p>
             </div>
-
+              {
+                loader ?  <div class='survey-loading'>
+                            <img src= {require('../../images/loader.gif')}/>
+                          </div> : ''
+              }
             <div className="checkboxes">
-                    <p className='survey-question'>{survey.length?survey[0].Question:'Loading Question'}</p>
+                    <p className='survey-question'>{survey.length?survey[0].Question:''}</p>
                     <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
                     <input type="checkbox" value='YES' checked={question1check =='YES'}  onChange={(event) =>handleradioleChange(1, 'case1', event)}/> YES
@@ -135,7 +156,7 @@ const SurveyCard = (props) => {
 
             {question2 ?
               <div className="checkboxes">
-                <p className='survey-question'>{survey.length?survey[1].Question:'Loading Question'}</p>
+                <p className='survey-question'>{survey.length?survey[1].Question:''}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
                     <input type="checkbox" value="YES" checked={question2check =='YES'}  onChange={(event) =>handleradioleChange(2, 'case6', event)}/> YES
@@ -150,7 +171,7 @@ const SurveyCard = (props) => {
 
             {question3 ?
               <div className="checkboxes survey-complaint">
-                <p className='survey-question'>{survey.length ? survey[2].Question : 'Loading Question'}</p>
+                <p className='survey-question'>{survey.length ? survey[2].Question : ''}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
                     <input type="checkbox" value="YES" checked={question3check == 'YES'} onChange={(event) => handleradioleChange(3, 'case8', event)} /> YES
@@ -177,12 +198,15 @@ const SurveyCard = (props) => {
                   <div class="control">
                     <textarea class="textarea" placeholder="Input any complimentary comment(s) here"></textarea>
                   </div>
+                  <p className ='reminder-msg'><strong>IMPORTANT REMINDER:</strong>By inputting any comment(s) in this section, you are agreeing to allow said comments
+            to be used for promotional purposes publicly. That said, if you would like your comment(s) to stay private please change the 
+            previous answer to NO and provide direct feedback in the question below.</p>
                 </div>
               </div>
             :''}
             {question5 == false?
              <div className="checkboxes survey-complaint">
-             <p className='survey-question'>{survey.length?survey[4].Question:'Loading Question'}</p>
+             <p className='survey-question'>{survey.length?survey[4].Question:''}</p>
                      <div className='checkbox-data'>
                      <label class="checkbox-inline lable-text ">
                      <input type="checkbox" value='YES' checked={question5check =='YES'}  onChange={(event) =>handleradioleChange(5, 'case3', event)}/> YES
@@ -198,7 +222,7 @@ const SurveyCard = (props) => {
             {question4 ?
               <div>
                 <div className="checkboxes">
-                  <p className='survey-question'>{survey.length?survey[3].Question:'Loading Question'}</p>
+                  <p className='survey-question'>{survey.length?survey[3].Question:''}</p>
                   <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
                       <input type="checkbox" value="YES" checked={question4check =='YES'} onChange={(event) =>handleradioleChange(4, 'case10', event)} /> YES
@@ -217,6 +241,8 @@ const SurveyCard = (props) => {
                 <div class="control">
                   <textarea class="textarea" placeholder="Provide any feedback here"></textarea>
                 </div>
+                <p className='reminder-msg'><strong>IMPORTANT REMINDER:</strong>Any feedback provided in the section above will be considered private.
+                Faliure to adhere to this rule will results in status suspension or permanent accoun delation  </p>
                 </div>
               </div>:''
               }
@@ -226,10 +252,14 @@ const SurveyCard = (props) => {
 
             }
 
+            
+
             <div className='survey-btn'>
               <a class="button is-primary" onClick = {onSubmit}><span className='btn-angle-down'><i class="fas fa-angle-down"></i></span>SUBMIT</a>
             </div>
-
+              {
+                show ? <p className='send-success-msg'>{successMsg}</p> : ''
+              }
           </div>
         </div>
       </div>

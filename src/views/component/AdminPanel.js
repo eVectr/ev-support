@@ -162,7 +162,7 @@ const AdminPanel = (props) => {
 
                             <div className='admin-cases'>
                                 <div>
-                                    <span className='case-number'><b>Subject:</b>{contact.Subject}dgvdf</span>
+                                    <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
                                 </div>
                                 <div >
                                     <span className='case-number'><b>Status:</b>{contact.Status}</span>
@@ -199,10 +199,13 @@ const AdminPanel = (props) => {
                     <div className="field">
 
                         <div class="control has-icons-left has-icons-right">
-                            <span className='uploaded-name'>
+                        {
+                            contact.Transaction_Number == '' ? '' : <span className='uploaded-name'>
                                 <label className="label left_align name">Transaction Number:</label>
                                 <p>{contact.Transaction_Number}</p>
                             </span>
+                        }
+                            
                         </div>
 
                         <div class="control has-icons-left has-icons-right">

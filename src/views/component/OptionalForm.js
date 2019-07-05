@@ -45,6 +45,7 @@ const ContactForm = (props) => {
             ...data,
             [name]: value,
         })
+        setErrors({})
     }
 
     const onDrop = (files) => {

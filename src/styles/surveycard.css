@@ -11,7 +11,8 @@
 }
 .card-header {
   background-color: #bdb8b83d!important;
-  margin-bottom: 30px;
+ 
+  margin: -17px -15px 30px -16px;
 }
 
 .card-heading{
@@ -25,9 +26,6 @@
     width: 50%;
     margin: 3%;
     padding:15px;
-    /* opacity: 0.6; */
-    /* box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.5); */
-    /* transition: 0.8s; */
     border-radius:1px;
     background-color: #4e434312;
     border: 1px solid #999;
@@ -142,3 +140,35 @@ padding-bottom: 50px;
     align-items: center;
     justify-content: center
 }
+
+.survey-loading{
+    width: 100%; 
+    text-align:center;
+}
+
+.survey-loading img{
+    height: 40px;
+}
+
+
+.reminder-msg{
+    color:red;
+    font-family: 'Slabo 27px', serif;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.reminder-msg strong{
+    font-family: 'Slabo 27px', serif;
+    font-style: italic;  
+    color:red;
+    font-weight: 900;
+    margin-right:5px;
+}
+
+.send-success-msg{
+    color:#008000;
+    width: 100%;
+    font-weight:600;
+    text-align: center;
+  }

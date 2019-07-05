@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import '../../styles/surveycard.css'
 import { SelectedReason } from '../../redux/actions/notification/notification';
+import { authRoutes } from '../../utils/Common';
 
 const SurveyCard = (props) => {
 
@@ -15,7 +16,9 @@ const SurveyCard = (props) => {
   let [question3check, setQuestion3check ] = useState('')
   let [question4, setQuestion4 ] = useState()
   let [question4check, setQuestion4check ] = useState('')
- 
+  let [loader, setLoader] = useState(false)
+  let [successMsg, setSuccessMsg] = useState('')
+  let [show, setShow] = useState(false)
 
   let showQuestions = (Case) =>{
     switch(Case) {
@@ -34,7 +37,6 @@ const SurveyCard = (props) => {
       case 'case8':
         setQuestion4(true)
         break;
-      
     }
   }
 
@@ -62,19 +64,29 @@ const SurveyCard = (props) => {
   }
 
   useEffect(() => {
+    let user = JSON.parse(localStorage.getItem('user'))
+        let { _id = '', Type = ''} = user || {}
+    authRoutes(props)
+    setLoader(true)
     axios.get(`http://18.219.191.74:7777/getclientsurvey`)
       .then(res => {
         let { data = [] } = res
         console.log("data ==>", data)
+        setSuccessMsg('Your Message Successfully Saved')
         setSurvey(data)
+        setLoader(false)
       })
+      if(Type !== 'user'){
+        props.history.push('/contact')
+      }
   }, [])
 
   let onSubmit = () =>{
     if(question3check == 'YES' || question4check == 'YES'){
       props.dispatch(SelectedReason('clientsurvey'))
       props.history.push('/contact/3')
-    } 
+    }
+    setShow(true)
   }
  
     return(
@@ -86,9 +98,14 @@ const SurveyCard = (props) => {
               <div className='card-header '>
                 <p className="card-header-title card-heading "> <i class="fas fa-cog"></i> Client Survey</p>
               </div> 
-
+              {
+                loader ?  <div className='survey-loading'>
+                    <img src = {require('../../images/loader.gif')}/>
+                </div> : ''
+              }
+             
               <div className="checkboxes">
-                    <p className='survey-question'>{survey.length?survey[0].Question:'Loadin Qusetion'}</p>
+                    <p className='survey-question'>{survey.length?survey[0].Question:''}</p>
                     <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
                     <input type="checkbox" value='YES' checked={question1check =='YES'}  onChange={(event) =>handleradioleChange(1, 'case1', event)}/> YES
@@ -99,10 +116,11 @@ const SurveyCard = (props) => {
                     </label>
                 </div>
               </div>
+              
 
               {question2 ?
                 <div className="checkboxes">
-                  <p className='survey-question'>{survey.length?survey[1].Question:'Loadin Question'}</p>
+                  <p className='survey-question'>{survey.length?survey[1].Question:''}</p>
                   <div className='checkbox-data'>
                     <label class="checkbox-inline lable-text ">
                       <input type="checkbox" value='YES' checked={question2check == 'YES'} onChange={(event) =>handleradioleChange(2,'case3',event)} /> YES
@@ -119,7 +137,7 @@ const SurveyCard = (props) => {
 
             {question3?
               <div className="checkboxes survey-complaint">
-                <p className='survey-question'>{survey.length ? survey[2].Question : 'Loading Question'}</p>
+                <p className='survey-question'>{survey.length ? survey[2].Question : ''}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
                     <input type="checkbox" value='YES' checked={question3check == 'YES'} onChange={(event) =>handleradioleChange(3,'case4', event)}  /> YES
@@ -135,7 +153,7 @@ const SurveyCard = (props) => {
 
             {question4?
               <div className="checkboxes survey-complaint">
-                <p className='survey-question'>{survey.length ? survey[3].Question : 'Loading Question'}</p>
+                <p className='survey-question'>{survey.length ? survey[3].Question : ''}</p>
                 <div className='checkbox-data'>
                   <label class="checkbox-inline lable-text ">
                     <input type="checkbox" value='YES' checked={question4check == 'YES'} onChange={(event) =>handleradioleChange(4,'case6', event)}  /> YES
@@ -152,7 +170,9 @@ const SurveyCard = (props) => {
             <div className='survey-btn'>
               <a class="button is-primary" onClick = {onSubmit}><span className='btn-angle-down'><i class="fas fa-angle-down" ></i></span>SUBMIT</a>
             </div>
-
+              {
+                show ? <p className='send-success-msg'>{successMsg}</p> : ''
+              } 
           </div>
         </div>
       </div>
