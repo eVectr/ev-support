@@ -117,9 +117,6 @@ const SurveyCard = (props) => {
         if(res.status='200'){
           setSuccessMsg('Your Message Successfully Saved')
         }
-
-      
-       
         console.log("response ===???", res)
       })
 

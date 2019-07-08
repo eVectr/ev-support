@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var ClientSurveyResponse = new mongoose.Schema({
+var transactionSurveyResponse = new mongoose.Schema({
    UserId:String,
    Question1Response  : {
     question: { type: String },
@@ -17,7 +17,18 @@ var ClientSurveyResponse = new mongoose.Schema({
    Question4Response  : {
     question: { type: String },
     answer : { type: String }
-   }
+   },
+   Question5Response  : {
+    question: { type: String },
+    answer : { type: String }
+   },
+   Question6Response  : {
+    question: { type: String },
+    answer : { type: String }
+   },
+   Name: String,
+   PromotionFeedback: String,
+   DirectFeedBack: String
 })
 
-module.exports = mongoose.model('ClientSurveyResponse', ClientSurveyResponse)
+module.exports = mongoose.model('transactionSurveyResponse', transactionSurveyResponse)

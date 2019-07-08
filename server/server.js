@@ -12,6 +12,7 @@ const ContactCategory = require('../db/contactcategory.js')
 const ClientSurvey = require('../db/clientSurvey')
 const TransactionSurvey = require('../db/TransactionSurvey')
 const ClientSurveyResponse = require('../db/clientSurveyResoponse')
+const TransactionSurveyResponse = require('../db/transactionSurveyResponse')
 let api = require("../api/api")
 
 var app = express()
@@ -82,8 +83,40 @@ app.post('/clientSurveyResponse', (req, res) => {
       console.log("data    =>", data)
       res.send(data)
     }
+  }) 
+})
+
+app.post('/transactionSurveyResponse', (req, res) => {
+  let UserId = req.body.UserId
+  let Question1Response = req.body.Question1Response
+  let Question2Response= req.body.Question2Response
+  let Question3Response = req.body.Question3Response
+  let Question4Response= req.body.Question4Response
+  let Name = req.body.Name
+  let PromotionFeedback = req.body.PromotionFeedback
+  let DirectFeedBack = req.body.DirectFeedBack
+
+  var clientSurveyResponse = new ClientSurveyResponse({
+    UserId: UserId,
+    Question1Response: Question1Response,
+    Question2Response: Question2Response,
+    Question3Response: Question3Response,
+    Question4Response: Question4Response,
+    Question5Response: Question5Response,
+    Question6Response: Question6Response,
+    Name:Name,
+    PromotionFeedback:PromotionFeedback,
+    DirectFeedBack: DirectFeedBack
   })
-  
+  clientSurveyResponse.save((err, data)=>{
+    if(err){
+      console.log(err)
+      res.send('err')
+    }else{
+      console.log("transaction response=>", data)
+      res.send(data)
+    }
+  }) 
 })
 
 const storage = multer.diskStorage({
