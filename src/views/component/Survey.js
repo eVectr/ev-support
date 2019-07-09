@@ -23,6 +23,8 @@ const SurveyCard = props => {
   let [loader, setLoader] = useState(false)
   let [successMsg, setSuccessMsg] = useState('')
   let [showFlashMsg, setShowFlashMSg] = useState(false)
+  let [errorMsg, setErrorMsg] = useState('')
+  let [loading, setLoading] = useState(false)
 
   let showQuestions = Case => {
     switch (Case) {
@@ -88,22 +90,31 @@ const SurveyCard = props => {
   }, [])
 
   let onSubmit = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setErrorMsg('')
+    }, 2000)
+
     if (question1check === '') {
+      setErrorMsg('Please select checkbox')
       return
     }
 
     if (question1check === 'YES') {
       if (question2check === '') {
+        setErrorMsg('Please select checkbox')
         return
       }
 
       if (question2check === 'NO') {
         if (question4check === '') {
+          setErrorMsg('Please select checkbox')
           return
         }
       }
     } else {
       if (question3check === '') {
+        setErrorMsg('Please select checkbox')
         return
       }
     }
@@ -139,12 +150,16 @@ const SurveyCard = props => {
       })
       .then(res => {
         if ((res.status == '200')) {
-          setSuccessMsg('Your Message Successfully Saved')
+          setLoading(false)
+          setSuccessMsg('Survey has been completed')
         }
         setShowFlashMSg(true)
+       
         console.log('response ===???', res)
       })
   }
+
+  console.log(successMsg, 'succesMas')
 
   return (
     <div className='container'>
@@ -300,7 +315,15 @@ const SurveyCard = props => {
             ) : (
               ''
             )}
-
+            
+            {loading ? (
+              <div className='survey-loading'>
+                <img src={require('../../images/loader.gif')} />
+              </div>
+            ) : (
+              ''
+            )}
+            <p className ='error-Msg'>{errorMsg}</p>
             <div className='survey-btn'>
               <a class='button is-primary' onClick={onSubmit}>
                 <span className='btn-angle-down'>
@@ -315,7 +338,7 @@ const SurveyCard = props => {
               </FlashMassage>
             ) : (
               ''
-            )}
+             )} 
           </div>
         </div>
       </div>

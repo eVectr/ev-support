@@ -1,34 +1,29 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { showNotificationAction } from '../../redux/actions/notification/notification';
-class SuccessfulNotification extends Component{
+import { showNotificationAction } from '../../redux/actions/notification/notification'
+class SuccessfulNotification extends Component {
+  componentDidUpdate (prevProps) {
+    setTimeout(() => {
+      this.props.dispatch(showNotificationAction({ show: false, text: '' }))
+    }, 5000)
+  }
+  render () {
+    console.log(this.props, 'SuccessfulNotification')
+    let { notificationreducer = {} } = this.props
+    let { notification = {} } = notificationreducer
+    let { text, show } = notification
 
-    componentDidUpdate (prevProps) {
-        
-        setTimeout(() => {
-            this.props.dispatch(showNotificationAction({show: false, text:'' }))
-        }, 5000);
-    }
-    
+    return (
+      <Fragment>
+        {
+          show
+            ? <div className='show-notification-msg'>
+              <div class='notification is-link'>{text}</div>
+            </div> : null
+        }
+      </Fragment>
 
-    render(){
-        console.log(this.props, 'SuccessfulNotification')
-        let { notificationreducer = {} } = this.props
-        let { notification = {} } = notificationreducer
-        let { text, show } = notification
-
-        return (
-          <Fragment>
-              {
-                  show ?
-                    <div className='show-notification-msg'>
-                        <div class="notification is-link">{text}</div>
-                    </div> : null
-              }
-          </Fragment>
-            
-           
-        )
-    }
+    )
+  }
 }
-export default connect(({dispatch, notificationreducer}) => ({dispatch, notificationreducer}))(SuccessfulNotification)
+export default connect(({ dispatch, notificationreducer }) => ({ dispatch, notificationreducer }))(SuccessfulNotification)
