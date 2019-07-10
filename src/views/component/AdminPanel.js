@@ -3,12 +3,9 @@ import Moment from 'react-moment'
 import FlashMassage from 'react-flash-message'
 import axios from 'axios'
 import adminValidation from '../../utils/adminValidation'
-import AdminModal from './AdminModal'
 import Modal from 'react-responsive-modal'
 import '../../styles/adminpanel.css'
 import { filterArray, authRoutes } from '../../utils/Common'
-import Navbar from '../component/Navbar'
-import { longStackSupport } from 'q'
 import is from 'is_js'
 
 const AdminPanel = (props) => {
@@ -20,17 +17,17 @@ const AdminPanel = (props) => {
   const [loader, setLoader] = useState(false)
   const [show, setShow] = useState(false)
   const [start, setStart] = useState(0)
-  const [limit, setLimit] = useState(5)
+  const [limit] = useState(5)
   const [emailStatus, setEmailStatus] = useState('')
-  const [emailCheck, setEmailcheck] = useState(false)
-  const [showFlashMsg, setshowFlashMsg] = useState(false)
+  const [emailCheck, setEmailCheck] = useState(false)
+  const [showFlashMsg, setShowFlashMsg] = useState(false)
   const [Errors, setErrors] = useState({})
 
   useEffect(() => {
     setLoader(true)
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
-    let { _id = '', Type = '' } = user || {}
+    let { Type = '' } = user || {}
 
     if (Type !== 'admin') {
       props.history.push('/contact')
@@ -62,7 +59,7 @@ const AdminPanel = (props) => {
     setOpen(false)
   }
 
-  let clearemailcheck = () => {
+  let clearEmailCheck = () => {
     setTimeout(function () { setEmailStatus('') }, 3000)
   }
 
@@ -71,33 +68,30 @@ const AdminPanel = (props) => {
     setMessage(value)
     setErrors({})
   }
-  
+
   let sendMail = () => {
-    const errors = adminValidation({message})
-    if(!is.empty(errors)) {
-        setErrors(errors) 
-        return
-      }
+    const errors = adminValidation({ message })
+    if (!is.empty(errors)) {
+      setErrors(errors)
+      return
+    }
     setLoader(true)
     axios.post(`http://18.219.191.74:7777/sendmail`, { message: message, email: contact.Email })
       .then(res => {
-        console.log('email response ===>', res)
         setLoader(false)
-        setshowFlashMsg(true)
+        setShowFlashMsg(true)
         if (res.status == 200) {
-          setEmailcheck(true)
-          setEmailStatus('Email sent succesfully')
-          clearemailcheck()
+          setEmailCheck(true)
+          setEmailStatus('Email sent successfully')
+          clearEmailCheck()
         } else {
-          setEmailcheck(true)
+          setEmailCheck(true)
           setEmailStatus('Something went wrong')
-          clearemailcheck()
+          clearEmailCheck()
         }
       })
-    setshowFlashMsg(false)
+    setShowFlashMsg(false)
   }
-
-  
 
   let nextPage = () => {
     setStart(start + limit)
@@ -125,30 +119,25 @@ const AdminPanel = (props) => {
 
   const searchCases = filterArray(contacts, 'Case_No', caseNo)
   const filteredContacts = searchCases.slice(start, start + limit)
-
   return (
     <div className='container '>
       <div className='row'>
-
         <div className='admin-panel'>
           <h3 className='admin-header'>Admin Panel</h3>
           <div className='search-cases'>
             <input type='text' placeholder='Search by Case No.....' className='link-data search' onChange={handleSearchChange} />
           </div>
         </div>
-
         {
           loader ? <div className='admin-panel-loader'>
             <img src={require('../../images/loader.gif')} />
           </div> : ''
         }
-
       </div>
       {searchCases.length
         ? filteredContacts.map(
           (contact, _index) =>
-
-            <div className='card admin-card' onClick={() => onOpenModal(contact.Case_No)}>
+            <div className='card admin-card' key={_index} onClick={() => onOpenModal(contact.Case_No)}>
               <div className='admin-cases'>
                 <div>
                   <b>Name:</b><span className='case-number'>{contact.Name}</span>
@@ -158,7 +147,6 @@ const AdminPanel = (props) => {
                   <b>Email:</b> <span className='case-number'>{contact.Email}</span>
                 </div>
               </div>
-
               <div className='admin-cases'>
                 <div>
                   <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
@@ -166,9 +154,7 @@ const AdminPanel = (props) => {
                 <div >
                   <span className='case-number'><b>Status:</b>{contact.Status}</span>
                 </div>
-
               </div>
-
               <div className='admin-cases'>
                 <div>
                   <span className='case-number'><b>Case Number:</b>{contact.Case_No}1243</span>
@@ -181,11 +167,9 @@ const AdminPanel = (props) => {
                 </div>
               </div>
             </div>
-
         )
         : <h1 className='admin-panel-error'>{loader ? '' : 'No Match found'}</h1>
       }
-
       { show ? <div className='page-data'>
         <button disabled={!start} onClick={start ? prevPage : () => { prevPage() }} className={`previous ${(!start) ? '' : 'prevactive'}`} >&laquo; Previous</button>
         <button disabled={searchCases.length <= (start + limit)}
@@ -195,7 +179,6 @@ const AdminPanel = (props) => {
       <Modal open={open} onClose={onCloseModal}>
         <div className='pading'>
           <div className='field'>
-
             <div class='control has-icons-left has-icons-right'>
               {
                 contact.Transaction_Number == '' ? '' : <span className='uploaded-name'>
@@ -203,9 +186,7 @@ const AdminPanel = (props) => {
                   <p>{contact.Transaction_Number}</p>
                 </span>
               }
-
             </div>
-
             <div class='control has-icons-left has-icons-right'>
               <span className='uploaded-name upload-msg '>
                 <label className='label left_align name'>Message:</label>
@@ -224,27 +205,24 @@ const AdminPanel = (props) => {
                     let doc = 'http://18.219.191.74:7777/'.concat(document)
                     return (
                       <a href={doc}>{document}</a>
-
                     )
                   })
                 }
               </span> : ''
             }
           </div>
-
           <div class='control has-icons-left has-icons-right'>
             {
               Images.length > 0 ? <span className='uploaded-image'>
-
                 <label className='label left_align name'>Uploaded Image:</label>
                 <div className='container image-container'>
                   <div className='row image-row'>
                     {
                       Images.map((image, _index) => {
-                        let imgsrc = 'http://18.219.191.74:7777/'.concat(image)
+                        let imgSrc = 'http://18.219.191.74:7777/'.concat(image)
                         return (
                           <div className='column-img'>
-                            <img src={imgsrc} className='uploaded-image-data columns' />
+                            <img src={imgSrc} className='uploaded-image-data columns' />
                           </div>
                         )
                       })
@@ -254,12 +232,10 @@ const AdminPanel = (props) => {
               </span> : ''
             }
           </div>
-
           <div class='control has-icons-left has-icons-right'>
             {
               contact.Link == '' ? '' : <span className='uploaded-name uploaded-link-data'>
                 <label className='label left_align name'>Uploaded Link</label>
-
                 <a href={contact.Link} className='link-text'>{contact.Link}</a>
               </span>
             }
@@ -270,7 +246,7 @@ const AdminPanel = (props) => {
           <div className='control'>
             <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
               value={message.body} onChange={handleMessageChange} required />
-            <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
+            <p className='error-message-text'>{(Errors.message && Errors.message[0]) || ''}</p>
             <div className='send-email-btn'>
               <button className='button is-success send-btn' onClick={sendMail}>Send</button>
             </div>
@@ -279,7 +255,6 @@ const AdminPanel = (props) => {
                 <img src={require('../../images/loader.gif')} />
               </div> : ''
             }
-
             {
               showFlashMsg ? <FlashMassage duration={5000} persistOnHover>
                 <p className='send-email-success'>{emailStatus}</p>
@@ -291,5 +266,4 @@ const AdminPanel = (props) => {
     </div>
   )
 }
-
 export default AdminPanel

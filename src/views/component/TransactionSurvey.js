@@ -12,31 +12,31 @@ const SurveyCard = (props) => {
   let [survey, setSurvey] = useState([])
   let [name, setName] = useState('')
   let [promotionFeedback, setPromotionFeedback] = useState('')
-  let [directFeedbackMessage, setdirectFeedbackMessage] = useState('')
-  let [question1check, setQuestion1check ] = useState('')
-  let [question1, setQuestion1 ] = useState('')
-  let [question2, setQuestion2 ] = useState('')
-  let [question2check, setQuestion2check ] = useState('')
-  let [question3, setQuestion3 ] = useState()
-  let [question3check, setQuestion3check ] = useState('')
-  let [question4, setQuestion4 ] = useState()
-  let [question4check, setQuestion4check ] = useState('')
-  let [question6check, setQuestion6check ] = useState('')
-  let [question5, setQuestion5 ] = useState()
-  let [question5check, setQuestion5check ] = useState('')
-  let [promotionField, setPromotionField ] = useState('')
-  let [directFeedback, setDirectFeedback ] = useState('')
+  let [directFeedbackMessage, setDirectFeedbackMessage] = useState('')
+  let [question1check, setQuestion1check] = useState('')
+  let [question1, setQuestion1] = useState('')
+  let [question2, setQuestion2] = useState('')
+  let [question2check, setQuestion2check] = useState('')
+  let [question3, setQuestion3] = useState()
+  let [question3check, setQuestion3check] = useState('')
+  let [question4, setQuestion4] = useState()
+  let [question4check, setQuestion4check] = useState('')
+  let [question6check, setQuestion6check] = useState('')
+  let [question5, setQuestion5] = useState()
+  let [question5check, setQuestion5check] = useState('')
+  let [promotionField, setPromotionField] = useState('')
+  let [directFeedback, setDirectFeedback] = useState('')
   let [loader, setLoader] = useState(false)
   let [errorMsg, setErrorMsg] = useState('')
   let [Errors, setErrors] = useState({})
   let [successMsg, setSuccessMsg] = useState('')
 
-  let [Question1Res, setQuestion1Res ] = useState('')
-  let [Question2Res, setQuestion2Res ] = useState('')
-  let [Question3Res, setQuestion3Res ] = useState('')
-  let [Question4Res, setQuestion4Res ] = useState('')
-  let [Question5Res, setQuestion5Res ] = useState('')
-  let [Question6Res, setQuestion6Res ] = useState('')
+  let [Question1Res, setQuestion1Res] = useState('')
+  let [Question2Res, setQuestion2Res] = useState('')
+  let [Question3Res, setQuestion3Res] = useState('')
+  let [Question4Res, setQuestion4Res] = useState('')
+  let [Question5Res, setQuestion5Res] = useState('')
+  let [Question6Res, setQuestion6Res] = useState('')
 
   let showQuestions = (Case) => {
     switch (Case) {
@@ -147,39 +147,37 @@ const SurveyCard = (props) => {
     }
   }, [])
 
-  
   let onSubmit = () => {
     setTimeout(() => {
       setErrorMsg('')
     }, 2000)
 
-    if (question1check == '') {
+    if (question1check === '') {
       setErrorMsg('Please select checkbox')
-
       return
     }
 
-    if (question1check == 'YES') {
-      if (question2check == '') {
+    if (question1check === 'YES') {
+      if (question2check === '') {
         setErrorMsg('Please select checkbox')
         return
       }
-      if (question2check == 'YES') {
-        if (question3check == '') {
+      if (question2check === 'YES') {
+        if (question3check === '') {
           setErrorMsg('Please select checkbox')
           return
         }
 
-        if(question3check == 'YES'){
-          const errors = transactionValidation({name, promotionFeedback})
-    if (!is.empty(errors)) {
-      setErrors(errors)
-      return
-    }
+        if (question3check === 'YES') {
+          const errors = transactionValidation({ name, promotionFeedback })
+          if (!is.empty(errors)) {
+            setErrors(errors)
+            return
+          }
         }
 
-        if (question3check == 'NO') {
-          if (question4check == '') {
+        if (question3check === 'NO') {
+          if (question6check === '') {
             setErrorMsg('Please select checkbox')
             return
           }
@@ -187,21 +185,19 @@ const SurveyCard = (props) => {
       }
 
       if (question2check == 'NO') {
-        if (question5check == '') {
+        if (question5check === '') {
           setErrorMsg('Please select checkbox')
           return
         }
       }
     }
 
-    if (question1check == 'NO') {
-      if (question4check == '') {
+    if (question1check === 'NO') {
+      if (question4check === '') {
         setErrorMsg('Please select checkbox')
         return
       }
     }
-
-    
 
     let Question1Response = {
       question: Question1Res,
@@ -247,12 +243,11 @@ const SurveyCard = (props) => {
     //   return
     // }
     setSuccessMsg('Data saved successfully')
-    setTimeout(()=>{
+    setTimeout(() => {
       setSuccessMsg('')
     }, 5000)
   }
 
-  
   let nameChagneHandle = (e) => {
     setName(e.target.value)
   }
@@ -262,7 +257,7 @@ const SurveyCard = (props) => {
   }
 
   let directFeedbackHandler = (e) => {
-    setdirectFeedbackMessage(e.target.value)
+    setDirectFeedbackMessage(e.target.value)
   }
 
   return (
@@ -270,7 +265,6 @@ const SurveyCard = (props) => {
       <div className='row'>
         <div className='survey-card'>
           <div class='surveycard'>
-
             <div className='card-header '>
               <p className='card-header-title card-heading '> <i class='fas fa-cog' />Transaction Survey</p>
             </div>
@@ -291,7 +285,6 @@ const SurveyCard = (props) => {
                 </label>
               </div>
             </div>
-
             {question1
               ? <div className='checkboxes'>
                 <p className='survey-question'>{survey.length ? survey[1].Question : ''}</p>
@@ -306,7 +299,6 @@ const SurveyCard = (props) => {
                 </div>
               </div>
               : ''}
-
             {question2
               ? <div className='checkboxes survey-complaint'>
                 <p className='survey-question'>{survey.length ? survey[2].Question : ''}</p>
@@ -320,7 +312,6 @@ const SurveyCard = (props) => {
                 </div>
               </div>
               : ''}
-
             {promotionField
               ? <div className='checkboxes survey-complaint'>
                 <div class='field address'>
@@ -332,9 +323,7 @@ const SurveyCard = (props) => {
                     </span>
                   </p>
                 </div>
-
                 <div class='field address'>
-
                   <div class='control'>
                     <textarea class='textarea' placeholder='Input any complimentary comment(s) here' onChange={promotionChangeHandler} />
                   </div>
@@ -359,7 +348,6 @@ const SurveyCard = (props) => {
                 </div>
               </div>
               : ''}
-
             {question3
               ? <div className='checkboxes survey-complaint'>
                 <p className='survey-question'>{survey.length ? survey[3].Question : ''}</p>
@@ -374,7 +362,6 @@ const SurveyCard = (props) => {
                 </div>
               </div>
               : ''}
-
             {directFeedback
               ? <div className='checkboxes survey-complaint'>
                 <div class='field address'>
@@ -386,7 +373,6 @@ const SurveyCard = (props) => {
                 </div>
               </div> : ''
             }
-
             {question4
               ? <div>
                 <div className='checkboxes'>
@@ -401,16 +387,13 @@ const SurveyCard = (props) => {
                     </label>
                   </div>
                 </div>
-
               </div> : ''
-
             }
             <p className='error-Msg'>{errorMsg}</p>
             <div className='survey-btn'>
               <a class='button is-primary' onClick={onSubmit}><span className='btn-angle-down'><i class='fas fa-angle-down' /></span>SUBMIT</a>
             </div>
-            <p  className ="send-success-msg">{successMsg}</p>
-
+            <p className='send-success-msg'>{successMsg}</p>
           </div>
         </div>
       </div>

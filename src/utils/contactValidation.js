@@ -1,25 +1,24 @@
-import microValidator from "micro-validator"
+import microValidator from 'micro-validator'
 
-function contactValidation(data) {
-
-   const errors = microValidator.validate({
+function contactValidation (data) {
+  const errors = microValidator.validate({
     email: {
       required: {
-          errorMsg: `Email is required`
+        errorMsg: `Email is required`
       },
       email: {
-          errorMsg: `Enter a valid email`
+        errorMsg: `Enter a valid email`
       }
-  },
+    },
 
-  message: {
-    required: {
-      errorMsg: `Please enter message`
+    message: {
+      required: {
+        errorMsg: `Please enter message`
+      }
     }
-  }
 
-   }, data)
+  }, data)
 
-   return errors
+  return errors
 }
 export default contactValidation

@@ -9,7 +9,7 @@ import is from 'is_js'
 
 const ContactForm = (props) => {
   const [successMessage, setSuccessMessage] = useState('')
-  const [showFlashMsg, setshowFlashMsg] = useState(false)
+  const [showFlashMsg, setShowFlashMsg] = useState(false)
 
   const [data, setData] = useState({
     name: '',
@@ -19,11 +19,10 @@ const ContactForm = (props) => {
   })
 
   const [Errors, setErrors] = useState('')
-  const [loader, setloader] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const handleChange = e => {
     const { name, value } = e.target
-
     setData({
       ...data,
       [name]: value
@@ -42,18 +41,13 @@ const ContactForm = (props) => {
 
   const onSubmit = () => {
     const errors = contactValidation(data)
-
     if (!is.empty(errors)) {
       setErrors(errors)
       return
     }
-
-    console.log(errors, 'errors')
-
-    setloader(true)
-
+    setLoader(true)
     generateCaseNo().then(res => {
-      console.log('res =>', res)
+      
       let Transaction_Number = ''
       let Name = data.name
       let Email = data.email
@@ -62,7 +56,6 @@ const ContactForm = (props) => {
       let date = Date.now()
       let Case_No = res
       let Link = []
-
       axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
         Transaction_Number,
         Name,
@@ -76,8 +69,8 @@ const ContactForm = (props) => {
         Template: props.notificationreducer.selectedReason.template })
         .then(res => {
           console.log('res =>', res)
-          setshowFlashMsg(true)
-          setloader(false)
+          setShowFlashMsg(true)
+          setLoader(false)
           if (res.status == 200) {
             setSuccessMessage('Your query has been recorded')
           } else {
@@ -89,7 +82,7 @@ const ContactForm = (props) => {
             message: ''
           })
         })
-      setshowFlashMsg(false)
+      setShowFlashMsg(false)
     })
   }
   function myFunction () {
@@ -169,5 +162,4 @@ const ContactForm = (props) => {
     </div>
   )
 }
-
 export default connect(state => state)(ContactForm)

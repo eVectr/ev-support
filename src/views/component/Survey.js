@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import FlashMassage from 'react-flash-message';
+import FlashMassage from 'react-flash-message'
 import { connect } from 'react-redux'
 import '../../styles/surveycard.css'
 import { SelectedReason } from '../../redux/actions/notification/notification'
@@ -90,7 +90,6 @@ const SurveyCard = props => {
   }, [])
 
   let onSubmit = () => {
-    setLoading(true)
     setTimeout(() => {
       setErrorMsg('')
     }, 2000)
@@ -140,7 +139,7 @@ const SurveyCard = props => {
       props.dispatch(SelectedReason('clientsurvey'))
       props.history.push('/contact/3')
     }
-
+    setLoading(true)
     axios
       .post(`http://18.219.191.74:7777/clientSurveyResponse`, {
         Question1Response,
@@ -150,16 +149,13 @@ const SurveyCard = props => {
       })
       .then(res => {
         if ((res.status == '200')) {
-          setLoading(false)
           setSuccessMsg('Survey has been completed')
+          setLoading(false)
         }
         setShowFlashMSg(true)
        
-        console.log('response ===???', res)
       })
   }
-
-  console.log(successMsg, 'succesMas')
 
   return (
     <div className='container'>
@@ -174,12 +170,11 @@ const SurveyCard = props => {
             </div>
             {loader ? (
               <div className='survey-loading'>
-                <img src={require('../../images/loader.gif')} />
+                <img src={require('../../images/loader.gif')} alt='' />
               </div>
             ) : (
               ''
             )}
-
             <div className='checkboxes'>
               <p className='survey-question'>
                 {survey.length ? survey[0].Question : ''}
@@ -196,7 +191,6 @@ const SurveyCard = props => {
                   />{' '}
                   {survey.length ? survey[0].Option1.OptionValue[0] : ''}
                 </label>
-
                 <label class='checkbox-inline'>
                   <input
                     type='checkbox'
@@ -210,7 +204,6 @@ const SurveyCard = props => {
                 </label>
               </div>
             </div>
-
             {question2 ? (
               <div className='checkboxes'>
                 <p className='survey-question'>
@@ -228,7 +221,6 @@ const SurveyCard = props => {
                     />{' '}
                     {survey.length ? survey[1].Option1.OptionValue[0] : ''}
                   </label>
-
                   <label class='checkbox-inline'>
                     <input
                       type='checkbox'
@@ -245,7 +237,6 @@ const SurveyCard = props => {
             ) : (
               ''
             )}
-
             {question3 ? (
               <div className='checkboxes survey-complaint'>
                 <p className='survey-question'>
@@ -263,7 +254,6 @@ const SurveyCard = props => {
                     />{' '}
                     {survey.length ? survey[2].Option1.OptionValue[0] : ''}
                   </label>
-
                   <label class='checkbox-inline'>
                     <input
                       type='checkbox'
@@ -280,7 +270,6 @@ const SurveyCard = props => {
             ) : (
               ''
             )}
-
             {question4 ? (
               <div className='checkboxes survey-complaint'>
                 <p className='survey-question'>
@@ -298,7 +287,6 @@ const SurveyCard = props => {
                     />{' '}
                     {survey.length ? survey[3].Option1.OptionValue[0] : ''}
                   </label>
-
                   <label class='checkbox-inline'>
                     <input
                       type='checkbox'
@@ -315,15 +303,14 @@ const SurveyCard = props => {
             ) : (
               ''
             )}
-            
             {loading ? (
               <div className='survey-loading'>
-                <img src={require('../../images/loader.gif')} />
+                <img src={require('../../images/loader.gif')} alt='' />
               </div>
             ) : (
               ''
             )}
-            <p className ='error-Msg'>{errorMsg}</p>
+            <p className='error-Msg'>{errorMsg}</p>
             <div className='survey-btn'>
               <a class='button is-primary' onClick={onSubmit}>
                 <span className='btn-angle-down'>
@@ -338,12 +325,11 @@ const SurveyCard = props => {
               </FlashMassage>
             ) : (
               ''
-             )} 
+            )}
           </div>
         </div>
       </div>
     </div>
   )
 }
-
 export default connect(state => state)(SurveyCard)

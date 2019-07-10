@@ -1,145 +1,121 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 import '../../styles/login.css'
-import { userDetailsAction } from '../../redux/actions/auth';
-
 
 const Navbar = (props) => {
-let logout = () =>{
-   localStorage.clear()
-   props.history.push('/')
-   window.location.reload()
-}
-
-const [show, setShow] = useState(false)
-
-
-
-let admin = () =>{
-   props.history.push('/admin')
-}
-
-let home = () =>{
-    if(localStorage.user){
-        props.history.push('/contact')
-    }else{
-        props.history.push('/')
+  let logout = () => {
+    localStorage.clear()
+    props.history.push('/')
+    window.location.reload()
+  }
+  const [show, setShow] = useState(false)
+  let admin = () => {
+    props.history.push('/admin')
+  }
+  let home = () => {
+    if (localStorage.user) {
+      props.history.push('/contact')
+    } else {
+      props.history.push('/')
     }
-  
-}
-
-let showNavMenu = ()=> {
+  }
+  let showNavMenu = () => {
     setShow(!show)
-}
-
-let support = () =>{
+  }
+  let support = () => {
     props.history.push('/support')
- }
-
-    let admincheck
-    if(localStorage.user != undefined){
-       if (JSON.parse(localStorage.user).Type == 'admin') {
-           admincheck = true
-       }else {
-           admincheck = false
-       }
-    }else{
-       admincheck = false
+  }
+  let adminCheck
+  if (localStorage.user !== undefined) {
+    if (JSON.parse(localStorage.user).Type === 'admin') {
+      adminCheck = true
+    } else {
+      adminCheck = false
     }
+  } else {
+    adminCheck = false
+  }
 
-let onClientSurvey = () => {
+  let onClientSurvey = () => {
     let user = JSON.parse(localStorage.getItem('user'))
-    let { _id = '', Type = ''} = user || {}
-    if(Type == 'user'){
-        props.history.push('/clientsurvey')
+    let { Type = '' } = user || {}
+    if (Type === 'user') {
+      props.history.push('/clientsurvey')
     }
-}
+  }
 
-let onTransactionSurvey = () => {
+  let onTransactionSurvey = () => {
     let user = JSON.parse(localStorage.getItem('user'))
-    let { _id = '', Type = ''} = user || {}
-    if(Type == 'user'){
-        props.history.push('/transactionsurvey')
+    let { Type = '' } = user || {}
+    if (Type === 'user') {
+      props.history.push('/transactionsurvey')
     }
-}
+  }
 
   return (
-      <div>
-          <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-          
-              <div class="navbar-brand">
-                  <a class="navbar-item" href="">
-                  </a>
-                    <a class={`navbar-burger burger ${show ? 'is-active' : '' }`} aria-label="menu" aria-expanded="false" data-target="navMenu" onClick ={() => showNavMenu()}>
-                      <span aria-hidden="true"></span>
-                      <span aria-hidden="true"></span>
-                      <span aria-hidden="true"></span>
-                  </a>
-              </div>
+    <div>
+      <nav class='navbar is-primary' role='navigation' aria-label='main navigation'>
 
-              <div id="navbarMenu" class={`navbar-menu ${show ? 'is-active' : ''}`}>
-                  <div class="navbar-start">
-                      <a class="navbar-item" onClick ={home}>
-                          <strong>Home</strong>
-                    </a>
+        <div class='navbar-brand'>
+          <a class='navbar-item' href='' />
+          <a class={`navbar-burger burger ${show ? 'is-active' : ''}`} aria-label='menu' aria-expanded='false' data-target='navMenu' onClick={() => showNavMenu()}>
+            <span aria-hidden='true' />
+            <span aria-hidden='true' />
+            <span aria-hidden='true' />
+          </a>
+        </div>
 
-                {
-                    admincheck?
-                    <a class="navbar-item" onClick ={admin}>
-                         <strong>Admin</strong>
-                    </a>:''
-                }
-                    
+        <div id='navbarMenu' class={`navbar-menu ${show ? 'is-active' : ''}`}>
+          <div class='navbar-start'>
+            <a class='navbar-item' onClick={home}>
+              <strong>Home</strong>
+            </a>
 
-                {
-                    !admincheck && localStorage.user != undefined?
-                    <a class="navbar-item" onClick ={support}>
-                    <strong>Support</strong>
-                    </a>:''
-                }
+            {
+              adminCheck
+                ? <a class='navbar-item' onClick={admin}>
+                  <strong>Admin</strong>
+                </a> : ''
+            }
+            {
+              !adminCheck && localStorage.user !== undefined
+                ? <a class='navbar-item' onClick={support}>
+                  <strong>Support</strong>
+                </a> : ''
+            }
+            {
+              !adminCheck && localStorage.user !== undefined
+                ? <a class='navbar-item' onClick={onClientSurvey}>
+                  <strong>ClientSurvey</strong>
+                </a> : ''
+            }
 
-                    
-                {/* <a className='navbar-item' onClick={onClientSurvey}>ClientSurvey</a> */}
+            {
+              !adminCheck && localStorage.user !== undefined
+                ? <a class='navbar-item' onClick={onTransactionSurvey}>
+                  <strong>TransactionSurvey</strong>
+                </a> : ''
+            }
+          </div>
 
-                {
-                    !admincheck && localStorage.user != undefined?
-                    <a class="navbar-item" onClick ={onClientSurvey}>
-                    <strong>ClientSurvey</strong>
-                    </a>:''
-                }
-
-{
-                    !admincheck && localStorage.user != undefined?
-                    <a class="navbar-item" onClick ={onTransactionSurvey}>
-                    <strong>TransactionSurvey</strong>
-                    </a>:''
-                }
-
-
-               </div>
-
-                  <div class="navbar-end">
-                  <div class="navbar-item">
-                   <div class="buttons ">
-
-                {(localStorage.user != undefined)?
-                    <a class="button is-light " onClick ={logout}>
+          <div class='navbar-end'>
+            <div class='navbar-item'>
+              <div class='buttons '>
+                {(localStorage.user !== undefined)
+                  ? <a class='button is-light ' onClick={logout}>
                     Logout
-                   </a>:<a class="button is-light" onClick ={logout}>
+                  </a> : <a class='button is-light' onClick={logout}>
                     Login
-                   </a>
-                   }
-
-               </div>
-           </div>
-           </div>
+                  </a>
+                }
               </div>
-              
-          </nav>
-      </div>
+            </div>
+          </div>
+        </div>
 
+      </nav>
+    </div>
   )
 }
 const NavbarWithRouter = withRouter(Navbar)

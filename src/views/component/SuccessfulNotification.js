@@ -8,11 +8,9 @@ class SuccessfulNotification extends Component {
     }, 5000)
   }
   render () {
-    console.log(this.props, 'SuccessfulNotification')
     let { notificationreducer = {} } = this.props
     let { notification = {} } = notificationreducer
     let { text, show } = notification
-
     return (
       <Fragment>
         {
@@ -22,7 +20,6 @@ class SuccessfulNotification extends Component {
             </div> : null
         }
       </Fragment>
-
     )
   }
 }

@@ -7,23 +7,17 @@ import api_url from '../../utils/Const'
 import { SelectedReason } from '../../redux/actions/notification/notification'
 import { authRoutes } from '../../utils/Common'
 
-
 const Loginform = (props) => {
   const [reason, setReason] = useState([])
   const [selectedReason, setSelectedReason] = useState([])
   const [template, setSelectedTemplate] = useState([])
-
-  console.log(props, 'PROPS')
-
   useEffect(() => {
     authRoutes(props)
     axios.get(`http://18.219.191.74:7777/findcontact`)
       .then(res => {
-        console.log('res =>', res.data)
         setReason(res.data)
       })
   }, [])
-
   const handleChange = e => {
     console.log('e.target.value  =>', e.target.value)
     setSelectedTemplate(JSON.parse(e.target.value).template)
@@ -77,5 +71,4 @@ const Loginform = (props) => {
     </div>
   )
 }
-
 export default connect(state => state)(Loginform)

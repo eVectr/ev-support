@@ -1,31 +1,30 @@
-import microValidator from "micro-validator"
+import microValidator from 'micro-validator'
 
-function Validation(data) {
-
-   const errors = microValidator.validate({
+function Validation (data) {
+  const errors = microValidator.validate({
     transaction_number: {
       required: {
         errorMsg: `Please enter Transaction number`
       }
     },
 
-     email: {
+    email: {
       required: {
-          errorMsg: `Email is required`
+        errorMsg: `Email is required`
       },
       email: {
-          errorMsg: `Enter a valid email`
+        errorMsg: `Enter a valid email`
       }
-  },
+    },
 
-  message: {
-    required: {
-      errorMsg: `Please enter message`
+    message: {
+      required: {
+        errorMsg: `Please enter message`
+      }
     }
-  }
 
-   }, data)
+  }, data)
 
-   return errors
+  return errors
 }
 export default Validation
