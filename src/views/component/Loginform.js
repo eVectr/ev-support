@@ -45,7 +45,6 @@ useEffect(() => {
 }, [])
 
 const onLogin = () => {
-
   const errors = loginValidation(data)
     if(!is.empty(errors)) {
         setErrors(errors) 
@@ -59,16 +58,27 @@ const onLogin = () => {
 
     axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})  
     .then(res =>{
-      console.log("res.data", res.data)
+      console.log("res.data =>", res.data.data[0].Type)
       setloader(false)
-      if(res.data.check){
-        localStorage.setItem('user', JSON.stringify(res.data.data[0]))
-        props.history.push('/contact')
-        props.dispatch(userDetailsAction(res.data))
-        props.dispatch(showNotificationAction({
-          text: 'Login Successfully',
-          show: true
-        }))
+      if (res.data.check) {
+        if (res.data.data[0].Type == 'user') {
+          localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+          props.history.push('/contact')
+          props.dispatch(userDetailsAction(res.data))
+          props.dispatch(showNotificationAction({
+            text: 'Login Successfully',
+            show: true
+          }))
+        } else {
+          localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+          props.history.push('/admin')
+          props.dispatch(userDetailsAction(res.data))
+          props.dispatch(showNotificationAction({
+            text: 'Login Successfully',
+            show: true
+          }))
+        }
+        
         //window.location.reload()
       }else{
         setLoginCheck(['Invalid Username or Password'])

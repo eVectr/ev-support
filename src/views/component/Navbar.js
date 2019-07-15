@@ -81,14 +81,18 @@ let onTransactionSurvey = () => {
 
               <div id="navbarMenu" class={`navbar-menu ${show ? 'is-active' : ''}`}>
                   <div class="navbar-start">
-                      <a class="navbar-item" onClick ={home}>
-                          <strong>Home</strong>
-                    </a>
+                      {!admincheck ?
+                          <a class="navbar-item" onClick={home}>
+                              <strong>Home</strong>
+                          </a> : ''
+
+                      }
+                    
 
                 {
                     admincheck?
                     <a class="navbar-item" onClick ={admin}>
-                         <strong>Admin</strong>
+                         <strong>Admin Support</strong>
                     </a>:''
                 }
                     
@@ -106,14 +110,14 @@ let onTransactionSurvey = () => {
                 {
                     !admincheck && localStorage.user != undefined?
                     <a class="navbar-item" onClick ={onClientSurvey}>
-                    <strong>ClientSurvey</strong>
+                    <strong>Client Survey</strong>
                     </a>:''
                 }
 
-{
+                {
                     !admincheck && localStorage.user != undefined?
                     <a class="navbar-item" onClick ={onTransactionSurvey}>
-                    <strong>TransactionSurvey</strong>
+                    <strong>Transaction Survey</strong>
                     </a>:''
                 }
 

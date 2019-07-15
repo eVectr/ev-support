@@ -75,6 +75,7 @@ const SurveyCard = (props) => {
         setQuestion3(false)
         setPromotionField(true)
         setQuestion4(false)
+        setDirectFeedback(false)
         break;
       case 'directFeedback':
         setDirectFeedback(true)
@@ -186,7 +187,6 @@ const SurveyCard = (props) => {
         if(res.status='200'){
           setSuccessMsg('Your Message Successfully Saved')
         }
-        console.log("response ===???", res)
       })
   }
 
