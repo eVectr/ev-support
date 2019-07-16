@@ -189,6 +189,19 @@ let logs = (message) => {
   
 }
 
+
+app.post('/updateStatus', (req, res) => {
+  ContactForm.findOneAndUpdate({_id: id}, {$set:{status:""}},function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
+    else{
+      console.log("updated")
+      res.send("updated")
+    }
+})
+})
+
 app.post('/saveContact', (req, res) => {
   let UserId = req.body.UserId
   let Transaction_Number = req.body.Transaction_Number 
