@@ -218,21 +218,6 @@ const ContactForm = (props) => {
                     })
                 }</div>
                 <ImageUploader onDrop={onDropImage}>
-                    {/* <div className='field'>
-                    <p>{selectDocument}</p>
-                        <div className='file is-small'>
-                            <label className='file-label'>
-                                <span className={`file-cta font-1rem `}>
-                                    <span className='file-icon'>
-                                        <i className='fas fa-upload'></i>
-                                    </span>
-                                    <span className='file-label '>
-                                        Add 
-                                 </span>
-                                </span>
-                            </label>
-                        </div>
-                    </div> */}
                     <Fragment>
                         <button className='link-btn'>Add</button>
                         <p className="show-document-msg">{selectDocument}</p>
@@ -434,8 +419,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
     }
     if (props.notificationreducer.selectedReason == undefined) {
         props.history.push('/contact')
-      } 
-    console.log("optional props ==>", props)
+      }
+    else{
+        console.log("Type = ", props.notificationreducer.selectedReason.name.concat('/',  props.notificationreducer.selectedReason.template))
+     }
 
     return (
         <div className="form-container">

@@ -6,11 +6,11 @@ import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
 import {filterArray, authRoutes} from '../../utils/Common'
-import Navbar from '../component/Navbar'
+import Navbar from './Navbar'
 import { longStackSupport } from 'q';
 
 
-const AdminPanel = (props) => {
+const AdminTickets = (props) => {
 
     const [contacts, setContacts] = useState([])
     const [caseNo, setCaseNo] = useState('')
@@ -91,6 +91,8 @@ const AdminPanel = (props) => {
             }
        })
        setshowFlashMsg(false)
+
+       axios.post(`http://localhost:7777/adminreply`, {Message:message, ID:contact.UserId})
        
     }
    
@@ -293,7 +295,7 @@ const AdminPanel = (props) => {
     )
 }
 
-export default AdminPanel
+export default AdminTickets 
 
 
 

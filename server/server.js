@@ -12,7 +12,9 @@ const ContactCategory = require('../db/contactcategory.js')
 const ClientSurvey = require('../db/clientSurvey')
 const TransactionSurvey = require('../db/TransactionSurvey')
 const ClientSurveyResponse = require('../db/clientSurveyResoponse')
+const SupportAgent = require('../db/supportagent')
 const TransactionSurveyResponse = require('../db/transactionSurveyResponse')
+const MessageLogs = require('../db/messagelogs')
 let api = require("../api/api")
 
 var app = express()
@@ -154,6 +156,39 @@ app.post('/fileupload', (req, res) => {
   })
 })
 
+let generateId = () => {
+  return new Promise((resolve, reject) => {
+    let date = new Date
+    let sec = date.getSeconds() + 1
+    let caseNo = 'SS'.concat('0').concat((Math.random() * 10000000000000).toFixed() * sec)
+    resolve(caseNo)
+  })
+}
+
+app.post('/adminreply', (req, res) => {
+  let ID = req.body.ID
+  let Message = req.body.Message
+  var messagelogs = new MessageLogs({
+    ID: ID,
+    Message: Message,
+    Type:'admin'
+  })
+  messagelogs.save()
+})
+
+let logs = (message) => {
+  generateId().then(id =>{
+    var messagelogs = new MessageLogs({
+      ID:id,
+      Message:message,
+      Type:'user'
+  
+    })
+    messagelogs.save()
+  })
+  
+}
+
 app.post('/saveContact', (req, res) => {
   let UserId = req.body.UserId
   let Transaction_Number = req.body.Transaction_Number 
@@ -168,6 +203,8 @@ app.post('/saveContact', (req, res) => {
   let Link = req.body.Link
   let Reason = req.body.Reason
   let  Template = req.body.Template
+
+  logs(Message)
 
   var contactForm = new ContactForm ({
     UserId:UserId,
@@ -185,19 +222,20 @@ app.post('/saveContact', (req, res) => {
      Reason:Reason,
      Template: Template
   })
-  contactForm.save((err, data)=>{
-    if(err){
+  contactForm.save((err, data) => {
+    if (err) {
       console.log("err =>", err)
-      console.log("data =>", data )
-    }else{
-      imagepaths.splice(0,imagepaths.length)
-      filepaths.splice(0,imagepaths.length)
+      console.log("data =>", data)
+    } else {
+      imagepaths.splice(0, imagepaths.length)
+      filepaths.splice(0, imagepaths.length)
     }
   })
   console.log("contact saved")
-  imagepaths.splice(0,imagepaths.length)
-  filepaths.splice(0,imagepaths.length)
+  imagepaths.splice(0, imagepaths.length)
+  filepaths.splice(0, imagepaths.length)
   res.send("saved")
+  
 })
 
 
@@ -312,13 +350,12 @@ app.post('/login', (req, res) => {
       }
     })
   })
-
   app.post('/getbyuserid', (req, res) => {
     let UserId = req.body.UserId
-    console.log("UserId  ===>",UserId )
-    ContactForm.find({UserId:UserId}, function (err, docs) {
+    console.log('UserId  ===>', UserId)
+    ContactForm.find({ UserId: UserId }, function (err, docs) {
       if (err) {
-        console.log("error")
+        console.log('error')
         res.send(err)
       } else {
         console.log(docs)
@@ -326,6 +363,8 @@ app.post('/login', (req, res) => {
       }
     })
   })
+
+ 
 
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',

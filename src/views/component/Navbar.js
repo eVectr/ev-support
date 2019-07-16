@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
+import AdminTickets from './AdminTickets';
 
 
 const Navbar = (props) => {
@@ -13,12 +14,14 @@ let logout = () =>{
    window.location.reload()
 }
 
+let register = () =>{
+    props.history.push('/Register')
+ }
+
 const [show, setShow] = useState(false)
 
-
-
-let admin = () =>{
-   props.history.push('/admin')
+let AdminTickets = () =>{
+   props.history.push('/admintickets')
 }
 
 let home = () =>{
@@ -91,8 +94,8 @@ let onTransactionSurvey = () => {
 
                 {
                     admincheck?
-                    <a class="navbar-item" onClick ={admin}>
-                         <strong>Admin Support</strong>
+                    <a class="navbar-item" onClick ={AdminTickets}>
+                         <strong>Tickets</strong>
                     </a>:''
                 }
                     
@@ -135,6 +138,14 @@ let onTransactionSurvey = () => {
                     Login
                    </a>
                    }
+
+                {/* {(localStorage.user != undefined)?
+                   
+                    ''
+                   :<a class="button is-light" onClick ={register}>
+                    Register
+                   </a>
+                   } */}
 
                </div>
            </div>

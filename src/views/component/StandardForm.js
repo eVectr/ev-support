@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 import FlashMassage from 'react-flash-message';
 
 import axios from 'axios'
@@ -13,47 +13,47 @@ const ContactForm = (props) => {
   const [showFlashMsg, setshowFlashMsg] = useState(false)
 
   const [data, setData] = useState({
-    name:'',
-    email:'',
-    subject:'',
+    name: '',
+    email: '',
+    subject: '',
     message: '',
-})
+  })
 
-const [Errors, setErrors] = useState('')
-const [loader, setloader] = useState(false)
+  const [Errors, setErrors] = useState('')
+  const [loader, setloader] = useState(false)
 
 
-const handleChange = e => {
-  const { name, value } = e.target
+  const handleChange = e => {
+    const { name, value } = e.target
 
-  setData({
+    setData({
       ...data,
       [name]: value,
-  })
-  setErrors({})
- }
+    })
+    setErrors({})
+  }
 
- let  generateCaseNo= ()=> {
-   return new Promise((resolve, reject)=>{
-    let date  = new Date
-    let sec = date.getSeconds() +1
-    let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed()*sec)
-    resolve(caseNo)
-   }) 
+  let generateCaseNo = () => {
+    return new Promise((resolve, reject) => {
+      let date = new Date
+      let sec = date.getSeconds() + 1
+      let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed() * sec)
+      resolve(caseNo)
+    })
   }
 
   const onSubmit = () => {
     const errors = contactValidation(data)
-    
+
     if (!is.empty(errors)) {
-        setErrors(errors) 
-        return 
+      setErrors(errors)
+      return
     }
 
     console.log(errors, 'errors')
 
     setloader(true)
-        
+
     generateCaseNo().then(res => {
       console.log("res =>", res)
       let Transaction_Number = ''
@@ -65,44 +65,40 @@ const handleChange = e => {
       let Case_No = res
       let Link = []
 
-      axios.post(`http://18.219.191.74:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, 
-      Transaction_Number,Name, Email, Subject, Message,date, Case_No, Link, 
-      Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template})
-      .then(res =>{
+      axios.post(`http://localhost:7777/saveContact`, {
+        UserId: JSON.parse(localStorage.user)._id,
+        Transaction_Number, Name, Email, Subject, Message, date, Case_No, Link,
+        Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template
+      })
+        .then(res => {
           console.log("res =>", res)
           setshowFlashMsg(true)
           setloader(false)
-        if(res.status == 200){
-          setSuccessMessage('Your query has been recorded')
-        }else{
-          setSuccessMessage('Something Went Wrong')
-        }
-        setData({name:'',
-          email:'',
-          subject:'',
-          message: '',
-        });
-      })
+          if (res.status == 200) {
+            setSuccessMessage('Your query has been recorded')
+          } else {
+            setSuccessMessage('Something Went Wrong')
+          }
+          setData({
+            name: '',
+            email: '',
+            subject: '',
+            message: '',
+          });
+        })
       setshowFlashMsg(false)
     })
-    
   }
-  function myFunction() {
-    setTimeout(function(){ 
-      props.history.push('/contact')
-     }, 3000)
-  }
-  
-    if (props.notificationreducer.selectedReason == undefined) {
-      props.history.push('/contact')
-    } 
-  
 
+  if (props.notificationreducer.selectedReason == undefined) {
+    props.history.push('/contact')
+  }
+  
   return (
-    <div className = "form-container">
-    <div className="contact-form">
-    <div className="header"> <span>Contact Us</span> </div>
-   
+    <div className="form-container">
+      <div className="contact-form">
+        <div className="header"> <span>Contact Us</span> </div>
+
         <div className="pading">
           <div className="field">
             <div class="control has-icons-left has-icons-right">
@@ -117,49 +113,49 @@ const handleChange = e => {
           </div>
 
           <div className="field">
-          <div class="control has-icons-left has-icons-right">
-            <label className="label left_align">Email</label>
-            <div className="control">
-              <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
-              <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
-              <span class="icon is-medium is-left icn">
+            <div class="control has-icons-left has-icons-right">
+              <label className="label left_align">Email</label>
+              <div className="control">
+                <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
+                <p className='error-message-text'>{(Errors.email && Errors.email[0]) || ''}</p>
+                <span class="icon is-medium is-left icn">
                   <i class="fas fa-id-card icn1"></i>
                 </span>
+              </div>
             </div>
-          </div>
           </div>
 
           <div className="field">
-          <div class="control has-icons-left has-icons-right">
-            <label className="label left_align">Subject</label>
-            <div className="control">
-              <input className="input contact-input" type="text" name="subject" placeholder="Subject (Optional)" value={data.subject} onChange={handleChange} />
-              <span class="icon is-medium is-left icn">
+            <div class="control has-icons-left has-icons-right">
+              <label className="label left_align">Subject</label>
+              <div className="control">
+                <input className="input contact-input" type="text" name="subject" placeholder="Subject (Optional)" value={data.subject} onChange={handleChange} />
+                <span class="icon is-medium is-left icn">
                   <i class="fas fa-id-card icn1"></i>
                 </span>
+              </div>
             </div>
-          </div>
           </div>
 
           <div className="field">
             <label className="label left_align">Messages</label>
             <div className="control">
               <textarea className="textarea" name="message" placeholder="Enter Message (Mandatory)" value={data.message} onChange={handleChange} />
-              <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
-          </div>
+              <p className='error-message-text'>{(Errors.message && Errors.message[0]) || ''}</p>
+            </div>
           </div>
           <button class="button is-success" onClick={onSubmit} >Send</button>
           <div className='send-success-msg'>
-          {
-            
-            loader ? <img src = {require('../../images/loader.gif')}/> : ''
-          }
+            {
+
+              loader ? <img src={require('../../images/loader.gif')} /> : ''
+            }
           </div>
-          { 
+          {
             showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
               <p className='send-success-msg'>{successMessage}</p>
-            </FlashMassage>  : null 
-          }  
+            </FlashMassage> : null
+          }
         </div>
       </div>
     </div>

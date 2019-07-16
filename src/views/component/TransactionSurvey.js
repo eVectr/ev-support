@@ -202,10 +202,6 @@ const SurveyCard = (props) => {
     setdirectFeedbackMessage(e.target.value)
   }
 
-  console.log("name -=>", name)
-  console.log("promotionfield =>", promotionFeedback)
-  console.log("directFeedback =>", directFeedbackMessage)
-
   return (
     <div className="container">
       <div className="row">
