@@ -19,7 +19,7 @@ const PaginationAdmin = ({ paginate, nextPage, pageArray, pageNumber}) => {
         {
           pageArray.map((number, index) => {
             return (
-            <PaginationItem active ={number == index} >
+            <PaginationItem active ={number == pageNumber} >
                     <button  onClick = {() => paginate(number, index)}>{number}</button>
             </PaginationItem>
             )
