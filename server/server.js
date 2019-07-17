@@ -403,6 +403,56 @@ app.get('/getcontactslength', (req, res) => {
     }
   })
  })
+
+
+app.get('/getcontactslength', (req, res) => {
+  ContactForm.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      console.log(docs.length)
+ 
+      res.send({length:docs.length})
+    }
+  })
+ })
+
+
+app.post('/getcontactsbyfilter', (req, res) => {
+
+  let pagenumber = parseInt(req.body.Pagenumber)
+  let size = parseInt(req.body.size)
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+  let value = req.body.filterValue
+  let Name = req.body.filterName
+  if(Name == 'Template'){
+    ContactForm.find({Template:value}, null,
+      { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        console.log(docs)
+   
+        res.send({length:docs})
+      }
+    })
+  }
+  else if (Name == 'Status'){
+    ContactForm.find({Status:value}, function (err, docs) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        console.log(docs)
+   
+        res.send({length:docs})
+      }
+    })
+  }
+ })
  
  ////////////////////////////////////////
 
