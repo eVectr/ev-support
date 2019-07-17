@@ -4,14 +4,15 @@
     justify-content: space-between;
 }
 
-.admin-header{
+.admin-header {
     font-size: 25px!important;
     font-weight: 600!important;
     color: #999;
     text-align: center;
     margin-bottom: 20px;
 }
-.search-cases{
+
+.search-cases {
     width: 30%;
     margin-bottom: 30px;
     display: flex;
@@ -19,12 +20,12 @@
     position: relative;
 }
 
-.search{
+.search {
     width:100%;
     padding: 10px;
 }
 
-.search-btn{
+.search-btn {
     padding: 8px 8px !important;
     background: #00d1b2;
     border: 1px solid #00d1b2;
@@ -69,15 +70,15 @@
     font-size: 1rem;
 }
 
-.case-number{
+.case-number {
     margin-right: 10px;
 }
 
-.admin-cases{
+.admin-cases {
     display: flex;
 }
 
-.show-admin-case{
+.show-admin-case {
     display: flex;
     align-items: center;
 
@@ -262,3 +263,14 @@
     font-weight: 600;
     text-align:center;
 }
+
+.pagination-pages{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-pages li{
+    padding: 5px 10px;
+}
+

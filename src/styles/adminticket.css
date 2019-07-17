@@ -1,0 +1,195 @@
+/* .contact-log{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.contact-log .heading{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.comments-section{
+    font-size:20px;
+    font-weight: 900;
+    border-bottom: 2px solid #999;
+    margin-bottom: 20px;
+}
+
+.messages img{
+    width: 50px;
+    margin-right: 20px;
+}
+
+.messages{
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 25px;
+    width:400px;
+}
+
+.messages span{
+    font-size:14px;
+    color:#000;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.username{
+    display: flex;
+    align-items: center;
+}
+.username p{
+    margin-bottom: 0;
+    color:#000;
+    font-size: 24px;
+    font-weight: 900;
+    margin-left: 10px;
+    text-transform: capitalize
+}
+
+.load-msg-btn {
+    display: block;
+    text-align:center;
+}
+
+.load-msg-btn button{
+    padding:7px 15px;
+    border-radius:4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.reply-btn{
+    background-color: #1E90FF;
+    border:2px solid #1E90FF;
+    color:#fff;
+    
+    
+}
+
+.reply-btn:focus{
+    outline:0;
+    box-shadow:0;
+}
+
+.admin-msg{
+   /* width: 90%; */
+   /* margin-left: 10%;
+}
+
+.admin-data{
+margin-left: 5%;
+margin-right: 20%;
+}
+
+.reply-msg{
+    height: 180px;
+}
+
+.time{
+    font-weight:normal!important;
+}
+
+.btn1{
+    text-align:left;
+} */ 
+
+.heading h1 {
+    margin: 20px 0;
+}
+
+.comments p {
+    border-bottom: 1px solid #999;
+    font-size:1.3rem;
+    color:#000;
+    font-weight:bold;
+}
+
+.admin-panel-chat {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+.admin-panel-chat img {
+    width:50px;
+    margin-right: 20px;
+}
+
+.name {
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.time {
+    margin-right: 10px;
+    font-size:14px;
+}
+
+.msg {
+    margin-bottom: 20px;
+    margin-left: 10%;
+    width: 50%;
+}
+
+.load-msg-btn {
+    display: block;
+    text-align:center;
+}
+
+.load-msg-btn button {
+    padding:7px 15px;
+    border-radius:4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.admin {
+    margin-left: 5%;
+    width:40%;
+
+}
+
+.admin-msg {
+    margin-left: 15%; 
+}
+
+.msg p {
+    font-size: 14px;
+    font-weight: 500
+}
+
+.admin-data {
+    margin-left: 5%;
+    margin-right: 20%;
+}
+
+.reply-msg {
+    height: 150px;
+}    
+
+.load-msg-btn {  
+    border-radius:4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    text-align: left;
+}
+    
+.reply-btn { 
+    background-color: #1E90FF;
+    border:2px solid #1E90FF;
+    color:#fff; 
+    padding:10px 15px; 
+    font-size: 14px;
+}  
+
+.reply-btn:focus {
+    outline:0;
+    box-shadow:0;
+}

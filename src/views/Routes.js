@@ -7,12 +7,13 @@ import OptionalForm from './component/OptionalForm'
 import Navbar from './component/Navbar'
 import SelectReason from './component/SelectReason'
 import AdminPanel from './component/AdminPanel'
+// import AdminPanel1 from './component/AdminPanel1' 
 import Support from './component/Support'
 import RouterChangeObserver from './component/RouterChangeObserver'
 import SuccessfulNotification from './component/SuccessfulNotification'
 import Survey from './component/Survey'
 import TransactionSurvey from './component/TransactionSurvey'
-
+import AdminTicket from './component/AdminTicket'
 const Routes = (props) => {
   let { notificationreducer = {} } = props
   let { notification = {} } = notificationreducer
@@ -33,6 +34,7 @@ const Routes = (props) => {
           <Route exact path='/contact/4' component={Survey} />
           <Route exact path='/clientsurvey' component={Survey} />
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
+          <Route exact path='/admintickets' component={AdminTicket} />
         </Switch>
       </RouterChangeObserver>
     </BrowserRouter>

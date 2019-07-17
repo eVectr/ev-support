@@ -1,0 +1,234 @@
+.admin-panel{
+    margin-bottom: 20px;
+}
+.heading{
+    width:50%;
+    font-size:1.5rem;
+}
+
+.admin-add-btn{
+    width: 50%;
+    text-align: right;
+   
+}
+
+.admin-add-btn .add-user-btn {
+    padding: 5px 12px;
+    font-size: 15px;
+    border-radius:3px;
+    border: 1px solid green;
+    color:green;
+    font-size: 14px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.admin-add-btn .add-user-btn:focus {
+    outline: none;
+    box-shadow: 0;
+}
+
+.admin-add-btn .fa-user-plus {
+    margin-right: 10px;
+    color:green;
+}
+
+.csv-btn {
+    padding: 5px 12px;
+    font-size: 15px;
+    border-radius:3px;
+    border: 1px solid green;
+    color:#fff;
+    background-color: green;
+    font-size:14px;
+    margin-left: 30px;
+}
+
+.admin-add-btn .hello {
+    margin-right: 10px;
+    color:#fff;
+}
+
+
+.edit-delete-btn button { 
+    border: 1px solid #999;
+    color: #999;
+    padding: 5px 15px;
+    background: transparent;
+    font-size:12px;
+    text-transform: uppercase;
+    border-radius:3px;
+    cursor: pointer;
+}
+
+.edit-delete-btn .delete-btn:focus{
+    outline: 0;
+    box-shadow: 0;
+}
+
+.edit-delete-btn .edit:focus{
+    outline: 0;
+    box-shadow: 0;
+}
+
+.edit-delete-btn .edit {
+    margin-right: 40px;
+}
+/* -----------------------------------All-subscription-css------------------------------- */
+
+.active-admin {
+    display:flex;
+    align-items:center;
+}
+.active-admin span {
+        font-size: 12px;
+        font-weight: 600;
+        color: #999;
+    
+}
+
+.active-admin div {
+    height: 15px;
+    width: 2px;
+    background-color:#999;
+    margin: 0 5px;
+
+}
+
+
+/* -----------------------------------admin-panel-search-section-------------------------- */
+
+.admin-panel-search-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.admin-search {
+    width: 32%;
+    padding: 0!important;
+    position:relative;
+}
+
+
+
+.admin-search Input { 
+    border: 1px solid #999;
+    width: 100%;
+    margin-bottom: 0;
+    border-radius: 3px;
+    padding: 8px 30px;
+}
+
+.admin-search Input:focus {
+    outline: 0;
+    box-shadow: 0;
+}
+
+.admin-search button {
+    position: absolute;
+    top: 8px;
+    font-size: 16px;
+    color:#999;
+    background-color: transparent;
+    border:none;
+}
+
+.admin-search button:focus{
+    outline: 0;
+    border:0;
+}
+
+::placeholder { 
+   color:#999;
+   font-style: italic;
+   font-weight: 500;
+}
+
+
+/* ----------------------------------------TAble-css--------------------------------- */
+
+.table {
+    width:100%!important;
+}
+
+.table th {
+    color:#000000a6!important;
+    font-size:14px;
+    font-weight:600px;
+    text-transform: uppercase!important;
+}
+  
+.table .table-checkbox {
+    margin-bottom:0!important;
+    margin-top: 6px;
+}
+
+
+.table .name {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+
+}
+.table .images{
+    height: 30px;
+    border-radius:50%;
+    margin-right: 10px;
+}
+
+.table tr{
+    border-bottom: 1px solid #999;
+}
+.table td{
+    border-bottom:none;
+}
+
+.table td{
+    color:#000000a6!important;
+    font-size:14px;
+}
+
+.admin-data{
+    padding-top: 12px!important;
+}
+
+.actions div{
+    height: 15px;
+    width: 2px;
+    background-color: #999;
+    margin: 0 5px;
+}
+
+.actions {
+    display: flex;
+}
+
+.actions button{
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.actions .open{
+    color:rgb(19, 104, 133)
+}
+
+.actions .active{
+    color:green
+}
+
+.actions .resolve{
+    color:red
+}
+
+.checkbox1{
+    width: 40px;
+}
+
+.input-check-boxes{
+    margin-top: 4px;
+}
