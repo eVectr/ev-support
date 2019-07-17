@@ -30,26 +30,12 @@ const AdminPanel = (props) => {
   const [pageArray, setPageArray] = useState([1,2,3,4,5])
   
 
-  // useEffect(() => {
-  //   setLoader(true)
-  //   authRoutes(props)
-  //   let user = JSON.parse(localStorage.getItem('user'))
-  //   let { Type = '' } = user || {}
-
-  //   if (Type !== 'admin') {
-  //     props.history.push('/contact')
-  //   }
-
-  //   axios.post(`http://localhost:7777/getcontactsbypage`, {Pagenumber:pageNumber, size:limit})
-  //     .then(res => {
-  //       let { data = [] } = res
-  //       console.log("res ========>", res)
-  //       console.log(data, 'data')
-  //       setContacts(data)
-  //       setLoader(false)
-  //       setShow(true)
-  //     })
-  // }, [])
+  useEffect(() => {
+    axios.get(`http://localhost:7777/getcontactslength`)
+            .then(res => {
+             console.log(res.length, 'contacts length')
+           })
+  }, [])
 
   useEffect(() => {
     console.log("inside page number  ===>", pageNumber)
@@ -164,9 +150,7 @@ const AdminPanel = (props) => {
     setLimit(e.target.value)
   }
 
-console.log(limit, 'limit')
-console.log(pageNumber, 'pagenumber')
-console.log(start, 'start')
+
   return (
   
 
