@@ -57,10 +57,10 @@ const ContactForm = (props) => {
     generateCaseNo().then(res => {
       console.log("res =>", res)
       let Transaction_Number = ''
-      let Name = data.name
+      let Name = data.name.charAt(0).toUpperCase() + data.name.substring(1)
       let Email = data.email
-      let Subject = data.subject
-      let Message = data.message
+      let Subject = data.subject.charAt(0).toUpperCase() + data.subject.substring(1)
+      let Message = data.message.charAt(0).toUpperCase() + data.message.substring(1)
       let date = Date.now()
       let Case_No = res
       let Link = []

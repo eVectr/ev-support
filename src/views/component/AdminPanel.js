@@ -10,7 +10,7 @@ import Navbar from './Navbar'
 import { longStackSupport } from 'q';
 
 
-const AdminTickets = (props) => {
+const AdminPanel = (props) => {
 
     const [contacts, setContacts] = useState([])
     const [caseNo, setCaseNo] = useState('')
@@ -295,7 +295,7 @@ const AdminTickets = (props) => {
     )
 }
 
-export default AdminTickets 
+export default AdminPanel
 
 
 

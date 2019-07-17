@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth';
-import AdminTickets from './AdminTickets';
+import AdminTickets from './AdminPanel';
 
 
 const Navbar = (props) => {

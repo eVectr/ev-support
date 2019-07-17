@@ -185,21 +185,20 @@ let logs = (message) => {
   
     })
     messagelogs.save()
-  })
-  
+  })  
 }
 
 
 app.post('/updateStatus', (req, res) => {
-  ContactForm.findOneAndUpdate({_id: id}, {$set:{status:""}},function(err, doc){
-    if(err){
-        console.log("Something wrong when updating data!");
+  ContactForm.findOneAndUpdate({ _id: id }, { $set: { status: "" } }, function (err, doc) {
+    if (err) {
+      console.log("Something wrong when updating data!");
     }
-    else{
+    else {
       console.log("updated")
       res.send("updated")
     }
-})
+  })
 })
 
 app.post('/saveContact', (req, res) => {
@@ -338,6 +337,61 @@ app.post('/login', (req, res) => {
       }
     })
   })
+/////////////// get contact by pagination /////
+app.post('/getcontactsbypage', (req, res) => {
+  let pagenumber = req.body.pagenumber
+  let size = req.body.size
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+
+  ContactForm.find(
+    {},
+    null,
+    { limit: Limit, skip: Skip, sort: { _id: -1 } },
+    function (err, data) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    }
+  )
+})
+////////////////////////////////////
+
+
+/////////////// get contact by Sorting  ////////
+app.get('/getcontactsbysort', (req, res) => {
+  let sortName = req.body.sortName
+  ContactForm.find({}).sort({Name:1}).exec((err, data)=>{
+    if(err){
+      console.log(err)
+      res.send(err)
+    }else{
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+////////////////////////////////////
+
+/////////////// get contact by filter  ////////
+app.post('/getcontactsbyfilter', (req, res) => {
+  let filterName = req.body.filterName
+  let filterValue = req.body.filterValue
+
+  ContactForm.find({filterName: filterValue},function (err, data) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    }
+  )
+})
+////////////////////////////////////
 
   app.get('/getcontacts', (req, res) => {
     ContactForm.find({}, function (err, docs) {
