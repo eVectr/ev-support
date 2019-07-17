@@ -393,6 +393,23 @@ app.post('/getcontactsbyfilter', (req, res) => {
 })
 ////////////////////////////////////
 
+////////////////get contacts length //////////
+
+app.get('/getcontactslength', (req, res) => {
+  ContactForm.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      console.log(docs.length)
+       
+      res.send({length:docs.length})
+    }
+  })
+})
+
+////////////////////////////////////////
+
   app.get('/getcontacts', (req, res) => {
     ContactForm.find({}, function (err, docs) {
       if (err) {
