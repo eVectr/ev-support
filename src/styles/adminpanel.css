@@ -274,3 +274,7 @@
     padding: 5px 10px;
 }
 
+
+.pagination-selectable{
+    color: blue;
+}

@@ -362,6 +362,34 @@ app.post('/login', (req, res) => {
     })
   })
 
+  /////////////// get contact by pagination /////
+app.post('/getcontactsbypage', (req, res) => {
+  console.log("page n0 ===>",req.body.Pagenumber )
+  console.log("limit ===>",req.body.size )
+  let pagenumber = parseInt(req.body.Pagenumber)
+  let size = parseInt(req.body.size)
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+ 
+  ContactForm.find(
+    {},
+    null,
+    { limit: Limit, skip: Skip, sort: { _id: -1 } },
+    function (err, data) {
+      if (err) {
+        console.log('errrrrrr =>',err)
+      } else {
+        //console.log(data)
+        console.log("successsss")
+        res.send(data)
+      }
+    }
+  )
+ })
+ ////////////////////////////////////
+
 server.listen(7777, () => {
     console.log("server connected")
 })
+
+
