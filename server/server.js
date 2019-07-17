@@ -364,7 +364,7 @@ app.post('/getcontactsbypage', (req, res) => {
 /////////////// get contact by Sorting  ////////
 app.get('/getcontactsbysort', (req, res) => {
   let sortName = req.body.sortName
-  ContactForm.find({}).sort({Name:1}).exec((err, data)=>{
+  ContactForm.find({}).sort({Case_No:1}).exec((err, data)=>{
     if(err){
       console.log(err)
       res.send(err)
@@ -374,7 +374,7 @@ app.get('/getcontactsbysort', (req, res) => {
     }
   })
 })
-////////////////////////////////////
+////////////////////////////////////////////////
 
 /////////////// get contact by filter  ////////
 app.post('/getcontactsbyfilter', (req, res) => {
