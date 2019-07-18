@@ -278,3 +278,13 @@
 .pagination-selectable{
     color: blue;
 }
+
+/* -------------------------------------select-box-css-------------------------------------------- */
+select{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.pagination-Color{
+    background-color: #008000;
+}
