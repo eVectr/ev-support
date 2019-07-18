@@ -27,19 +27,25 @@ const AdminPanel = (props) => {
   const [showFlashMsg, setShowFlashMsg] = useState(false)
   const [Errors, setErrors] = useState({})
   const [pageNumber, setPageNumber] = useState(1)
-  const [pageArray, setPageArray] = useState([1,2,3,4,5])
-  
+  // const [filterName, setfilterName] = useState('')
+  // const [filterValue, setfilterValue] = useState('')
+  // const [pageArray, setPageArray] = useState([1, 2, 3, 4, 5])
+  const [totalContact, setTotalContact] = useState(0)
+
+  const [isActive, setIsActive] = useState(false)
+
+  const [filterCase, setFilterCase] = useState({ name: '', value: '' })
 
   useEffect(() => {
     axios.get(`http://localhost:7777/getcontactslength`)
-            .then(res => {
-             console.log(res.length, 'contacts length')
-           })
+      .then(res => {
+        setTotalContact(res.data.length)
+      })
   }, [])
 
   useEffect(() => {
-    console.log("inside page number  ===>", pageNumber)
-    console.log("inside limit  ===>", limit)
+    console.log('inside page number  ===>', pageNumber)
+    console.log('inside limit  ===>', limit)
     setLoader(true)
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
@@ -49,10 +55,10 @@ const AdminPanel = (props) => {
       props.history.push('/contact')
     }
 
-    axios.post(`http://localhost:7777/getcontactsbypage`, {Pagenumber:pageNumber, size:limit})
+    axios.post(`http://localhost:7777/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
       .then(res => {
         let { data = [] } = res
-        console.log("res ========>", res)
+        console.log('res ========>', res)
         console.log(data, 'data')
         setContacts(data)
         setLoader(false)
@@ -139,21 +145,54 @@ const AdminPanel = (props) => {
     props.history.push('/admintickets')
   }
 
-
   let paginate = (number) => {
     setPageNumber(number)
+    setIsActive(true)
   }
-  const searchCases = filterArray(contacts, 'Case_No', caseNo)
-  const filteredContacts = searchCases.slice(start, start + limit)
+  // const searchCases = filterArray(contacts, 'Case_No', caseNo)
+  // const filteredContacts = searchCases.slice(start, start + limit)
 
   let searchNumberOfRecords = (e) => {
-    setLimit(e.target.value)
+    if (e.target.value > 9) {
+      setLimit(e.target.value)
+    }
   }
 
+  let setfilterType = event => {
+    let filterArrayData = event.target.value
+    let splitFilterArrayData = filterArrayData.split(',')
+    console.log(splitFilterArrayData, 'splitFilterArrayData')
+    console.log(filterArrayData, 'filterArrayData')
 
+    console.log('filtername   =======>', filterCase)
+
+    console.log(filterArrayData.name, 'filterArrayData.name')
+
+    axios.post(`http://localhost:7777/getcontactsbyfilter`, { filterName: splitFilterArrayData[1], filterValue: splitFilterArrayData[0], Pagenumber: pageNumber, size: limit })
+      .then(res => {
+        let { data = {} } = res
+        console.log('res xxxxxxxxx========>', res)
+        console.log(data, 'data')
+        setContacts(data.data)
+        setLoader(false)
+        setShow(true)
+      })
+  }
+
+  let getDataByFilter = (e) => {
+    axios.post(`http://localhost:7777/getcontactsbysort`, { sortName: e.target.value, Pagenumber: pageNumber, size: limit })
+      .then(res => {
+        let { data = {} } = res
+        console.log('res filter========>', res)
+        console.log(data, 'data')
+        setContacts(data)
+        setLoader(false)
+        setShow(true)
+      })
+  }
+
+  let totalPages = Math.ceil(totalContact / limit)
   return (
-  
-
     <Container>
       <Row>
         <Col>
@@ -165,12 +204,43 @@ const AdminPanel = (props) => {
       <Row>
         <Col>
           <div className='admin-panel-search-section'>
-            <form className='admin-search'>
+            {/* <form className='admin-search'>
               <Input type='text' placeholder='Search Record' />
-              <button type='submit'><i class='fas fa-search' /></button>
-            </form>
-            <form className='admin-search' >
-              <Input type='number' onChange={(e) => searchNumberOfRecords(e)} placeholder='Search Record per page' />
+              <button type='submit'>
+                <i class='fas fa-search' />
+              </button>
+
+            </form> */}
+            <div className='searching'>
+              <div className='custom-select'>
+
+                <select onChange={(e) => setfilterType(e)}>
+                  <option value='Filter by'>Filter By</option>
+                  <option value='Open,Status'> Open Status</option>
+                  <option value='Active,Status'> Active Status</option>
+                  <option value='Closed,Status'> Closed Status</option>
+                  <option value='Standard,Type'>Standard Type</option>
+                  <option value='Mandatory Uploads,Type'>Optional Type</option>
+                  <option value='Optional Uploads + Transaction Number, Type'>Optional+Transaction Type</option>
+                </select>
+              </div>
+
+              <div className='custom-select'>
+
+                <select onChange={(e) => getDataByFilter(e)}>
+                  <option value='Filter by'>Sort By</option>
+                  <option value='CaseNo'>CaseNumber</option>
+                  <option value='Date'>Date</option>
+                </select>
+              </div>
+            </div>
+
+            <form className='admin-search'>
+              <Input
+                type='number'
+                onChange={e => searchNumberOfRecords(e)}
+                placeholder='Search Record per page'
+              />
             </form>
           </div>
         </Col>
@@ -189,35 +259,39 @@ const AdminPanel = (props) => {
                 <th>Actions</th>
               </tr>
             </thead>
-            {
-              contacts.map(contact => {
-                return (
-                  <tr>
-                    <td className='admin-data'>{contact.Case_No}</td>
-                    <td className='admin-data'>{contact.Status}</td>
-                    <td className='admin-data'>{contact.date}</td>
-                    <td className='admin-data'>{contact.Subject}</td>
-                    <td className='admin-data'>{contact.Template}</td>
-                    <td className='admin-data '>
-                      <div className='actions'>
-                        <button className='open' onClick={showAdminTicket}>View</button>
-                        <div />
-                        <button className='active'>Assign</button>
-                        <div />
-                      </div>
-                    </td>
-
-                  </tr>
-                )
-              })
-            }
+            {contacts.map(contact => {
+              return (
+                <tr>
+                  <td className='admin-data'>{contact.Case_No}</td>
+                  <td className='admin-data'>{contact.Status}</td>
+                  <td className='admin-data'>{contact.date}</td>
+                  <td className='admin-data'>{contact.Subject}</td>
+                  <td className='admin-data'>{contact.Template}</td>
+                  <td className='admin-data '>
+                    <div className='actions'>
+                      <button className='open' onClick={showAdminTicket}>
+                        View
+                      </button>
+                      <div />
+                      <button className='active'>Assign</button>
+                      <div />
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
           </Table>
           <Row>
             <Col>
-              <PaginationAdmin  paginate={paginate} nextPage={nextPage} pageArray={pageArray} pageNumber = {pageNumber}/>
+              <PaginationAdmin
+                paginate={paginate}
+                nextPage={nextPage}
+                pageNumber={pageNumber}
+                totalPages={totalPages}
+                isActive={isActive}
+              />
             </Col>
           </Row>
-
         </Col>
       </Row>
     </Container>

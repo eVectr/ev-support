@@ -388,6 +388,46 @@ app.post('/getcontactsbypage', (req, res) => {
  })
  ////////////////////////////////////
 
+  /////////////// get contact by filter /////
+  app.post('/getcontactsbyfilter', (req, res) => {
+
+    let pagenumber = parseInt(req.body.Pagenumber)
+    let size = parseInt(req.body.size)
+    let Skip = size * (pagenumber - 1)
+    let Limit = size
+    let value = req.body.filterValue
+    let Name = req.body.filterName
+    console.log("filtername ===>", Name)
+    console.log("filtevaleu ===>", value)
+    if(Name == 'Type'){
+      ContactForm.find({Template:value}, null,
+        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+        if (err) {
+          console.log("error")
+          res.send(err)
+        } else {
+          console.log(data)
+   
+          res.send({data})
+        }
+      })
+    }
+    else if (Name == 'Status'){
+      ContactForm.find({Status:value}, null,
+        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+        if (err) {
+          console.log("error")
+          res.send(err)
+        } else {
+          console.log(data)
+   
+          res.send({data})
+        }
+      })
+    }
+   })
+ ////////////////////////////////////
+
 
  ////////////////get contacts length //////////
 
@@ -404,6 +444,43 @@ app.get('/getcontactslength', (req, res) => {
   })
  })
  
+
+ //////// sorting /////
+app.post('/getcontactsbysort', (req, res) => {
+  let pagenumber = parseInt(req.body.Pagenumber)
+  let size = parseInt(req.body.size)
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+  let sortName = req.body.sortName
+  console.log("sort name ==>", sortName)
+  if(sortName == 'CaseNo'){
+    ContactForm.find({}, null,
+      { limit: Limit, skip: Skip, sort: { Case_No: 1 } }, (err, data )=>{
+        if(err){
+          console.log(err)
+          res.send(err)
+        }else{
+          console.log(data)
+          res.send(data)
+        }
+      })
+  }
+  else if (sortName == 'Date'){
+    ContactForm.find({}, null,
+      { limit: Limit, skip: Skip, sort: { date: 1 } }, (err, data )=>{
+        if(err){
+          console.log(err)
+          res.send(err)
+        }else{
+          console.log(data)
+          res.send(data)
+        }
+      })
+  }
+ 
+  })
+ 
+ ///////////////
  ////////////////////////////////////////
 
 server.listen(7777, () => {
