@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Loginform from './component/Loginform.js'
+import RegisterForm from './component/RegisterForm'
 import StandardForm from './component/StandardForm'
 import OptionalForm from './component/OptionalForm'
 import Navbar from './component/Navbar'
@@ -34,7 +35,7 @@ const Routes = (props) => {
           <Route exact path='/contact/4' component={Survey} />
           <Route exact path='/clientsurvey' component={Survey} />
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
-          <Route exact path='/admintickets' component={AdminTicket} />
+          <Route exact path='/adminticket/:id' component={AdminTicket} />
         </Switch>
       </RouterChangeObserver>
     </BrowserRouter>

@@ -14,7 +14,8 @@ var ContactForm = new mongoose.Schema({
     Link: Array,
     date:Date,
     Status:String,
-    Template:String
+    Template:String,
+    Type:String
 });
 
 module.exports = mongoose.model('ContactForm', ContactForm)

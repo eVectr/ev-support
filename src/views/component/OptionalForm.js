@@ -92,12 +92,111 @@ const ContactForm = (props) => {
           const update = prev.concat([reader.result])
           return update
         })
-      }
-      for (let i = 0; i < files.length; i++) {
-        if (files[i]) {
-          reader.readAsDataURL(files[i])
-        }
-      }
+        //setImagePreviewUrl([previewimages])
+        // resolve(previewimages)
+    }
+    
+
+    let deleteImage = (image, previewimage) => {
+        setImagePreviewUrl([])
+        //deletepreviewimage(previewimage)
+        let images = SelectedImage.filter((imagename, index) => {
+            return imagename.name !== image
+        })
+        setSelectedImage(images)
+    }
+
+    let deleteLink = (clickedLink) => {
+        let links = showLinks.filter((link, index) => {
+            return link !== clickedLink
+        })
+        setShowLinks(links)
+    }
+
+    let showLinkData = () => {
+        let links = showLinks
+        links = [
+            ...showLinks,
+            linkData
+        ]
+        setShowLinks(links)
+    }
+
+    const Documents = () => {
+        return (
+            <div>
+                <div> {
+                    FileNames.map((file, index) => {
+                        return (
+                            <ul>
+                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={()=> deleteFile (file.name)} ></i></li>
+                            </ul>
+                        )
+                    })
+                }</div>
+
+                <Uploader onDrop={onDrop}>
+                    <Fragment>
+                        {/* <div className='field'>
+                            <div className='file is-small'>
+                                <label className='file-label'>
+                                    <span className={`file-cta font-1rem `}>
+                                        <span className='file-icon'>
+                                            <i className='fas fa-upload'></i>
+                                        </span>
+                                        <span className='file-label'>
+                                            Add
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>     */}
+                        <button className='link-btn'>Add</button>
+                        <p className="show-document-msg">{selectDocument}</p>
+                    </Fragment>
+                </Uploader>
+
+            </div>
+       )
+    }
+
+    const Images = () => {
+        return (
+            <div>
+                <div> {
+                    SelectedImage.map((image, index) => {
+                        return (
+                            <ul className='uploaded-images'>
+                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name, imagePreviewUrl[index])}></i></li>
+                               {imagePreviewUrl.length?<img src={imagePreviewUrl[index]}/>:''}  
+                            </ul>
+                        )
+                    })
+                }</div>
+                <ImageUploader onDrop={onDropImage}>
+                    <Fragment>
+                        <button className='link-btn'>Add</button>
+                        <p className="show-document-msg">{selectDocument}</p>
+                    </Fragment>
+                </ImageUploader>
+
+            </div>
+        )
+    }
+
+    const Link = () => {
+        return (
+            <div>
+                {                    
+                     showLinks.map((link, index) => {
+                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
+                     }) 
+                }
+                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={ e => setLinkData(e.target.value) }/>
+                <p>{selectDocument}</p>
+                <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
+            </div>         
+        )
     }
   }
 
@@ -347,7 +446,7 @@ const ContactForm = (props) => {
         return
       }
       setLoader(true)
-
+    }
       generateCaseNo().then(no => {
         let Transaction_Number = data.transaction_number
         let Name = data.name
@@ -379,17 +478,10 @@ const ContactForm = (props) => {
               subject: '',
               message: ''
             })
-            setShowFlashMsg(true)
-
-            if (res.data === 'saved') {
-              setSuccessMsg('Your query has been recorded')
-              setShowLinks([])
-            }
+            })
           })
-        setShowFlashMsg(false)
-      })
     }
-  }
+   
   if (props.notificationreducer.selectedReason == undefined) {
     props.history.push('/contact')
   }
@@ -494,8 +586,8 @@ const ContactForm = (props) => {
           </div>
         </div>
       </div>
-
-    </div>
+      </div>
   )
+}
 }
 export default connect(state => state)(ContactForm)

@@ -1,4 +1,4 @@
-import { SHOW_NOTIFICATION, SELECTED_REASON } from '../../types/types'
+import { SHOW_NOTIFICATION, SELECTED_REASON, CASE_NO } from '../../types/types'
 
 export const showNotificationAction = (notification) => {
   return {
@@ -14,6 +14,15 @@ export const SelectedReason = (data) => {
     type: SELECTED_REASON,
     payload: {
       data
+    }
+  }
+}
+
+export const CaseNo = (caseno) => {
+  return {
+    type: CASE_NO,
+    payload: {
+      caseno
     }
   }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Input, Table } from 'reactstrap'
+import { connect } from 'react-redux'
 import is from 'is_js'
 import Moment from 'react-moment'
 import FlashMassage from 'react-flash-message'
@@ -10,8 +11,10 @@ import '../../styles/adminpanel.css'
 import {filterArray, authRoutes} from '../../utils/Common'
 import Navbar from './Navbar'
 import { longStackSupport } from 'q';
+import {  CaseNo } from '../../redux/actions/notification/notification'
 import PaginationAdmin from '../component/Pagination'
 import adminValidation from '../../utils/adminValidation'
+import '../../styles/adminpanel1.css'
 
 
 const AdminPanel = (props) => {
@@ -143,8 +146,8 @@ const AdminPanel = (props) => {
     })
   }
 
-  let showAdminTicket = () => {
-    props.history.push('/admintickets')
+  let showAdminTicket = (caseNo) => {
+    props.history.push('/adminticket/' + caseNo)
   }
 
   let paginate = (number) => {
@@ -271,7 +274,7 @@ const AdminPanel = (props) => {
                   <td className='admin-data'>{contact.Template}</td>
                   <td className='admin-data '>
                     <div className='actions'>
-                      <button className='open' onClick={showAdminTicket}>
+                      <button className='open' onClick={() => showAdminTicket(contact.Case_No)}>
                         View
                       </button>
                       <div />
@@ -300,7 +303,7 @@ const AdminPanel = (props) => {
   )
 }
 
-export default AdminPanel
+export default connect(state => state)(AdminPanel)
 
 
 

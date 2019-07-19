@@ -1,4 +1,4 @@
-import { SHOW_NOTIFICATION, SELECTED_REASON } from '../types/types'
+import { SHOW_NOTIFICATION, SELECTED_REASON,CASE_NO } from '../types/types'
 
 let initialState = {
   notification: {
@@ -14,6 +14,8 @@ const showNotificationReducer = (state = initialState, action) => {
       return { ...state, notification: action.payload.notification }
     case SELECTED_REASON:
       return { ...state, selectedReason: action.payload.data }
+    case CASE_NO:
+      return { ...state, caseNo: action.payload.caseno }
     default:
       return state
   }

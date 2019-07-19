@@ -76,7 +76,8 @@ const SurveyCard = (props) => {
         setQuestion3(false)
         setPromotionField(true)
         setQuestion4(false)
-        break
+        setDirectFeedback(false)
+        break;
       case 'directFeedback':
         setDirectFeedback(true)
         setQuestion5(false)

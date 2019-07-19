@@ -134,7 +134,7 @@ margin-right: 20%;
 
 .msg {
     margin-bottom: 20px;
-    margin-left: 10%;
+    margin-left: 13%;
     width: 50%;
 }
 
@@ -152,7 +152,7 @@ margin-right: 20%;
 
 .admin {
     margin-left: 5%;
-    width:40%;
+    width:50%;
 
 }
 
@@ -192,4 +192,14 @@ margin-right: 20%;
 .reply-btn:focus {
     outline:0;
     box-shadow:0;
+}
+
+.admin-msg-text{
+    margin-left: 17%;
+}
+
+.admin-user-info{
+    color:#4a4a4a;
+    font-weight: 500;
+    margin-bottom: 10px;
 }

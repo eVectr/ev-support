@@ -64,18 +64,47 @@ const Loginform = (props) => {
           setLoginCheck(['Invalid Username or Password'])
         }
       })
-  }
+  
 
-  return (
-    <div className='login-form'>
-      <div className='log-form'>
-        <h1 className='header'>LOGIN</h1>
-        <div className='field'>
-          <label className='label left_align' >Username</label>
-          <div className='control'>
-            <input className='input login' name='username' type='text' placeholder='Enter username' value={data.username} onChange={handleChange} />
-            <p className='error-message-text'>{(Errors.username && Errors.username[0]) || ''}</p>
-          </div>
+    axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})  
+    .then(res =>{
+     // console.log("res.data =>", res.data.data[0].Type)
+      setLoader(false)
+      if (res.data.check) {
+        if (res.data.data[0].Type == 'user') {
+          localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+          props.history.push('/contact')
+          props.dispatch(userDetailsAction(res.data))
+          props.dispatch(showNotificationAction({
+            text: 'Login Successfully',
+            show: true
+          }))
+        } else {
+          localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+          props.history.push('/admintickets')
+          props.dispatch(userDetailsAction(res.data))
+          props.dispatch(showNotificationAction({
+            text: 'Login Successfully',
+            show: true
+          }))
+        }
+        
+        //window.location.reload()
+      }else{
+        setLoginCheck(['Invalid Username or Password'])
+      } 
+  })
+}
+
+return (
+  <div className='login-form'>
+    <div className="log-form">
+      <h1 className = "header">LOGIN</h1>
+      <div className="field">
+        <label className="label left_align" >Username</label>
+        <div className="control">
+          <input className="input login"  name="username" type="text" placeholder="Enter username" value={data.username} onChange={handleChange} />
+          <p className='error-message-text'>{(Errors.username && Errors. username[0]) || ''}</p>
         </div>
         <div className='field login-password '>
           <label className='label left_align' >Password</label>
@@ -94,6 +123,7 @@ const Loginform = (props) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }

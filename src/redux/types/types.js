@@ -3,4 +3,5 @@ export const USER_DATA = 'USER_DATA'
 
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION'
 export const SELECTED_REASON = 'SELECTED_REASON'
+export const CASE_NO = 'CASE_NO'
 
