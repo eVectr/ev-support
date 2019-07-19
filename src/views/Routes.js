@@ -34,7 +34,7 @@ const Routes = (props) => {
           <Route exact path='/contact/4' component={Survey} />
           <Route exact path='/clientsurvey' component={Survey} />
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
-          <Route exact path='/admintickets' component={AdminTicket} />
+          <Route exact path='/adminticket/:id' component={AdminTicket} />
         </Switch>
       </RouterChangeObserver>
     </BrowserRouter>
