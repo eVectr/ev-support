@@ -379,7 +379,7 @@ app.post('/getcontactsbypage', (req, res) => {
   ContactForm.find(
     {},
     null,
-    { limit: Limit, skip: Skip, sort: { _id: -1 } },
+    { limit: Limit, skip: Skip, sort: { date: -1 } },
     function (err, data) {
       if (err) {
         console.log(err)

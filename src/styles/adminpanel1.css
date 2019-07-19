@@ -182,13 +182,35 @@
     border-bottom:none;
 }
 
-.table td{
-    color:#000000a6!important;
+/* .table td{
+    color:#000000a6;
     font-size:14px;
-}
+} */
 
 .admin-data{
+    font-size:14px;
     padding-top: 12px!important;
+}
+
+.open {
+    font-weight: bold;
+    font-size:14px;
+    padding-top: 12px!important;
+    color: #FFD700;
+}
+
+.active {
+    font-weight: bold;
+    font-size:14px;
+    padding-top: 12px!important;
+    color: green;
+}
+
+.closed {
+    font-weight: bold;
+    font-size:14px;
+    padding-top: 12px!important;
+    color: red;
 }
 
 .actions div{
@@ -210,11 +232,11 @@
     padding: 0;
 }
 
-.actions .open{
+.actions .view{
     color:rgb(19, 104, 133)
 }
 
-.actions .active{
+.actions .assign{
     color:green
 }
 

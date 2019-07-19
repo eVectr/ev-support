@@ -49,24 +49,8 @@ const Loginform = (props) => {
     setLoader(true)
     let username = data.username
     let password = data.password
-    axios.post(`http://18.219.191.74:7777/login`, { username: username, password: password })
-      .then(res => {
-        setLoader(false)
-        if (res.data.check) {
-          localStorage.setItem('user', JSON.stringify(res.data.data[0]))
-          props.history.push('/contact')
-          props.dispatch(userDetailsAction(res.data))
-          props.dispatch(showNotificationAction({
-            text: 'Login Successfully',
-            show: true
-          }))
-        } else {
-          setLoginCheck(['Invalid Username or Password'])
-        }
-      })
-  
 
-    axios.post(`http://18.219.191.74:7777/login`, {username:username, password:password})  
+    axios.post(`http://localhost:7777/login`, {username:username, password:password})  
     .then(res =>{
      // console.log("res.data =>", res.data.data[0].Type)
       setLoader(false)
@@ -81,7 +65,7 @@ const Loginform = (props) => {
           }))
         } else {
           localStorage.setItem('user', JSON.stringify(res.data.data[0]))
-          props.history.push('/admintickets')
+          props.history.push('/admin')
           props.dispatch(userDetailsAction(res.data))
           props.dispatch(showNotificationAction({
             text: 'Login Successfully',

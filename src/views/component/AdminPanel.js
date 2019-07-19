@@ -262,18 +262,20 @@ const AdminPanel = (props) => {
               return (
                 <tr>
                   <td className='admin-data'>{contact.Case_No}</td>
-                  <td className='admin-data'>{contact.Status}</td>
+                  <td className={`${(contact.Status === 'Open' ? 'open' : contact.Status === 'Active'
+                    ? 'active' : 'closed')}`}>
+                    {contact.Status}</td>
                   <td className='admin-data'>{contact.date.split('T')[0]}</td>
                   <td className='admin-data'>{contact.Subject}</td>
                   <td className='admin-data'>{contact.Template}</td>
                   <td className='admin-data'>Not Assign</td>
                   <td className='admin-data '>
                     <div className='actions'>
-                      <button className='open' onClick={() => showAdminTicket(contact.Case_No)}>
+                      <button className='view' onClick={() => showAdminTicket(contact.Case_No)}>
                         View
                       </button>
                       <div />
-                      <button className='active'>Assign</button>
+                      <button className='assign'>Assign</button>
                       <div />
                     </div>
                   </td>
