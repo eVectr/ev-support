@@ -136,15 +136,9 @@ const AdminPanel = (props) => {
     })
   }
 
-<<<<<<< HEAD
   let showAdminTicket = (caseNo) => {
     props.history.push('/adminticket/' + caseNo)
   }
-=======
-  // let showAdminTicket = () => {
-  //   props.history.push('/admintickets')
-  // }
->>>>>>> df20c81c64c3381061b223ef2066861bfcd3e61c
 
   let paginate = (number) => {
     setPageNumber(number)
