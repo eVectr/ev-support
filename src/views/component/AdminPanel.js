@@ -147,7 +147,7 @@ const AdminPanel = (props) => {
   }
 
   let searchNumberOfRecords = (e) => {
-    if(e.target.value > 0 && e.target.value < 31) {
+    if (e.target.value > 0 && e.target.value < 31) {
       setLimit(e.target.value)
     }
   }
@@ -176,9 +176,9 @@ const AdminPanel = (props) => {
       })
   }
 
-  let showAdminTicket = (caseNo) => {
-    props.history.push('/adminticket/' + caseNo)
-  }
+  // let showAdminTicket = (caseNo) => {
+  //   props.history.push('/adminticket/' + caseNo)
+  // }
   
   let totalPages = Math.ceil(totalContact / limit)
   return (
