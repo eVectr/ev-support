@@ -1,12 +1,17 @@
-.heading h1 {
+.heading h4 {
     margin: 20px 0;
+    font-family: 'Roboto';
+    font-size: 18px;
+    color:#000;
+    text-transform:capitalize;
 }
+
+/* font-family: 'Roboto', sans-serif; */
 
 .comments p {
     border-bottom: 1px solid #999;
-    font-size:1.3rem;
     color:#000;
-    font-weight:bold;
+    font-family: 'Roboto'
 }
 
 .admin-panel-chat {
@@ -21,11 +26,14 @@
     margin-right: 20px;
 }
 
-.name {
+/* .name {
     margin-right: 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Roboto',;
+    text-transform: capitalize;
+    
+} */
 
 .time {
     margin-right: 10px;
@@ -34,7 +42,7 @@
 
 .msg {
     margin-bottom: 20px;
-    margin-left: 10%;
+    margin-left: 10%!important;
     width: 50%;
 }
 
@@ -50,11 +58,10 @@
     margin-bottom: 20px;
 }
 
-.admin {
+/* .admin {
     margin-left: 5%;
-    width:40%;
-
-}
+   
+} */
 
 .admin-msg {
     margin-left: 15%; 
@@ -101,18 +108,22 @@
 }
 
 .user-documents{
-    /* display:flex;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius:3px; */
+   display: flex;
+   justify-content: space-between;
     margin-bottom: 30px;
 }
 
 .user-documents h1{
-    font-size: 20px;
-    font-weight:700;
-    text-transform: uppercase;
+    font-size: 16px;
+    font-weight:500;
+    text-transform:capitalize;
+    color:#999;
+}
+
+.user-documents p{
+    color:#999;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .user-documents .all-data{
@@ -120,7 +131,36 @@
 }
 
 .all-data .data{
-    width:25%;
+    width:33%;
 }
 
 
+.images{
+    margin-bottom: 30px;
+}
+
+.documents img{
+  width:70px;
+}
+.documents{
+    margin-bottom: 30px;
+}
+
+.links{
+    margin-bottom: 30px;
+}
+
+.link-images{
+    width: 70px;
+}
+
+.links-data{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.image-headings{
+    font-family: 'Roboto';
+    font-size:20px;
+}

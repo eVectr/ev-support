@@ -192,7 +192,7 @@ const AdminPanel = (props) => {
 
             </form> */}
             <div className='searching'>
-              <div className='custom-select' >
+              <div className='select-option' >
                 <select onChange={(e) => setfilterType(e)}>
                   <option value='Filter by'>Filter By</option>
                   <option value='Open,Status'> Open Status</option>
@@ -201,12 +201,10 @@ const AdminPanel = (props) => {
                   <option value='Standard,Type'>Standard Type</option>
                   <option value='Mandatory Uploads,Type'>Optional Type</option>
                   <option value='Optional Uploads + Transaction Number, Type'>Optional+Transaction Type</option>
-                 
                 </select>
               </div>
-
-              <div className='custom-select'>
-
+              
+              <div>
                 <select onChange={(e) => getDataByFilter(e)}>
                   <option value='Filter by'>Sort By</option>
                   <option value='CaseNo'>CaseNumber</option>
