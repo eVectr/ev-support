@@ -160,7 +160,7 @@ const AdminPanel = (props) => {
     axios.post(`http://localhost:7777/getcontactsbyfilter`, { filterName: splitFilterArrayData[1], filterValue: splitFilterArrayData[0], Pagenumber: pageNumber, size: limit })
       .then(res => {
         let { data = {} } = res
-        setContacts(data.data)
+        setContacts(data)
         setLoader(false)
         setShow(true)
       })
@@ -303,6 +303,3 @@ const AdminPanel = (props) => {
 }
 
 export default connect(state => state)(AdminPanel)
-
-
-
