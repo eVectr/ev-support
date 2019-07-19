@@ -4,6 +4,7 @@ import axios from 'axios'
 import Modal from 'react-responsive-modal'
 import { Container, Row, Col, Input, Table } from 'reactstrap'
 import { filterArray, authRoutes } from '../../utils/Common'
+import PaginationAdmin from '../component/Pagination'
 import '../../styles/adminpanel.css'
 
 const SupportTicket = (props) => {
@@ -76,108 +77,108 @@ const SupportTicket = (props) => {
   const filteredContacts = searchCases.slice(start, start + limit)
 
   return (
-    // <div className='container '>
-    //   <div className='row'>
-    //     <div className='admin-panel'>
-    //       <h3 className='admin-header'>Support Tickets</h3>
-    //       <div className='search-cases'>
-    //         <input type='text' placeholder='Search by Case No.....' className='link-data search' onChange={handleSearchChange} />
-    //       </div>
-    //     </div>
-    //     {
-    //       loader ? <div className='admin-panel-loader'>
-    //         <img src={require('../../images/loader.gif')} />
-    //       </div> : ''
-    //     }
-    //   </div>
-    //   {searchCases.length
-    //     ? filteredContacts.map(
-    //       (contact, index) =>
-    //         <div className='card admin-card' key={index} onClick={() => onOpenModal(contact.Case_No)}>
-    //           <div className='admin-cases'>
-    //             <div>
-    //               <b>Name:</b><span className='case-number'>{contact.Name}</span>
-    //             </div>
-    //             <div>
-    //               <b>Email:</b> <span className='case-number'>{contact.Email}</span>
-    //             </div>
-    //           </div>
-    //           <div className='admin-cases'>
-    //             <div>
-    //               <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
-    //             </div>
-    //             <div >
-    //               <span className='case-number'><b>Status:</b>{contact.Status}</span>
-    //             </div>
-    //           </div>
-    //           <div className='admin-cases'>
-    //             <div>
-    //               <span className='case-number'><b>Case Number:</b>{contact.Case_No}</span>
-    //             </div>
-    //             <div>
-    //               <span>
-    //                 <b>Date:</b>
-    //                 <Moment format='YYYY-MM-DD'>{contact.date}</Moment>
-    //               </span>
-    //             </div>
-    //           </div>
-    //         </div>
-    //     )
-    //     : <h1 className='admin-panel-error'>{loader ? '' : 'No Result Found'}</h1>
-    //   }
-    //   {
-    //     show
-    //       ? <div className='page-data'>
-    //         <button disabled={!start} onClick={start ? prevPage : () => { prevPage() }} className={`previous ${(!start) ? '' : 'prevactive'}`}>&laquo; Previous</button>
-    //         <button disabled={searchCases.length <= (start + limit)}
-    //           onClick={searchCases.length <= (start + limit) ? () => { nextPage() } : nextPage}className={`next ${(searchCases.length <= (start + limit)) ? '' : 'prevactive'}`}>Next &raquo;</button>
-    //       </div> : ''
-    //   }
-    //   <Modal open={open} onClose={onCloseModal}>
-    //     <div className='pading'>
-    //       <div className='field'>
-    //         <div class='control has-icons-left has-icons-right'>
-    //           {
-    //             contact.Transaction_Number === '' ? '' : <span className='uploaded-name'>
-    //               <label className='label left_align name'>Transaction Number:</label>
-    //               <p>{contact.Transaction_Number}</p>
-    //             </span>
-    //           }
-    //         </div>
-    //         <div class='control has-icons-left has-icons-right'>
-    //           <span className='uploaded-name upload-msg '>
-    //             <label className='label left_align name'>Message:</label>
-    //             <p className='show-msg '>{contact.Message}</p>
-    //           </span>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className='uploaded-documents uploaded-data'>
-    //       {
-    //         Documents.length > 0 ? <div class='control has-icons-left has-icons-right'>
-    //           <span className='uploaded-name document'>
-    //             <label className='label left_align name'>Uploaded Document:</label>
-    //             {
-    //               Documents.map((document, index) => {
-    //                 let doc = 'http://18.219.191.74:7777/'.concat(document)
-    //                 return (
-    //                   <a href={doc}>{document}</a>
-    //                 )
-    //               })
-    //             }
-    //           </span>
-    //         </div> : ''
-    //       }
-    //       <div class='control has-icons-left has-icons-right'>
-    //         {
-    //           Images.length > 0 ? <span className='uploaded-image'>
-    //             <label className='label left_align name'>Uploaded Image:</label>
-    //             <div className='container image-container'>
-    //               <div className='row image-row'>
-    //                 {
-    //                   Images.map((image, index) => {
-    //                     let imgSrc = 'http://18.219.191.74:7777/'.concat(image)
-    //                     return (
+  // <div className='container '>
+  //   <div className='row'>
+  //     <div className='admin-panel'>
+  //       <h3 className='admin-header'>Support Tickets</h3>
+  //       <div className='search-cases'>
+  //         <input type='text' placeholder='Search by Case No.....' className='link-data search' onChange={handleSearchChange} />
+  //       </div>
+  //     </div>
+  //     {
+  //       loader ? <div className='admin-panel-loader'>
+  //         <img src={require('../../images/loader.gif')} />
+  //       </div> : ''
+  //     }
+  //   </div>
+  //   {searchCases.length
+  //     ? filteredContacts.map(
+  //       (contact, index) =>
+  //         <div className='card admin-card' key={index} onClick={() => onOpenModal(contact.Case_No)}>
+  //           <div className='admin-cases'>
+  //             <div>
+  //               <b>Name:</b><span className='case-number'>{contact.Name}</span>
+  //             </div>
+  //             <div>
+  //               <b>Email:</b> <span className='case-number'>{contact.Email}</span>
+  //             </div>
+  //           </div>
+  //           <div className='admin-cases'>
+  //             <div>
+  //               <span className='case-number'><b>Subject:</b>{contact.Subject}</span>
+  //             </div>
+  //             <div >
+  //               <span className='case-number'><b>Status:</b>{contact.Status}</span>
+  //             </div>
+  //           </div>
+  //           <div className='admin-cases'>
+  //             <div>
+  //               <span className='case-number'><b>Case Number:</b>{contact.Case_No}</span>
+  //             </div>
+  //             <div>
+  //               <span>
+  //                 <b>Date:</b>
+  //                 <Moment format='YYYY-MM-DD'>{contact.date}</Moment>
+  //               </span>
+  //             </div>
+  //           </div>
+  //         </div>
+  //     )
+  //     : <h1 className='admin-panel-error'>{loader ? '' : 'No Result Found'}</h1>
+  //   }
+  //   {
+  //     show
+  //       ? <div className='page-data'>
+  //         <button disabled={!start} onClick={start ? prevPage : () => { prevPage() }} className={`previous ${(!start) ? '' : 'prevactive'}`}>&laquo; Previous</button>
+  //         <button disabled={searchCases.length <= (start + limit)}
+  //           onClick={searchCases.length <= (start + limit) ? () => { nextPage() } : nextPage}className={`next ${(searchCases.length <= (start + limit)) ? '' : 'prevactive'}`}>Next &raquo;</button>
+  //       </div> : ''
+  //   }
+  //   <Modal open={open} onClose={onCloseModal}>
+  //     <div className='pading'>
+  //       <div className='field'>
+  //         <div class='control has-icons-left has-icons-right'>
+  //           {
+  //             contact.Transaction_Number === '' ? '' : <span className='uploaded-name'>
+  //               <label className='label left_align name'>Transaction Number:</label>
+  //               <p>{contact.Transaction_Number}</p>
+  //             </span>
+  //           }
+  //         </div>
+  //         <div class='control has-icons-left has-icons-right'>
+  //           <span className='uploaded-name upload-msg '>
+  //             <label className='label left_align name'>Message:</label>
+  //             <p className='show-msg '>{contact.Message}</p>
+  //           </span>
+  //         </div>
+  //       </div>
+  //     </div>
+  //     <div className='uploaded-documents uploaded-data'>
+  //       {
+  //         Documents.length > 0 ? <div class='control has-icons-left has-icons-right'>
+  //           <span className='uploaded-name document'>
+  //             <label className='label left_align name'>Uploaded Document:</label>
+  //             {
+  //               Documents.map((document, index) => {
+  //                 let doc = 'http://18.219.191.74:7777/'.concat(document)
+  //                 return (
+  //                   <a href={doc}>{document}</a>
+  //                 )
+  //               })
+  //             }
+  //           </span>
+  //         </div> : ''
+  //       }
+  //       <div class='control has-icons-left has-icons-right'>
+  //         {
+  //           Images.length > 0 ? <span className='uploaded-image'>
+  //             <label className='label left_align name'>Uploaded Image:</label>
+  //             <div className='container image-container'>
+  //               <div className='row image-row'>
+  //                 {
+  //                   Images.map((image, index) => {
+  //                     let imgSrc = 'http://18.219.191.74:7777/'.concat(image)
+  //                     return (
 
     //                       <div className='column-img' key={index}>
     //                         <img src={imgSrc} className='uploaded-image-data columns' />
@@ -205,32 +206,48 @@ const SupportTicket = (props) => {
       <Row>
         <Col>
           <div className='admin-panel'>
-            <h1 className='heading'>Admin Panel</h1>
-            <div className='admin-add-btn '>
-              <button className='add-user-btn'><i class='fas fa-user-plus' />Add User</button>
-
-              <button className='csv-btn'><i class='fas fa-user-plus hello' />Export CSV</button>
-            </div>
+            <h1 className='heading'>Support Panel</h1>
           </div>
         </Col>
       </Row>
       <Row>
         <Col>
           <div className='admin-panel-search-section'>
-            <div className='edit-delete-btn'>
-              <button className='edit'>Edit</button>
-              <button>Delete</button>
+            {/* <form className='admin-search'>
+              <Input type='text' placeholder='Search Record' />
+              <button type='submit'>
+                <i class='fas fa-search' />
+              </button>
+
+            </form> */}
+            <div className='searching'>
+              <div className='custom-select'>
+                <select>
+                  <option value='Filter by'>Filter By</option>
+                  <option value='Open,Status'> Open Status</option>
+                  <option value='Active,Status'> Active Status</option>
+                  <option value='Closed,Status'> Closed Status</option>
+                  <option value='Standard,Type'>Standard Type</option>
+                  <option value='Mandatory Uploads,Type'>Optional Type</option>
+                  <option value='Optional Uploads + Transaction Number, Type'>Optional+Transaction Type</option>
+                </select>
+              </div>
+
+              <div className='custom-select'>
+
+                <select>
+                  <option value='Filter by'>Sort By</option>
+                  <option value='CaseNo'>CaseNumber</option>
+                  <option value='Date'>Date</option>
+                </select>
+              </div>
             </div>
-            <div className='active-admin'>
-              <span>All Subscription:267</span>
-              <div />
-              <span>Active 100</span>
-              <div />
-              <span>Inactive100</span>
-            </div>
+
             <form className='admin-search'>
-              <Input type='password' name='password' id='examplePassword' placeholder='Search' />
-              <button type='submit'><i class='fas fa-search' /></button>
+              <Input
+                type='number'
+                placeholder='Search Record per page'
+              />
             </form>
           </div>
         </Col>
@@ -241,27 +258,42 @@ const SupportTicket = (props) => {
           <Table>
             <thead>
               <tr>
-                <th><Input type='checkbox' className='table-checkbox' /></th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Subject</th>
-                <th>Status</th>
                 <th>Case No</th>
+                <th>Status</th>
                 <th>Date</th>
+                <th>Subject</th>
+                <th>Type</th>
+                <th>Assign To</th>
+                <th>Actions</th>
               </tr>
             </thead>
-
             <tr>
-              <td><Input type='checkbox' className='table-checkbox' /></td>
-              <td className='name'><img src={require('../../images/nature.jpeg')} className='images' /><span>ABC</span></td>
-              <td className='admin-data'>Kripalramola@gmail.com</td>
-              <td className='admin-data'>xyzksldzjhxvo;s</td>
-              <td className='admin-data'>openhsdxmbxv;ks</td>
-              <td className='admin-data'>12345678</td>
-              <td className='admin-data'>12|10|12</td>
+              <td className='admin-data' />
+              <td className='admin-data' />
+              <td className='admin-data' />
+              <td className='admin-data' />
+              <td className='admin-data' />
+              <td className='admin-data'>Not Assign</td>
+              <td className='admin-data '>
+                <div className='actions'>
+                  <button className='open'>
+                        View
+                  </button>
+                  {/* <div />
+                      <button className='active'>Assign</button>
+                      <div /> */}
+                </div>
+              </td>
             </tr>
 
+
           </Table>
+          <Row>
+            <Col>
+              <PaginationAdmin />
+            </Col>
+          </Row>
+
         </Col>
       </Row>
     </Container>

@@ -700,6 +700,36 @@ app.post('/getcontactsbysort', (req, res) => {
  ///////////////
  ////////////////////////////////////////
 
+
+ app.post('/getcontactbycaseno', (req, res) => {
+  let caseno = req.body.caseno
+  ContactForm.find({Case_No:caseno}, (err, data)=>{
+    if(err){
+      console.log(err)
+      res.send(err)
+    }else{
+      console.log(data)
+      res.send(data)
+    }
+  })
+ })
+
+ ////////////////////////////////////////////////
+
+ app.post('/messagelogs', (req, res) => {
+  let ID = req.body.ID
+  console.log("ID ==>", ID)
+    MessageLogs.find({ID:ID}, (err,data)=>{
+      if(err){
+        console.log(err)
+        res.send(err)
+      }else{
+        console.log(data)
+        res.send(data)
+      }
+    })
+ })
+
 server.listen(7777, () => {
     console.log("server connected")
 })

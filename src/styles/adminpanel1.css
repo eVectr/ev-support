@@ -100,7 +100,6 @@
 
 .admin-panel-search-section {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
@@ -118,7 +117,7 @@
     width: 100%;
     margin-bottom: 0;
     border-radius: 3px;
-    padding: 8px 30px;
+    padding: 15px;
 }
 
 .admin-search Input:focus {
@@ -142,8 +141,6 @@
 
 ::placeholder { 
    color:#999;
-   font-style: italic;
-   font-weight: 500;
 }
 
 
@@ -232,3 +229,8 @@
 .input-check-boxes{
     margin-top: 4px;
 }
+
+.css-2b097c-container{
+    width: 400px;
+}
+

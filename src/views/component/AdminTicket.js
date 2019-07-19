@@ -1,7 +1,7 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
+import { Container, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { Container, Row, Col } from 'reactstrap'
 import '../../styles/adminticket.css'
 
 const AdminTicket = (props) => {
@@ -56,6 +56,55 @@ const AdminTicket = (props) => {
         </Col>
       </Row>
 
+      <Row>
+        <Col className='user-documents'>
+          <h1>User</h1>
+          <p>user1234@gmail.com</p>
+
+          <Row className='all-data'>
+            <Col className='data'>sdf</Col>
+            <Col className='data'>dfsddxf</Col>
+            <Col className='data'>fdsf</Col>
+            <Col className='data'>dfasd</Col>
+            <Col className='data'>dfasd</Col>
+          </Row>
+
+          {/* {
+            contacts.map(contact => {
+              return (
+                <Fragment>
+                  <div className='admin-user-info'>
+                    <p>{contact.Name} </p>
+                    <p>{contact.Email}</p>
+                  </div>
+                  <div>
+                  <p>Documents</p>
+                  <p>document 1</p>
+                  </div>
+                </Fragment>
+
+              )
+            })
+          } */}
+          {/* <div>
+            <img src={require('../../images/unnamed.png')} />
+            <div>sfdbcvlfkjsmdzbc;hklsbdcx;kjdsb;c/</div>
+          </div>
+          <div>
+            <img src={require('../../images/unnamed.png')} />
+            <div>sfdbcv</div>
+          </div>
+          <div>
+            <img src={require('../../images/unnamed.png')} />
+            <div>sfdbcv</div>
+          </div>
+          <div>
+            <img src={require('../../images/unnamed.png')} />
+            <div>sfdbcv.fsmdzbc ;jlsfamndbc;ihebsdclhkxbk</div>
+          </div> */}
+
+        </Col>
+      </Row>
       <Row>
         <Col className='admin-chats-data'>
           <div className='comments'>
