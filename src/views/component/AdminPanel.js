@@ -16,7 +16,6 @@ import PaginationAdmin from '../component/Pagination'
 import adminValidation from '../../utils/adminValidation'
 import '../../styles/adminpanel1.css'
 
-
 const AdminPanel = (props) => {
   const [contacts, setContacts] = useState([])
   const [caseNo, setCaseNo] = useState('')
