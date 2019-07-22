@@ -287,7 +287,7 @@ select{
     margin-bottom: 10px;
     color:#999;
     height: 40px;
-    width: 400px;
+    width:100%;
     background-color: #fff;
 }
 
@@ -295,9 +295,10 @@ select{
     margin-bottom: 15px;
 }
 
-.pagination-Color{
-    background-color: #0095ff;
-    border-color:#0095ff;
+.pagination-color{
+    background-color: #0095ff!important;
+    border-color:#0095ff!important;
+    color:#fff;
 }
 
 .page-link{

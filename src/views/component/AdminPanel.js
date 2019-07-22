@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Input, Table } from 'reactstrap'
 import axios from 'axios'
-import { authRoutes } from '../../utils/Common'
+import { filterArray, authRoutes } from '../../utils/Common'
 import adminValidation from '../../utils/adminValidation'
 import PaginationAdmin from '../component/Pagination'
 import is from 'is_js'
@@ -26,6 +26,7 @@ const AdminPanel = (props) => {
   const [totalContact, setTotalContact] = useState(0)
   const [isActive, setIsActive] = useState(false)
   const [filterCase, setFilterCase] = useState({ name: '', value: '' })
+  const [msg, setShowMsg] = useState('')
 
   useEffect(() => {
     axios.get(`http://localhost:7777/getcontactslength`)
@@ -35,7 +36,6 @@ const AdminPanel = (props) => {
   }, [])
 
   useEffect(() => {
-    
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
     let { Type = '' } = user || {}
@@ -50,19 +50,12 @@ const AdminPanel = (props) => {
         setLoader(false)
         setShow(true)
       })
-  }, [pageNumber, limit])
+  }, [contacts])
 
-  let handleSearchChange = e => {
-    const { value } = e.target
-    setCaseNo(value)
-  }
-
-  let onOpenModal = (CaseNo) => {
-    axios.post(`http://18.219.191.74:7777/getbycaseno`, { caseNo: CaseNo })
-      .then(res => {
-        setContact(res.data[0])
-      })
-    setOpen(true)
+  let handleSearchChange = (e) => {
+    setCaseNo(e.target.value)
+    const searchedProduct = filterArray(contacts, 'Case_No', caseNo)
+    setContacts(searchedProduct)
   }
 
   let onCloseModal = () => {
@@ -127,10 +120,6 @@ const AdminPanel = (props) => {
     })
   }
 
-  // let showAdminTicket = () => {
-  //   props.history.push('/admintickets')
-  // }
-
   let paginate = (number) => {
     setPageNumber(number)
     setIsActive(true)
@@ -138,13 +127,12 @@ const AdminPanel = (props) => {
   }
 
   let searchNumberOfRecords = (e) => {
-    if(e.target.value > 0 && e.target.value < 31) {
+    if (e.target.value > 0 && e.target.value < 31) {
       setLimit(e.target.value)
     }
   }
 
   let setfilterType = (e) => {
-    console.log(e, 'event')
     let filterArrayData = e.target.value
     console.log(filterArrayData, 'filterarraydata')
     let splitFilterArrayData = filterArrayData.split(',')
@@ -170,8 +158,10 @@ const AdminPanel = (props) => {
   let showAdminTicket = (caseNo) => {
     props.history.push('/adminticket/' + caseNo)
   }
-  
+
   let totalPages = Math.ceil(totalContact / limit)
+  let searchedResult = filterArray(contacts, 'Case_No', caseNo)
+
   return (
     <Container className='containers'>
       <Row>
@@ -184,13 +174,6 @@ const AdminPanel = (props) => {
       <Row>
         <Col>
           <div className='admin-panel-search-section'>
-            {/* <form className='admin-search'>
-              <Input type='text' placeholder='Search Record' />
-              <button type='submit'>
-                <i class='fas fa-search' />
-              </button>
-
-            </form> */}
             <div className='searching'>
               <div className='select-option' >
                 <select onChange={(e) => setfilterType(e)}>
@@ -203,7 +186,7 @@ const AdminPanel = (props) => {
                   <option value='Optional Uploads + Transaction Number, Type'>Optional+Transaction Type</option>
                 </select>
               </div>
-              
+
               <div>
                 <select onChange={(e) => getDataByFilter(e)}>
                   <option value='Filter by'>Sort By</option>
@@ -213,13 +196,22 @@ const AdminPanel = (props) => {
               </div>
             </div>
 
-            <form className='admin-search'>
-              <Input
-                type='number'
-                onChange={e => searchNumberOfRecords(e)}
-                placeholder='Search Record per page'
-              />
-            </form>
+            <div>
+              <form className='admin-search'>
+                <Input
+                  type='number'
+                  onChange={e => searchNumberOfRecords(e)}
+                  placeholder='Record per page'
+                />
+              </form>
+              <form className='admin-search'>
+                <Input type='text' placeholder='Search By CaseNo' onChange={(e) => handleSearchChange(e)} />
+                {/* <button type='submit'>
+                  <i class='fas fa-search' />
+                </button> */}
+              </form>
+            </div>
+
           </div>
         </Col>
       </Row>
@@ -247,7 +239,7 @@ const AdminPanel = (props) => {
                 <th>Actions</th>
               </tr>
             </thead>
-            {contacts.map(contact => {
+            {searchedResult.map(contact => {
               return (
                 <tr>
                   <td className='admin-data'>{contact.Case_No}</td>
@@ -279,6 +271,7 @@ const AdminPanel = (props) => {
                   pageNumber={pageNumber}
                   totalPages={totalPages}
                   isActive={isActive}
+
                 />
               </Col>
             </Row> : ''

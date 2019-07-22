@@ -363,10 +363,14 @@ app.post('/login', (req, res) => {
     })
   })
 
+
+
+
   /////////////// get contact by pagination /////
+
+
 app.post('/getcontactsbypage', (req, res) => {
-  console.log("page n0 ===>",req.body.Pagenumber )
-  console.log("limit ===>",req.body.size )
+  
   let pagenumber = parseInt(req.body.Pagenumber)
   let size = parseInt(req.body.size)
   let Skip = size * (pagenumber - 1)
@@ -387,6 +391,9 @@ app.post('/getcontactsbypage', (req, res) => {
     }
   )
  })
+
+
+
  ////////////////////////////////////
 
   /////////////// get contact by filter /////
