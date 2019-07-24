@@ -257,10 +257,10 @@ const ContactForm = (props) => {
         for (let i = 0; i < FileNames.length; i++) {
           formData.append('SelectedImage', FileNames[i])
         }
-        axios.post(`http://18.219.191.74:7777/fileupload`, formData
+        axios.post(`http://localhost:7777/fileupload`, formData
         ).then(res => {
           console.log('response =>', res)
-          axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+          axios.post(`http://localhost:7777//saveContact`, { UserId: JSON.parse(localStorage.user)._id,
             Transaction_Number,
             Name,
             Email,
@@ -309,10 +309,10 @@ const ContactForm = (props) => {
         for (let i = 0; i < SelectedImage.length; i++) {
           formData.append('SelectedImage', SelectedImage[i])
         }
-        axios.post(`http://18.219.191.74:7777/upload`, formData
+        axios.post(`http://localhost:7777/upload`, formData
         ).then(res => {
           console.log('res =>', res)
-          axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+          axios.post(`http://localhost:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
             Transaction_Number,
             Name,
             Email,
@@ -359,7 +359,7 @@ const ContactForm = (props) => {
         for (let i = 0; i < showLinks.length; i++) {
           formData.append('SelectedImage', showLinks[i])
         }
-        axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+        axios.post(`http://localhost:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
           Transaction_Number,
           Name,
           Email,
