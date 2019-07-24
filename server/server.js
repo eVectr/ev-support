@@ -122,11 +122,11 @@ app.post('/transactionSurveyResponse', (req, res) => {
 })
 
 const storage = multer.diskStorage({
-  destination:function(req, file, cb){
+  destination: function (req, file, cb) {
     cb(null, './uploads');
   },
-  filename: function(req, file, cb){
-    cb(null, new Date().toISOString() + file.originalname )
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString() + '/' + file.originalname)
   }
 })
 const upload = multer({ storage: storage }).array('SelectedImage')
@@ -250,26 +250,24 @@ app.post('/saveContact', (req, res) => {
 
   userlogs(Name, Message, Case_No, date)
 
-  var contactForm = new ContactForm ({
-    UserId:UserId,
-    Transaction_Number : Transaction_Number,
-     Name : Name,
-     Email : Email,
-     Subject : Subject,
-     Message : Message,
-     date : date,
-     Case_No : Case_No,
-     Document: Document,
-     Image: Image,
-     Link: Link,
-     Status:'Open',
-     Reason:Reason,
-     Template: Template
+  var contactForm = new ContactForm({
+    UserId: UserId,
+    Transaction_Number: Transaction_Number,
+    Name: Name,
+    Email: Email,
+    Subject: Subject,
+    Message: Message,
+    date: date,
+    Case_No: Case_No,
+    Document: Document,
+    Image: Image,
+    Link: Link,
+    Status: 'Open',
+    Reason: Reason,
+    Template: Template
   })
   contactForm.save((err, data) => {
     if (err) {
-      console.log("err =>", err)
-      console.log("data =>", data)
     } else {
       imagepaths.splice(0, imagepaths.length)
       filepaths.splice(0, imagepaths.length)
@@ -370,70 +368,78 @@ app.post('/login', (req, res) => {
     })
   })
 /////////////// get contact by pagination /////
-app.post('/getcontactsbypage', (req, res) => {
-  let pagenumber = req.body.pagenumber
-  let size = req.body.size
-  let Skip = size * (pagenumber - 1)
-  let Limit = size
+// app.post('/getcontactsbypage', (req, res) => {
+//   let pagenumber = req.body.pagenumber
+//   let size = req.body.size
+//   let Skip = size * (pagenumber - 1)
+//   let Limit = size
 
-  ContactForm.find(
-    {},
-    null,
-    { limit: Limit, skip: Skip, sort: { date: -1 } },
-    function (err, data) {
-      if (err) {
-        console.log(err)
-      } else {
-        console.log(data)
-        res.send(data)
-      }
-    }
-  )
-})
+//   ContactForm.find(
+//     {},
+//     null,
+//     { limit: Limit, skip: Skip, sort: { date: -1 } },
+//     function (err, data) {
+//       if (err) {
+//         console.log(err)
+//       } else {
+//         console.log(data)
+//         res.send(data)
+//       }
+//     }
+//   )
+// })
 ////////////////////////////////////
 
 app.post('/getcontactbycaseno', (req, res) => {
   let caseno = req.body.caseno
-  ContactForm.find({Case_No:caseno}, (err, data)=>{
-    if(err){
+  ContactForm.find({ Case_No: caseno }, (err, data) => {
+    if (err) {
       console.log(err)
       res.send(err)
-    }else{
+    } else {
       console.log(data)
       res.send(data)
     }
   })
 })
-
-/////////////// get contact by Sorting  ////////
-app.get('/getcontactsbysort', (req, res) => {
-  let sortName = req.body.sortName
-  ContactForm.find({}).sort({Case_No:1}).exec((err, data)=>{
-    if(err){
-      console.log(err)
-      res.send(err)
-    }else{
-      console.log(data)
-      res.send(data)
-    }
-  })
-})
-////////////////////////////////////////////////
 
 /////////////// get contact by filter  ////////
 app.post('/getcontactsbyfilter', (req, res) => {
-  let filterName = req.body.filterName
-  let filterValue = req.body.filterValue
 
-  ContactForm.find({filterName: filterValue},function (err, data) {
-      if (err) {
-        console.log(err)
-      } else {
-        console.log(data)
-        res.send(data)
-      }
-    }
-  )
+  let pagenumber = parseInt(req.body.Pagenumber)
+  let size = parseInt(req.body.size)
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+  let value = req.body.filterValue
+  let Name = req.body.filterName
+  console.log("Name ====>", Name)
+  console.log("value ====>", value)
+  if (Name == 'Type') {
+    ContactForm.find({ Template: value }, null,
+      { limit: Limit, skip: Skip, sort: { date: -1 } }, function (err, data) {
+        if (err) {
+          console.log("error")
+          res.send(err)
+        } else {
+          console.log(data)
+
+          res.send(data)
+        }
+      })
+  }
+  else if (Name == 'Status') {
+    ContactForm.find({ Status: value }, null,
+      { limit: Limit, skip: Skip, sort: { date: -1 } }, function (err, data) {
+        if (err) {
+          console.log("error")
+          res.send(err)
+        } else {
+          console.log(data)
+
+          res.send(data)
+        }
+      })
+  }
 })
 ////////////////////////////////////
 
@@ -465,34 +471,32 @@ app.get('/getcontactslength', (req, res) => {
     })
   })
 
-  app.post('/getbycaseno', (req, res) => {
-    let caseNo = req.body.caseNo
-    console.log("case no  ===>",caseNo )
-    ContactForm.find({Case_No:caseNo}, function (err, docs) {
-      if (err) {
-        console.log("error")
-        res.send(err)
-      } else {
-        console.log(docs)
-        res.send(docs)
-      }
-    })
+app.post('/getbycaseno', (req, res) => {
+  let caseNo = req.body.caseNo
+  console.log("case no  ===>", caseNo)
+  ContactForm.find({ Case_No: caseNo }, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      console.log(docs)
+      res.send(docs)
+    }
   })
-  app.post('/getbyuserid', (req, res) => {
-    let UserId = req.body.UserId
-    console.log('UserId  ===>', UserId)
-    ContactForm.find({ UserId: UserId }, function (err, docs) {
-      if (err) {
-        console.log('error')
-        res.send(err)
-      } else {
-        console.log(docs)
-        res.send(docs)
-      }
-    })
+})
+app.post('/getbyuserid', (req, res) => {
+  let UserId = req.body.UserId
+  console.log('UserId  ===>', UserId)
+  ContactForm.find({ UserId: UserId }, function (err, docs) {
+    if (err) {
+      console.log('error')
+      res.send(err)
+    } else {
+      console.log(docs)
+      res.send(docs)
+    }
   })
-
- 
+})
 
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -502,37 +506,35 @@ app.get('/getcontactslength', (req, res) => {
       user: 'verma.akash045@gmail.com', 
       pass: 'A9576227153'
     },
-    tils:{
-      rejectUnauthorized:false
+    tils: {
+      rejectUnauthorized: false
     }
   });
- 
-  app.post('/sendmail', (req, res) => {
-    let message = req.body.message
-    let email = req.body.email
-    console.log("email ==", email)
-    let mailOptions = {
-      from: ' "p2p Support" <verma.akash045@gmail.com>',
-      to: email,
-      subject: 'Reply',
-      text: message
-    }
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        res.send("err")
-        console.log("error =>",error);
-      } else {
-        console.log('Email sent: ' + info.response)
-        res.send("sent")
-      }
-    })
+app.post('/sendmail', (req, res) => {
+  let message = req.body.message
+  let email = req.body.email
+  console.log("email ==", email)
+  let mailOptions = {
+    from: ' "p2p Support" <verma.akash045@gmail.com>',
+    to: email,
+    subject: 'Reply',
+    text: message
+  }
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.send("err")
+      console.log("error =>", error);
+    } else {
+      console.log('Email sent: ' + info.response)
+      res.send("sent")
+    }
   })
+})
 
   /////////////// get contact by pagination /////
 app.post('/getcontactsbypage', (req, res) => {
-  console.log("page n0 ===>",req.body.Pagenumber )
-  console.log("limit ===>",req.body.size )
   let pagenumber = parseInt(req.body.Pagenumber)
   let size = parseInt(req.body.size)
   let Skip = size * (pagenumber - 1)
@@ -541,197 +543,120 @@ app.post('/getcontactsbypage', (req, res) => {
   ContactForm.find(
     {},
     null,
-    { limit: Limit, skip: Skip, sort: { _id: -1 } },
+    { limit: Limit, skip: Skip, sort: { date: -1 } },
     function (err, data) {
       if (err) {
-        console.log('errrrrrr =>',err)
       } else {
         //console.log(data)
-        console.log("successsss")
         res.send(data)
       }
     }
   )
  })
- ////////////////////////////////////
-
-  /////////////// get contact by filter /////
-  app.post('/getcontactsbyfilter', (req, res) => {
-
-    let pagenumber = parseInt(req.body.Pagenumber)
-    let size = parseInt(req.body.size)
-    let Skip = size * (pagenumber - 1)
-    let Limit = size
-    let value = req.body.filterValue
-    let Name = req.body.filterName
-    console.log("filtername ===>", Name)
-    console.log("filtevaleu ===>", value)
-    if(Name == 'Type'){
-      ContactForm.find({Template:value}, null,
-        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
-        if (err) {
-          console.log("error")
-          res.send(err)
-        } else {
-          console.log(data)
-   
-          res.send({data})
-        }
-      })
-    }
-    else if (Name == 'Status'){
-      ContactForm.find({Status:value}, null,
-        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
-        if (err) {
-          console.log("error")
-          res.send(err)
-        } else {
-          console.log(data)
-   
-          res.send({data})
-        }
-      })
-    }
-   })
- ////////////////////////////////////
-
-
- ////////////////get contacts length //////////
-
-app.get('/getcontactslength', (req, res) => {
-  ContactForm.find({}, function (err, docs) {
-    if (err) {
-      console.log("error")
-      res.send(err)
-    } else {
-      console.log(docs.length)
- 
-      res.send({length:docs.length})
-    }
-  })
- })
-
-
-app.get('/getcontactslength', (req, res) => {
-  ContactForm.find({}, function (err, docs) {
-    if (err) {
-      console.log("error")
-      res.send(err)
-    } else {
-      console.log(docs.length)
- 
-      res.send({length:docs.length})
-    }
-  })
- })
-
 
 app.post('/getcontactsbyfilter', (req, res) => {
-
   let pagenumber = parseInt(req.body.Pagenumber)
   let size = parseInt(req.body.size)
   let Skip = size * (pagenumber - 1)
   let Limit = size
   let value = req.body.filterValue
   let Name = req.body.filterName
-  if(Name == 'Template'){
-    ContactForm.find({Template:value}, null,
-      { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, docs) {
-      if (err) {
-        console.log("error")
-        res.send(err)
-      } else {
-        console.log(docs)
-   
-        res.send({length:docs})
-      }
-    })
-  }
-  else if (Name == 'Status'){
-    ContactForm.find({Status:value}, function (err, docs) {
-      if (err) {
-        console.log("error")
-        res.send(err)
-      } else {
-        console.log(docs)
-   
-        res.send({length:docs})
-      }
-    })
-  }
- })
- 
 
- //////// sorting /////
+  ContactForm.find({ [Name]: value }, null,
+    { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+        res.send({ data })
+      }
+    })
+})
+app.get('/getcontactslength', (req, res) => {
+  ContactForm.find({}, function (err, docs) {
+    if (err) {
+      console.log('error')
+      res.send(err)
+    } else {
+      console.log(docs.length)
+
+      res.send({ length: docs.length })
+    }
+  })
+})
+ 
+app.post('/getcontactsbyfilter&sort', (req, res) => {
+  let pagenumber = parseInt(req.body.Pagenumber)
+  let size = parseInt(req.body.size)
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+  let value = req.body.filterValue
+  let Name = req.body.filterName
+  let query = { [req.body.sortName]: 1 }
+  console.log(query)
+
+  ContactForm.find({ [Name]: value }, null,
+    { limit: Limit, skip: Skip, sort: query }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+       console.log("sor and filter")
+        res.send({ data })
+      }
+    })
+})
+
 app.post('/getcontactsbysort', (req, res) => {
   let pagenumber = parseInt(req.body.Pagenumber)
   let size = parseInt(req.body.size)
   let Skip = size * (pagenumber - 1)
   let Limit = size
   let sortName = req.body.sortName
-  console.log("sort name ==>", sortName)
-  if(sortName == 'CaseNo'){
-    ContactForm.find({}, null,
-      { limit: Limit, skip: Skip, sort: { Case_No: 1 } }, (err, data )=>{
-        if(err){
-          console.log(err)
-          res.send(err)
-        }else{
-          console.log(data)
-          res.send(data)
-        }
-      })
-  }
-  else if (sortName == 'Date'){
-    ContactForm.find({}, null,
-      { limit: Limit, skip: Skip, sort: { date: 1 } }, (err, data )=>{
-        if(err){
-          console.log(err)
-          res.send(err)
-        }else{
-          console.log(data)
-          res.send(data)
-        }
-      })
-  }
- 
-  })
- 
- ///////////////
- ////////////////////////////////////////
+  console.log("sortNmae ==== >", sortName)
+  let query = { [req.body.sortName]: 1 }
+  console.log('query ===>', query)
+  ContactForm.find({}, null,
+    { limit: Limit, skip: Skip, sort: query }, (err, data) => {
+      if (err) {
+        console.log('errrrrrrrr      ====>', err)
+        res.send(err)
+      } else {
+        //console.log('data =======>', data)
+        res.send({ data })
+      }
+    })
+})
 
-
- app.post('/getcontactbycaseno', (req, res) => {
+app.post('/getcontactbycaseno', (req, res) => {
   let caseno = req.body.caseno
-  ContactForm.find({Case_No:caseno}, (err, data)=>{
-    if(err){
+  ContactForm.find({ Case_No: caseno }, (err, data) => {
+    if (err) {
       console.log(err)
       res.send(err)
-    }else{
+    } else {
       console.log(data)
       res.send(data)
     }
   })
- })
-
- ////////////////////////////////////////////////
-
- app.post('/messagelogs', (req, res) => {
-  let ID = req.body.ID
-  console.log("ID ==>", ID)
-    MessageLogs.find({ID:ID}, (err,data)=>{
-      if(err){
-        console.log(err)
-        res.send(err)
-      }else{
-        console.log(data)
-        res.send(data)
-      }
-    })
- })
-
-server.listen(7777, () => {
-    console.log("server connected")
 })
 
+app.post('/messagelogs', (req, res) => {
+  let ID = req.body.ID
+  console.log('ID ==>', ID)
+  MessageLogs.find({ ID: ID }, (err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
 
+server.listen(7777, () => {
+  console.log('server connected')
+})

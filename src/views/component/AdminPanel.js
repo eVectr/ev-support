@@ -8,10 +8,10 @@ import axios from 'axios'
 import AdminModal from './AdminModal'
 import Modal from "react-responsive-modal"
 import '../../styles/adminpanel.css'
-import {filterArray, authRoutes} from '../../utils/Common'
+import { filterArray, authRoutes } from '../../utils/Common'
 import Navbar from './Navbar'
 import { longStackSupport } from 'q';
-import {  CaseNo } from '../../redux/actions/notification/notification'
+import { CaseNo } from '../../redux/actions/notification/notification'
 import PaginationAdmin from '../component/Pagination'
 import adminValidation from '../../utils/adminValidation'
 import '../../styles/adminpanel1.css'
@@ -33,7 +33,16 @@ const AdminPanel = (props) => {
   const [pageNumber, setPageNumber] = useState(1)
   const [totalContact, setTotalContact] = useState(0)
   const [isActive, setIsActive] = useState(false)
+  const [isSortBySelected, setisSortBySelected] = useState(false)
+  const [isFilterBySelected, setisFilterBySelected] = useState(false)
   const [filterCase, setFilterCase] = useState({ name: '', value: '' })
+  const [filterName, setFilterName] = useState('')
+  const [sortData, setSortData] = useState('')
+  const [test, setTest] = useState([])
+  const [filterData1, setFilterData1] = useState({
+    filterValue: '',
+    filterName: ''
+  })
 
   useEffect(() => {
     axios.get(`http://localhost:7777/getcontactslength`)
@@ -43,7 +52,7 @@ const AdminPanel = (props) => {
   }, [])
 
   useEffect(() => {
-    
+
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
     let { Type = '' } = user || {}
@@ -51,19 +60,45 @@ const AdminPanel = (props) => {
       props.history.push('/contact')
     }
     setLoader(true)
-    axios.post(`http://localhost:7777/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
-      .then(res => {
-        let { data = [] } = res
-        setContacts(data)
-        setLoader(false)
-        setShow(true)
-      })
-  }, [pageNumber, limit])
+    if (!isFilterBySelected && !isSortBySelected) {
+      axios.post(`http://localhost:7777/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = [] } = res
+          setContacts(data)
+          setLoader(false)
+          setShow(true)
+        })
+    }
+    else if (isFilterBySelected && isSortBySelected) {
 
-  let handleSearchChange = e => {
-    const { value } = e.target
-    setCaseNo(value)
-  }
+      axios.post(`http://localhost:7777/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = {} } = res
+          console.log('filter data data ===>', data)
+          setContacts(data.data)
+          setLoader(false)
+          setShow(true)
+        })
+
+    } else if (isFilterBySelected) {
+      axios.post(`http://localhost:7777/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = {} } = res
+          setContacts(data)
+          setLoader(false)
+          setShow(true)
+        })
+    }
+    else if (isSortBySelected) {
+      axios.post(`http://localhost:7777/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = {} } = res
+          setContacts(data.data)
+          setLoader(false)
+          setShow(true)
+        })
+    }
+  }, [pageNumber, limit])
 
   let onOpenModal = (CaseNo) => {
     axios.post(`http://18.219.191.74:7777/getbycaseno`, { caseNo: CaseNo })
@@ -151,35 +186,77 @@ const AdminPanel = (props) => {
     }
   }
 
-  let setfilterType = (e) => {
-    console.log(e, 'event')
-    let filterArrayData = e.target.value
-    console.log(filterArrayData, 'filterarraydata')
-    let splitFilterArrayData = filterArrayData.split(',')
-    axios.post(`http://localhost:7777/getcontactsbyfilter`, { filterName: splitFilterArrayData[1], filterValue: splitFilterArrayData[0], Pagenumber: pageNumber, size: limit })
-      .then(res => {
-        let { data = {} } = res
-        setContacts(data)
-        setLoader(false)
-        setShow(true)
-      })
-  }
+  // let setFilterDatafun = (data) => {
+  //   setFilterData1({
+  //     filterName: data[1],
+  //     filterValue: data[0]
+  //   })
+  // }
 
-  let getDataByFilter = (e) => {
-    axios.post(`http://localhost:7777/getcontactsbysort`, { sortName: e.target.value, Pagenumber: pageNumber, size: limit })
-      .then(res => {
-        let { data = {} } = res
-        setContacts(data)
-        setLoader(false)
-        setShow(true)
+  useEffect(() => {
+    if (isFilterBySelected && !isSortBySelected) {
+      axios.post(`http://localhost:7777/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = {} } = res
+          setContacts(data)
+          setLoader(false)
+          setShow(true)
+        })
+    }
+  }, [filterData1.filterValue])
+
+  useEffect(() => {
+    if (isSortBySelected && !isFilterBySelected) {
+      axios.post(`http://localhost:7777/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = {} } = res
+          console.log('sort by response ====>', res.data)
+          setContacts(data.data)
+          setLoader(false)
+          setShow(true)
+        })
+    }
+  }, [sortData])
+
+  useEffect(() => {
+    if (isSortBySelected && isFilterBySelected) {
+      axios.post(`http://localhost:7777/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+        .then(res => {
+          let { data = {} } = res
+          console.log('filter data data ===>', data)
+          setContacts(data.data)
+          setLoader(false)
+          setShow(true)
+        })
+    }
+  }, [sortData, filterData1.filterValue])
+
+  async function setfilterType (e) {
+    setisFilterBySelected(true)
+    let filterArrayData = e.target.value
+    let splitFilterArrayData = filterArrayData.split(',')
+    return (
+      setFilterData1({
+        filterName: splitFilterArrayData[1],
+        filterValue: splitFilterArrayData[0]
       })
+    )
+}
+
+  async function getDataByFilter (e) {
+    setisSortBySelected(true)
+    return (
+      setSortData(e.target.value)
+    )
   }
 
   // let showAdminTicket = (caseNo) => {
   //   props.history.push('/adminticket/' + caseNo)
   // }
-  
+
   let totalPages = Math.ceil(totalContact / limit)
+  console.log("is filter selected =>", isFilterBySelected)
+  console.log("is sort by selected =>", isSortBySelected)
   return (
     <Container className='containers'>
       <Row>
@@ -207,9 +284,9 @@ const AdminPanel = (props) => {
                   <option value='Active,Status'> Active Status</option>
                   <option value='Closed,Status'> Closed Status</option>
                   <option value='Standard,Type'>Standard Type</option>
-                  <option value='Mandatory Uploads,Type'>Optional Type</option>
-                  <option value='Optional Uploads + Transaction Number, Type'>Optional+Transaction Type</option>
-                 
+                  <option value='Mandatory Uploads,Type'>Mandatory Uploads</option>
+                  <option value='Optional Uploads + Transaction Number,Type'>Optional+Transaction Type</option>
+
                 </select>
               </div>
 
@@ -234,14 +311,14 @@ const AdminPanel = (props) => {
         </Col>
       </Row>
 
-      { loader
+      {loader
         ? <Row>
           <Col>
             <div className='loader-img'>
               <img src={require('../../images/loader.gif')} />
             </div>
           </Col>
-        </Row> : '' }
+        </Row> : ''}
 
       <Row>
         <Col>

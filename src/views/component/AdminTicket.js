@@ -16,6 +16,7 @@ const AdminTicket = (props) => {
       })
     axios.post(`http://localhost:7777/getcontactbycaseno`, { ID: props.match.params.id })
       .then(res => {
+        console.log("test data     ====>", res)
         setContacts(res.data)
       })
   }, [reply])
