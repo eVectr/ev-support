@@ -55,7 +55,7 @@ const Navbar = (props) => {
 
   return (
     <div>
-      <nav class='navbar is-primary' role='navigation' aria-label='main navigation'>
+      <nav class='navbar header-main' role='navigation' aria-label='main navigation'>
 
         <div class='navbar-brand'>
           <a class='navbar-item' href='' />

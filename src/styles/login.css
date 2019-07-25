@@ -454,3 +454,20 @@ form {
       display: inline-block;
       font-size: 16px;
     }
+    .header-main {
+      background: #142254;
+      color: #fff;
+    }
+    .button.is-link {
+      background-color: transparent;
+      border-color: #fff;
+      color: #fff;
+      color: #fff !important;
+  }
+  .button.is-link:hover {
+    background-color: #fff;
+      border-color: #142254;
+      color: #142254;
+      color: #142254 !important;
+  }
+    
