@@ -46,7 +46,8 @@ const AdminTicket = (props) => {
   let sendemail = () => {
     axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
       .then(res => {
-        setContacts(res.data)
+        console.log("replyy===> ", res)
+        setContacts([res.data])
         setReply('')
       })
   }
@@ -309,37 +310,6 @@ const AdminTicket = (props) => {
           </div>
         </Col>
       </Row>
-
-      {/* <Row>
-        <Col md={{ size: 10, offset: 1 }}>
-          <div className='admin-panel-chat admin'>
-            <img src={require('../../images/head-659652_960_720.png')} />
-            <div className='user-info'>
-              <span className='name' />
-              <span className='time' />
-            </div>
-
-          </div>
-          <Row className='msg admin-msg-text'>
-            <p>jslhdzmxhbfv;cksdzxbv;k </p>
-          </Row>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col md={{ size: 10, offset: 1 }}>
-          <div className='admin-panel-chat'>
-            <img src={require('../../images/head-659652_960_720.png')} />
-            <div className='user-info'>
-              <span className='name'>kjsdhfvlcjh</span>
-              <span className='time'>12-10-2019</span>
-            </div>
-          </div>
-          <Row className='msg'>
-            <p>hello</p>
-          </Row>
-        </Col>
-      </Row> */}
 
       {
         messageLogs.map((message, index) => {
