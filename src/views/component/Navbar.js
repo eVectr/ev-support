@@ -103,9 +103,9 @@ const Navbar = (props) => {
             <div class='navbar-item'>
               <div class='buttons '>
                 {(localStorage.user !== undefined)
-                  ? <a class='button is-light ' onClick={logout}>
+                  ? <a class='button is-link  ' onClick={logout}>
                     Logout
-                  </a> : <a class='button is-light' onClick={logout}>
+                  </a> : <a class='button is-link' onClick={logout}>
                     Login
                   </a>
                 }

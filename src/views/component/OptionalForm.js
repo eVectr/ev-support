@@ -10,7 +10,7 @@ import ImageUploader from './ImageUploader'
 import Uploader from './Uploader'
 import api_url from '../../utils/Const'
 
-const ContactForm = (props) => {
+const ContactForm = props => {
   const [data, setData] = useState({
     transaction_number: '',
     name: '',
@@ -42,7 +42,7 @@ const ContactForm = (props) => {
     setErrors({})
   }
 
-  const onDrop = (files) => {
+  const onDrop = files => {
     if (!files.length) {
       return
     }
@@ -57,7 +57,7 @@ const ContactForm = (props) => {
     }
   }
 
-  const onDropImage = (files) => {
+  const onDropImage = files => {
     if (!files.length) {
       return
     }
@@ -92,52 +92,55 @@ const ContactForm = (props) => {
           const update = prev.concat([reader.result])
           return update
         })
-        //setImagePreviewUrl([previewimages])
+        // setImagePreviewUrl([previewimages])
         // resolve(previewimages)
-    }
-    
+      }
 
-    let deleteImage = (image, previewimage) => {
+      let deleteImage = (image, previewimage) => {
         setImagePreviewUrl([])
-        //deletepreviewimage(previewimage)
+        // deletepreviewimage(previewimage)
         let images = SelectedImage.filter((imagename, index) => {
-            return imagename.name !== image
+          return imagename.name !== image
         })
         setSelectedImage(images)
-    }
+      }
 
-    let deleteLink = (clickedLink) => {
+      let deleteLink = clickedLink => {
         let links = showLinks.filter((link, index) => {
-            return link !== clickedLink
+          return link !== clickedLink
         })
         setShowLinks(links)
-    }
+      }
 
-    let showLinkData = () => {
+      let showLinkData = () => {
         let links = showLinks
-        links = [
-            ...showLinks,
-            linkData
-        ]
+        links = [...showLinks, linkData]
         setShowLinks(links)
-    }
+      }
 
-    const Documents = () => {
+      const Documents = () => {
         return (
+          <div>
             <div>
-                <div> {
-                    FileNames.map((file, index) => {
-                        return (
-                            <ul>
-                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={()=> deleteFile (file.name)} ></i></li>
-                            </ul>
-                        )
-                    })
-                }</div>
+              {' '}
+              {FileNames.map((file, index) => {
+                return (
+                  <ul>
+                    <li className='uploding-file'>
+                      <h1 className='file-name'>{file.name} </h1>
+                      <i
+                        class='fas fa-times'
+                        onClick={() => deleteFile(file.name)}
+                      />
+                    </li>
+                  </ul>
+                )
+              })}
+            </div>
 
-                <Uploader onDrop={onDrop}>
-                    <Fragment>
-                        {/* <div className='field'>
+            <Uploader onDrop={onDrop}>
+              <Fragment>
+                {/* <div className='field'>
                             <div className='file is-small'>
                                 <label className='file-label'>
                                     <span className={`file-cta font-1rem `}>
@@ -151,302 +154,359 @@ const ContactForm = (props) => {
                                 </label>
                             </div>
                         </div>     */}
-                        <button className='link-btn'>Add</button>
-                        <p className="show-document-msg">{selectDocument}</p>
-                    </Fragment>
-                </Uploader>
+                <button className='link-btn'>Add</button>
+                <p className='show-document-msg'>{selectDocument}</p>
+              </Fragment>
+            </Uploader>
+          </div>
+        )
+      }
 
+      const Images = () => {
+        return (
+          <div>
+            <div>
+              {' '}
+              {SelectedImage.map((image, index) => {
+                return (
+                  <ul className='uploaded-images'>
+                    <li className='uploding-file'>
+                      <h1 className='file-name'>{image.name} </h1>
+                      <i
+                        class='fas fa-times'
+                        onClick={() =>
+                          deleteImage(image.name, imagePreviewUrl[index])
+                        }
+                      />
+                    </li>
+                    {imagePreviewUrl.length ? (
+                      <img src={imagePreviewUrl[index]} />
+                    ) : (
+                      ''
+                    )}
+                  </ul>
+                )
+              })}
             </div>
-       )
+            <ImageUploader onDrop={onDropImage}>
+              <Fragment>
+                <button className='link-btn'>Add</button>
+                <p className='show-document-msg'>{selectDocument}</p>
+              </Fragment>
+            </ImageUploader>
+          </div>
+        )
+      }
+
+      const Link = () => {
+        return (
+          <div>
+            {showLinks.map((link, index) => {
+              return (
+                <li key={index} className='link-list'>
+                  {link}
+                  <i class='fas fa-times' onClick={() => deleteLink(link)} />
+                </li>
+              )
+            })}
+            <input
+              type='text'
+              className='link-data links'
+              name='textdata'
+              placeholder='Input link here'
+              onChange={e => setLinkData(e.target.value)}
+            />
+            <p>{selectDocument}</p>
+            <button className='link-btn' onClick={() => showLinkData()}>
+              Add
+            </button>
+          </div>
+        )
+      }
     }
 
-    const Images = () => {
-        return (
-            <div>
-                <div> {
-                    SelectedImage.map((image, index) => {
-                        return (
-                            <ul className='uploaded-images'>
-                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name, imagePreviewUrl[index])}></i></li>
-                               {imagePreviewUrl.length?<img src={imagePreviewUrl[index]}/>:''}  
-                            </ul>
-                        )
-                    })
-                }</div>
-                <ImageUploader onDrop={onDropImage}>
-                    <Fragment>
-                        <button className='link-btn'>Add</button>
-                        <p className="show-document-msg">{selectDocument}</p>
-                    </Fragment>
-                </ImageUploader>
+    let generateCaseNo = () => {
+      return new Promise((resolve, reject) => {
+        let date = new Date()
+        let sec = date.getSeconds() + 1
+        console.log(sec)
+        let caseNo = 'SS'
+          .concat('0000')
+          .concat((Math.random() * 100000000).toFixed() * sec)
+        resolve(caseNo)
+      })
+    }
 
-            </div>
-        )
+    const claims = ['Documents', 'Images', 'Links']
+
+    let deleteFile = file => {
+      let files = FileNames.filter((filename, index) => {
+        console.log(filename, 'filename')
+        return filename.name !== file
+      })
+      setFileNames(files)
+    }
+
+    let deletepreviewimage = previewImage => {
+      let previewImages = imagePreviewUrl.filter((url, index) => {
+        return url !== previewImage
+      })
+      setImagePreviewUrl([previewImages])
+    }
+
+    let deleteImage = (image, previewImage) => {
+      setImagePreviewUrl([])
+      let images = SelectedImage.filter((imageName, index) => {
+        return imageName.name !== image
+      })
+      setSelectedImage(images)
+    }
+
+    let deleteLink = clickedLink => {
+      let links = showLinks.filter((link, index) => {
+        return link !== clickedLink
+      })
+      setShowLinks(links)
+    }
+
+    let showLinkData = () => {
+      let links = showLinks
+      links = [...showLinks, linkData]
+      setShowLinks(links)
+    }
+    const Documents = () => {
+      return (
+        <div>
+          <div>
+            {' '}
+            {FileNames.map((file, index) => {
+              return (
+                <ul>
+                  <li key={index} className='uploding-file'>
+                    <h1 className='file-name'>{file.name} </h1>
+                    <i
+                      class='fas fa-times'
+                      onClick={() => deleteFile(file.name)}
+                    />
+                  </li>
+                </ul>
+              )
+            })}
+          </div>
+
+          <Uploader onDrop={onDrop}>
+            <Fragment>
+              <button className='link-btn'>Add</button>
+              <p className='show-document-msg'>{selectDocument}</p>
+            </Fragment>
+          </Uploader>
+        </div>
+      )
+    }
+    const Images = () => {
+      return (
+        <div>
+          <div>
+            {' '}
+            {SelectedImage.map((image, index) => {
+              return (
+                <ul className='uploaded-images'>
+                  <li key={index} className='uploding-file'>
+                    <h1 className='file-name'>{image.name} </h1>
+                    <i
+                      class='fas fa-times'
+                      onClick={() =>
+                        deleteImage(image.name, imagePreviewUrl[index])
+                      }
+                    />
+                  </li>
+                  {imagePreviewUrl.length ? (
+                    <img src={imagePreviewUrl[index]} />
+                  ) : (
+                    ''
+                  )}
+                </ul>
+              )
+            })}
+          </div>
+          <ImageUploader onDrop={onDropImage}>
+            <Fragment>
+              <button className='link-btn'>Add</button>
+              <p className='show-document-msg'>{selectDocument}</p>
+            </Fragment>
+          </ImageUploader>
+        </div>
+      )
     }
 
     const Link = () => {
-        return (
-            <div>
-                {                    
-                     showLinks.map((link, index) => {
-                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
-                     }) 
-                }
-                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={ e => setLinkData(e.target.value) }/>
-                <p>{selectDocument}</p>
-                <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
-            </div>         
-        )
-    }
-  }
-
-  let generateCaseNo = () => {
-    return new Promise((resolve, reject) => {
-      let date = new Date()
-      let sec = date.getSeconds() + 1
-      console.log(sec)
-      let caseNo = 'SS'.concat('0000').concat((Math.random() * 100000000).toFixed() * sec)
-      resolve(caseNo)
-    })
-  }
-
-  const claims = ['Documents', 'Images', 'Links']
-
-  let deleteFile = (file) => {
-    let files = FileNames.filter((filename, index) => {
-      console.log(filename, 'filename')
-      return filename.name !== file
-    })
-    setFileNames(files)
-  }
-
-  let deletepreviewimage = (previewImage) => {
-    let previewImages = imagePreviewUrl.filter((url, index) => {
-      return url !== previewImage
-    })
-    setImagePreviewUrl([previewImages])
-  }
-
-  let deleteImage = (image, previewImage) => {
-    setImagePreviewUrl([])
-    let images = SelectedImage.filter((imageName, index) => {
-      return imageName.name !== image
-    })
-    setSelectedImage(images)
-  }
-
-  let deleteLink = (clickedLink) => {
-    let links = showLinks.filter((link, index) => {
-      return link !== clickedLink
-    })
-    setShowLinks(links)
-  }
-
-  let showLinkData = () => {
-    let links = showLinks
-    links = [
-      ...showLinks,
-      linkData
-    ]
-    setShowLinks(links)
-  }
-  const Documents = () => {
-    return (
-      <div>
-        <div> {
-          FileNames.map((file, index) => {
+      return (
+        <div>
+          {showLinks.map((link, index) => {
             return (
-              <ul>
-                <li key={index} className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class='fas fa-times' onClick={() => deleteFile(file.name)} /></li>
-              </ul>
+              <li key={index} className='link-list'>
+                {link}
+                <i class='fas fa-times' onClick={() => deleteLink(link)} />
+              </li>
             )
-          })
-        }</div>
-
-        <Uploader onDrop={onDrop}>
-          <Fragment>
-            <button className='link-btn'>Add</button>
-            <p className='show-document-msg'>{selectDocument}</p>
-          </Fragment>
-        </Uploader>
-
-      </div>
-    )
-  }
-  const Images = () => {
-    return (
-      <div>
-        <div> {
-          SelectedImage.map((image, index) => {
-            return (
-              <ul className='uploaded-images'>
-                <li key={index} className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class='fas fa-times' onClick={() => deleteImage(image.name, imagePreviewUrl[index])} /></li>
-                {imagePreviewUrl.length ? <img src={imagePreviewUrl[index]} /> : ''}
-              </ul>
-            )
-          })
-        }</div>
-        <ImageUploader onDrop={onDropImage}>
-          <Fragment>
-            <button className='link-btn'>Add</button>
-            <p className='show-document-msg'>{selectDocument}</p>
-          </Fragment>
-        </ImageUploader>
-
-      </div>
-    )
-  }
-
-  const Link = () => {
-    return (
-      <div>
-        {
-          showLinks.map((link, index) => {
-            return <li key={index} className='link-list'>{link}<i class='fas fa-times' onClick={() => deleteLink(link)} /></li>
-          })
-        }
-        <input type='text' className='link-data links' name='textdata' placeholder='Input link here' onChange={e => setLinkData(e.target.value)} />
-        <p>{selectDocument}</p>
-        <button className='link-btn' onClick={() => showLinkData()}>Add</button>
-      </div>
-    )
-  }
-
-  const renderClaims = () => {
-    switch (selectedClaim) {
-      case 0: return Documents()
-      case 1: return Images()
-      case 2: return Link()
+          })}
+          <input
+            type='text'
+            className='link-data links'
+            name='textdata'
+            placeholder='Input link here'
+            onChange={e => setLinkData(e.target.value)}
+          />
+          <p>{selectDocument}</p>
+          <button className='link-btn' onClick={() => showLinkData()}>
+            Add
+          </button>
+        </div>
+      )
     }
-  }
 
-  const onSubmit = () => {
-    if (props.match.path === '/contact/3') {
-      const errors = Validation(data)
-      console.log(errors, 'Errors')
-      if (!is.empty(errors)) {
-        setErrors(errors)
-        return
-      }
-    } else {
-      const errors = contactValidation(data)
-      console.log(errors, 'Errors')
-      if (!is.empty(errors)) {
-        setMessage(errors)
-        return
+    const renderClaims = () => {
+      switch (selectedClaim) {
+        case 0:
+          return Documents()
+        case 1:
+          return Images()
+        case 2:
+          return Link()
       }
     }
 
-    if (selectedClaim === 0) {
-      if (FileNames.length === 0) {
-        setSelectDocument(' Please Add Document')
-
-        return
-      }
-      setLoader(true)
-      generateCaseNo().then(no => {
-        let Transaction_Number = data.transaction_number
-        let Name = data.name
-        let Email = data.email
-        let Subject = data.subject
-        let Message = data.message
-        let Case_No = no
-        let Link = []
-        let formData = new FormData()
-        for (let i = 0; i < FileNames.length; i++) {
-          formData.append('SelectedImage', FileNames[i])
+    const onSubmit = () => {
+      if (props.match.path === '/contact/3') {
+        const errors = Validation(data)
+        console.log(errors, 'Errors')
+        if (!is.empty(errors)) {
+          setErrors(errors)
+          return
         }
-        axios.post(`http://18.219.191.74:7777/fileupload`, formData
-        ).then(res => {
-          console.log('response =>', res)
-          axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
-            Transaction_Number,
-            Name,
-            Email,
-            Subject,
-            Message,
-            Case_No,
-            Link,
-            Reason: props.notificationreducer.selectedReason.name,
-            Template: props.notificationreducer.selectedReason.template })
-            .then(res => {
-              setLoader(false)
-              setData({
-                transaction_number: '',
-                name: '',
-                email: '',
-                subject: '',
-                message: ''
-              })
-              console.log(res.data, 'Document Response')
-              setShowFlashMsg(true)
-            })
-          if (res.data === 'done') {
-            setFileNames([])
-            setSuccessMsg('Your query has been recorded ')
+      } else {
+        const errors = contactValidation(data)
+        console.log(errors, 'Errors')
+        if (!is.empty(errors)) {
+          setMessage(errors)
+          return
+        }
+      }
+
+      if (selectedClaim === 0) {
+        if (FileNames.length === 0) {
+          setSelectDocument(' Please Add Document')
+
+          return
+        }
+        setLoader(true)
+        generateCaseNo().then(no => {
+          let Transaction_Number = data.transaction_number
+          let Name = data.name
+          let Email = data.email
+          let Subject = data.subject
+          let Message = data.message
+          let Case_No = no
+          let Link = []
+          let formData = new FormData()
+          for (let i = 0; i < FileNames.length; i++) {
+            formData.append('SelectedImage', FileNames[i])
           }
-        })
-        setShowFlashMsg(false)
-        setSelectDocument('')
-      })
-    } else if (selectedClaim === 1) {
-      if (SelectedImage.length === 0) {
-        setSelectDocument(' Please Add Image')
-        return
-      }
-      setLoader(true)
-
-      generateCaseNo().then(no => {
-        let Transaction_Number = data.transaction_number
-        let Name = data.name
-        let Email = data.email
-        let Subject = data.subject
-        let Message = data.message
-        let Case_No = no
-        let Link = []
-        let formData = new FormData()
-        for (let i = 0; i < SelectedImage.length; i++) {
-          formData.append('SelectedImage', SelectedImage[i])
-        }
-        axios.post(`http://18.219.191.74:7777/upload`, formData
-        ).then(res => {
-          console.log('res =>', res)
-          axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
-            Transaction_Number,
-            Name,
-            Email,
-            Subject,
-            Message,
-            Case_No,
-            Link,
-            Reason: props.notificationreducer.selectedReason.name,
-            Template: props.notificationreducer.selectedReason.template })
-            .then(res => {
-              setLoader(false)
-              setData({
-                transaction_number: '',
-                name: '',
-                email: '',
-                subject: '',
-                message: ''
+          axios.post(`http://localhost:7777/fileupload`, formData).then(res => {
+            console.log('response =>', res)
+            axios
+              .post(`http://localhost:7777//saveContact`, {
+                UserId: JSON.parse(localStorage.user)._id,
+                Transaction_Number,
+                Name,
+                Email,
+                Subject,
+                Message,
+                Case_No,
+                Link,
+                Reason: props.notificationreducer.selectedReason.name,
+                Template: props.notificationreducer.selectedReason.template
               })
-              console.log(res.data, 'Image')
-              setShowFlashMsg(true)
-            })
-          if (res.data === 'done') {
-            setSelectedImage([])
-            setSuccessMsg('Your query has been recorded')
-          }
+              .then(res => {
+                setLoader(false)
+                setData({
+                  transaction_number: '',
+                  name: '',
+                  email: '',
+                  subject: '',
+                  message: ''
+                })
+                console.log(res.data, 'Document Response')
+                setShowFlashMsg(true)
+              })
+            if (res.data === 'done') {
+              setFileNames([])
+              setSuccessMsg('Your query has been recorded ')
+            }
+          })
+          setShowFlashMsg(false)
+          setSelectDocument('')
         })
-        setShowFlashMsg(false)
-      })
-    } else {
-      if (showLinks.length === 0) {
-        setSelectDocument(' Please Select Link')
-        return
+      } else if (selectedClaim === 1) {
+        if (SelectedImage.length === 0) {
+          setSelectDocument(' Please Add Image')
+          return
+        }
+        setLoader(true)
+
+        generateCaseNo().then(no => {
+          let Transaction_Number = data.transaction_number
+          let Name = data.name
+          let Email = data.email
+          let Subject = data.subject
+          let Message = data.message
+          let Case_No = no
+          let Link = []
+          let formData = new FormData()
+          for (let i = 0; i < SelectedImage.length; i++) {
+            formData.append('SelectedImage', SelectedImage[i])
+          }
+          axios.post(`http://localhost:7777/upload`, formData).then(res => {
+            console.log('res =>', res)
+            axios
+              .post(`http://localhost:7777/saveContact`, {
+                UserId: JSON.parse(localStorage.user)._id,
+                Transaction_Number,
+                Name,
+                Email,
+                Subject,
+                Message,
+                Case_No,
+                Link,
+                Reason: props.notificationreducer.selectedReason.name,
+                Template: props.notificationreducer.selectedReason.template
+              })
+              .then(res => {
+                setLoader(false)
+                setData({
+                  transaction_number: '',
+                  name: '',
+                  email: '',
+                  subject: '',
+                  message: ''
+                })
+                console.log(res.data, 'Image')
+                setShowFlashMsg(true)
+              })
+            if (res.data === 'done') {
+              setSelectedImage([])
+              setSuccessMsg('Your query has been recorded')
+            }
+          })
+          setShowFlashMsg(false)
+        })
+      } else {
+        if (showLinks.length === 0) {
+          setSelectDocument(' Please Select Link')
+          return
+        }
+        setLoader(true)
       }
-      setLoader(true)
-    }
       generateCaseNo().then(no => {
         let Transaction_Number = data.transaction_number
         let Name = data.name
@@ -458,16 +518,19 @@ const ContactForm = (props) => {
         for (let i = 0; i < showLinks.length; i++) {
           formData.append('SelectedImage', showLinks[i])
         }
-        axios.post(`http://18.219.191.74:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
-          Transaction_Number,
-          Name,
-          Email,
-          Subject,
-          Message,
-          Case_No,
-          Link: showLinks,
-          Reason: props.notificationreducer.selectedReason.name,
-          Template: props.notificationreducer.selectedReason.template })
+        axios
+          .post(`http://localhost:7777/saveContact`, {
+            UserId: JSON.parse(localStorage.user)._id,
+            Transaction_Number,
+            Name,
+            Email,
+            Subject,
+            Message,
+            Case_No,
+            Link: showLinks,
+            Reason: props.notificationreducer.selectedReason.name,
+            Template: props.notificationreducer.selectedReason.template
+          })
           .then(res => {
             setLoader(false)
             console.log(res.data, 'link')
@@ -478,116 +541,174 @@ const ContactForm = (props) => {
               subject: '',
               message: ''
             })
-            })
           })
+      })
     }
-   
-  if (props.notificationreducer.selectedReason == undefined) {
-    props.history.push('/contact')
-  }
-  console.log('optional props ==>', props)
 
-  return (
-    <div className='form-container'>
-      <div className='contact-form'>
-        <div className='header'> <span>Contact Us</span> </div>
-        <div className='pading'>
-          {props.match.path === '/contact/3'
-            ? <div className='field'>
+    if (props.notificationreducer.selectedReason == undefined) {
+      props.history.push('/contact')
+    }
+    console.log('optional props ==>', props)
+
+    return (
+      <div className='form-container'>
+        <div className='contact-form'>
+          <div className='header'>
+            {' '}
+            <span>Contact Us</span>{' '}
+          </div>
+          <div className='pading'>
+            {props.match.path === '/contact/3' ? (
+              <div className='field'>
+                <div class='control has-icons-left has-icons-right'>
+                  <label className='label left_align'>Transaction Number</label>
+                  <div className='control'>
+                    <input
+                      className='input contact-input'
+                      type='text'
+                      name='transaction_number'
+                      placeholder='Input Transaction Number (Mandatory)'
+                      value={data.transaction_number}
+                      onChange={handleChange}
+                    />
+                    <p className='error-message-text'>
+                      {(Errors.transaction_number &&
+                        Errors.transaction_number[0]) ||
+                        ''}
+                    </p>
+                    <span class='icon is-medium is-left icn'>
+                      <i class='fas fa-id-card icn1 ' />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              ''
+            )}
+            <div className='field'>
               <div class='control has-icons-left has-icons-right'>
-                <label className='label left_align'>Transaction Number</label>
+                <label className='label left_align'>Name</label>
                 <div className='control'>
-                  <input className='input contact-input' type='text' name='transaction_number' placeholder='Input Transaction Number (Mandatory)' value={data.transaction_number} onChange={handleChange} />
-                  <p className='error-message-text'>{(Errors.transaction_number && Errors.transaction_number[0]) || ''}</p>
+                  <input
+                    className='input contact-input'
+                    type='text'
+                    name='name'
+                    placeholder='Name (Optional)'
+                    value={data.name}
+                    onChange={handleChange}
+                  />
                   <span class='icon is-medium is-left icn'>
                     <i class='fas fa-id-card icn1 ' />
                   </span>
                 </div>
               </div>
             </div>
-            : ''
-          }
-          <div className='field'>
-            <div class='control has-icons-left has-icons-right'>
-              <label className='label left_align'>Name</label>
-              <div className='control'>
-                <input className='input contact-input' type='text' name='name' placeholder='Name (Optional)' value={data.name} onChange={handleChange} />
-                <span class='icon is-medium is-left icn'>
-                  <i class='fas fa-id-card icn1 ' />
-                </span>
+            <div className='field'>
+              <div class='control has-icons-left has-icons-right'>
+                <label className='label left_align'>Email</label>
+                <div className='control'>
+                  <input
+                    className='input contact-input'
+                    type='email'
+                    name='email'
+                    placeholder='Email (Mandatory)'
+                    value={data.email}
+                    onChange={handleChange}
+                  />
+                  <p className='error-message-text'>
+                    {(Errors.email && Errors.email[0]) || ''}
+                  </p>
+                  <p className='error-message-text'>
+                    {(message.email && message.email[0]) || ''}
+                  </p>
+                  <span class='icon is-medium is-left icn'>
+                    <i class='fas fa-id-card icn1' />
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='field'>
-            <div class='control has-icons-left has-icons-right'>
-              <label className='label left_align'>Email</label>
-              <div className='control'>
-                <input className='input contact-input' type='email' name='email' placeholder='Email (Mandatory)' value={data.email} onChange={handleChange} />
-                <p className='error-message-text'>{(Errors.email && Errors.email[0]) || ''}</p>
-                <p className='error-message-text'>{(message.email && message.email[0]) || ''}</p>
-                <span class='icon is-medium is-left icn'>
-                  <i class='fas fa-id-card icn1' />
-                </span>
+            <div className='field'>
+              <div class='control has-icons-left has-icons-right'>
+                <label className='label left_align'>Subject</label>
+                <div className='control'>
+                  <input
+                    className='input contact-input'
+                    type='text'
+                    name='subject'
+                    placeholder='Subject (Optional)'
+                    value={data.subject}
+                    onChange={handleChange}
+                  />
+                  <span class='icon is-medium is-left icn'>
+                    <i class='fas fa-id-card icn1' />
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='field'>
-            <div class='control has-icons-left has-icons-right'>
-              <label className='label left_align'>Subject</label>
+            <div className='field'>
+              <label className='label left_align'>Messages</label>
               <div className='control'>
-                <input className='input contact-input' type='text' name='subject' placeholder='Subject (Optional)' value={data.subject} onChange={handleChange} />
-                <span class='icon is-medium is-left icn'>
-                  <i class='fas fa-id-card icn1' />
-                </span>
+                <textarea
+                  className='textarea'
+                  name='message'
+                  placeholder='Enter Message'
+                  value={data.message}
+                  onChange={handleChange}
+                />
+                <p className='error-message-text'>
+                  {(Errors.message && Errors.message[0]) || ''}
+                </p>
+                <p className='error-message-text'>
+                  {(message.message && message.message[0]) || ''}
+                </p>
               </div>
             </div>
-          </div>
-          <div className='field'>
-            <label className='label left_align'>Messages</label>
-            <div className='control'>
-              <textarea className='textarea' name='message' placeholder='Enter Message' value={data.message} onChange={handleChange} />
-              <p className='error-message-text'>{(Errors.message && Errors.message[0]) || ''}</p>
-              <p className='error-message-text'>{(message.message && message.message[0]) || ''}</p>
+            <div className='field'>
+              <label className='label left_align'>
+                Options to Substantiate Claim (Mandatory)
+              </label>
             </div>
-          </div>
-          <div className='field'>
-            <label className='label left_align'>Options to Substantiate Claim (Mandatory)</label>
-          </div>
-          <div className='field'>
-            <div className='control'>
-              <div class='tabs  is-boxed'>
-                <ul>
-                  {
-                    claims.map((claim, index) => {
+            <div className='field'>
+              <div className='control'>
+                <div class='tabs  is-boxed'>
+                  <ul>
+                    {claims.map((claim, index) => {
                       return (
-                        <li class={index === selectedClaim ? 'is-active' : ''} key={index} onClick={() => setSelectedClaim(index)}>
+                        <li
+                          class={index === selectedClaim ? 'is-active' : ''}
+                          key={index}
+                          onClick={() => setSelectedClaim(index)}
+                        >
                           <a>
                             <span>{claim}</span>
                           </a>
                         </li>
                       )
-                    })
-                  }
-                </ul>
+                    })}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-          {
-            renderClaims()
-          }
-          <button class='button is-success' onClick={onSubmit} >Send</button>
-          {
-            showFlashMsg ? <FlashMassage duration={5000} persistOnHover>
-              <p className='send-success-msg'>{successMsg}</p>
-            </FlashMassage> : null
-          }
-          <div className='send-success-msg'>
-            {loader ? <img src={require('../../images/loader.gif')} alt='' /> : ''}
+            {renderClaims()}
+            <button class='button is-success' onClick={onSubmit}>
+              Send
+            </button>
+            {showFlashMsg ? (
+              <FlashMassage duration={5000} persistOnHover>
+                <p className='send-success-msg'>{successMsg}</p>
+              </FlashMassage>
+            ) : null}
+            <div className='send-success-msg'>
+              {loader ? (
+                <img src={require('../../images/loader.gif')} alt='' />
+              ) : (
+                ''
+              )}
+            </div>
           </div>
         </div>
       </div>
-      </div>
-  )
-}
+    )
+  }
 }
 export default connect(state => state)(ContactForm)

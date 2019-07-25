@@ -98,18 +98,21 @@
 
 /* -----------------------------------admin-panel-search-section-------------------------- */
 
+
 .admin-panel-search-section {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
 }
 
+.admin{
+    width: 35%;
+}
 .admin-search {
-    width: 32%;
     padding: 0!important;
     position:relative;
+    margin-bottom: 12px;
 }
-
 
 
 .admin-search Input { 
@@ -117,7 +120,7 @@
     width: 100%;
     margin-bottom: 0;
     border-radius: 3px;
-    padding: 15px;
+    padding: 20px;
 }
 
 .admin-search Input:focus {
@@ -127,17 +130,12 @@
 
 .admin-search button {
     position: absolute;
-    top: 8px;
+    top: 0px;
     font-size: 16px;
-    color:#999;
-    background-color: transparent;
-    border:none;
+    right:0;
+    padding:8px 10px;
 }
 
-.admin-search button:focus{
-    outline: 0;
-    border:0;
-}
 
 ::placeholder { 
    color:#999;

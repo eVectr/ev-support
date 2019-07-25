@@ -4,6 +4,8 @@
     justify-content: space-between;
 }
 
+
+
 .admin-header {
     font-size: 25px!important;
     font-weight: 600!important;
@@ -285,18 +287,18 @@ select{
     margin-bottom: 10px;
     color:#999;
     height: 40px;
-    width: 200px;
+    width:100%;
     background-color: #fff;
 }
 
-.select:focus{
-    outline: 0;
-    box-shadow:0!important;
+.select-option{
+    margin-bottom: 15px;
 }
 
-.pagination-Color{
-    background-color: #0095ff;
-    border-color:#0095ff;
+.pagination-color{
+    background-color: #0095ff!important;
+    border-color:#0095ff!important;
+    color:#fff;
 }
 
 .page-link{
