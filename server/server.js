@@ -533,8 +533,14 @@ app.post('/sendmail', (req, res) => {
   })
 })
 
+
+
+
   /////////////// get contact by pagination /////
+
+
 app.post('/getcontactsbypage', (req, res) => {
+  
   let pagenumber = parseInt(req.body.Pagenumber)
   let size = parseInt(req.body.size)
   let Skip = size * (pagenumber - 1)
@@ -553,6 +559,47 @@ app.post('/getcontactsbypage', (req, res) => {
     }
   )
  })
+
+
+  /////////////// get contact by filter /////
+  app.post('/getcontactsbyfilter', (req, res) => {
+
+    let pagenumber = parseInt(req.body.Pagenumber)
+    let size = parseInt(req.body.size)
+    let Skip = size * (pagenumber - 1)
+    let Limit = size
+    let value = req.body.filterValue
+    let Name = req.body.filterName
+    console.log("filtername ===>", Name)
+    console.log("filtevaleu ===>", value)
+    if(Name == 'Type'){
+      ContactForm.find({Template:value}, null,
+        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+        if (err) {
+          console.log("error")
+          res.send(err)
+        } else {
+          console.log(data)
+   
+          res.send({data})
+        }
+      })
+    }
+    else if (Name == 'Status'){
+      ContactForm.find({Status:value}, null,
+        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+        if (err) {
+          console.log("error")
+          res.send(err)
+        } else {
+          console.log(data)
+   
+          res.send({data})
+        }
+      })
+    }
+   })
+ ////////////////////////////////////
 
 app.post('/getcontactsbyfilter', (req, res) => {
   let pagenumber = parseInt(req.body.Pagenumber)

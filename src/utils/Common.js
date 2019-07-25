@@ -1,12 +1,10 @@
 export const filterArray = (arr, key, searchTerm) =>
   arr.filter(
     val =>
-      val[key]
+      val[key] ? (val[key]
         .toString()
         .toLowerCase()
-        .includes(
-          searchTerm.toLowerCase().trim()
-        ) || searchTerm === ''
+        .includes(searchTerm.toLowerCase().trim()) || searchTerm === '') : false
   )
 
 export let authRoutes = (props) => {

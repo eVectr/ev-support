@@ -285,8 +285,6 @@ const SupportTicket = (props) => {
                 </div>
               </td>
             </tr>
-
-
           </Table>
           <Row>
             <Col>
