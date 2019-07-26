@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Input, Table } from 'reactstrap'
+import { Container, Row, Col, Input, Table,Button } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import io from 'socket.io-client'
@@ -46,6 +46,7 @@ const AdminPanel = (props) => {
     filterName: ''
   })
   const [msg, setShowMsg] = useState('')
+  const [showTextArea, setshowTextArea] = useState(false)
 
   var socket = io.connect('http://localhost:7777')
 
@@ -253,6 +254,12 @@ const AdminPanel = (props) => {
     )
   }
 
+  let showTestMsgBox = () => {
+    console.log('clicked')
+    setshowTextArea(true)
+  }
+
+  console.log(showTextArea, 'showTextArea')
   // let showAdminTicket = (caseNo) => {
   //   props.history.push('/adminticket/' + caseNo)
   // }
@@ -323,7 +330,12 @@ const AdminPanel = (props) => {
             </div>
           </Col>
         </Row> : ''}
-
+        <Row>
+        <Button onClick = {showTestMsgBox}>Send Meassge</Button>
+        {
+          showTextArea ? <textarea>1</textarea> : ''
+        }
+        </Row>
       <Row>
         <Col>
           <Table>

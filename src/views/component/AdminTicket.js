@@ -30,15 +30,17 @@ const AdminTicket = (props) => {
   const [contacts, setContacts] = useState([])
   const [reply, setReply] = useState('')
   const [selectedTab, setSelected] = useState(0)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
     axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
       .then(res => {
+        console.log(res, '<<<<<<<<=======message logs')
         setMessageLogs(res.data.reverse())
       })
     axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
-        console.log(res, '<<<<<<<<=======REsponse')
+     
         setContacts(res.data)
       })
   }, [reply, messageLogs])
@@ -59,19 +61,49 @@ const AdminTicket = (props) => {
   const onSelectedTab = (index) => {
     setSelected(index)
   }
-  const renderTabs = () => {
-    switch (selectedTab) {
-      case 0:
-        return <Document contacts={contacts} />
-      case 1:
-        return <Images contacts={contacts} />
-      case 2:
-        return <Link contacts={contacts} />
-      default:
-        return <Document />
+
+  useEffect(() => {
+    if(selectedTab == 0){
+     setActive("Document")
+    }else if(selectedTab == 1){
+      setActive("Image")
+    }else if(selectedTab == 2){
+      setActive("Link")
     }
+    else{
+      setActive("Document")
+    }
+  }, [selectedTab])
+
+  const renderTabs = () => {
+    //switch (selectedTab) {
+      if(selectedTab == 0){
+        return <Document contacts={contacts} />
+      }else if(selectedTab == 1){
+        return <Images contacts={contacts} />
+      }else if(selectedTab == 2){
+        return <Link contacts={contacts} />
+      }
+      else{
+        return <Document />
+      }
+      // case 0: return () => {
+      //   //setActive('Document')
+      //     return <Document contacts={contacts} />
+      // }
+      // case 1:
+      //    // setActive('Image')
+      //   return <Images contacts={contacts} />
+      // case 2:
+      //    // setActive('Link')
+      //   return <Link contacts={contacts} />
+      // default:
+      //   return <Document />
+    //}
   }
 
+  console.log("Active ====>", active)
+  console.log("seleted tab ====>", selectedTab)
   return (
   // <Container>
   //   <Row>
@@ -219,20 +251,23 @@ const AdminTicket = (props) => {
             return (
               <Col md='3' className='settings-tab'>
                 <div className='user-img'>
-                  <img src={require('../../images/head-659652_960_720.png')} width='50px' />
+                  <img src={require('../../images/head-659652_960_720.png')} />
                   <span>{element.Name}</span>
                 </div>
                 <div className='user-data'>
                   <p><span className='email'>Transaction No:</span><span>123456789</span></p>
                   <p><span className='email'>Email:</span><span>{element.Email}</span></p>
+                  <p><span className='email'>Status:</span><span>Open</span>
+                  <span class="editicon is-medium is-left icn"><i class="fas fa-edit icn1 "></i></span></p>
                 </div>
                 <div className='setting-tab-list'>
                   <ul className='list-group'>
                     {
                       dataArray.map((data, index) => {
+                        console.log("index === >" , index)
                         return (
-                          <li className='active-tab list-group-item' onClick={() => onSelectedTab(index)}>
-                            <span>{data.value}</span>
+                         <li className={`${index == selectedTab ? 'selectedtab list-group-item' : 'notselected list-group-item'}`} onClick={() => onSelectedTab(index)}>
+                              <span>{data.value}</span>
                           </li>
                         )
                       })
@@ -247,10 +282,7 @@ const AdminTicket = (props) => {
           <Card className='show-card'>
             {renderTabs()}
           </Card>
-        </Col>
-      </Row>
-
-      {/* --------------------------------------comment-section----------------------------------- */}
+          {/* --------------------------------------comment-section----------------------------------- */}
 
       <Row>
         <Col className='admin-chats-data'>
@@ -302,7 +334,7 @@ const AdminTicket = (props) => {
       </Row> */}
 
       <Row>
-        <Col md={{ size: 10, offset: 1 }}>
+        <Col md={{ size: 10, offset: 1 }} className="comment-inner">
           <div className='text-area-field'>
             <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
               value={reply} onChange={(e) => onMessageChange(e)} />
@@ -319,7 +351,7 @@ const AdminTicket = (props) => {
               <Row>
                 <Col md={{ size: 10, offset: 1 }}>
                   <div className='admin-panel-chat admin'>
-                    <img src={require('../../images/head-659652_960_720.png')} />
+                    <img src={require('../../images/admin.jpg')} />
                     <div className='user-info'>
                       <span className='name'>{message.Name}</span>
                       <span className='time'>{message.Date.split('T')[0]}</span>
@@ -336,7 +368,7 @@ const AdminTicket = (props) => {
               <Row>
                 <Col md={{ size: 10, offset: 1 }}>
                   <div className='admin-panel-chat'>
-                    <img src={require('../../images/head-659652_960_720.png')} />
+                    <img src={require('../../images/images.jpeg')} />
                     <div className='user-info'>
                       <span className='name'>{message.Name}</span>
                       <span className='time'>{message.Date.split('T')[0]}</span>
@@ -352,6 +384,10 @@ const AdminTicket = (props) => {
           }
         })
       }
+        </Col>
+      </Row>
+
+      
 
     </Col>
   )

@@ -61,6 +61,7 @@ body {
   width: 40%;
   background: #fff;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25); 
+  border-radius: 10px;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -68,10 +69,10 @@ body {
 }
 
 .sel-reason_p {
-    padding-bottom: 3%;
-    font-size: 1rem;
-    padding: 12px 54px;
-    text-align: left;
+  font-size: 1rem;
+  padding: 36px 54px;
+  text-align: left;
+  line-height: 28px;
 }
 
 .sel-reason_input {
@@ -84,14 +85,23 @@ body {
   padding-left: 2%;
   font-weight: bold;
   font-size: 20px;
-  background-color: lightgray;
-  margin-bottom: 0;
+  background-color: #020e39;
+    margin-bottom: 0;
+    padding: 18px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    color: #fff;
+    font-size: 1.3rem!important;
+    font-weight: 400!important;
+    border-radius: 3px;
+    text-align: left;
 }
 
 .sel-reason .button {
   width: 80%;
   margin-bottom: 8%;
   margin-top: 3%;
+  background-color: #00d1b2;
 }
 
 .form-container {
@@ -273,7 +283,7 @@ form {
   .select-reason{
       display: flex;
       align-items: center;
-      margin-top: 50px;
+      margin-top: 80px;
       justify-content: center;
   }
 
@@ -455,7 +465,7 @@ form {
       font-size: 16px;
     }
     .header-main {
-      background: #142254;
+      background: #020e3a;
       color: #fff;
     }
     .button.is-link {
@@ -466,8 +476,22 @@ form {
   }
   .button.is-link:hover {
     background-color: #fff;
-      border-color: #142254;
-      color: #142254;
-      color: #142254 !important;
+      border-color: #020e3a;
+      color: #020e3a;
+      color: #020e3a !important;
   }
-    
+  a.navbar-item, .navbar-link {
+    cursor: pointer;
+    padding-left: 0px;
+    padding: 0px 15px;
+}
+a.navbar-item:hover {
+    background-color: transparent;
+    color: #61709b !important;
+}
+.selectedtab.list-group-item span {
+  color: #61709b !important;
+}
+.navbar {
+  padding: 0.2rem 0rem !important;
+}
