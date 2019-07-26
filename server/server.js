@@ -749,19 +749,48 @@ app.post('/messagelogs', (req, res) => {
 app.post('/usertousermessage', (req, res) => {
 
   let SenderId = req.body.SenderId
-  let ReceiverId = req.body.ReceiverId
+  let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
+  let date = Date.now()
   var usermessage = new UserMessage({
     SenderId: SenderId,
-    ReceiverId: ReceiverId,
-    Message: Message
+    ReceiverName: ReceiverName,
+    Message: Message,
+    Date: date
   })
-  usermessage.save((err, data )=>{
-    if(err){
+  usermessage.save((err, data) => {
+    if (err) {
       console.log(err)
       res.send(err)
+    } else {
+      console.log('user message ==>', data)
+      res.send(data)
+    }
+  })
+  let Type = 'User to User Message'
+  var notification = new Notification({
+    Type: Type,
+    SentBy: SenderId,
+    SentTo: ReceiverName,
+    Message: Message,
+  })
+  notification.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/getusertousermessage', (req, res) =>{
+  let ReceiverName = req.body.ReceiverName 
+  UserMessage.find({ReceiverName:ReceiverName}, (err, data) => {
+    if(err){
+      res.send(err)
     }else{
-      console.log("user message ==>",data)
+      console.log(data)
       res.send(data)
     }
   })
