@@ -44,6 +44,7 @@ const AdminPanel = (props) => {
     filterName: ''
   })
   const [msg, setShowMsg] = useState('')
+  const [showTextArea, setshowTextArea] = useState(false)
 
   useEffect(() => {
     axios.get(`http://localhost:7777/getcontactslength`)
@@ -249,6 +250,12 @@ const AdminPanel = (props) => {
     )
   }
 
+  let showTestMsgBox = () => {
+    console.log('clicked')
+    setshowTextArea(true)
+  }
+
+  console.log(showTextArea, 'showTextArea')
   // let showAdminTicket = (caseNo) => {
   //   props.history.push('/adminticket/' + caseNo)
   // }
@@ -320,7 +327,10 @@ const AdminPanel = (props) => {
           </Col>
         </Row> : ''}
         <Row>
-        <Button>Send Meassge</Button>
+        <Button onClick = {showTestMsgBox}>Send Meassge</Button>
+        {
+          showTextArea ? <textarea>1</textarea> : ''
+        }
         </Row>
       <Row>
         <Col>
