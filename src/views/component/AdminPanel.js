@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Input, Table } from 'reactstrap'
+import { Container, Row, Col, Input, Table,Button } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { filterArray, authRoutes } from '../../utils/Common'
@@ -319,7 +319,9 @@ const AdminPanel = (props) => {
             </div>
           </Col>
         </Row> : ''}
-
+        <Row>
+        <Button>Send Meassge</Button>
+        </Row>
       <Row>
         <Col>
           <Table>

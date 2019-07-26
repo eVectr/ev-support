@@ -52,10 +52,13 @@ const Navbar = (props) => {
       props.history.push('/transactionsurvey')
     }
   }
+  let onMessageLogs = () => {
+    props.history.push('/messageLogs')
+  }
 
   return (
     <div>
-      <nav class='navbar is-primary' role='navigation' aria-label='main navigation'>
+      <nav class='navbar header-main' role='navigation' aria-label='main navigation'>
 
         <div class='navbar-brand'>
           <a class='navbar-item' href='' />
@@ -78,23 +81,29 @@ const Navbar = (props) => {
                   <strong>Admin</strong>
                 </a> : ''
             }
-            {
+            {/* {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={support}>
                   <strong>Support</strong>
                 </a> : ''
-            }
+            } */}
             {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={onClientSurvey}>
-                  <strong>ClientSurvey</strong>
+                  <strong>Client Survey</strong>
                 </a> : ''
             }
 
             {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={onTransactionSurvey}>
-                  <strong>TransactionSurvey</strong>
+                  <strong>Transaction Survey</strong>
+                </a> : ''
+            }
+            {
+              !adminCheck && localStorage.user !== undefined
+                ? <a class='navbar-item' onClick={onMessageLogs}>
+                  <strong>Meassage Logs</strong>
                 </a> : ''
             }
           </div>

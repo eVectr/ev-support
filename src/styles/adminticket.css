@@ -8,34 +8,44 @@
 
 .comments p {
     border-bottom: 1px solid #999;
-    color:#000;
-    font-family: 'Roboto'
+    font-family: 'Roboto';
+    margin-left: 45px;
+    padding-left: 25px;
+    color: #212529;
+    font-size: 24px;
+    font-weight: 600;
 }
 
 .admin-panel-chat {
     display: flex;
-    align-items: center;
-    margin: 0 200px;
+   
+  
     
 }
 
 .admin-panel-chat img {
-    width:50px;
-    margin-right: 20px;
+    width: 70px;
+    height: auto;
+    border-radius: 5px;
 }
 
 
 .time {
     margin-right: 10px;
-    font-size:14px;
+    font-size: 14px;
+    color: #b4b5b7;
+    vertical-align: top;
+    font-weight: normal;
 }
 
 .msg {
-    margin-bottom: 20px;
-    margin-left: 23%!important;
+    margin-bottom: 15px;
     width: 50%;
+    transform: translate(95px, -22px)
 }
-
+.msg.admin-msg-text.row {
+    transform: translate(140px, -20px);
+}
 .load-msg-btn {
     display: block;
     text-align:center;
@@ -79,12 +89,13 @@
 } */
     
 .reply-btn { 
-    background-color: #1E90FF;
-    border:2px solid #1E90FF;
+    background-color: #1f5f9e;
+    border: 2px solid #1f5f9e;
     color:#fff; 
     padding:10px 15px; 
     font-size: 14px;
     border-radius:4px;
+    font-weight: bold;
 }  
 
 .reply-btn:focus {
@@ -173,12 +184,15 @@
 }
 
 .list-group-item {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-    font-family: 'Roboto';
+    position: relative;
+    display: block;
+    font-size: 20px;
+    padding: 15px 0px !important;
+    border-bottom: 0px !important;
+    background-color: transparent !important;
     cursor: pointer;
+    border: none !important;
+    padding-left: 7% !important;
 }
 
 .header-text {
@@ -188,27 +202,30 @@
     padding:20px;
     margin-bottom:0;
 }
-
-.user-img {
-    display: flex;
-}
 .user-img img{
     border-radius:50%;
-    margin-right:10px;
-    margin-bottom: 12px;  
+    width: 60px;
+    height: 60px;
+}
+.user-data {
+    margin-bottom: 30px;
+    padding-left: 7%;
 }
 .user-img span{
     font-family: 'Roboto';
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
+    justify-content: center;
+    line-height: 70px;
+    color: white;
 }
-
-.user-data {
-    margin-bottom: 30px;
+span {
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
 }
-
 .user-data p{
     margin-bottom: 0;
     font-size:16px;
@@ -217,9 +234,10 @@
 }
 
 .user-data .email{
-   font-weight: 700;
-   font-size:14px;
-   margin-right:10px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-right: 4px;
+    color:#2c9213;
 }
 
 .document-uploaded{
@@ -229,7 +247,7 @@
 }
 
 
-.card:hover{
+.settings-tab .card:hover{
     background-color:#fff!important;
     box-shadow: none!important;
 }
@@ -274,7 +292,6 @@ margin-bottom: 40px;
 
 
 .text-area-field{
-    padding: 0 200px;
     margin-bottom: 40px;;
 }
 
@@ -314,4 +331,53 @@ margin-bottom: 40px;
 .no-images-icon img{
     width: 200px;
 }
+.user-img {
+    display: flex;
+    padding-left: 7%;
+}
+.settings-tab {
+    background: #272f4e;
+    max-width: 23%;
+    padding: 12px 0px !important;
+    /* padding-left: 2% !important; */
+}
+.list-group-item span {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+.show-card.card {
+    margin-top: 30px;
+    border: none !important;
+    box-shadow: none;
+}
+.admin-chats-data.col {
+    margin-bottom: 12px;
+}
+.user-info {
+    margin-top: 0px;
+}
+.name {
+    color: black;
+    font-weight: bold;
+    padding-right: 10px;
+    vertical-align: top;
+    padding-left: 10px;
+}
+.selectedtab.list-group-item {
+    background-color: #2d3758 !important;
 
+}
+.notselected {
+    color: white;
+}
+.editicon {
+    text-align: right;
+    float: right;
+    margin: 0px 18px;
+}
+.editicon i {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
