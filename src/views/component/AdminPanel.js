@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Input, Table } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import io from 'socket.io-client'
+
 import { filterArray, authRoutes } from '../../utils/Common'
 import adminValidation from '../../utils/adminValidation'
 import PaginationAdmin from '../component/Pagination'
@@ -9,10 +11,10 @@ import is from 'is_js'
 import Moment from 'react-moment'
 import FlashMassage from 'react-flash-message'
 import AdminModal from './AdminModal'
-import Modal from "react-responsive-modal"
+import Modal from 'react-responsive-modal'
 import '../../styles/adminpanel.css'
 import Navbar from './Navbar'
-import { longStackSupport } from 'q';
+import { longStackSupport } from 'q'
 import { CaseNo } from '../../redux/actions/notification/notification'
 import '../../styles/adminpanel1.css'
 
@@ -45,7 +47,10 @@ const AdminPanel = (props) => {
   })
   const [msg, setShowMsg] = useState('')
 
+  var socket = io.connect('http://localhost:7777')
+
   useEffect(() => {
+  //  socket.emit('test', test ) 
     axios.get(`http://localhost:7777/getcontactslength`)
       .then(res => {
         setTotalContact(res.data.length)
@@ -53,7 +58,6 @@ const AdminPanel = (props) => {
   }, [])
 
   useEffect(() => {
-
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
     let { Type = '' } = user || {}

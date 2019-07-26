@@ -5,6 +5,7 @@ var Notification = new mongoose.Schema({
   Message: String,
   Counter: Number,
   Date: Date,
+  SentTo: String,
   SentBy: String
 })
 

@@ -36,8 +36,8 @@ const ContactForm = (props) => {
     const [test, setTest] = useState(null)
     const [loader, setloader] = useState(false)
 
-  
-   
+
+
     const handleChange = e => {
         const { name, value } = e.target
 
@@ -73,22 +73,22 @@ const ContactForm = (props) => {
                 let temp = Math.random().toString()
                 temp = new FileReader()
                 temp.onloadend = () => {
-            
+
                     setimagePreviewUrl(prev => {
                         const update = prev.concat([temp.result])
                         return update
                     })
                 }
-                
-                    if (file) {
-                        try {
-                            temp.readAsDataURL(file)
-                        }
-                        catch (err) {
-                            console.log(err)
-                        }
-    
-                    
+
+                if (file) {
+                    try {
+                        temp.readAsDataURL(file)
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+
+
                 }
             }
 
@@ -139,7 +139,7 @@ const ContactForm = (props) => {
         setimagePreviewUrl([previewimages])
         // resolve(previewimages)
     }
-    
+
 
     let deleteImage = (image, previewimage) => {
         setimagePreviewUrl([])
@@ -173,7 +173,7 @@ const ContactForm = (props) => {
                     FileNames.map((file, index) => {
                         return (
                             <ul>
-                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={()=> deleteFile (file.name)} ></i></li>
+                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={() => deleteFile(file.name)} ></i></li>
                             </ul>
                         )
                     })
@@ -201,7 +201,7 @@ const ContactForm = (props) => {
                 </Uploader>
 
             </div>
-       )
+        )
     }
 
     const Images = () => {
@@ -211,8 +211,8 @@ const ContactForm = (props) => {
                     SelectedImage.map((image, index) => {
                         return (
                             <ul className='uploaded-images'>
-                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={()=> deleteImage(image.name, imagePreviewUrl[index])}></i></li>
-                               {imagePreviewUrl.length?<img src={imagePreviewUrl[index]}/>:''}  
+                                <li className='uploding-file'><h1 className='file-name'>{image.name} </h1><i class="fas fa-times" onClick={() => deleteImage(image.name, imagePreviewUrl[index])}></i></li>
+                                {imagePreviewUrl.length ? <img src={imagePreviewUrl[index]} /> : ''}
                             </ul>
                         )
                     })
@@ -231,15 +231,15 @@ const ContactForm = (props) => {
     const Link = () => {
         return (
             <div>
-                {                    
-                     showLinks.map((link, index) => {
-                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
-                     }) 
+                {
+                    showLinks.map((link, index) => {
+                        return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
+                    })
                 }
-                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
+                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={e => setlinkData(e.target.value)} />
                 <p>{selectDocument}</p>
-                <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
-            </div>         
+                <button className='link-btn' onClick={() => showLinkData()}>Add</button>
+            </div>
         )
     }
 
@@ -249,41 +249,41 @@ const ContactForm = (props) => {
         switch (selectedClaim) {
             case 0: return Documents()
             case 1: return Images()
-            case 2: return Link ()
+            case 2: return Link()
         }
     }
 
 
-console.log(imagePreviewUrl, '<==imagePreviewUrl')
+    console.log(imagePreviewUrl, '<==imagePreviewUrl')
     // -----------------------------------ERRORS------------------------- //
 
     const onSubmit = () => {
-       
-        if(props.match.path == '/contact/3'){
+
+        if (props.match.path == '/contact/3') {
             const errors = Validation(data)
             console.log(errors, 'Errors')
-         if (!is.empty(errors)) {
-            setErrors(errors)
-            return
-        }
+            if (!is.empty(errors)) {
+                setErrors(errors)
+                return
+            }
 
-    }
-        else{
+        }
+        else {
             const errors = contactValidation(data)
             console.log(errors, 'Errors')
-         if (!is.empty(errors)) {
-            setmessage(errors)
-            return
-        }
+            if (!is.empty(errors)) {
+                setmessage(errors)
+                return
+            }
 
         }
 
-        
-    
-        if(selectedClaim == 0){
-           if(FileNames.length == 0)  {
+
+
+        if (selectedClaim == 0) {
+            if (FileNames.length == 0) {
                 setselectDocument(' Please Add Document')
-                
+
                 return
             }
             setloader(true)
@@ -302,8 +302,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 axios.post(`http://18.219.191.74:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
-                    axios.post(`http://18.219.191.74:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
-                     Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                    axios.post(`http://18.219.191.74:7777/saveContact`, {
+                        UserId: JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                        Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template
+                    })
                         .then(res => {
                             setloader(false)
                             setData({
@@ -315,26 +317,26 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
-                           
+
                         })
-                        if(res.data == 'done'){
-                            setFileNames([])
-                            setsuccessmsg('Your query has been recorded ')
-                        }
-                       
-                     })
-                     setshowFlashMsg(false)
-                     setselectDocument('')
-                    
+                    if (res.data == 'done') {
+                        setFileNames([])
+                        setsuccessmsg('Your query has been recorded ')
+                    }
+
+                })
+                setshowFlashMsg(false)
+                setselectDocument('')
+
             })
         }
-        else if(selectedClaim == 1){
-            if(SelectedImage.length == 0)  {
+        else if (selectedClaim == 1) {
+            if (SelectedImage.length == 0) {
                 setselectDocument(' Please Add Image')
                 return
             }
             setloader(true)
-            
+
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -350,8 +352,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 axios.post(`http://localhost:7777/upload`, formData,
                 ).then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                    Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                    axios.post(`http://localhost:7777/saveContact`, {
+                        UserId: JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                        Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template
+                    })
                         .then(res => {
                             setloader(false)
                             setData({
@@ -363,25 +367,25 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
-                            
+
                         })
-                        if(res.data == 'done'){
-                            setSelectedImage([])
-                            setsuccessmsg('Your query has been recorded')
-                        }
+                    if (res.data == 'done') {
+                        setSelectedImage([])
+                        setsuccessmsg('Your query has been recorded')
+                    }
 
                 })
                 setshowFlashMsg(false)
 
             })
         }
-        else{
-            if(showLinks.length == 0)  {
+        else {
+            if (showLinks.length == 0) {
                 setselectDocument(' Please Select Link')
                 return
             }
             setloader(true)
-            
+
             generateCaseNo().then(no => {
                 let Transaction_Number = data.transaction_number
                 let Name = data.name
@@ -393,8 +397,10 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-                axios.post(`http://18.219.191.74:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
-                 Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                axios.post(`http://18.219.191.74:7777/saveContact`, {
+                    UserId: JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                    Link: showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template
+                })
                     .then(res => {
                         setloader(false)
                         console.log(res.data, 'link')
@@ -406,32 +412,32 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             message: '',
                         })
                         setshowFlashMsg(true)
-                        
-                        if(res.data == 'saved'){
+
+                        if (res.data == 'saved') {
                             setsuccessmsg('Your query has been recorded')
                             setShowLinks([])
                         }
-                        
+
                     })
-                    setshowFlashMsg(false)                
+                setshowFlashMsg(false)
             })
         }
     }
     if (props.notificationreducer.selectedReason == undefined) {
         props.history.push('/contact')
-      }
-    else{
-        console.log("Type = ", props.notificationreducer.selectedReason.name.concat('/',  props.notificationreducer.selectedReason.template))
-     }
+    }
+    else {
+        console.log("Type = ", props.notificationreducer.selectedReason.name.concat('/', props.notificationreducer.selectedReason.template))
+    }
 
     return (
         <div className="form-container">
-            
+
             <div className="contact-form">
                 <div className="header"> <span>Contact Us</span> </div>
                 <div className="pading">
 
-                    {props.match.path == '/contact/3'?
+                    {props.match.path == '/contact/3' ?
                         <div className="field">
                             <div class="control has-icons-left has-icons-right">
                                 <label className="label left_align">Transaction Number</label>
@@ -444,7 +450,7 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                                 </div>
                             </div>
                         </div>
-                        :''
+                        : ''
                     }
 
                     <div className="field">
@@ -464,8 +470,8 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                             <label className="label left_align">Email</label>
                             <div className="control">
                                 <input className="input contact-input" type="email" name="email" placeholder="Email (Mandatory)" value={data.email} onChange={handleChange} />
-                                <p className='error-message-text'>{(Errors.email && Errors. email[0]) || ''}</p>
-                                <p className='error-message-text'>{(message.email && message. email[0]) || ''}</p>
+                                <p className='error-message-text'>{(Errors.email && Errors.email[0]) || ''}</p>
+                                <p className='error-message-text'>{(message.email && message.email[0]) || ''}</p>
                                 <span class="icon is-medium is-left icn">
                                     <i class="fas fa-id-card icn1"></i>
                                 </span>
@@ -489,8 +495,8 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                         <label className="label left_align">Messages</label>
                         <div className="control">
                             <textarea className="textarea" name="message" placeholder="Enter Message" value={data.message} onChange={handleChange} />
-                            <p className='error-message-text'>{(Errors.message && Errors. message[0]) || ''}</p>
-                            <p className='error-message-text'>{(message.message && message. message[0]) || ''}</p>
+                            <p className='error-message-text'>{(Errors.message && Errors.message[0]) || ''}</p>
+                            <p className='error-message-text'>{(message.message && message.message[0]) || ''}</p>
                         </div>
                     </div>
 
@@ -499,23 +505,23 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     </div>
 
                     <div className="field">
-                    <div className="control">
-                    <div class="tabs  is-boxed">
-                        <ul>
-                            {
-                                claims.map((claim, index) => {
-                                    
-                                    return (
-                                        <li class={index === selectedClaim  ? "is-active" : "" } key={index} onClick={ () => setSelectedClaim(index)}>
-                                            <a>
-                                                <span>{claim}</span>
-                                            </a>
-                                        </li>
-                                    )
-                                })
-                                
-                            }
-                        </ul>
+                        <div className="control">
+                            <div class="tabs  is-boxed">
+                                <ul>
+                                    {
+                                        claims.map((claim, index) => {
+
+                                            return (
+                                                <li class={index === selectedClaim ? "is-active" : ""} key={index} onClick={() => setSelectedClaim(index)}>
+                                                    <a>
+                                                        <span>{claim}</span>
+                                                    </a>
+                                                </li>
+                                            )
+                                        })
+
+                                    }
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -523,20 +529,20 @@ console.log(imagePreviewUrl, '<==imagePreviewUrl')
                     {
                         renderClaims()
                     }
-                  
+
                     <button class="button is-success" onClick={onSubmit} >Send</button>
-                    { 
+                    {
                         showFlashMsg ? <FlashMassage duration={5000} persistOnHover={true}>
                             <p className='send-success-msg'>{successmsg}</p>
-                        </FlashMassage>  : null 
-                    } 
+                        </FlashMassage> : null
+                    }
                     <div className='send-success-msg'>
-                        {loader ? <img src ={require('../../images/loader.gif')}/> : ''}
-                   </div>
-                    
+                        {loader ? <img src={require('../../images/loader.gif')} /> : ''}
+                    </div>
+
                 </div>
             </div>
-       
+
         </div>
     )
 }
