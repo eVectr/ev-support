@@ -43,7 +43,7 @@ const AdminTicket = (props) => {
      
         setContacts(res.data)
       })
-  }, [reply])
+  }, [reply, messageLogs])
 
   let sendemail = () => {
     axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })

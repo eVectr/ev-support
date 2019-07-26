@@ -341,7 +341,7 @@ select{
 }
 .msgtextarea textarea {
     width: 30%;
-    margin-top: 25px;
+    margin-top: 15px;
     overflow: hidden;
     resize: none;
 }
@@ -364,7 +364,7 @@ select{
 }
 .sendmessage-btn.innersend.btn.btn-secondary {
     vertical-align: top;
-    margin-top: 25px;
+    margin-top: 15px;
     height: 48px;
     background-color: #1f5f9e !important;
     border: 2px solid #1f5f9e !important;
@@ -373,4 +373,9 @@ select{
     font-size: 14px;
     border-radius: 4px;
     font-weight: bold;
+}
+.sendTextarea .msgtextarea p {
+    text-align: right;
+    margin: 0;
+    padding-top: 10px;
 }

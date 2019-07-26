@@ -15,11 +15,14 @@ const ClientSurveyResponse = require('../db/clientSurveyResoponse')
 const SupportAgent = require('../db/supportagent')
 const TransactionSurveyResponse = require('../db/transactionSurveyResponse')
 const MessageLogs = require('../db/messagelogs')
+const UserMessage = require('../db/usermessage')
+const Notification = require('../db/notification')
 let api = require("../api/api")
 
 var app = express()
 var bodyParser = require('body-parser')
 var server = require('http').Server(app)
+var io = require('socket.io')(server)
 
 app.use(express.static('uploads'))
 app.use(bodyParser.json());
@@ -42,6 +45,21 @@ app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     next();
 })
+
+io.on('connection', socket => {
+  console.log("socket connected")
+    socket.on('test', data =>{
+      console.log("socket data")
+    })
+  })
+
+
+// socket.on('sendMessage', data => {
+//   console.log("socket data ===>", data)
+//   data.map((user, index) => {
+
+//   })
+// })
 
 // var user = new User({
 //     Name: 'Rajat',
@@ -349,24 +367,35 @@ app.get('/gettransactionsurvey', (req, res) => {
 //   client.rpush('RedisContact', JSON.stringify(redis_data))
 // })
 
-app.post('/login', (req, res) => {
-    let username = req.body.username
-    let password = req.body.password
-    User.find({ Name: username, Password: password }, function (err, docs) {
-      if (err) {
-        console.log("error")
-        res.send("error")
-      } else {
-        if(docs.length > 0){
-          console.log(docs)
-          res.send({check:true, data:docs})
-        }else{
-          console.log(docs)
-          res.send({check:false, data:docs})
-        }
-      }
-    })
+app.get('/getalluser', (req, res) => {
+  User.find({}, (err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
   })
+})
+
+app.post('/login', (req, res) => {
+  let username = req.body.username
+  let password = req.body.password
+  User.find({ Name: username, Password: password }, function (err, docs) {
+    if (err) {
+      res.send("error")
+    } else {
+      if (docs.length > 0) {
+        console.log(docs)
+        res.send({ check: true, data: docs })
+      } else {
+        console.log(docs)
+        res.send({ check: false, data: docs })
+      }
+    }
+  })
+})
 /////////////// get contact by pagination /////
 // app.post('/getcontactsbypage', (req, res) => {
 //   let pagenumber = req.body.pagenumber
@@ -560,7 +589,6 @@ app.post('/getcontactsbypage', (req, res) => {
   )
  })
 
-
   /////////////// get contact by filter /////
   app.post('/getcontactsbyfilter', (req, res) => {
 
@@ -698,6 +726,70 @@ app.post('/messagelogs', (req, res) => {
       console.log(err)
       res.send(err)
     } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+// app.post('/checkfalse', (req, res) => {
+//   let ID = req.body.ID
+//   console.log('ID ==>', ID)
+//   MessageLogs.find({ ID: ID }, (err, data) => {
+//     if (err) {
+//       console.log(err)
+//       res.send(err)
+//     } else {
+//       console.log(data)
+//       res.send(data)
+//     }
+//   })
+// })
+
+app.post('/usertousermessage', (req, res) => {
+
+  let SenderId = req.body.SenderId
+  let ReceiverName = req.body.ReceiverName
+  let Message = req.body.Message
+  let date = Date.now()
+  var usermessage = new UserMessage({
+    SenderId: SenderId,
+    ReceiverName: ReceiverName,
+    Message: Message,
+    Date: date
+  })
+  usermessage.save((err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log('user message ==>', data)
+      res.send(data)
+    }
+  })
+  let Type = 'User to User Message'
+  var notification = new Notification({
+    Type: Type,
+    SentBy: SenderId,
+    SentTo: ReceiverName,
+    Message: Message,
+  })
+  notification.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/getusertousermessage', (req, res) =>{
+  let ReceiverName = req.body.ReceiverName 
+  UserMessage.find({ReceiverName:ReceiverName}, (err, data) => {
+    if(err){
+      res.send(err)
+    }else{
       console.log(data)
       res.send(data)
     }
