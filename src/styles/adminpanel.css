@@ -327,3 +327,50 @@ select{
 .containers{
     position: relative;
 }
+.msg-btn {
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+.msgtextarea {
+    text-align: right;
+    width: 100%;
+}
+.sendTextarea {
+    margin-bottom: 30px;
+}
+.msgtextarea textarea {
+    width: 30%;
+    margin-top: 25px;
+    overflow: hidden;
+    resize: none;
+}
+.msgtextarea textarea:focus {
+    outline: none;
+}
+.sendmessage-btn {
+    background-color: #00d1b2 !important;
+    border: 2px solid #00d1b2 !important;
+    color: #fff !important;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.sendmessage-btn:focus {
+    outline: none;
+    border: none;
+    box-shadow:none !important;
+}
+.sendmessage-btn.innersend.btn.btn-secondary {
+    vertical-align: top;
+    margin-top: 25px;
+    height: 48px;
+    background-color: #1f5f9e !important;
+    border: 2px solid #1f5f9e !important;
+    color: #fff !important;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: bold;
+}

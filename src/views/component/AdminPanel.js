@@ -249,17 +249,10 @@ const AdminPanel = (props) => {
       setSortData(e.target.value)
     )
   }
-
   let showTestMsgBox = () => {
-    console.log('clicked')
-    setshowTextArea(true)
+    setshowTextArea(!showTextArea)
+    
   }
-
-  console.log(showTextArea, 'showTextArea')
-  // let showAdminTicket = (caseNo) => {
-  //   props.history.push('/adminticket/' + caseNo)
-  // }
-
   let totalPages = Math.ceil(totalContact / limit)
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
 
@@ -326,10 +319,14 @@ const AdminPanel = (props) => {
             </div>
           </Col>
         </Row> : ''}
-        <Row>
-        <Button onClick = {showTestMsgBox}>Send Meassge</Button>
+        <Row className="sendTextarea">
+          <div className="msg-btn">
+            <Button onClick = {showTestMsgBox} className="sendmessage-btn">Send Meassage to Users</Button>
+          </div>
         {
-          showTextArea ? <textarea>1</textarea> : ''
+          showTextArea ? <div className="msgtextarea">
+              <textarea></textarea> <Button className="sendmessage-btn innersend">Send</Button>
+            </div> : ''
         }
         </Row>
       <Row>

@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { Container, Row, Col,Form, FormGroup, Label, Input, FormText, Button,TabContent, TabPane, Nav, NavItem, NavLink,Card,CardTitle,CardText} from 'reactstrap'
 const MessageLogs = (props) => {
 const [activeTab, setActiveTab] = useState('1')
+const [showReplyInput, setshowReplyInput] = useState(false)
 let setactive = (parameter) =>{
     if(parameter == 1){
         setActiveTab('1')
@@ -11,6 +12,11 @@ let setactive = (parameter) =>{
         setActiveTab('2')
     }
 }
+let showReply = () => {
+  //alert("clicked")
+  setshowReplyInput(!showReplyInput)  
+}
+console.log("[showReplyInput ====>", showReplyInput)
 return (
     <Container>
       <Row>
@@ -85,7 +91,19 @@ return (
            <Card body>
              <div class="user-info">
                <div><span class="name">AKASH VERMA</span>
-                    <span className="reply-message"><i class="fas fa-reply"></i></span>
+                    <span className="reply-message" onClick = {showReply}><i class="fas fa-reply"></i></span>
+                      {
+                        showReplyInput ?
+                        <div className="msgtextarea">
+                        <input type = 'text' placeholder = 'Input Message'></input>
+                        <Button className="sendmessage-btn innersend">Send</Button>
+                        </div>
+                         :''
+                        // <div>
+                        //   <input>text</input> <Button className="sendmessage-btn innersend">Send</Button>
+                        // </div> : ''
+                      }
+                   
                     <span class="time">2019-07-25</span>
                     <p>Helo</p>
                </div>
