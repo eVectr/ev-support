@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/MessageLogs.css'
-import classnames from 'classnames';
 import axios from 'axios'
 import { Container, Row, Col, Form, FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
+import ModalUi from './ModalUi'
 const MessageLogs = (props) => {
   const [activeTab, setActiveTab] = useState('1')
   const [name, setName] = useState('')
@@ -12,6 +12,7 @@ const MessageLogs = (props) => {
   const [testIndex, setTestIndex] = useState('')
   const [sendStatus, setSendStatus] = useState(false)
   const [messageStatus, setMessageStatus] = useState(false)
+  const [open, setOpen] = useState(false)
   let setactive = (parameter) => {
     if (parameter == 1) {
       setActiveTab('1')
@@ -26,6 +27,7 @@ const MessageLogs = (props) => {
     setMessage(e.target.value)
   }
   let sendMessage = () => {
+    setOpen(true)
     setSendStatus(true)
     let SenderId = JSON.parse(localStorage.user)._id
     axios.post(`http://localhost:7777/usertousermessage`, { SenderId: SenderId, ReceiverName: name, Message: message })
@@ -33,33 +35,37 @@ const MessageLogs = (props) => {
 
       })
   }
+
+  let closeModal = () => {
+    setOpen(false)
+  }
   let usersendMessage = (e) => {
     setMessageStatus(true)
   }
   useEffect(() => {
-    axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name})
+    axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
       .then(res => {
-        console.log("user message ==>",res.data)
-        if(res.data.ReceiverName != 'admin'){
+        console.log("user message ==>", res.data)
+        if (res.data.ReceiverName != 'admin') {
           setUserMessage(res.data)
         }
       })
   }, [])
   let showReply = (id) => {
     let findObj = userMessage.find(itm => itm.SenderId === id)
-    if(findObj.SenderId === id){
+    if (findObj.SenderId === id) {
       setTestIndex(id)
       //setshowReplyInput(!showReplyInput) 
     }
-   
+
   }
-  console.log("userMessage ======  =>", testIndex)
+
   return (
     <Container>
       <Row>
-      <h1 className='heading msghead'>Message Logs</h1>
+        <ModalUi open = {open} closeModal={closeModal} ></ModalUi>
+        <h1 className='heading msghead'>Message Logs</h1>
         <Col md='9' className="message-main">
-         
           <div className="message-inner">
             <Form>
               <Row form>
@@ -70,7 +76,7 @@ const MessageLogs = (props) => {
                   <Input type="text" name="text" placeholder="Input message" onChange={(e) => onMessage(e)} />
                 </FormGroup>
                 <Button className="message-btn" onClick={sendMessage}>Send SMS</Button>
-               {sendStatus? <p>Send SuccesFully</p>:''}
+                {sendStatus ? <p>Send SuccesFully</p> : ''}
               </Row>
             </Form>
           </div>
@@ -111,7 +117,7 @@ const MessageLogs = (props) => {
                       <span class="name">Admin</span>
                       <span class="time">2019-07-22</span>
                       <p>this is also admin message</p>
-                      
+
                     </div>
 
                   </Card>
@@ -127,30 +133,26 @@ const MessageLogs = (props) => {
                       return (
                         <div class="user-info">
                           <div><span class="name">{message.SenderId}</span>
-                            <span className="reply-message"  onClick = {() => showReply(message.SenderId)}><i class="fas fa-reply"></i></span>
+                            <span className="reply-message" onClick={() => showReply(message.SenderId)}><i class="fas fa-reply"></i></span>
                             <span class="time">2019-07-25</span>
                             <p>{message.Message}</p>
                             {
-                         message.SenderId == testIndex?
-                        <div className="msgtextarea">
-                        <input type = 'text' placeholder = 'Input Message' className="send-input"></input>
-                        <Button className="sendmessage-btn sender" onClick={usersendMessage}>Send</Button>
-                        {messageStatus? <p>Send SuccesFully</p>:''}
-                        </div>
-                         :''
-                        // <div>
-                        //   <input>text</input> <Button className="sendmessage-btn innersend">Send</Button>
-                        // </div> : ''
-                      }
+                              message.SenderId == testIndex ?
+                                <div className="msgtextarea">
+                                  <input type='text' placeholder='Input Message' className="send-input"></input>
+                                  <Button className="sendmessage-btn sender" onClick={usersendMessage}>Send</Button>
+                                  {messageStatus ? <p>Send SuccesFully</p> : ''}
+                                </div>
+                                : ''
+                              // <div>
+                              //   <input>text</input> <Button className="sendmessage-btn innersend">Send</Button>
+                              // </div> : ''
+                            }
 
                           </div>
                         </div>
                       )
-
                     })}
-
-                    
-
                   </Card>
                 </Col>
               </Row>
