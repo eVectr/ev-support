@@ -158,7 +158,7 @@ app.post('/upload', (req, res) => {
     let path = req.files.map((file, index) => {
       imagepaths.push(file.path)
     })
-    console.log('req.file =>', req.files)
+    console.log('req.file api=>', req.files)
     res.send('done')
   })
 })
