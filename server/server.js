@@ -799,6 +799,25 @@ app.post('/getusertousermessage', (req, res) => {
   })
 })
 
+app.post('/missedchatmessage', (req, res) => {
+  
+  var notification = new Notification({
+    Type: req.body.Type,
+    SentBy: req.body.SenderId,
+    SentTo: req.body.ReceiverId,
+    Message: req.body.Message,
+    Date: Date.now()
+  })
+  notification.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
 server.listen(7777, () => {
   console.log('server connected')
 })
