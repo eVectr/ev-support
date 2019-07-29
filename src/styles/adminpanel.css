@@ -345,6 +345,7 @@ select{
     overflow: hidden;
     resize: none;
 }
+
 .msgtextarea textarea:focus {
     outline: none;
 }
@@ -378,4 +379,14 @@ select{
     text-align: right;
     margin: 0;
     padding-top: 10px;
+}
+
+.sendTextarea .msgtextarea input {
+    text-align: right;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.urgentcheck {
+    display: flex;
 }

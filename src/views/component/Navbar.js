@@ -71,9 +71,12 @@ const Navbar = (props) => {
 
         <div id='navbarMenu' class={`navbar-menu ${show ? 'is-active' : ''}`}>
           <div class='navbar-start'>
-            <a class='navbar-item' onClick={home}>
-              <strong>Home</strong>
-            </a>
+
+            {
+              !adminCheck
+                ? <a class='navbar-item' onClick={home}>
+                  <strong>Home</strong>
+                </a> : ''}
 
             {
               adminCheck

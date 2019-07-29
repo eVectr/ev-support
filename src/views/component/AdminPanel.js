@@ -323,17 +323,17 @@ const AdminPanel = (props) => {
             </div>
           </Col>
         </Row> : ''}
-        <Row className="sendTextarea">
-          <div className="msg-btn">
-            <Button onClick = {showTestMsgBox} className="sendmessage-btn">Send Meassage to Users</Button>
-          </div>
+      <Row className="sendTextarea">
+        <div className="msg-btn">
+          <Button onClick={showTestMsgBox} className="sendmessage-btn">Send Meassage to Users</Button>
+        </div>
         {
           showTextArea ? <div className="msgtextarea">
-            <p>Mark as Urgent</p>
-              <textarea></textarea> <Button className="sendmessage-btn innersend">Send</Button>
-            </div> : ''
+            <input className="urgentcheck" type='checkbox'></input> <p>Mark as Urgent</p>
+            <textarea></textarea> <Button className="sendmessage-btn innersend">Send</Button>
+          </div> : ''
         }
-        </Row>
+      </Row>
       <Row>
         <Col>
           <Table>

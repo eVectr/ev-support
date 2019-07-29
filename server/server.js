@@ -153,14 +153,16 @@ let imagepaths = []
 let filepaths = []
 
 app.post('/upload', (req, res) => {
+  console.log("upload =====>")
   upload(req, res, function (err) {
     let path = req.files.map((file, index) => {
       imagepaths.push(file.path)
     })
-    console.log("req.file =>", req.files)
-    res.send("done")
+    console.log('req.file =>', req.files)
+    res.send('done')
   })
 })
+
 
 app.post('/fileupload', (req, res) => {
   upload(req, res, function (err) {
@@ -252,6 +254,7 @@ app.post('/updateStatus', (req, res) => {
 })
 
 app.post('/saveContact', (req, res) => {
+  console.log("save contactct ===>",req.body.Name )
   let UserId = req.body.UserId
   let Transaction_Number = req.body.Transaction_Number 
   let Name = req.body.Name
@@ -784,12 +787,12 @@ app.post('/usertousermessage', (req, res) => {
   })
 })
 
-app.post('/getusertousermessage', (req, res) =>{
-  let ReceiverName = req.body.ReceiverName 
-  UserMessage.find({ReceiverName:ReceiverName}, (err, data) => {
-    if(err){
+app.post('/getusertousermessage', (req, res) => {
+  let ReceiverName = req.body.ReceiverName
+  UserMessage.find({ ReceiverName: ReceiverName }, (err, data) => {
+    if (err) {
       res.send(err)
-    }else{
+    } else {
       console.log(data)
       res.send(data)
     }

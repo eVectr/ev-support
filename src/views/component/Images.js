@@ -29,7 +29,7 @@ const Images = ({ contacts }) => {
           })
         ) : (
           <div className='no-images-icon'>
-            <img src = {require('../../images/NO Image Available.jpg')}/>
+            <img src = {'http://localhost:7777/2019-07-19T07:41:58.967Zimg4.jpeg'}/>
           </div>
         )}
       </Row>

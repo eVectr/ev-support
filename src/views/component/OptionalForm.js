@@ -299,10 +299,10 @@ const ContactForm = (props) => {
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://18.219.191.74:7777/fileupload`, formData,
+                axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
-                    axios.post(`http://18.219.191.74:7777/saveContact`, {
+                    axios.post(`http://localhost:7777/saveContact`, {
                         UserId: JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                         Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template
                     })
@@ -346,6 +346,7 @@ const ContactForm = (props) => {
                 let Case_No = no
                 let Link = []
                 let formData = new FormData()
+                console.log("selected imagess   =====>", SelectedImage)
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
@@ -397,7 +398,7 @@ const ContactForm = (props) => {
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-                axios.post(`http://18.219.191.74:7777/saveContact`, {
+                axios.post(`http://localhost:7777/saveContact`, {
                     UserId: JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                     Link: showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template
                 })

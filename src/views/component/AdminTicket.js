@@ -35,12 +35,11 @@ const AdminTicket = (props) => {
   useEffect(() => {
     axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
       .then(res => {
-        console.log(res, '<<<<<<<<=======message logs')
         setMessageLogs(res.data.reverse())
       })
     axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
-     
+        console.log(res, '<<<<<<<<======= contact')
         setContacts(res.data)
       })
   }, [reply, messageLogs])
