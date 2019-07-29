@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/MessageLogs.css'
 import axios from 'axios'
-import { Container, Row, Col, Form, FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
+import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
 import ModalUi from './ModalUi'
 const MessageLogs = (props) => {
   const [activeTab, setActiveTab] = useState('1')
@@ -59,108 +59,100 @@ const MessageLogs = (props) => {
     }
 
   }
-
   return (
-    <Container>
-      <Row>
-        <ModalUi open = {open} closeModal={closeModal} ></ModalUi>
-        <h1 className='heading msghead'>Message Logs</h1>
-        <Col md='9' className="message-main">
-          <div className="message-inner">
-            <Form>
-              <Row form>
-                <FormGroup className="mb-4 mr-sm-3 mb-sm-0">
-                  <Input type="text" name="text" placeholder="Input Name" onChange={(e) => onName(e)} />
-                </FormGroup>
-                <FormGroup className="mb-4 mr-sm-3 mb-sm-0">
-                  <Input type="text" name="text" placeholder="Input message" onChange={(e) => onMessage(e)} />
-                </FormGroup>
-                <Button className="message-btn" onClick={sendMessage}>Send SMS</Button>
-                {sendStatus ? <p>Send SuccesFully</p> : ''}
-              </Row>
-            </Form>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Nav tabs>
+    <div>
+      <Row className="message-mail">
+        <h2>Message</h2>
+        <Col md="2" className="left-sidebar">
+        <Nav vertical>
           <NavItem>
-            <NavLink
-              onClick={() => setactive('1')}
-              className={`${activeTab == '1' ? 'nav-link active' : 'nav-link notactive'}`}>
-              Admin Message
-             </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              onClick={() => setactive('2')}
-              className={`${activeTab == '1' ? 'nav-link notactive' : 'nav-link active'}`}
-            >
-              User Message
-                </NavLink>
+            <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
+        <Button className="message-btn" onClick={sendMessage}>Compose</Button>
+               
           </NavItem>
         </Nav>
-        <TabContent activeTab={activeTab}>
-          {activeTab == '1' ?
-            <TabPane tabId="1">
-              <Row>
-                <Col sm="12">
-
-                  <Card body className="innercard">
-                    <div class="user-info">
-                      <span class="name">Admin</span>
-                      <span class="time">2019-07-25</span>
-                      <p>Helo</p>
-                      <span class="name">Admin</span>
-                      <span class="time">2019-07-24</span>
-                      <p>This is admin Message </p>
-                      <span class="name">Admin</span>
-                      <span class="time">2019-07-22</span>
-                      <p>this is also admin message</p>
-
-                    </div>
-
-                  </Card>
-                </Col>
-
-              </Row>
-            </TabPane> :
-            <TabPane tabId="2" className="user">
-              <Row>
-                <Col sm="12">
-                  <Card body>
-                    {userMessage.map((message, index) => {
-                      return (
-                        <div class="user-info">
-                          <div><span class="name">{message.SenderId}</span>
-                            <span className="reply-message" onClick={() => showReply(message.SenderId)}><i class="fas fa-reply"></i></span>
-                            <span class="time">2019-07-25</span>
-                            <p>{message.Message}</p>
-                            {
-                              message.SenderId == testIndex ?
-                                <div className="msgtextarea">
-                                  <input type='text' placeholder='Input Message' className="send-input"></input>
-                                  <Button className="sendmessage-btn sender" onClick={usersendMessage}>Send</Button>
-                                  {messageStatus ? <p>Send SuccesFully</p> : ''}
-                                </div>
-                                : ''
-                              // <div>
-                              //   <input>text</input> <Button className="sendmessage-btn innersend">Send</Button>
-                              // </div> : ''
-                            }
-
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </Card>
-                </Col>
-              </Row>
-            </TabPane>
-          }
-        </TabContent>
+        <Nav vertical>
+        <NavLink href="#" className="adminlink">
+            <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>Admin Message 
+            </NavItem>
+            <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>
+            <i class="fa fa-users" aria-hidden="true"></i>Users Message 
+            </NavItem>
+            <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>Sent 
+            </NavItem>
+            </NavLink>
+        </Nav>
+      </Col>       
+        <Col md="10">
+        <Table striped className="message-box">
+        <tbody>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+          <tr>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-reply"></i></td>
+          </tr>
+        </tbody>
+      </Table>
+        </Col> 
       </Row>
-    </Container>
+    </div>
   )
 }
 

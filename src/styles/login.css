@@ -495,3 +495,6 @@ a.navbar-item:hover {
 .navbar {
   padding: 0.2rem 0rem !important;
 }
+.navbar-brand {
+  display: none !important;
+}
