@@ -21,7 +21,7 @@ const ModalUi = props => {
             console.log('')
           } else {
             setOptions(prev => {
-              const updated = prev.concat({ value:res.data[i].Name, label:res.data[i].Name})
+              const updated = prev.concat({ value:res.data[i]._id, label:res.data[i].Name})
               return updated
             })
           }
@@ -45,8 +45,9 @@ const ModalUi = props => {
   }
 
   let composeMessage = () => {
-    axios.post(`http://localhost:7777/usertousermessage`, { SenderName: JSON.parse(localStorage.user).Name,
-      ReceiverName: selectedUser,
+    axios.post(`http://localhost:7777/usertousermessage`, { SenderId: JSON.parse(localStorage.user)._id,
+      SenderName: JSON.parse(localStorage.user).Name,
+      ReceiverId: selectedUser,
       Message: Message })
       .then(res => {
         console.log('res ==>', res)
@@ -58,6 +59,8 @@ const ModalUi = props => {
         setMessage('')
       })
   }
+
+  console.log('id ==>', options)
 
   return (
     <div style={styles} >

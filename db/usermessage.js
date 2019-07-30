@@ -1,8 +1,9 @@
 var mongoose = require('mongoose')
 
 var UserMessage = new mongoose.Schema({
+  SenderId: String,
   SenderName: String,
-  ReceiverName: String,
+  ReceiverId: String,
   Message: String,
   Date: Date
 })
