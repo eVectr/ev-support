@@ -14,6 +14,7 @@ import AdminModal from './AdminModal'
 import Modal from 'react-responsive-modal'
 import '../../styles/adminpanel.css'
 import Navbar from './Navbar'
+import ModalUi from './ModalUi'
 import { longStackSupport } from 'q'
 import { CaseNo } from '../../redux/actions/notification/notification'
 import '../../styles/adminpanel1.css'
@@ -257,6 +258,13 @@ const AdminPanel = (props) => {
     setshowTextArea(!showTextArea)
     
   }
+  let sendMessage = () => {
+    setOpen(true)
+  }
+
+  let closeModal = () => {
+    setOpen(false)
+  }
   let totalPages = Math.ceil(totalContact / limit)
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
 
@@ -325,7 +333,8 @@ const AdminPanel = (props) => {
         </Row> : ''}
       <Row className="sendTextarea">
         <div className="msg-btn">
-          <Button onClick={showTestMsgBox} className="sendmessage-btn">Send Message to Users</Button>
+        <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
+          <Button onClick={sendMessage} className="sendmessage-btn">Send Message to Users</Button>
         </div>
         {
           // showTextArea ? <div className="msgtextarea">

@@ -29,6 +29,7 @@ const MessageLogs = (props) => {
     setMessage(e.target.value)
   }
   let sendMessage = () => {
+
     setOpen(true)
   }
 
@@ -63,14 +64,14 @@ const MessageLogs = (props) => {
         <Col md="2" className="left-sidebar">
         <Nav vertical>
           <NavItem>
-            <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
+            <ModalUi type = {'user'} open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
         <Button className="message-btn" onClick={sendMessage}>Compose</Button>
                
           </NavItem>
         </Nav>
         <Nav vertical>
         <NavLink href="#" className="adminlink">
-            <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>
+            <NavItem  id="toggler" className="active" style={{ marginBottom: '1rem' }}>
             <i class="fa fa-user-circle" aria-hidden="true"></i>Admin Message 
             </NavItem>
             <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>

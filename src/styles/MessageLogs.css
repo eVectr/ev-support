@@ -144,7 +144,8 @@ i.fa.fa-angle-down {
 }
 .left-sidebar a {
     color: #3e3b3b;
-    font-size: 18px;
+    font-size: 16px;
+    padding: 10px;
 }
 .left-sidebar a:hover {
     color: #3e3b3b !important;
@@ -221,7 +222,7 @@ svg.styles_closeIcon__1QwbI path {
 #toggler {
     border-bottom: 1px solid #f4f4f4;
     margin-top: 15px;
-    padding-bottom: 10px;
+    padding: 10px;
 }
 .css-2b097c-container {
     width: 100%;
@@ -327,3 +328,28 @@ svg.styles_closeIcon__1QwbI path {
 /* .reply-detail-text span {
     padding-right: 15px;
 } */
+.admin-input {
+    border: none !important;
+}
+.checkbox {
+    margin: 0; 
+    margin-bottom: 10px;
+    position: absolute;
+    margin-left: 0 !important;
+    transform: translate(-24px, 0px);
+}
+.check-label label {
+    line-height: 18px;
+    color: #ff0505;
+    font-size: 16px;
+    font-weight: bold;
+}
+.admin-area {
+    margin-top: 20px;
+}
+.adminlink .active {
+    background: #e0f9f6;
+    padding: 10px;
+    color: #00d1b2;
+    font-size: 16px;
+}
