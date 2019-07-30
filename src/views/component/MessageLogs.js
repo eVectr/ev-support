@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import '../../styles/MessageLogs.css'
 import MessageDetails from './MessageDetails'
 import axios from 'axios'
+import TimeAgo from 'timeago-react';
+import timeago from 'timeago.js';
 import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
 import ModalUi from './ModalUi'
+
 const MessageLogs = (props) => {
   const [activeTab, setActiveTab] = useState('1')
   const [name, setName] = useState('')
@@ -40,12 +43,12 @@ const MessageLogs = (props) => {
     setMessageStatus(true)
   }
   useEffect(() => {
-    axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
+    axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
       .then(res => {
-        console.log("user message ==>", res.data)
-        if (res.data.ReceiverName != 'admin') {
-          setUserMessage(res.data)
-        }
+        setUserMessage(prev => {
+          const updated = prev.concat(res.data.reverse())
+          return updated
+        })
       })
   }, [])
   let showReply = (id) => {
@@ -55,8 +58,8 @@ const MessageLogs = (props) => {
     //   setTestIndex(id)
     //   setshowReplyInput(!showReplyInput) 
     // }
-
   }
+  console.log('user message ====>', userMessage)
   return (
     <div>
       <Row className="message-mail">
@@ -87,22 +90,26 @@ const MessageLogs = (props) => {
         <Col md="10">
         <Table striped className="message-box">
         <tbody>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Love</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
+                {userMessage.map((message, index) => {
+
+                  let time = Date.now() - message.Date
+                  console.log('date ==>', time)
+
+                  return( <tr onClick={() => showReply('test')}>
+                  <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+                  <td className="name-table">{message.SenderName}</td>
+                    <td class="message-detail">{message.Message}</td>
+                    <td align="right">{<TimeAgo
+                      datetime={message.Date}
+                      locale='IST' />}</td>
+                    <td><i class="fas fa-envelope"></i></td>
+                </tr>
+              )
+
+                })
+                }
+          
+          {/* <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
             <td className="name-table">User</td>
             <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
@@ -116,177 +123,7 @@ const MessageLogs = (props) => {
                          :''
                        
               }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Admin</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">John Doe</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Love</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-         
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Love</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Love</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Admin</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">User</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Admin</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">Love</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">User</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-          <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">John</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr>
-         
-         
-         
-
+          </tr> */}
         </tbody>
       </Table>
         </Col> 

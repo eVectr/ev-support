@@ -751,14 +751,16 @@ app.post('/messagelogs', (req, res) => {
 // })
 
 app.post('/usertousermessage', (req, res) => {
-  console.log('Api call')
+ 
   let SenderName = req.body.SenderName
-  let ReceiverName = req.body.ReceiverName
+  let SenderId = req.body.SenderId
+  let ReceiverId = req.body.ReceiverId
   let Message = req.body.Message
   let date = Date.now()
   var usermessage = new UserMessage({
     SenderName: SenderName,
-    ReceiverName: ReceiverName,
+    SenderId: SenderId,
+    ReceiverId: ReceiverId,
     Message: Message,
     Date: date
   })
@@ -776,7 +778,7 @@ app.post('/usertousermessage', (req, res) => {
     Type: 'User to User Message',
     Date: date,
     SentBy: SenderName,
-    SentTo: ReceiverName,
+    SentTo: ReceiverId,
     Action: 'SEE MESSAGE',
     Checked: false
   })
@@ -814,8 +816,8 @@ app.post('/admintousermessage', (req, res) => {
 })
 
 app.post('/getusertousermessage', (req, res) => {
-  let ReceiverName = req.body.ReceiverName
-  UserMessage.find({ ReceiverName: ReceiverName }, (err, data) => {
+  let ReceiverId = req.body.ReceiverId
+  UserMessage.find({ ReceiverId: ReceiverId }, (err, data) => {
     if (err) {
       res.send(err)
     } else {
