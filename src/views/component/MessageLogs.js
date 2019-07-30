@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import '../../styles/MessageLogs.css'
 import MessageDetails from './MessageDetails'
 import axios from 'axios'
@@ -12,12 +12,15 @@ const MessageLogs = (props) => {
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [userMessage, setUserMessage] = useState([])
+  const [adminMessage, setAdminMessage] = useState([])
+  const [sentMessage, setSentMessage] = useState([])
   const [testIndex, setTestIndex] = useState('')
   const [sendStatus, setSendStatus] = useState(false)
   const [messageStatus, setMessageStatus] = useState(false)
   const [open, setOpen] = useState(false)
   const [showMessageDetails, setShowMessageDetails] = useState(false)
   const [showReplyInput, setshowReplyInput] = useState(false)
+  const [showCase, setshowCase] = useState('0')
   let setactive = (parameter) => {
     if (parameter == 1) {
       setActiveTab('1')
@@ -42,13 +45,32 @@ const MessageLogs = (props) => {
   let usersendMessage = (e) => {
     setMessageStatus(true)
   }
+  let handleShowCase = (c) =>{
+    setshowCase(c)
+  }
   useEffect(() => {
     axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
       .then(res => {
+        console.log('res data ==>', res.data)
         setUserMessage(prev => {
           const updated = prev.concat(res.data.reverse())
           return updated
         })
+       
+        axios.post(`http://localhost:7777/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+          .then(res => {
+            setSentMessage(prev => {
+              const updated = prev.concat(res.data.reverse())
+              return updated
+            })
+          })
+      })
+
+    axios.get(`http://localhost:7777/getadminmessage`)
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          setAdminMessage([res.data[i]])
+        }
       })
   }, [])
   let showReply = (id) => {
@@ -59,7 +81,7 @@ const MessageLogs = (props) => {
     //   setshowReplyInput(!showReplyInput) 
     // }
   }
-  console.log('user message ====>', userMessage)
+  console.log('sent message ==>', sentMessage)
   return (
     <div>
       <Row className="message-mail">
@@ -74,59 +96,92 @@ const MessageLogs = (props) => {
         </Nav>
         <Nav vertical>
         <NavLink href="#" className="adminlink">
-            <NavItem  id="toggler" className="active" style={{ marginBottom: '1rem' }}>
-            <i class="fa fa-user-circle" aria-hidden="true"></i>Admin Message 
+        
+            <NavItem  onClick ={() =>handleShowCase('0')} id="toggler" className={`${showCase == '0'?'active':''}`} style={{ marginBottom: '1rem' }}>
+            <i class="fa fa-user-circle" aria-hidden="true" ></i>Admin Message 
             </NavItem>
-            <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>
-            <i class="fa fa-users" aria-hidden="true"></i>Users Message 
+            <NavItem onClick ={() =>handleShowCase('1')}  id="toggler" className={`${showCase == '1'?'active':''}`} style={{ marginBottom: '1rem' }}>
+            <i class="fa fa-users" aria-hidden="true" ></i>Users Message 
             </NavItem>
-            <NavItem  id="toggler" style={{ marginBottom: '1rem' }}>
-              <i class="fa fa-paper-plane" aria-hidden="true"></i>Sent 
+            <NavItem onClick ={() =>handleShowCase('2')}  id="toggler" className={`${showCase == '2'?'active':''}`} style={{ marginBottom: '1rem' }}>
+              <i class="fa fa-paper-plane" aria-hidden="true" ></i>Sent 
             </NavItem>
             </NavLink>
         </Nav>
       </Col>   
-      { !showMessageDetails?   
-        <Col md="10">
-        <Table striped className="message-box">
-        <tbody>
-                {userMessage.map((message, index) => {
+        {!showMessageDetails ?
+          <Fragment>
+            {showCase == '0' ?
 
-                  let time = Date.now() - message.Date
-                  console.log('date ==>', time)
+              <Col md="10">
+                <Table striped className="message-box">
+                  <tbody>
+                    {adminMessage.map((message, index) => {
 
-                  return( <tr onClick={() => showReply('test')}>
-                  <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-                  <td className="name-table">{message.SenderName}</td>
-                    <td class="message-detail">{message.Message}</td>
-                    <td align="right">{<TimeAgo
-                      datetime={message.Date}
-                      locale='IST' />}</td>
-                    <td><i class="fas fa-envelope"></i></td>
-                </tr>
-              )
+                      return (<tr onClick={() => showReply('test')}>
+                        <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+                        <td className="name-table">{message.SenderName}</td>
+                        <td class="message-detail">{message.Message}</td>
+                        <td align="right">{<TimeAgo
+                          datetime={message.Date}
+                          locale='IST' />}</td>
+                        <td><i class="fas fa-envelope"></i></td>
+                      </tr>
+                      )
 
-                })
-                }
-          
-          {/* <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">User</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr> */}
-        </tbody>
-      </Table>
-        </Col> 
+                    })
+                    }
+                  </tbody>
+                </Table>
+              </Col> : <Fragment>
+                {showCase == '1'?
+                <Col md="10">
+                <Table striped className="message-box">
+                  <tbody>
+                    {userMessage.map((message, index) => {
+
+                      let time = Date.now() - message.Date
+                      console.log('date ==>', time)
+
+                      return (<tr onClick={() => showReply('test')}>
+                        <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+                        <td className="name-table">{message.SenderName}</td>
+                        <td class="message-detail">{message.Message}</td>
+                        <td align="right">{<TimeAgo
+                          datetime={message.Date}
+                          locale='IST' />}</td>
+                        <td><i class="fas fa-envelope"></i></td>
+                      </tr>
+                      )
+
+                    })
+                    }
+                  </tbody>
+                </Table>
+              </Col>
+                 :
+                 <Col md="10">
+                <Table striped className="message-box">
+                  <tbody>
+                    {sentMessage.map((message, index) => {
+                      return (<tr onClick={() => showReply('test')}>
+                        <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+                        <td className="name-table">{message.SenderName}</td>
+                        <td class="message-detail">{message.Message}</td>
+                        <td align="right">{<TimeAgo
+                          datetime={message.Date}
+                          locale='IST' />}</td>
+                        <td><i class="fas fa-envelope"></i></td>
+                      </tr>
+                      )
+
+                    })
+                    }
+                  </tbody>
+                </Table>
+              </Col>}
+              </Fragment>}
+          </Fragment>
         :<MessageDetails/>
       }
       </Row>

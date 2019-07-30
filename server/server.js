@@ -787,14 +787,16 @@ app.post('/usertousermessage', (req, res) => {
 
 app.post('/admintousermessage', (req, res) => {
 
-  let SenderName = 'Admin'
-  let ReceiverName = req.body.ReceiverName
+  let SenderName = 'eVectr'
+  let ReceiverId = req.body.ReceiverId
   let Message = req.body.Message
+  let Urgent = req.body.Urgent
   let date = Date.now()
   var adminmessage = new AdminMessage({
     SenderName: SenderName,
-    ReceiverName: ReceiverName,
+    ReceiverId: ReceiverId,
     Message: Message,
+    Urgent: Urgent,
     Date: date
   })
   adminmessage.save((err, data) => {
@@ -808,16 +810,41 @@ app.post('/admintousermessage', (req, res) => {
   let Type = 'eVectr Urgent Messages'
   var notification = new Notification({
     Type: Type,
+    Date: date,
     SentBy: 'Admin',
-    SentTo: ReceiverName,
-    Message: Message
+    SentTo: ReceiverId,
+    Message: Message,
+    Checked: false
   })
   notification.save()
+})
+
+app.get('/getadminmessage', (req, res) => {
+  AdminMessage.find({}, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
 })
 
 app.post('/getusertousermessage', (req, res) => {
   let ReceiverId = req.body.ReceiverId
   UserMessage.find({ ReceiverId: ReceiverId }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/getallusertousermessage', (req, res) => {
+  let SenderId = req.body.SenderId
+  UserMessage.find({ SenderId: SenderId }, (err, data) => {
     if (err) {
       res.send(err)
     } else {

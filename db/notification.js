@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var Notification = new mongoose.Schema({
   Type: String,
   Date: Date,
-  SentTo: String,
+  SentTo: [],
   SentBy: String,
   Action: String,
   Checked: Boolean

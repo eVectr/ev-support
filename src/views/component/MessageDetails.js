@@ -46,11 +46,11 @@ const MessageDetails = (props) => {
   useEffect(() => {
     axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
       .then(res => {
-        console.log("user message ==>", res.data)
         if (res.data.ReceiverName != 'admin') {
           setUserMessage(res.data)
         }
       })
+   
   }, [])
   let showReply = (id) => {
     alert('test')
