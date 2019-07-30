@@ -275,6 +275,10 @@ const AdminPanel = (props) => {
           <div className='admin-panel'>
             <h1 className='heading'>Admin Panel</h1>
           </div>
+          <div className="msg-btn">
+        <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
+          <Button onClick={sendMessage} className="sendmessage-btn">Send Message to Users</Button>
+        </div>
         </Col>
       </Row>
       <Row>
@@ -332,16 +336,8 @@ const AdminPanel = (props) => {
           </Col>
         </Row> : ''}
       <Row className="sendTextarea">
-        <div className="msg-btn">
-        <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
-          <Button onClick={sendMessage} className="sendmessage-btn">Send Message to Users</Button>
-        </div>
-        {
-          // showTextArea ? <div className="msgtextarea">
-          //   <input className="urgentcheck" type='checkbox'></input> <p>Mark as Urgent</p>
-          //   <textarea></textarea> <Button className="sendmessage-btn innersend">Send</Button>
-          // </div> : ''
-        }
+       
+       
       </Row>
       <Row>
         <Col>

@@ -3,6 +3,7 @@ import '../../styles/MessageLogs.css'
 import axios from 'axios'
 import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
 import ModalUi from './ModalUi'
+import MessageLogs from './MessageLogs'
 const MessageDetails = (props) => {
   const [activeTab, setActiveTab] = useState('1')
   const [name, setName] = useState('')
@@ -13,6 +14,7 @@ const MessageDetails = (props) => {
   const [messageStatus, setMessageStatus] = useState(false)
   const [open, setOpen] = useState(false)
   const [showReplyInput, setshowReplyInput] = useState(false)
+  const [showMessageLogs, setShowMessageLogs] = useState(false)
   const [showTextArea, setshowTextArea] = useState(false)
   let setactive = (parameter) => {
     if (parameter == 1) {
@@ -52,33 +54,28 @@ const MessageDetails = (props) => {
       })
    
   }, [])
-  let showReply = (id) => {
-    alert('test')
-    // let findObj = userMessage.find(itm => itm.SenderId === id)
-    // if (findObj.SenderId === id) {
-    //   setTestIndex(id)
-    //   setshowReplyInput(!showReplyInput) 
-    // }
-
-  }
+  
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea)
     
+  }
+  let showReply = () => {
+    setShowMessageLogs(!showMessageLogs)
   }
   return (
     <div>
       <Row className="message-mail">
         <Col md="2" className="left-sidebar">
        
-      </Col>       
+      </Col> 
+           
         <Col md="10" className="message-deatil-inner">
             <div className="message-section">
             <div className="detail-images">
                 <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
             </div>
             <div className="head-mess">
-                <h3>Sender </h3>
-                <p>7:00Pm <span>(29july)</span></p>
+            <h3>Sender </h3><span>2019-07-20</span>
             </div>
             <div className="summay-message">
                 <p>
@@ -119,8 +116,8 @@ const MessageDetails = (props) => {
           <button className="message-btn btn btn-secondary">Send</button>
       </div> : ''
         }
-           
         </Col> 
+         
       </Row>
     </div>
   )

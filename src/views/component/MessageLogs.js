@@ -75,23 +75,18 @@ const MessageLogs = (props) => {
   }, [])
   let showReply = (id) => {
     setShowMessageDetails(!showMessageDetails)
-    // let findObj = userMessage.find(itm => itm.SenderId === id)
-    // if (findObj.SenderId === id) {
-    //   setTestIndex(id)
-    //   setshowReplyInput(!showReplyInput) 
-    // }
   }
   console.log('sent message ==>', sentMessage)
   return (
     <div>
       <Row className="message-mail">
         <h2>Message</h2>
+        {showMessageDetails?<h2 className="backtopage" onClick={() => showReply()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2>:''}
         <Col md="2" className="left-sidebar">
         <Nav vertical>
           <NavItem>
             <ModalUi type = {'user'} open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
-        <Button className="message-btn" onClick={sendMessage}>Compose</Button>
-               
+              <Button className="message-btn" onClick={sendMessage}>Compose</Button> 
           </NavItem>
         </Nav>
         <Nav vertical>
