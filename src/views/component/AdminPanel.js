@@ -328,10 +328,10 @@ const AdminPanel = (props) => {
           <Button onClick={showTestMsgBox} className="sendmessage-btn">Send Message to Users</Button>
         </div>
         {
-          showTextArea ? <div className="msgtextarea">
-            <input className="urgentcheck" type='checkbox'></input> <p>Mark as Urgent</p>
-            <textarea></textarea> <Button className="sendmessage-btn innersend">Send</Button>
-          </div> : ''
+          // showTextArea ? <div className="msgtextarea">
+          //   <input className="urgentcheck" type='checkbox'></input> <p>Mark as Urgent</p>
+          //   <textarea></textarea> <Button className="sendmessage-btn innersend">Send</Button>
+          // </div> : ''
         }
       </Row>
       <Row>
