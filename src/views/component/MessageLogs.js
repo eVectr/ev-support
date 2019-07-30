@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import '../../styles/MessageLogs.css'
 import MessageDetails from './MessageDetails'
 import axios from 'axios'
+import TimeAgo from 'timeago-react';
+import timeago from 'timeago.js';
 import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
 import ModalUi from './ModalUi'
+
 const MessageLogs = (props) => {
   const [activeTab, setActiveTab] = useState('1')
   const [name, setName] = useState('')
@@ -42,7 +45,7 @@ const MessageLogs = (props) => {
     axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
       .then(res => {
         setUserMessage(prev => {
-          const updated = prev.concat(res.data)
+          const updated = prev.concat(res.data.reverse())
           return updated
         })
       })
@@ -94,9 +97,11 @@ const MessageLogs = (props) => {
                   return( <tr onClick={() => showReply('test')}>
                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                   <td className="name-table">{message.SenderName}</td>
-                  <td class="message-detail">{message.Message}</td>
-                  <td align="right">5mins ago</td>
-                  <td><i class="fas fa-envelope"></i></td>
+                    <td class="message-detail">{message.Message}</td>
+                    <td align="right">{<TimeAgo
+                      datetime={message.Date}
+                      locale='IST' />}</td>
+                    <td><i class="fas fa-envelope"></i></td>
                 </tr>
               )
 
