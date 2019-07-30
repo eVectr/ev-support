@@ -325,7 +325,7 @@ const AdminPanel = (props) => {
         </Row> : ''}
       <Row className="sendTextarea">
         <div className="msg-btn">
-          <Button onClick={showTestMsgBox} className="sendmessage-btn">Send Meassage to Users</Button>
+          <Button onClick={showTestMsgBox} className="sendmessage-btn">Send Message to Users</Button>
         </div>
         {
           showTextArea ? <div className="msgtextarea">
