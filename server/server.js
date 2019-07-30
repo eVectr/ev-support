@@ -16,6 +16,7 @@ const SupportAgent = require('../db/supportagent')
 const TransactionSurveyResponse = require('../db/transactionSurveyResponse')
 const MessageLogs = require('../db/messagelogs')
 const UserMessage = require('../db/usermessage')
+const AdminMessage = require('../db/adminmessage')
 const Notification = require('../db/notification')
 let api = require("../api/api")
 
@@ -62,9 +63,9 @@ io.on('connection', socket => {
 // })
 
 // var user = new User({
-//     Name: 'Rajat',
-//     Password: 'rajat@123',
-//     Type:'user'
+//   Name: 'Joshua',
+//   Password: 'joshua@123',
+//   Type: 'user'
 // })
 // user.save()
 
@@ -750,13 +751,13 @@ app.post('/messagelogs', (req, res) => {
 // })
 
 app.post('/usertousermessage', (req, res) => {
-
-  let SenderId = req.body.SenderId
+  console.log('Api call')
+  let SenderName = req.body.SenderName
   let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
   let date = Date.now()
   var usermessage = new UserMessage({
-    SenderId: SenderId,
+    SenderName: SenderName,
     ReceiverName: ReceiverName,
     Message: Message,
     Date: date
@@ -770,14 +771,51 @@ app.post('/usertousermessage', (req, res) => {
       res.send(data)
     }
   })
-  let Type = 'User to User Message'
+  
+  var notification = new Notification({
+    Type: 'User to User Message',
+    Date: date,
+    SentBy: SenderName,
+    SentTo: ReceiverName,
+    Action: 'SEE MESSAGE',
+    Checked: false
+  })
+  notification.save()
+})
+
+app.post('/admintousermessage', (req, res) => {
+
+  let SenderName = 'Admin'
+  let ReceiverName = req.body.ReceiverName
+  let Message = req.body.Message
+  let date = Date.now()
+  var adminmessage = new AdminMessage({
+    SenderName: SenderName,
+    ReceiverName: ReceiverName,
+    Message: Message,
+    Date: date
+  })
+  adminmessage.save((err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      res.send('done')
+    }
+  })
+  let Type = 'eVectr Urgent Messages'
   var notification = new Notification({
     Type: Type,
-    SentBy: SenderId,
+    SentBy: 'Admin',
     SentTo: ReceiverName,
-    Message: Message,
+    Message: Message
   })
-  notification.save((err, data) => {
+  notification.save()
+})
+
+app.post('/getusertousermessage', (req, res) => {
+  let ReceiverName = req.body.ReceiverName
+  UserMessage.find({ ReceiverName: ReceiverName }, (err, data) => {
     if (err) {
       res.send(err)
     } else {
@@ -787,9 +825,16 @@ app.post('/usertousermessage', (req, res) => {
   })
 })
 
-app.post('/getusertousermessage', (req, res) => {
-  let ReceiverName = req.body.ReceiverName
-  UserMessage.find({ ReceiverName: ReceiverName }, (err, data) => {
+app.post('/missedchatmessage', (req, res) => {
+  
+  var notification = new Notification({
+    Type: req.body.Type,
+    SentBy: req.body.SenderId,
+    SentTo: req.body.ReceiverId,
+    Message: req.body.Message,
+    Date: Date.now()
+  })
+  notification.save((err, data) => {
     if (err) {
       res.send(err)
     } else {
