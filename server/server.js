@@ -16,6 +16,7 @@ const SupportAgent = require('../db/supportagent')
 const TransactionSurveyResponse = require('../db/transactionSurveyResponse')
 const MessageLogs = require('../db/messagelogs')
 const UserMessage = require('../db/usermessage')
+const AdminMessage = require('../db/adminmessage')
 const Notification = require('../db/notification')
 let api = require("../api/api")
 
@@ -776,6 +777,43 @@ app.post('/usertousermessage', (req, res) => {
     SentBy: SenderId,
     SentTo: ReceiverName,
     Message: Message,
+  })
+  notification.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/admintousermessage', (req, res) => {
+
+  let SenderName = 'Admin'
+  let ReceiverName = req.body.ReceiverName
+  let Message = req.body.Message
+  let date = Date.now()
+  var adminmessage = new AdminMessage({
+    SenderName: SenderName,
+    ReceiverName: ReceiverName,
+    Message: Message,
+    Date: date
+  })
+  adminmessage.save((err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+  let Type = 'eVectr Urgent Messages'
+  var notification = new Notification({
+    Type: Type,
+    SentBy: 'Admin',
+    SentTo: ReceiverName,
+    Message: Message
   })
   notification.save((err, data) => {
     if (err) {
