@@ -3,6 +3,7 @@ import axios from 'axios'
 import Modal from 'react-responsive-modal'
 import { Button } from 'reactstrap'
 import Select from 'react-select'
+import '../../styles/MessageLogs.css'
 const ModalUi = props => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState('')
@@ -59,6 +60,7 @@ const ModalUi = props => {
         setMessage('')
       })
   }
+  console.log('type == >', props.type)
 
   console.log('id ==>', options)
 
@@ -66,6 +68,7 @@ const ModalUi = props => {
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={onCloseModal} classNames={'sent-modal'} center >
+        { props.type == 'user' ?
         <div className='sent-modal'>
           <h2>New Message</h2>
           <div className='modal-inner'>
@@ -73,7 +76,20 @@ const ModalUi = props => {
             <textarea placeholder='write a message .....' onChange = {(e) => onMessage(e)} ></textarea>
             <Button className='message-btn' onClick={composeMessage}>Send</Button>
           </div>
-        </div>
+        </div>:
+           <div className='sent-modal'>
+             <h2>Admin Test</h2>
+             <div className='modal-inner'>
+               <label>To:</label> <input value="All Users" className="admin-input"></input>
+              <div className="check-label">
+                  <input type="checkbox" className="checkbox"></input>
+                  <label>Mark as a User</label>
+              </div>
+               <textarea placeholder='write a message .....' onChange = {(e) => onMessage(e)} className="admin-area"></textarea>
+               <Button className='message-btn' onClick={composeMessage}>Send</Button>
+             </div>
+           </div>
+        }
       </Modal>
     </div>
 

@@ -350,8 +350,8 @@ select{
     outline: none;
 }
 .sendmessage-btn {
-    background-color: #00d1b2 !important;
-    border: 2px solid #00d1b2 !important;
+    background-color: #4c6eb3 !important;
+    border: 2px solid #4c6eb3 !important;
     color: #fff !important;
     padding: 10px 15px;
     font-size: 14px;
@@ -389,4 +389,7 @@ select{
 
 .urgentcheck {
     display: flex;
+}
+.containers.container .col {
+    padding: 0;
 }
