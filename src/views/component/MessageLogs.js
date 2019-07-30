@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/MessageLogs.css'
+import MessageDetails from './MessageDetails'
 import axios from 'axios'
 import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
 import ModalUi from './ModalUi'
@@ -8,11 +9,12 @@ const MessageLogs = (props) => {
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [userMessage, setUserMessage] = useState([])
-  const [showReplyInput, setshowReplyInput] = useState(false)
   const [testIndex, setTestIndex] = useState('')
   const [sendStatus, setSendStatus] = useState(false)
   const [messageStatus, setMessageStatus] = useState(false)
   const [open, setOpen] = useState(false)
+  const [showMessageDetails, setShowMessageDetails] = useState(false)
+  const [showReplyInput, setshowReplyInput] = useState(false)
   let setactive = (parameter) => {
     if (parameter == 1) {
       setActiveTab('1')
@@ -52,11 +54,12 @@ const MessageLogs = (props) => {
       })
   }, [])
   let showReply = (id) => {
-    let findObj = userMessage.find(itm => itm.SenderId === id)
-    if (findObj.SenderId === id) {
-      setTestIndex(id)
-      //setshowReplyInput(!showReplyInput) 
-    }
+    setShowMessageDetails(!showMessageDetails)
+    // let findObj = userMessage.find(itm => itm.SenderId === id)
+    // if (findObj.SenderId === id) {
+    //   setTestIndex(id)
+    //   setshowReplyInput(!showReplyInput) 
+    // }
 
   }
   return (
@@ -84,73 +87,216 @@ const MessageLogs = (props) => {
             </NavItem>
             </NavLink>
         </Nav>
-      </Col>       
+      </Col>   
+      { !showMessageDetails?   
         <Col md="10">
         <Table striped className="message-box">
         <tbody>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Love</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">User</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Admin</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">John Doe</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Love</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+         
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Love</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Love</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Admin</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">User</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
-          <tr>
+          <tr onClick = {() => showReply('test')}>
             <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td class="message-detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1</td>
+            <td className="name-table">Admin</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
             <td align="right">5mins ago</td>
-            <td><i class="fas fa-reply"></i></td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
           </tr>
+          <tr onClick = {() => showReply('test')}>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td className="name-table">Love</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
+          </tr>
+          <tr onClick = {() => showReply('test')}>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td className="name-table">User</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
+          </tr>
+          <tr onClick = {() => showReply('test')}>
+            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
+            <td className="name-table">John</td>
+            <td class="message-detail">Lorem Ipsum is simply dummy text</td>
+            <td align="right">5mins ago</td>
+            <td><i class="fas fa-envelope"></i></td>
+            {
+                         message.SenderId == testIndex?
+                       <tr>
+                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
+                       </tr>
+                         :''
+                       
+              }
+          </tr>
+         
+         
+         
+
         </tbody>
       </Table>
         </Col> 
+        :<MessageDetails/>
+      }
       </Row>
     </div>
   )
