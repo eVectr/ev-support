@@ -53,23 +53,18 @@ const MessageLogs = (props) => {
   }, [])
   let showReply = (id) => {
     setShowMessageDetails(!showMessageDetails)
-    // let findObj = userMessage.find(itm => itm.SenderId === id)
-    // if (findObj.SenderId === id) {
-    //   setTestIndex(id)
-    //   setshowReplyInput(!showReplyInput) 
-    // }
   }
   console.log('user message ====>', userMessage)
   return (
     <div>
       <Row className="message-mail">
         <h2>Message</h2>
+        {showMessageDetails?<h2 className="backtopage" onClick={() => showReply()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2>:''}
         <Col md="2" className="left-sidebar">
         <Nav vertical>
           <NavItem>
             <ModalUi type = {'user'} open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
-        <Button className="message-btn" onClick={sendMessage}>Compose</Button>
-               
+              <Button className="message-btn" onClick={sendMessage}>Compose</Button> 
           </NavItem>
         </Nav>
         <Nav vertical>
@@ -85,7 +80,8 @@ const MessageLogs = (props) => {
             </NavItem>
             </NavLink>
         </Nav>
-      </Col>   
+      </Col>  
+       
       { !showMessageDetails?   
         <Col md="10">
         <Table striped className="message-box">
@@ -99,7 +95,7 @@ const MessageLogs = (props) => {
                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                   <td className="name-table">{message.SenderName}</td>
                     <td class="message-detail">{message.Message}</td>
-                    <td align="right">{<TimeAgo
+                    <td align="right" className="time-list">{<TimeAgo
                       datetime={message.Date}
                       locale='IST' />}</td>
                     <td><i class="fas fa-envelope"></i></td>
@@ -108,26 +104,14 @@ const MessageLogs = (props) => {
 
                 })
                 }
-          
-          {/* <tr onClick = {() => showReply('test')}>
-            <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
-            <td className="name-table">User</td>
-            <td class="message-detail">Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text</td>
-            <td align="right">5mins ago</td>
-            <td><i class="fas fa-envelope"></i></td>
-            {
-                         message.SenderId == testIndex?
-                       <tr>
-                         <td class="message-detail">Lorem Ipsum is simply dummy </td>
-                       </tr>
-                         :''
-                       
-              }
-          </tr> */}
         </tbody>
       </Table>
         </Col> 
-        :<MessageDetails/>
+        :
+        <div>
+          <MessageDetails/> 
+        </div>
+        
       }
       </Row>
     </div>
