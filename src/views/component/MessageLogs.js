@@ -28,12 +28,6 @@ const MessageLogs = (props) => {
   }
   let sendMessage = () => {
     setOpen(true)
-    setSendStatus(true)
-    let SenderId = JSON.parse(localStorage.user)._id
-    axios.post(`http://localhost:7777/usertousermessage`, { SenderId: SenderId, ReceiverName: name, Message: message })
-      .then(res => {
-
-      })
   }
 
   let closeModal = () => {

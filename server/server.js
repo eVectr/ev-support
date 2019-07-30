@@ -63,9 +63,9 @@ io.on('connection', socket => {
 // })
 
 // var user = new User({
-//     Name: 'Rajat',
-//     Password: 'rajat@123',
-//     Type:'user'
+//   Name: 'Joshua',
+//   Password: 'joshua@123',
+//   Type: 'user'
 // })
 // user.save()
 
@@ -751,13 +751,13 @@ app.post('/messagelogs', (req, res) => {
 // })
 
 app.post('/usertousermessage', (req, res) => {
-
-  let SenderId = req.body.SenderId
+  console.log('Api call')
+  let SenderName = req.body.SenderName
   let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
   let date = Date.now()
   var usermessage = new UserMessage({
-    SenderId: SenderId,
+    SenderName: SenderName,
     ReceiverName: ReceiverName,
     Message: Message,
     Date: date
@@ -771,21 +771,16 @@ app.post('/usertousermessage', (req, res) => {
       res.send(data)
     }
   })
-  let Type = 'User to User Message'
+  
   var notification = new Notification({
-    Type: Type,
-    SentBy: SenderId,
+    Type: 'User to User Message',
+    Date: date,
+    SentBy: SenderName,
     SentTo: ReceiverName,
-    Message: Message,
+    Action: 'SEE MESSAGE',
+    Checked: false
   })
-  notification.save((err, data) => {
-    if (err) {
-      res.send(err)
-    } else {
-      console.log(data)
-      res.send(data)
-    }
-  })
+  notification.save()
 })
 
 app.post('/admintousermessage', (req, res) => {
@@ -805,7 +800,7 @@ app.post('/admintousermessage', (req, res) => {
       console.log(err)
       res.send(err)
     } else {
-      res.send(data)
+      res.send('done')
     }
   })
   let Type = 'eVectr Urgent Messages'
@@ -815,14 +810,7 @@ app.post('/admintousermessage', (req, res) => {
     SentTo: ReceiverName,
     Message: Message
   })
-  notification.save((err, data) => {
-    if (err) {
-      res.send(err)
-    } else {
-      console.log(data)
-      res.send(data)
-    }
-  })
+  notification.save()
 })
 
 app.post('/getusertousermessage', (req, res) => {
