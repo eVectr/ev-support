@@ -106,7 +106,7 @@ const Navbar = (props) => {
             {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={onMessageLogs}>
-                  <strong>Meassage Logs</strong>
+                  <strong>Message Logs</strong>
                 </a> : ''
             }
           </div>
