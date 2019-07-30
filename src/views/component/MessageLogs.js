@@ -117,7 +117,7 @@ const MessageLogs = (props) => {
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                         <td className="name-table">{message.SenderName}</td>
                         <td class="message-detail">{message.Message}</td>
-                        <td align="right">{<TimeAgo
+                        <td className="time-detail" align="right">{<TimeAgo
                           datetime={message.Date}
                           locale='IST' />}</td>
                         <td><i class="fas fa-envelope"></i></td>
@@ -142,7 +142,7 @@ const MessageLogs = (props) => {
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                         <td className="name-table">{message.SenderName}</td>
                         <td class="message-detail">{message.Message}</td>
-                        <td align="right">{<TimeAgo
+                        <td className="time-detail" align="right">{<TimeAgo
                           datetime={message.Date}
                           locale='IST' />}</td>
                         <td><i class="fas fa-envelope"></i></td>
@@ -163,7 +163,7 @@ const MessageLogs = (props) => {
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                         <td className="name-table">{message.SenderName}</td>
                         <td class="message-detail">{message.Message}</td>
-                        <td align="right">{<TimeAgo
+                        <td className="time-detail"  align="right">{<TimeAgo
                           datetime={message.Date}
                           locale='IST' />}</td>
                         <td><i class="fas fa-envelope"></i></td>

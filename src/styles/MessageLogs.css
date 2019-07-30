@@ -277,15 +277,18 @@ svg.styles_closeIcon__1QwbI path {
     font-weight: normal;
     color: #212629;
     line-height: 50px;
+    padding-left: 1%;
 }
 .conversation-mess .head-mess h3 {
     line-height: 58px;
 }
 .conversation-mess .head-mess span {
     line-height: 58px;
+    padding-left: 1%;
 }
 .conversation-mess .summay-message {
     padding: 0px 58px;
+    transform: translate(0px, -15px);
 }
 .conversation-mess {
     padding: 5px 30px;
@@ -382,4 +385,11 @@ svg.styles_closeIcon__1QwbI path {
 }
 .backtopage i {
     font-size: 15px;
+}
+.time-detail {
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 200px;
 }
