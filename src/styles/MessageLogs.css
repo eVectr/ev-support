@@ -217,7 +217,10 @@ svg.styles_closeIcon__1QwbI path {
 }
 
 .modal-inner .message-btn.btn.btn-secondary {
-    width: 25%;
+    width: 75%;
+    margin: auto;
+    text-align: center;
+    display: block;
 }
 #toggler {
     border-bottom: 1px solid #f4f4f4;
@@ -291,7 +294,7 @@ svg.styles_closeIcon__1QwbI path {
     transform: translate(0px, -15px);
 }
 .conversation-mess {
-    padding: 5px 30px;
+    padding: 5px 0px;
 }
 .name-table {
     width: 200px;
@@ -392,4 +395,39 @@ svg.styles_closeIcon__1QwbI path {
     white-space: nowrap;
     overflow: hidden;
     max-width: 200px;
+}
+.sucess-msg {
+    text-align: center;
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+}
+.message-mail.row {
+    position: relative;
+    top: 82%;
+    left: 0;
+    padding: 0;
+}
+.messagedetail {
+    width: 78%;
+    left: 0;
+    transform: translate(-180px, 40px);
+}
+.error-msg {
+    text-align: center;
+    color: red;
+    font-size: 18px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+.succes-msg {
+    font-size: 90px;
+    text-align: center;
+    color: #08a008;
+}
+.succes-text {
+    text-align: center;
+    font-size: 25px;
+    color: #08a008;
+    font-weight: bold;
 }

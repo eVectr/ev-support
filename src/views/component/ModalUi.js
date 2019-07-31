@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import Modal from 'react-responsive-modal'
 import { Button } from 'reactstrap'
@@ -13,7 +13,13 @@ const ModalUi = props => {
   const [options, setOptions] = useState([])
   const [userIds, setUserIds] = useState([])
   const [isChecked, setIsChecked] = useState(false)
-
+  const [usermessagesend, setUsermessagesend] = useState(false)
+  const [adminmessagesend, setAdminmessagesend] = useState(false)
+  const [showSuccessModal, setSuccessModal] = useState(false)
+  const [showAdminSuccessModal, setAdminSuccessModal] = useState(false)
+  
+  const [MessageSend, setMessageSend] = useState('')
+  const [Errors, setErrors] = useState('')
   const styles = {
     fontFamily: 'sans-serif',
     textAlign: 'center'
@@ -61,23 +67,52 @@ const ModalUi = props => {
     setSelectedUser(e.value)
   }
 
+
   let composeMessage = () => {
-    axios.post(`http://localhost:7777/usertousermessage`, { SenderId: JSON.parse(localStorage.user)._id,
-      SenderName: JSON.parse(localStorage.user).Name,
-      ReceiverId: selectedUser,
-      Message: Message })
-      .then(res => {
-        console.log('res ==>', res)
-        if (props.closeModal) {
-          props.closeModal()
-        } else {
-          setIsOpen(false)
-        }
-        setMessage('')
+    if (Message == '' || selectedUser == '') {
+      setErrors('Please select required fields')
+    } else {
+      changeUserStatue().then(res =>{
+        setTimeout(() => {
+          setSuccessModal(false)
+       }, 1000)
       })
+      axios.post(`http://localhost:7777/usertousermessage`, {
+        SenderId: JSON.parse(localStorage.user)._id,
+        SenderName: JSON.parse(localStorage.user).Name,
+        ReceiverId: selectedUser,
+        Message: Message
+      })
+        .then(res => {
+          setUsermessagesend(true)
+          console.log('res ==>', res)
+
+          setMessage('')
+        })
+    }
   }
 
+  let changeStatue = () =>{
+    return new Promise((resolve, reject)=>{
+      resolve(setAdminSuccessModal(!showAdminSuccessModal))
+    })
+  }
+  let changeUserStatue = () =>{
+    return new Promise((resolve, reject)=>{
+      resolve(setSuccessModal(!showSuccessModal))
+    })
+  }
+ 
+
   let sendAdminMessage = () => {
+    if (AdminMessage == '') {
+      setErrors('Please select required fields')
+    } else {
+      changeStatue().then(res =>{
+        setTimeout(() => {
+          setAdminSuccessModal(false)
+       }, 1000)
+      })
     axios.post(`http://localhost:7777/admintousermessage`, { ReceiverId: userIds,
       Urgegent: isChecked,
       Message: AdminMessage })
@@ -91,36 +126,62 @@ const ModalUi = props => {
         setAdminMessage('')
       })
   }
-  
+}
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={onCloseModal} classNames={'sent-modal'} center >
-        { props.type == 'user' ?
+        { props.type == 'user' && !showSuccessModal ?
         <div className='sent-modal'>
           <h2>New Message</h2>
           <div className='modal-inner'>
             <label>To:</label> <Select options={options} onChange={(e) => onSelect(e)} />
             <textarea placeholder='write a message .....' onChange = {(e) => onMessage(e)} ></textarea>
             <Button className='message-btn' onClick={composeMessage}>Send</Button>
+            {!showSuccessModal ?
+            <p className="error-msg">{Errors != ''? Errors: ''}</p>
+            :''
+            }
           </div>
         </div>:
-           <div className='sent-modal'>
-             <h2>Send Message</h2>
+          <Fragment>{showSuccessModal?
+             <div className='sent-modal'>
+             <h2>Send Succesfuly</h2>
              <div className='modal-inner'>
-               <label>To:</label> <input value="All Users" className="admin-input"></input>
+                <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
+                <p className="succes-text">Send Message Succesfully</p>
+             </div>
+           </div>:<Fragment>{showAdminSuccessModal? 
+             <div className='sent-modal'>
+             <h2>Send Succesfuly</h2>
+             <div className='modal-inner'>
+                <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
+                <p className="succes-text">Send Message Succesfully</p>
+             </div>
+           </div>:
+              <div className='sent-modal'>
+              <h2>Send Message</h2>
+              <div className='modal-inner'>
+              <label>To:</label> <input value="All Users" className="admin-input" ></input>
               <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>
                   <label>Mark as a Urgent</label>
               </div>
-               <textarea placeholder='write a message .....' onChange = {(e) => onAdminMessage(e)} className="admin-area"></textarea>
-               <Button className='message-btn' onClick={sendAdminMessage}>Send</Button>
-             </div>
-           </div>
+              <textarea placeholder='write a message .....' onChange = {(e) => onAdminMessage(e)} className="admin-area"></textarea>
+                <Button className='message-btn' onClick={sendAdminMessage}>Send</Button>
+                {!showSuccessModal ?
+                <p className="error-msg">{Errors != ''? Errors: ''}</p>
+                :''
+                }
+              </div>
+            </div>}</Fragment>
+            
+          }
+           </Fragment>
+        
         }
       </Modal>
     </div>
-
   )
 }
 export default ModalUi

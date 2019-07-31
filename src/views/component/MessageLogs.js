@@ -78,7 +78,7 @@ const MessageLogs = (props) => {
   }
   console.log('sent message ==>', sentMessage)
   return (
-    <div>
+    <div className="messagelogs">
       <Row className="message-mail">
         <h2>Message</h2>
         {showMessageDetails?<h2 className="backtopage" onClick={() => showReply()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2>:''}
