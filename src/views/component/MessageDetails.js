@@ -83,7 +83,7 @@ const MessageDetails = (props) => {
                     </p>
               </div>
               </div>
-            <div className="conversation-mess">
+            <div className="conversation-mess receiver">
                 <div className="detail-images">
                     <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                 </div>
