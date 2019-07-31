@@ -21,13 +21,8 @@ const MessageLogs = (props) => {
   const [showMessageDetails, setShowMessageDetails] = useState(false)
   const [showReplyInput, setshowReplyInput] = useState(false)
   const [showCase, setshowCase] = useState('0')
-  let setactive = (parameter) => {
-    if (parameter == 1) {
-      setActiveTab('1')
-    } else if (parameter == 2) {
-      setActiveTab('2')
-    }
-  }
+  const [messageId, setMessageId] = useState('')
+
   let onName = (e) => {
     setName(e.target.value)
   }
@@ -45,7 +40,8 @@ const MessageLogs = (props) => {
   let usersendMessage = (e) => {
     setMessageStatus(true)
   }
-  let handleShowCase = (c) =>{
+  let handleShowCase = (c) => {
+    setShowMessageDetails(false)
     setshowCase(c)
   }
   useEffect(() => {
@@ -56,7 +52,6 @@ const MessageLogs = (props) => {
           const updated = prev.concat(res.data.reverse())
           return updated
         })
-       
         axios.post(`http://localhost:7777/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
           .then(res => {
             setSentMessage(prev => {
@@ -68,42 +63,44 @@ const MessageLogs = (props) => {
 
     axios.get(`http://localhost:7777/getadminmessage`)
       .then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-          setAdminMessage([res.data[i]])
-        }
+        setAdminMessage(prev => {
+          const updated = prev.concat(res.data.reverse())
+          return updated
+        })
       })
   }, [])
   let showReply = (id) => {
+    setMessageId(id)
     setShowMessageDetails(!showMessageDetails)
   }
-  console.log('sent message ==>', sentMessage)
+  console.log('admin message data =>', adminMessage)
   return (
     <div>
       <Row className="message-mail">
         <h2>Message</h2>
-        {showMessageDetails?<h2 className="backtopage" onClick={() => showReply()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2>:''}
+        {showMessageDetails ? <h2 className="backtopage" onClick={() => showReply()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2> : ''}
         <Col md="2" className="left-sidebar">
-        <Nav vertical>
-          <NavItem>
-            <ModalUi type = {'user'} open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
-              <Button className="message-btn" onClick={sendMessage}>Compose</Button> 
-          </NavItem>
-        </Nav>
-        <Nav vertical>
-        <NavLink href="#" className="adminlink">
-        
-            <NavItem  onClick ={() =>handleShowCase('0')} id="toggler" className={`${showCase == '0'?'active':''}`} style={{ marginBottom: '1rem' }}>
-            <i class="fa fa-user-circle" aria-hidden="true" ></i>Admin Message 
+          <Nav vertical>
+            <NavItem>
+              <ModalUi type={'user'} open={open} closeModal={closeModal} className="sent-modal"></ModalUi>
+              <Button className="message-btn" onClick={sendMessage}>Compose</Button>
             </NavItem>
-            <NavItem onClick ={() =>handleShowCase('1')}  id="toggler" className={`${showCase == '1'?'active':''}`} style={{ marginBottom: '1rem' }}>
-            <i class="fa fa-users" aria-hidden="true" ></i>Users Message 
+          </Nav>
+          <Nav vertical>
+            <NavLink href="#" className="adminlink">
+
+              <NavItem onClick={() => handleShowCase('0')} id="toggler" className={`${showCase == '0' ? 'active' : ''}`} style={{ marginBottom: '1rem' }}>
+                <i class="fa fa-user-circle" aria-hidden="true" ></i>Admin Message
             </NavItem>
-            <NavItem onClick ={() =>handleShowCase('2')}  id="toggler" className={`${showCase == '2'?'active':''}`} style={{ marginBottom: '1rem' }}>
-              <i class="fa fa-paper-plane" aria-hidden="true" ></i>Sent 
+              <NavItem onClick={() => handleShowCase('1')} id="toggler" className={`${showCase == '1' ? 'active' : ''}`} style={{ marginBottom: '1rem' }}>
+                <i class="fa fa-users" aria-hidden="true" ></i>Users Message
+            </NavItem>
+              <NavItem onClick={() => handleShowCase('2')} id="toggler" className={`${showCase == '2' ? 'active' : ''}`} style={{ marginBottom: '1rem' }}>
+                <i class="fa fa-paper-plane" aria-hidden="true" ></i>Sent
             </NavItem>
             </NavLink>
-        </Nav>
-      </Col>   
+          </Nav>
+        </Col>   
         {!showMessageDetails ?
           <Fragment>
             {showCase == '0' ?
@@ -113,7 +110,7 @@ const MessageLogs = (props) => {
                   <tbody>
                     {adminMessage.map((message, index) => {
 
-                      return (<tr onClick={() => showReply('test')}>
+                      return (<tr onClick={() => showReply(message._id)}>
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                         <td className="name-table">{message.SenderName}</td>
                         <td class="message-detail">{message.Message}</td>
@@ -138,7 +135,7 @@ const MessageLogs = (props) => {
                       let time = Date.now() - message.Date
                       console.log('date ==>', time)
 
-                      return (<tr onClick={() => showReply('test')}>
+                      return (<tr onClick={() => showReply()}>
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                         <td className="name-table">{message.SenderName}</td>
                         <td class="message-detail">{message.Message}</td>
@@ -159,7 +156,7 @@ const MessageLogs = (props) => {
                 <Table striped className="message-box">
                   <tbody>
                     {sentMessage.map((message, index) => {
-                      return (<tr onClick={() => showReply('test')}>
+                      return (<tr onClick={() => showReply()}>
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                         <td className="name-table">{message.SenderName}</td>
                         <td class="message-detail">{message.Message}</td>
@@ -177,7 +174,7 @@ const MessageLogs = (props) => {
               </Col>}
               </Fragment>}
           </Fragment>
-        :<MessageDetails/>
+        :<MessageDetails showCase={showCase} messageId={messageId} />
       }
       </Row>
     </div>

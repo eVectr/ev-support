@@ -830,6 +830,18 @@ app.get('/getadminmessage', (req, res) => {
   })
 })
 
+app.post('/getadminmessagebyId', (req, res) => {
+  let Id = req.body.Id
+  AdminMessage.find({ _id: Id }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
 app.post('/getusertousermessage', (req, res) => {
   let ReceiverId = req.body.ReceiverId
   UserMessage.find({ ReceiverId: ReceiverId }, (err, data) => {

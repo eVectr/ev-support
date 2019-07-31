@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import '../../styles/MessageLogs.css'
 import axios from 'axios'
-import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 import ModalUi from './ModalUi'
 import MessageLogs from './MessageLogs'
 const MessageDetails = (props) => {
@@ -9,66 +9,38 @@ const MessageDetails = (props) => {
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [userMessage, setUserMessage] = useState([])
-  const [testIndex, setTestIndex] = useState('')
-  const [sendStatus, setSendStatus] = useState(false)
-  const [messageStatus, setMessageStatus] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [showReplyInput, setshowReplyInput] = useState(false)
+  const [adminMessage, setAdminMessage] = useState([])
   const [showMessageLogs, setShowMessageLogs] = useState(false)
   const [showTextArea, setshowTextArea] = useState(false)
-  let setactive = (parameter) => {
-    if (parameter == 1) {
-      setActiveTab('1')
-    } else if (parameter == 2) {
-      setActiveTab('2')
-    }
-  }
-  let onName = (e) => {
-    setName(e.target.value)
-  }
-  let onMessage = (e) => {
-    setMessage(e.target.value)
-  }
-  let sendMessage = () => {
-    setOpen(true)
-    setSendStatus(true)
-    let SenderId = JSON.parse(localStorage.user)._id
-    axios.post(`http://localhost:7777/usertousermessage`, { SenderId: SenderId, ReceiverName: name, Message: message })
-      .then(res => {
-
-      })
-  }
-
-  let closeModal = () => {
-    setOpen(false)
-  }
-  let usersendMessage = (e) => {
-    setMessageStatus(true)
-  }
+  
   useEffect(() => {
     axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
       .then(res => {
-        if (res.data.ReceiverName != 'admin') {
+        if (res.data.ReceiverName !== 'admin') {
           setUserMessage(res.data)
         }
       })
-   
+
+    axios.post(`http://localhost:7777/getadminmessagebyId`, { Id: props.messageId })
+      .then(res => {
+        setAdminMessage(res.data[0])
+      })
   }, [])
   
   let showTestMsgBox = () => {
-    setshowTextArea(!showTextArea)
-    
+    setshowTextArea(!showTextArea) 
   }
   let showReply = () => {
     setShowMessageLogs(!showMessageLogs)
   }
+  console.log('show case ===>', props.showCase)
   return (
     <div>
       <Row className="message-mail">
         <Col md="2" className="left-sidebar">
        
       </Col> 
-           
+          { props.showCase == '1'?
         <Col md="10" className="message-deatil-inner">
             <div className="message-section">
             <div className="detail-images">
@@ -117,7 +89,28 @@ const MessageDetails = (props) => {
       </div> : ''
         }
         </Col> 
-         
+        :<Fragment>{
+          props.showCase == '0'?
+          //<Col md="10" className='message-deatil-inner'>
+          <div className='message-section'>
+            <div className='detail-images'>
+                <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
+            </div>
+            <div className='head-mess'>
+          <h3>Receiver </h3><span>2019-07-20</span>
+          </div>
+          <div className="summay-message">
+          <p>
+              Hello  Hello  Hello  Hello
+              Hello  Hello  Hello  Hello
+              
+          </p>
+        </div>
+          </div>
+         // </Col>
+          
+         :'sent messages'
+        }</Fragment>}
       </Row>
     </div>
   )
