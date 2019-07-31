@@ -431,3 +431,18 @@ svg.styles_closeIcon__1QwbI path {
     color: #08a008;
     font-weight: bold;
 }
+.messagelogs .pagination {
+    margin: 12px 5px;
+    justify-content: flex-end;
+}
+.messagelogs .pagination span {
+    color: black;
+}
+.pagination-msg {
+    position: absolute;
+    right: 20px;
+    
+}
+.message-box.table{
+    margin-top: 25px;
+}

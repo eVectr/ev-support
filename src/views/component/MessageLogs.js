@@ -4,7 +4,7 @@ import MessageDetails from './MessageDetails'
 import axios from 'axios'
 import TimeAgo from 'timeago-react';
 import timeago from 'timeago.js';
-import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText } from 'reactstrap'
+import { Container, Row, Col, Table, Form,CardBody,UncontrolledCollapse,FormGroup, Label, Input, FormText, Button, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText,Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 import ModalUi from './ModalUi'
 
 const MessageLogs = (props) => {
@@ -81,6 +81,16 @@ const MessageLogs = (props) => {
     <div className="messagelogs">
       <Row className="message-mail">
         <h2>Message</h2>
+        <div className="pagination-msg">
+            <Pagination aria-label="Page navigation example">
+                      <PaginationItem>
+                          <PaginationLink first href="#" />
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationLink last href="#"/>
+                        </PaginationItem>
+              </Pagination>
+        </div>
         {showMessageDetails?<h2 className="backtopage" onClick={() => showReply()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2>:''}
         <Col md="2" className="left-sidebar">
         <Nav vertical>
@@ -109,6 +119,7 @@ const MessageLogs = (props) => {
             {showCase == '0' ?
 
               <Col md="10">
+               
                 <Table striped className="message-box">
                   <tbody>
                     {adminMessage.map((message, index) => {
@@ -128,15 +139,14 @@ const MessageLogs = (props) => {
                     }
                   </tbody>
                 </Table>
+                
+         
               </Col> : <Fragment>
                 {showCase == '1'?
                 <Col md="10">
                 <Table striped className="message-box">
                   <tbody>
                     {userMessage.map((message, index) => {
-
-                      let time = Date.now() - message.Date
-                      console.log('date ==>', time)
 
                       return (<tr onClick={() => showReply('test')}>
                         <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
@@ -179,6 +189,7 @@ const MessageLogs = (props) => {
           </Fragment>
         :<MessageDetails/>
       }
+      
       </Row>
     </div>
   )
