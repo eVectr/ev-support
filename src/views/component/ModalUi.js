@@ -7,7 +7,8 @@ import '../../styles/MessageLogs.css'
 import { isCallExpression } from '@babel/types';
 const ModalUi = props => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedUser, setSelectedUser] = useState('')
+  const [selectedUserId, setSelectedUserId] = useState('')
+  const [selectedUserName, setSelectedUserName] = useState('')
   const [Message, setMessage] = useState('')
   const [AdminMessage, setAdminMessage] = useState('')
   const [options, setOptions] = useState([])
@@ -35,8 +36,12 @@ const ModalUi = props => {
               const updated = prev.concat(res.data[i]._id)
               return updated
             })
+            let data = {
+              Id: res.data[i]._id,
+              Name: res.data[i].Name
+            }
             setOptions(prev => {
-              const updated = prev.concat({ value:res.data[i]._id, label:res.data[i].Name})
+              const updated = prev.concat({ value:data, label:res.data[i].Name})
               return updated
             })
           }
@@ -64,36 +69,36 @@ const ModalUi = props => {
   }
 
   let onSelect = (e) => {
-    setSelectedUser(e.value)
+    console.log('selecte value ==>', e.value)
+    setSelectedUserId(e.value.Id)
+    setSelectedUserName(e.value.Name)
   }
-
-
   let composeMessage = () => {
-    if (Message == '' || selectedUser == '') {
+    if (Message == '' || selectedUserId === '') {
       setErrors('Please select required fields')
     } else {
-      changeUserStatue().then(res =>{
+      changeUserStatue().then(res => {
         setTimeout(() => {
           setSuccessModal(false)
-       }, 1000)
+      }, 1000)
       })
       axios.post(`http://localhost:7777/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
-        ReceiverId: selectedUser,
+        ReceiverId: selectedUserId,
+        ReceiverName: selectedUserName,
         Message: Message
       })
         .then(res => {
           setUsermessagesend(true)
           console.log('res ==>', res)
-
           setMessage('')
         })
     }
   }
 
   let changeStatue = () =>{
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
       resolve(setAdminSuccessModal(!showAdminSuccessModal))
     })
   }

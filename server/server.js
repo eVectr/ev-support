@@ -15,6 +15,7 @@ const ClientSurveyResponse = require('../db/clientSurveyResoponse')
 const SupportAgent = require('../db/supportagent')
 const TransactionSurveyResponse = require('../db/transactionSurveyResponse')
 const MessageLogs = require('../db/messagelogs')
+const UserMessagelogs = require('../db/usermessagelogs')
 const UserMessage = require('../db/usermessage')
 const AdminMessage = require('../db/adminmessage')
 const Notification = require('../db/notification')
@@ -751,16 +752,19 @@ app.post('/messagelogs', (req, res) => {
 // })
 
 app.post('/usertousermessage', (req, res) => {
- 
+  let Id = req.body.Id
   let SenderName = req.body.SenderName
   let SenderId = req.body.SenderId
   let ReceiverId = req.body.ReceiverId
+  let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
   let date = Date.now()
   var usermessage = new UserMessage({
+    Id: Id,
     SenderName: SenderName,
     SenderId: SenderId,
     ReceiverId: ReceiverId,
+    ReceiverName: ReceiverName,
     Message: Message,
     Date: date
   })
@@ -772,8 +776,7 @@ app.post('/usertousermessage', (req, res) => {
       console.log('user message ==>', data)
       res.send(data)
     }
-  })
-  
+  }) 
   var notification = new Notification({
     Type: 'User to User Message',
     Date: date,
@@ -836,7 +839,18 @@ app.post('/getadminmessagebyId', (req, res) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/getsentmessagebyId', (req, res) => {
+  let Id = req.body.Id
+  UserMessage.find({ _id: Id }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('user message ==>', data)
       res.send(data)
     }
   })
@@ -866,8 +880,30 @@ app.post('/getallusertousermessage', (req, res) => {
   })
 })
 
-app.post('/missedchatmessage', (req, res) => {
-  
+app.post('/checkallusertousermessage', (req, res) => {
+  let Id = req.body.Id
+  UserMessage.find({ Id: Id }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+app.post('/checkallusermessage', (req, res) => {
+  let Id = req.body.Id
+  UserMessage.find({ _id: Id }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/missedchatmessage', (req, res) => { 
   var notification = new Notification({
     Type: req.body.Type,
     SentBy: req.body.SenderId,
@@ -876,6 +912,37 @@ app.post('/missedchatmessage', (req, res) => {
     Date: Date.now()
   })
   notification.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+app.post('/usermessagelogs', (req, res) => {
+
+  var usermessagelogs = new UserMessagelogs({
+    Id: req.body.Id,
+    SenderName: req.body.SenderName,
+    ReceiverName: req.body.ReceiverName,
+    Message: req.body.Message,
+    Date: Date.now()
+  })
+  usermessagelogs.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/getusermessagelogs', (req, res) => {
+  let Id = req.body.Id
+  console.log("Id ==>", Id)
+  UserMessagelogs.find({ Id: Id }, (err, data) => {
     if (err) {
       res.send(err)
     } else {
