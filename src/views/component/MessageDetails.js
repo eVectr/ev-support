@@ -5,9 +5,7 @@ import { Row, Col } from 'reactstrap'
 import ModalUi from './ModalUi'
 import MessageLogs from './MessageLogs'
 const MessageDetails = (props) => {
-  const [activeTab, setActiveTab] = useState('1')
-  const [name, setName] = useState('')
-  const [message, setMessage] = useState('')
+ 
   const [userMessage, setUserMessage] = useState([])
   const [adminMessage, setAdminMessage] = useState([])
   const [showMessageLogs, setShowMessageLogs] = useState(false)
@@ -35,50 +33,42 @@ const MessageDetails = (props) => {
   }
   console.log('show case ===>', props.showCase)
   return (
-    <div>
+    <div className="messagedetail">
       <Row className="message-mail">
         <Col md="2" className="left-sidebar">
        
       </Col> 
           { props.showCase == '1'?
         <Col md="10" className="message-deatil-inner">
-            <div className="message-section">
+          <div className="message-outer">
+            <div className="conversation-mess ">
             <div className="detail-images">
                 <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
             </div>
             <div className="head-mess">
-            <h3>Sender </h3><span>2019-07-20</span>
+            <h3>Manoj </h3><span>2019-07-20</span>
             </div>
             <div className="summay-message">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-            </div>
+                    <p>
+                       hello
+                    </p>
+              </div>
+              </div>
             <div className="conversation-mess">
                 <div className="detail-images">
                     <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                 </div>
                 <div className="head-mess">
-                    <h3>Receiver </h3><span>2019-07-20</span>
+                    <h3>Love </h3><span>2019-07-20</span>
                 </div>
                 <div className="summay-message">
                     <p>
-                        Lorem Ipsum is simply dummy Lorem Ipsum  of Lorem Ipsum.
-                    </p>
-                </div>
-                <div className="detail-images">
-                    <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
-                </div>
-                <div className="head-mess">
-                    <h3>Receiver </h3><span>2019-07-28</span>
-                </div>
-                <div className="summay-message">
-                    <p>
-                      hello
+                       their is no longer msg 
                     </p>
                 </div>
                 </div>
-            </div>
+                </div>
+           
             <div className="Reply-section">
                 <button onClick={showTestMsgBox}><span><i class="fas fa-reply"></i></span>Reply</button>
             </div>
