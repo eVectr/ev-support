@@ -39,7 +39,6 @@ const AdminTicket = (props) => {
       })
     axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
-        console.log(res, '<<<<<<<<======= contact')
         setContacts(res.data)
       })
   }, [reply, messageLogs])
@@ -47,7 +46,7 @@ const AdminTicket = (props) => {
   let sendemail = () => {
     axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
       .then(res => {
-        console.log("replyy===> ", res)
+        console.log('replyy===>', res)
         setContacts([res.data])
         setReply('')
       })
@@ -62,42 +61,42 @@ const AdminTicket = (props) => {
   }
 
   useEffect(() => {
-    if(selectedTab == 0){
-     setActive("Document")
-    }else if(selectedTab == 1){
-      setActive("Image")
-    }else if(selectedTab == 2){
-      setActive("Link")
+    if (selectedTab === 0) {
+      setActive('Document')
+    } else if (selectedTab === 1) {
+      setActive('Image')
+    } else if (selectedTab === 2) {
+      setActive('Link')
     }
-    else{
-      setActive("Document")
+    else {
+      setActive('Document')
     }
   }, [selectedTab])
 
   const renderTabs = () => {
     //switch (selectedTab) {
-      if(selectedTab == 0){
-        return <Document contacts={contacts} />
-      }else if(selectedTab == 1){
-        return <Images contacts={contacts} />
-      }else if(selectedTab == 2){
-        return <Link contacts={contacts} />
-      }
-      else{
-        return <Document />
-      }
-      // case 0: return () => {
-      //   //setActive('Document')
-      //     return <Document contacts={contacts} />
-      // }
-      // case 1:
-      //    // setActive('Image')
-      //   return <Images contacts={contacts} />
-      // case 2:
-      //    // setActive('Link')
-      //   return <Link contacts={contacts} />
-      // default:
-      //   return <Document />
+    if (selectedTab === 0) {
+      return <Document contacts={contacts} />
+    } else if (selectedTab === 1) {
+      return <Images contacts={contacts} />
+    } else if (selectedTab === 2) {
+      return <Link contacts={contacts} />
+    }
+    else {
+      return <Document />
+    }
+    // case 0: return () => {
+    //   //setActive('Document')
+    //     return <Document contacts={contacts} />
+    // }
+    // case 1:
+    //    // setActive('Image')
+    //   return <Images contacts={contacts} />
+    // case 2:
+    //    // setActive('Link')
+    //   return <Link contacts={contacts} />
+    // default:
+    //   return <Document />
     //}
   }
 
