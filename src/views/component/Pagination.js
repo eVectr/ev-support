@@ -18,7 +18,7 @@ const PaginationAdmin = ({ paginate, pageNumber, totalPages }) => {
         pageNumbers.map((number, index) => {
           return (
             <PaginationItem active={number === pageNumber} >
-              <PaginationLink onClick ={() => paginate(number)} className={number === pageNumber ? 'pagination-color' : ''}>{number}</PaginationLink>
+              <PaginationLink onClick = {() => paginate(number)} className={number === pageNumber ? 'pagination-color' : ''}>{number}</PaginationLink>
             </PaginationItem>
           )
         })
@@ -32,5 +32,3 @@ const PaginationAdmin = ({ paginate, pageNumber, totalPages }) => {
 }
 export default PaginationAdmin
 
-//
-//

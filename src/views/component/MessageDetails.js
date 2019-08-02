@@ -12,7 +12,7 @@ const MessageDetails = (props) => {
   const [sentMessage, setSentMessage] = useState([])
   const [replyMessage, setReplyMessage] = useState('')
   const [showTextArea, setshowTextArea] = useState(false)
-  
+
   useEffect(() => {
     // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
     //   .then(res => {
@@ -37,16 +37,18 @@ const MessageDetails = (props) => {
   }, [])
 
   useEffect(() => {
-    axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
-      .then(res => {
-        console.log('res -======>', res)
-        setUserMessageLogs(res.data)
-      })
-    axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
-      .then(res => {
-        console.log(' logs res -======>', res)
-        setUserMessageLogs(res.data)
-      })
+    if (props.showCase === 1) {
+      axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
+        .then(res => {
+          console.log('res -======>', res)
+          setUserMessageLogs(res.data)
+        })
+      axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
+        .then(res => {
+          console.log(' logs res -======>', res)
+          setUserMessageLogs(res.data)
+        })
+    }
   }, [userMessage])
 
   let showTestMsgBox = () => {
@@ -89,7 +91,7 @@ const MessageDetails = (props) => {
     setReplyMessage(e.target.value)
   }
   
-  console.log('props ===>', props.messageId)
+  console.log('usermessage logs ===>', userMessageLogs)
 
   return (
     <div className="messagedetail">

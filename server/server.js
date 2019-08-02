@@ -788,6 +788,31 @@ app.post('/usertousermessage', (req, res) => {
   notification.save()
 })
 
+app.get('/getnotification', (req, res) => {
+  Notification.find((err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/deletenotification', (req, res) => {
+  let Id = req.body.Id
+  Notification.findOneAndRemove({ _id: Id }, (err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
 app.post('/admintousermessage', (req, res) => {
 
   let SenderName = 'eVectr'

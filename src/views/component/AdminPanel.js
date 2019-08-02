@@ -336,8 +336,6 @@ const AdminPanel = (props) => {
           </Col>
         </Row> : ''}
       <Row className="sendTextarea">
-       
-       
       </Row>
       <Row>
         <Col>
