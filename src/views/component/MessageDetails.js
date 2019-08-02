@@ -11,7 +11,7 @@ const MessageDetails = (props) => {
   const [adminMessage, setAdminMessage] = useState([])
   const [sentMessage, setSentMessage] = useState([])
   const [replyMessage, setReplyMessage] = useState('')
-  const [showTextArea, setshowTextArea] = useState(false)
+  const [showTextArea, setshowTextArea] = useState(true)
   const [Errors, setErrors] = useState('')
   useEffect(() => {
     // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
@@ -153,7 +153,7 @@ const MessageDetails = (props) => {
                 </div>
            
             <div className="Reply-section">
-                <button onClick={showTestMsgBox}><span><i class="fas fa-reply"></i></span>Reply</button>
+                <button><span><i class="fas fa-reply"></i></span>Reply</button>
             </div>
             {
           showTextArea ?  <div className="reply-detail-text">
