@@ -1,0 +1,28 @@
+.footer {
+    background-color: #020e3a;
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    padding: 25px;
+    bottom: 0;
+
+}
+.App {
+    text-align: left;
+    height: 100vh;
+    position: relative;
+}
+.footer p strong {
+    color: white;
+    font-size: 16px;
+    line-height: 0px;
+    font-weight: 600;
+}
+.footer p {
+    line-height: 0px;
+}
+.containers.container {
+    overflow-y: scroll;
+    height: calc(100vh - 150px);
+    overflow-x: hidden;
+}

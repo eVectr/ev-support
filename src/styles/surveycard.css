@@ -157,3 +157,7 @@
     padding: 10px 10px;
     margin-top: 20px;
 }
+.transaction-survey {
+    overflow: scroll;
+    height: calc(100vh - 100px);
+}
