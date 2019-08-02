@@ -8,7 +8,7 @@ const Footer = (props) => {
         <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <strong>CopyRight@zestgeek.com</strong> 
+            <strong>CopyRight@P2P.com</strong> 
           </p>
         </div>
       </footer>

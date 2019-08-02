@@ -105,8 +105,8 @@ body {
 }
 
 .form-container {
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
 }
 
 .error-message-text {
@@ -141,16 +141,14 @@ body {
 
 .contact-form {
   border: 1px solid;
-  border-color: #00d1b2;
-  top:10%;
-  margin-bottom: 5%;
-
-  width: 50%;
-  background: #fff;
-  position: absolute;
-  box-shadow: 0px 2px 5px rgba(0,0,0,.25);
-  /* position: relative;  */
-  margin-top: 30px;
+    border-color: #00d1b2;
+    top: 30%;
+    margin-bottom: 5%;
+    width: 50%;
+    background: #fff;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.25);
+    margin-top: 30px;
+    margin: auto;
 }
 
 .contact-form .button {
@@ -495,4 +493,8 @@ a.navbar-item:hover {
 }
 .navbar-brand {
   display: none !important;
+}
+.home-user {
+  overflow: scroll;
+  height: calc(100vh - 120px);
 }

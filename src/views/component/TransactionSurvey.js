@@ -262,7 +262,7 @@ const SurveyCard = (props) => {
   }
 
   return (
-    <div className='container'>
+    <div className='transaction-survey'>
       <div className='row'>
         <div className='survey-card'>
           <div class='surveycard'>

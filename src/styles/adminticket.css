@@ -415,3 +415,12 @@ button.reply-btn.btn.btn-secondary {
     font-weight: bold;
     margin-top: 15px;
 }
+.containers {
+    overflow: scroll;
+    height: calc(100vh - 120px);
+    z-index: 0;
+}
+.inner-containers {
+    max-width: 1140px;
+    margin: auto;
+}

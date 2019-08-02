@@ -269,7 +269,8 @@ const AdminPanel = (props) => {
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
 
   return (
-    <Container className='containers'>
+    <div className="containers">
+      <div className="inner-containers">
       <Row>
         <Col>
           <div className='admin-panel'>
@@ -394,7 +395,8 @@ const AdminPanel = (props) => {
           }
         </Col>
       </Row>
-    </Container>
+      </div>
+    </div>
   )
 }
 
