@@ -6,6 +6,7 @@ import RegisterForm from './component/RegisterForm'
 import StandardForm from './component/StandardForm'
 import OptionalForm from './component/OptionalForm'
 import Navbar from './component/Navbar'
+import Footer from './component/Footer'
 import SelectReason from './component/SelectReason'
 import AdminPanel from './component/AdminPanel'
 import Support from './component/Support'
@@ -39,6 +40,7 @@ const Routes = (props) => {
           <Route exact path='/messageLogs' component={MessageLogs} />
           
         </Switch>
+        <Footer />
       </RouterChangeObserver>
     </BrowserRouter>
   )

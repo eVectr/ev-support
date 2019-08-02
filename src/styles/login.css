@@ -489,9 +489,7 @@ a.navbar-item:hover {
     background-color: transparent;
     color: #61709b !important;
 }
-.selectedtab.list-group-item span {
-  color: #61709b !important;
-}
+
 .navbar {
   padding: 0.2rem 0rem !important;
 }

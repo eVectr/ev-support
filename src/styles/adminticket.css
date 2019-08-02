@@ -9,8 +9,8 @@
 .comments p {
     border-bottom: 1px solid #999;
     font-family: 'Roboto';
-    margin-left: 45px;
-    padding-left: 25px;
+    margin-left: 40px;
+    padding-left: 0px;
     color: #212529;
     font-size: 24px;
     font-weight: 600;
@@ -89,8 +89,8 @@
 } */
     
 .reply-btn { 
-    background-color: #1f5f9e;
-    border: 2px solid #1f5f9e;
+    background-color: #4c6eb3;
+    border: 2px solid #4c6eb3;
     color:#fff; 
     padding:10px 15px; 
     font-size: 14px;
@@ -170,12 +170,13 @@
 /* ------------------_Contact-log--------Ui------------------------------ */
 
 .settings-tab {
-    background-color: #edf0f4;
+    background-color: #eaf1f1 !important;
     padding:15px;
      /* margin-top: 135px;  */
     /* min-height: 100vh; */
     position: fixed;
-    z-index: 1;
+    height: calc(100vh - 100px);
+    z-index: 0;
 }
 
 .settings-tab-list {
@@ -199,8 +200,8 @@
    color: #212529;;
     font-size: 24px;
     font-weight: 600;
-    padding:20px;
-    margin-bottom:0;
+    padding:0px;
+    margin-bottom:20px;
 }
 .user-img img{
     border-radius:50%;
@@ -219,10 +220,10 @@
     font-weight: 500;
     justify-content: center;
     line-height: 70px;
-    color: white;
+    color: black;
 }
 span {
-    color: white;
+    color: #3e3b3b;
     font-weight: 700;
     font-size: 15px;
 }
@@ -237,7 +238,7 @@ span {
     font-weight: 700;
     font-size: 15px;
     margin-right: 4px;
-    color:#2c9213;
+    color:#ca6627;
 }
 
 .document-uploaded{
@@ -251,9 +252,12 @@ span {
     background-color:#fff!important;
     box-shadow: none!important;
 }
+.selectedtab.list-group-item span {
+    color: #00d1b2 !important;
+  }
 
 .show-card{
-    min-height: 391px!important;
+    min-height: 150px!important;
     margin-bottom: 0;
 }
 
@@ -342,17 +346,24 @@ margin-bottom: 40px;
     /* padding-left: 2% !important; */
 }
 .list-group-item span {
-    color: white;
+    color: #3e3b3b;
     font-weight: bold;
     font-size: 18px;
 }
 .show-card.card {
-    margin-top: 30px;
+    margin-top: 15px;
     border: none !important;
     box-shadow: none;
 }
 .admin-chats-data.col {
     margin-bottom: 12px;
+    margin-top: 20px;
+}
+.comment-inner.col-md-10.offset-md-1 {
+    margin-left: 40px;
+    width: 100%;
+    max-width: 100% !important;
+    flex: 100% !important;
 }
 .user-info {
     margin-top: 0px;
@@ -365,7 +376,7 @@ margin-bottom: 40px;
     padding-left: 10px;
 }
 .selectedtab.list-group-item {
-    background-color: #2d3758 !important;
+    background-color: #e0f9f6 !important;
 
 }
 .notselected {
@@ -375,9 +386,32 @@ margin-bottom: 40px;
     text-align: right;
     float: right;
     margin: 0px 18px;
+    cursor: pointer;
 }
 .editicon i {
     font-size: 18px;
     font-weight: bold;
-    color: white;
+    color: #00d1b2;
+}
+.right-tab {
+    height: calc(100vh - 100px);
+    overflow: scroll;
+}
+.status-field {
+    width: 300px;
+    margin-top: 20px;
+    padding: 10px;
+    background: #eaf1f1;
+    border: 1px solid #5cd2b2;
+    outline: none;
+}
+button.reply-btn.btn.btn-secondary {
+    background-color: #4c6eb3;
+    border: 2px solid #4c6eb3;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 15px;
 }

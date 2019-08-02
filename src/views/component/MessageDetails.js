@@ -12,7 +12,7 @@ const MessageDetails = (props) => {
   const [sentMessage, setSentMessage] = useState([])
   const [replyMessage, setReplyMessage] = useState('')
   const [showTextArea, setshowTextArea] = useState(false)
-  
+  const [Errors, setErrors] = useState('')
   useEffect(() => {
     // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
     //   .then(res => {
@@ -55,16 +55,20 @@ const MessageDetails = (props) => {
     setshowTextArea(!showTextArea) 
   }
   let sendReply = () => {
-    axios.post(`http://localhost:7777/usermessagelogs`, {
-      Id: userMessage._id,
-      SenderName: userMessage.SenderName,
-      ReceiverName: userMessage.ReceiverName,
-      Message: replyMessage
-    })
-      .then(res => {
-        console.log('send reply ==>', res)
+    if (replyMessage == '') {
+      setErrors('Please fill in this filed')
+    } else {
+      setErrors('success')
+      axios.post(`http://localhost:7777/usermessagelogs`, {
+        Id: userMessage._id,
+        SenderName: userMessage.SenderName,
+        ReceiverName: userMessage.ReceiverName,
+        Message: replyMessage
       })
-
+        .then(res => {
+          console.log('send reply ==>', res)
+        })
+    }
     axios.post(`http://localhost:7777/checkallusertousermessage`, { Id: userMessage._id })
       .then(res => {
         console.log('check response ==>', res.data)
@@ -155,6 +159,7 @@ const MessageDetails = (props) => {
           showTextArea ?  <div className="reply-detail-text">
           <textarea placeholder="input reply" onChange = {(e) =>onReplyChange(e)}></textarea>
           <button className="message-btn btn btn-secondary" onClick = {sendReply}>Send</button>
+           <p className="error-msg">{Errors != 'success'? Errors: ''}</p>
       </div> : ''
         }
         </Col> 
