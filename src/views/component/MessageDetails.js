@@ -37,16 +37,18 @@ const MessageDetails = (props) => {
   }, [])
 
   useEffect(() => {
-    axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
-      .then(res => {
-        console.log('res -======>', res)
-        setUserMessageLogs(res.data)
-      })
-    axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
-      .then(res => {
-        console.log(' logs res -======>', res)
-        setUserMessageLogs(res.data)
-      })
+    if (props.showCase === 1) {
+      axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
+        .then(res => {
+          console.log('res -======>', res)
+          setUserMessageLogs(res.data)
+        })
+      axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
+        .then(res => {
+          console.log(' logs res -======>', res)
+          setUserMessageLogs(res.data)
+        })
+    }
   }, [userMessage])
 
   let showTestMsgBox = () => {
@@ -94,13 +96,26 @@ const MessageDetails = (props) => {
   return (
     <div className="messagedetail">
       <Row className="message-mail">
-        <Col md="2" className="left-sidebar">
+        {/* <Col md="2" className="left-sidebar">
 
-      </Col> 
+      </Col>  */}
           { props.showCase == '1'?
         <Col md="10" className="message-deatil-inner">
           <div className="message-outer">
             <div className="conversation-mess ">
+            <div className="detail-images">
+                <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
+            </div>
+            <div className="head-mess">
+            <h3>{userMessage.SenderName}</h3><span>{moment(userMessage.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+            </div>
+            <div className="summay-message">
+                    <p>
+                    {userMessage.Message}
+                    </p>
+              </div>
+              </div>
+              <div className="conversation-mess receiver ">
             <div className="detail-images">
                 <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
             </div>
@@ -146,6 +161,8 @@ const MessageDetails = (props) => {
         :<Fragment>{
           props.showCase == '0'?
           <Col md="10" className='message-deatil-inner'>
+             <div className="conversation-mess">
+
           <div className='message-section'>
             <div className='detail-images'>
                 <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
@@ -159,10 +176,12 @@ const MessageDetails = (props) => {
           </p>
         </div>
           </div>
+          </div>
           </Col>
           
          :
          <Col md="10" className='message-deatil-inner'>
+        <div className='conversation-mess'>
          <div className='message-section'>
            <div className='detail-images'>
                <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
@@ -175,6 +194,7 @@ const MessageDetails = (props) => {
             {sentMessage.Message}
          </p>
        </div>
+         </div>
          </div>
          </Col>
         }</Fragment>}

@@ -126,7 +126,7 @@
     font-size: 22px;
     background: transparent;
     text-align: left;
-    padding: 0px 80px 8px 30px;
+    padding: 0px 80px 8px 0px;
     text-transform: capitalize;
 }
 .adminlink {
@@ -308,9 +308,7 @@ svg.styles_closeIcon__1QwbI path {
     overflow: hidden;
     max-width: 200px;
 }
-.message-deatil-inner {
-    transform: translate(20px, -548px)
-}
+
 .message-box th {
     padding-top: 0 !important;
     padding-bottom: 0px !important;
@@ -377,7 +375,7 @@ svg.styles_closeIcon__1QwbI path {
     width: 100%;
 }
 .backtopage {
-    transform: translate(242px, 32px);
+    transform: translate(272px, 32px);
     cursor: pointer;
     position: absolute;
     font-weight: 400;
@@ -414,14 +412,14 @@ svg.styles_closeIcon__1QwbI path {
 }
 .message-mail.row {
     position: relative;
-    top: 82%;
+    top: 10%;
     left: 0;
     padding: 0;
 }
 .messagedetail {
     width: 78%;
     left: 0;
-    transform: translate(-180px, 40px);
+    /* transform: translate(-180px, 40px); */
 }
 .error-msg {
     text-align: center;
@@ -466,4 +464,7 @@ svg.styles_closeIcon__1QwbI path {
 }
 .receiver {
     margin-left: 4%;
+}
+.message-deatil-inner.col-md-10 {
+    padding: 0px 45px;
 }
