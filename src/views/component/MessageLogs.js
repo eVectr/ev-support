@@ -213,7 +213,7 @@ const MessageLogs = (props) => {
                               <img src={require('../../images/loader.gif')} />
                             </div> :
                             <tbody>
-                              {userMessagePagination.map((message, index) => {
+                              {sentMessagePagination.map((message, index) => {
                                 return (<tr onClick={() => onMessageClick(message._id)}>
                                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                                   <td className="name-table">{message.ReceiverName}</td>
