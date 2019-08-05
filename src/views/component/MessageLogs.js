@@ -49,8 +49,9 @@ const MessageLogs = (props) => {
     setshowCase(c)
   }
   useEffect(() => {
-    axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
-      .then(res => {
+   // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    axios.post(`http://3.83.23.220:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    .then(res => {
         if (res.data.length < 1) {
           setIsNoUserData(true)
         }
@@ -59,8 +60,9 @@ const MessageLogs = (props) => {
           const updated = prev.concat(res.data.reverse())
           return updated
         })
-        axios.post(`http://localhost:7777/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
-          .then(res => {
+       // axios.post(`http://localhost:7777/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        axios.post(`http://3.83.23.220:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        .then(res => {
             if (res.data.length < 1) {
               setIsNoSentData(true)
             }
@@ -76,7 +78,8 @@ const MessageLogs = (props) => {
           })
       })
 
-    axios.get(`http://localhost:7777/getadminmessage`)
+    //axios.get(`http://localhost:7777/getadminmessage`)
+    axios.get(`http://3.83.23.220:7788/getadminmessage`)
       .then(res => {
         if (res.data.length < 1) {
           setIsNoAdminData(true)

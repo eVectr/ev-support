@@ -35,20 +35,23 @@ const AdminTicket = (props) => {
   const [showTextArea, setshowTextArea] = useState(false)
 
   useEffect(() => {
-    axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
-      .then(res => {
+    //axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
+    axios.post(`http://3.83.23.220:7788/messagelogs`, { ID: props.match.params.id })
+    .then(res => {
         setMessageLogs(res.data.reverse())
       })
-    axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
-      .then(res => {
+   // axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
+    axios.post(`http://3.83.23.220:7788/getcontactbycaseno`, { caseno: props.match.params.id })
+    .then(res => {
         setLoader(false)
         setContacts(res.data)
       })
   }, [reply, messageLogs])
 
   let sendemail = () => {
-    axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
-      .then(res => {
+   // axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
+    axios.post(`http://3.83.23.220:7788/adminreply`, { ID: props.match.params.id, Message: reply })
+    .then(res => {
         console.log('replyy===>', res)
         setContacts([res.data])
         setReply('')

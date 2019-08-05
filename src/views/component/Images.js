@@ -11,7 +11,8 @@ const Images = ({ contacts }) => {
           contacts[0].Image.map(img => {
             let getimg = img.split('/')[1]
             console.log(getimg, '<======getImage')
-            let url = 'http://localhost:7777/'
+            //let url = 'http://localhost:7777/'
+            let url = 'http://3.83.23.220:7788/'
             let imgurl = url.concat(getimg)
             console.log(imgurl, '<====imageurl')
 
