@@ -475,4 +475,5 @@ svg.styles_closeIcon__1QwbI path {
 .messagelogs .col-md-10 {
     overflow: scroll;
     height: calc(100vh - 100px);
+    pointer-events: none;
 }
