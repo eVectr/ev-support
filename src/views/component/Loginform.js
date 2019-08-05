@@ -50,8 +50,9 @@ const Loginform = (props) => {
     let username = data.username
     let password = data.password
 
-    axios.post(`http://localhost:7777/login`, { username: username, password: password })
-      .then(res => {
+    //axios.post(`http://localhost:7777/login`, { username: username, password: password })
+    axios.post(`http://3.83.23.220:7788/login`, { username: username, password: password })
+    .then(res => {
         // console.log("res.data =>", res.data.data[0].Type)
         setLoader(false)
         if (res.data.check) {

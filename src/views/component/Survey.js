@@ -77,7 +77,7 @@ const SurveyCard = props => {
     let { Type = '' } = user || {}
     authRoutes(props)
     setLoader(true)
-    axios.get(`http://18.219.191.74:7777/getclientsurvey`).then(res => {
+    axios.get(`http://3.83.23.220:7788/getclientsurvey`).then(res => {
       let { data = [] } = res
       console.log('data ==>', data)
 

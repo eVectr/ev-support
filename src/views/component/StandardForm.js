@@ -96,7 +96,7 @@ const ContactForm = (props) => {
   }
 
   return (
-    <div className='form-container'>
+    <div className='form-container homeForms'>
       <div className='contact-form'>
         <div className='header'> <span>Contact Us</span> </div>
 

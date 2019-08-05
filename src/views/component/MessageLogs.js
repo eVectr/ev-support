@@ -5,6 +5,8 @@ import axios from 'axios'
 import TimeAgo from 'timeago-react'
 import { Row, Col, Button, Table, Nav, NavItem, NavLink, Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 import ModalUi from './ModalUi'
+import MessagePagination from './MessagePagination'
+import { limit } from '../../utils/Const';
 const MessageLogs = (props) => {
   const [userMessage, setUserMessage] = useState([])
   const [adminMessage, setAdminMessage] = useState([])
@@ -19,6 +21,18 @@ const MessageLogs = (props) => {
   const [isNoUserData, setIsNoUserData] = useState(false)
   const [isNoAdminData, setIsNoAdminData] = useState(false)
   const [isNoSentData, setIsNoSentData] = useState(false)
+  const [start, setStart] = useState(0)
+  const nextPage = () => {
+    console.log(setStart(start + limit), 'setStart(start + limit)')
+    setStart(start + limit)
+  }
+  const prevPage = () => {
+    console.log(setStart(start - limit), 'setStart(start - limit)setStart(start - limit)')
+    setStart(start - limit)
+  }
+  const adminMessagePagination = adminMessage.slice(start, start + limit)
+  const userMessagePagination = userMessage.slice(start, start + limit)
+  const sentMessagePagination = sentMessage.slice(start, start + limit)
 
   let sendMessage = () => {
     setOpen(true)
@@ -35,8 +49,9 @@ const MessageLogs = (props) => {
     setshowCase(c)
   }
   useEffect(() => {
-    axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
-      .then(res => {
+   // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    axios.post(`http://3.83.23.220:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    .then(res => {
         if (res.data.length < 1) {
           setIsNoUserData(true)
         }
@@ -45,8 +60,9 @@ const MessageLogs = (props) => {
           const updated = prev.concat(res.data.reverse())
           return updated
         })
-        axios.post(`http://localhost:7777/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
-          .then(res => {
+       // axios.post(`http://localhost:7777/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        axios.post(`http://3.83.23.220:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        .then(res => {
             if (res.data.length < 1) {
               setIsNoSentData(true)
             }
@@ -62,7 +78,8 @@ const MessageLogs = (props) => {
           })
       })
 
-    axios.get(`http://localhost:7777/getadminmessage`)
+    //axios.get(`http://localhost:7777/getadminmessage`)
+    axios.get(`http://3.83.23.220:7788/getadminmessage`)
       .then(res => {
         if (res.data.length < 1) {
           setIsNoAdminData(true)
@@ -83,20 +100,21 @@ const MessageLogs = (props) => {
   let backtopage = () => {
     setShowMessageDetails(!showMessageDetails)
   }
- console.log('userMessage =>', userMessage)
+ console.log(adminMessagePagination, "adminMessagePagination")
   return (
     <div className="messagelogs">
       <Row className="message-mail">
 
         <div className="pagination-msg">
-          <Pagination aria-label="Page navigation example">
-            <PaginationItem>
-              <PaginationLink first href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink last href="#" />
-            </PaginationItem>
-          </Pagination>
+          <MessagePagination
+            prevPage={prevPage}
+            nextPage={nextPage}
+            start={start}
+            limit={limit}
+            list={adminMessage}
+            list={userMessage}
+            list={sentMessage}
+          />
         </div>
         {showMessageDetails ? <h2 className="backtopage" onClick={() => backtopage()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2> : ''}
         <Col md="2" className="left-sidebar">
@@ -134,8 +152,8 @@ const MessageLogs = (props) => {
                           <img src={require('../../images/loader.gif')} />
                         </div> :
                         <tbody>
-                          {adminMessage.map((message, index) => {
-                            return (<tr onClick={() => onMessageClick(message._id)}>
+                          {adminMessagePagination.map((message, index) => {
+                            return (<tr onClick={() => onMessageClick(message._id)} key={index}>
                               <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                               <td className="name-table">{message.SenderName}</td>
                               <td class="message-detail">{message.Message}</td>
@@ -165,7 +183,7 @@ const MessageLogs = (props) => {
                               <img src={require('../../images/loader.gif')} />
                             </div> :
                             <tbody>
-                              {userMessage.map((message, index) => {
+                              {userMessagePagination.map((message, index) => {
                                 return (<tr onClick={() => onMessageClick(message._id,  message.Id)}>
                                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                                   <td className="name-table">{message.SenderName}</td>
@@ -195,7 +213,7 @@ const MessageLogs = (props) => {
                               <img src={require('../../images/loader.gif')} />
                             </div> :
                             <tbody>
-                              {sentMessage.map((message, index) => {
+                              {sentMessagePagination.map((message, index) => {
                                 return (<tr onClick={() => onMessageClick(message._id)}>
                                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                                   <td className="name-table">{message.ReceiverName}</td>

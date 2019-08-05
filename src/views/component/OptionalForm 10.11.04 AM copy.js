@@ -307,11 +307,15 @@ const ContactForm = (props) => {
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://localhost:7777/fileupload`, formData,
-                ).then(res => {
+                // axios.post(`http://localhost:7777/fileupload`, formData,
+                // )
+                axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+                )
+                .then(res => {
                     console.log("response =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
-                        .then(res => {
+                   // axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                   axios.post(`http://3.83.23.220:7788/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link }) 
+                   .then(res => {
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
                         })
@@ -341,11 +345,15 @@ const ContactForm = (props) => {
                 for (let i = 0; i < SelectedImage.length; i++) {
                     formData.append('SelectedImage', SelectedImage[i])
                 }
-                axios.post(`http://localhost:7777/upload`, formData,
-                ).then(res => {
+                // axios.post(`http://localhost:7777/upload`, formData,
+                // )
+                axios.post(`http://3.83.23.220:7788/upload`, formData,
+                )
+                .then(res => {
                     console.log("res =>", res)
-                    axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
-                        .then(res => {
+                   // axios.post(`http://localhost:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link })
+                    axios.post(`http://3.83.23.220:7788/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link }) 
+                    .then(res => {
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
                         })
@@ -377,8 +385,9 @@ const ContactForm = (props) => {
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
+                //axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link: showLinks })
                 axios.post(`http://18.219.191.74:7777/saveContact`, { Transaction_Number, Name, Email, Subject, Message, Case_No, Link: showLinks })
-                    .then(res => {
+                .then(res => {
                         console.log(res.data, 'link')
                         setshowFlashMsg(true)
                         if (res.data == 'saved') {
@@ -390,7 +399,7 @@ const ContactForm = (props) => {
         }
     }
     return (
-        <div className="form-container">
+        <div className="form-container homeForms">
             <Loader />
             <div className="contact-form">
                 <div className="header"> <span>Contact Us</span> </div>

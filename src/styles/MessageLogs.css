@@ -450,6 +450,8 @@ svg.styles_closeIcon__1QwbI path {
 .pagination-msg {
     position: absolute;
     right: 20px;
+    pointer-events: auto;
+    z-index: 1;
     
 }
 .message-box.table{
@@ -475,4 +477,5 @@ svg.styles_closeIcon__1QwbI path {
 .messagelogs .col-md-10 {
     overflow: scroll;
     height: calc(100vh - 100px);
+    /* pointer-events: none; */
 }

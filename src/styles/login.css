@@ -496,5 +496,13 @@ a.navbar-item:hover {
 }
 .home-user {
   overflow: scroll;
-  height: calc(100vh - 120px);
+    height: calc(100vh - 160px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.homeForms {
+  overflow: scroll;
+  height: calc(100vh - 160px);
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

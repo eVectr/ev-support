@@ -26,7 +26,8 @@ const ModalUi = props => {
     textAlign: 'center'
   }
   useEffect(() => {
-    axios.get(`http://localhost:7777/getalluser`)
+    //axios.get(`http://localhost:7777/getalluser`)
+    axios.get(`http://3.83.23.220:7788/getalluser`)
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
           if (res.data[i].Name === 'Admin' || res.data[i].Name === JSON.parse(localStorage.user).Name) {
@@ -82,7 +83,8 @@ const ModalUi = props => {
           setSuccessModal(false)
       }, 1000)
       })
-      axios.post(`http://localhost:7777/usertousermessage`, {
+      //axios.post(`http://localhost:7777/usertousermessage`, {
+        axios.post(`http://3.83.23.220:7788/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
         ReceiverId: selectedUserId,
@@ -118,7 +120,10 @@ const ModalUi = props => {
           setAdminSuccessModal(false)
        }, 1000)
       })
-    axios.post(`http://localhost:7777/admintousermessage`, { ReceiverId: userIds,
+    // axios.post(`http://localhost:7777/admintousermessage`, { ReceiverId: userIds,
+    //   Urgegent: isChecked,
+    //   Message: AdminMessage })
+      axios.post(`http://3.83.23.220:7788/admintousermessage`, { ReceiverId: userIds,
       Urgegent: isChecked,
       Message: AdminMessage })
       .then(res => {

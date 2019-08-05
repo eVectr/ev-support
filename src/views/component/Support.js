@@ -23,8 +23,9 @@ const SupportTicket = (props) => {
     let user = JSON.parse(localStorage.getItem('user'))
     let { _id = '', Type = '' } = user || {}
     if (_id) {
-      axios.post(`http://18.219.191.74:7777/getbyuserid`, { UserId: JSON.parse(localStorage.user)._id })
-        .then(res => {
+     // axios.post(`http://18.219.191.74:7777/getbyuserid`, { UserId: JSON.parse(localStorage.user)._id })
+      axios.post(`http://3.83.23.220:7788/getbyuserid`, { UserId: JSON.parse(localStorage.user)._id })
+      .then(res => {
           let { data = [] } = res
           setContacts(data.reverse())
           setLoader(false)
