@@ -12,6 +12,7 @@ const MessageDetails = (props) => {
   const [sentMessage, setSentMessage] = useState([])
   const [replyMessage, setReplyMessage] = useState('')
   const [showTextArea, setshowTextArea] = useState(true)
+  const [showLoader, setshowLoader] = useState(true)
   const [Errors, setErrors] = useState('')
   useEffect(() => {
     // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
@@ -30,12 +31,14 @@ const MessageDetails = (props) => {
     .then(res => {
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
+        setshowLoader(false)
        // axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
         axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
             console.log('res -======>', res)
             setUserMessageLogs(res.data)
           })
+          
       })
   }, [])
 
@@ -47,6 +50,7 @@ const MessageDetails = (props) => {
           console.log('res -======>', res)
           setUserMessageLogs(res.data)
         })
+        setshowLoader(false)
      // axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
       axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: props.logsId })
       .then(res => {
@@ -74,12 +78,14 @@ const MessageDetails = (props) => {
         .then(res => {
           console.log('send reply ==>', res)
         })
+        setshowLoader(false)
     }
     //axios.post(`http://localhost:7777/checkallusertousermessage`, { Id: userMessage._id })
     axios.post(`http://3.83.23.220:7788/checkallusertousermessage`, { Id: userMessage._id })
     .then(res => {
         console.log('check response ==>', res.data)
         if (res.data.length < 1) {
+         
           //axios.post(`http://localhost:7777/checkallusermessage`, { Id: props.messageId })
           axios.post(`http://3.83.23.220:7788/checkallusermessage`, { Id: props.messageId }) 
           .then(res => {
@@ -94,6 +100,7 @@ const MessageDetails = (props) => {
                   ReceiverName: userMessage.SenderName,
                   Message: replyMessage
                 })
+                
               }
             })
         }
@@ -113,6 +120,11 @@ const MessageDetails = (props) => {
 
       </Col>  */}
           { props.showCase == '1'?
+           <Fragment>
+           {showLoader ?
+             <div className='loader-img'>
+               <img src={require('../../images/loader.gif')} />
+             </div> :
         <Col md="10" className="message-deatil-inner">
           <div className="message-outer">
             <div className="conversation-mess ">
@@ -171,9 +183,15 @@ const MessageDetails = (props) => {
            <p className="error-msg">{Errors != 'success'? Errors: ''}</p>
       </div> : ''
         }
-        </Col> 
+           </Col> }
+        </Fragment>
         :<Fragment>{
           props.showCase == '0'?
+          <Fragment>
+          {showLoader ?
+            <div className='loader-img'>
+              <img src={require('../../images/loader.gif')} />
+            </div> :
           <Col md="10" className='message-deatil-inner'>
              <div className="conversation-mess">
 
@@ -191,9 +209,14 @@ const MessageDetails = (props) => {
         </div>
           </div>
           </div>
-          </Col>
+          </Col>}</Fragment>
           
          :
+         <Fragment>
+         {showLoader ?
+           <div className='loader-img'>
+             <img src={require('../../images/loader.gif')} />
+           </div> :
          <Col md="10" className='message-deatil-inner'>
         <div className='conversation-mess'>
          <div className='message-section'>
@@ -210,7 +233,7 @@ const MessageDetails = (props) => {
        </div>
          </div>
          </div>
-         </Col>
+         </Col>}</Fragment>
         }</Fragment>}
       </Row>
     </div>

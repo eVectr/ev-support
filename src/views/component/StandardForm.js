@@ -56,8 +56,9 @@ const ContactForm = (props) => {
       let date = Date.now()
       let Case_No = res
       let Link = []
-      axios.post(`http://localhost:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
-        Transaction_Number,
+     // axios.post(`http://localhost:7777/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+      axios.post(`http://3.83.23.220:7788/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+      Transaction_Number,
         Name,
         Email,
         Subject,
