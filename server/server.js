@@ -251,7 +251,7 @@ app.post('/updateStatus', (req, res) => {
     }
     else {
       console.log("updated docs ==>", doc)
-      res.send("updated")
+      res.send(doc)
     }
   })
 })
