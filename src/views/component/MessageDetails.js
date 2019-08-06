@@ -180,7 +180,11 @@ const MessageDetails = (props) => {
           showTextArea ?  <div className="reply-detail-text">
           <textarea placeholder="input reply" onChange = {(e) =>onReplyChange(e)}></textarea>
           <button className="message-btn btn btn-secondary" onClick = {sendReply}>Send</button>
-           <p className="error-msg">{Errors != 'success'? Errors: ''}</p>
+           <Fragment>
+             {
+               setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+             }
+            </Fragment>
       </div> : ''
         }
            </Col> }
