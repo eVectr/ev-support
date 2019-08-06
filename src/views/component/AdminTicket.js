@@ -109,19 +109,6 @@ const AdminTicket = (props) => {
     else {
       return <Document />
     }
-    // case 0: return () => {
-    //   //setActive('Document')
-    //     return <Document contacts={contacts} />
-    // }
-    // case 1:
-    //    // setActive('Image')
-    //   return <Images contacts={contacts} />
-    // case 2:
-    //    // setActive('Link')
-    //   return <Link contacts={contacts} />
-    // default:
-    //   return <Document />
-    //}
   }
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea) 
@@ -137,19 +124,13 @@ const AdminTicket = (props) => {
       console.log(res.data.Status, 'res.data.Status')
       })
   }
-  // if(contacts.length > 0){
-  //   console.log(contacts[0].Subject, 'conta subject')
-  // }
-  
   return (
-
     <Col className='container-fluid'>
       {loader ?
-                        <div className='loader-img'>
-                          <img src={require('../../images/loader.gif')} />
-                        </div>:
-
-<Row>
+        <div className='loader-img'>
+            <img src={require('../../images/loader.gif')} />
+        </div>:
+    <Row>
 {
   contacts.map((element, index) => {
     return (
@@ -183,11 +164,7 @@ const AdminTicket = (props) => {
           
       : ''
         }
-                  </li>
-                 
-                
-            
-            
+      </li>
           </ul>
         </div>
       </Col>
@@ -201,22 +178,12 @@ const AdminTicket = (props) => {
   {/* --------------------------------------comment-section----------------------------------- */}
 
 <Row>
-<Col className='admin-chats-data'>
+<Col md='5' className='admin-chats-data'>
   <div className='comments'>
     <p className='image-headings'>Comments</p>
   </div>
 </Col>
 </Row>
-<Row>
-<Col md={{ size: 7, offset: 1 }} className="comment-inner">
-  <div className='text-area-field'>
-    <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
-      value={reply} onChange={(e) => onMessageChange(e)} />
-    <button className='reply-btn' onClick={sendemail}>Add Reply</button>
-  </div>
-</Col>
-</Row>
-
 {
 messageLogs.map((message, index) => {
   console.log('message ===>', message)
@@ -258,13 +225,18 @@ messageLogs.map((message, index) => {
   }
 })
 }
+ <Row>
+<Col md={{ size: 7, offset: 1 }} className="comment-inner">
+  <div className='text-area-field'>
+    <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
+      value={reply} onChange={(e) => onMessageChange(e)} />
+    <button className='reply-btn' onClick={sendemail}>Add Reply</button>
+  </div>
+</Col>
+</Row>
 </Col>
 </Row>
       }
-      
-
-      
-
     </Col>
   )
 }

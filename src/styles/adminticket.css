@@ -44,7 +44,7 @@
     transform: translate(76px, -22px)
 }
 .msg.admin-msg-text.row {
-    transform: translate(108px, -20px);
+    transform: translate(78px, -20px);
 }
 .load-msg-btn {
     display: block;
@@ -59,7 +59,7 @@
 }
 
 .admin {
-    margin-left: 5%;
+    /* margin-left: 5%; */
     width:50%;
 }
 
@@ -560,4 +560,45 @@ label.des-head {
 }
 .docs-details-inner.right-side {
     float: right;
+}
+.docs-details-inner.right-side img {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+}
+.test p {
+    font-size: 18px;
+    font-weight: 700;
+}
+.attach-item .card {
+    width: 100px;
+}
+.show-card.card .col-md-12 {
+    padding: 0;
+}
+.logs-section {
+text-align: right;
+list-style: none; 
+}
+.logs-section span {
+    font-size: 15px;
+    margin: 2px;
+    text-align: left;
+}
+.logs-section.col-md-3 {
+    transform: translate(22px, -30px);
+    z-index: 0;
+}
+.list-view li {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.list-view .email {
+    color: #ca652f;
+}
+.list-view h6 {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 23px;
 }
