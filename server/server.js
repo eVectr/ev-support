@@ -243,12 +243,14 @@ let userlogs = (name, message, id, date) => {
 
 
 app.post('/updateStatus', (req, res) => {
-  ContactForm.findOneAndUpdate({ _id: id }, { $set: { status: "" } }, function (err, doc) {
+  let Id = req.body.Id
+  let changedStatus = req.body.changedStatus
+  ContactForm.findOneAndUpdate({ _id: Id }, { $set: { Status: changedStatus } }, function (err, doc) {
     if (err) {
       console.log("Something wrong when updating data!");
     }
     else {
-      console.log("updated")
+      console.log("updated docs ==>", doc)
       res.send("updated")
     }
   })
@@ -965,7 +967,7 @@ app.post('/usermessagelogs', (req, res) => {
 
 app.post('/getusermessagelogs', (req, res) => {
   let Id = req.body.Id
-  console.log("Id ==>", Id)
+  console.log('Id ==>', Id)
   UserMessagelogs.find({ Id: Id }, (err, data) => {
     if (err) {
       res.send(err)
