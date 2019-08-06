@@ -55,6 +55,7 @@ const ContactForm = (props) => {
 
         if (files.length > 1) {
             setFileNames(files)
+            
         } else {
             setFileNames(prev => {
                 const update = prev.concat(files[0])
@@ -273,11 +274,8 @@ const ContactForm = (props) => {
             setmessage(errors)
             return
         }
-
         }
 
-        
-    
         if(selectedClaim == 0){
            if(FileNames.length == 0)  {
                 setselectDocument(' Please Add Document')
@@ -292,16 +290,15 @@ const ContactForm = (props) => {
                 let Subject = data.subject
                 let Message = data.message
                 let Case_No = no
-                let Link = []
                 let formData = new FormData()
                 for (let i = 0; i < FileNames.length; i++) {
                     formData.append('SelectedImage', FileNames[i])
                 }
-                axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+                axios.post(`http://localhost:7777/fileupload`, formData,
                 ).then(res => {
                     console.log("response =>", res)
-                    axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
-                     Case_No, Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                    axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                     Case_No, Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             setloader(false)
                             setData({
@@ -340,7 +337,6 @@ const ContactForm = (props) => {
                 let Subject = data.subject
                 let Message = data.message
                 let Case_No = no
-                let Link = []
                 let formData = new FormData()
                 console.log("selected imagage ===== >",SelectedImage)
                 for (let i = 0; i < SelectedImage.length; i++) {
@@ -348,13 +344,13 @@ const ContactForm = (props) => {
                 }
                 // axios.post(`http://localhost:7777/upload`, formData,
                 // )
-                axios.post(`http://3.83.23.220:7788/upload`, formData,
+                axios.post(`http://localhost:7777/upload`, formData,
                 )
                 .then(res => {
                     console.log("res =>", res)
                    // axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                   axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                   Link, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                   axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                   Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             setloader(false)
                             setData({
@@ -396,7 +392,7 @@ const ContactForm = (props) => {
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-                axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                  Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                     .then(res => {
                         setloader(false)

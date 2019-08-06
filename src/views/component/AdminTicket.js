@@ -91,170 +91,20 @@ const AdminTicket = (props) => {
     else {
       return <Document />
     }
-    // case 0: return () => {
-    //   //setActive('Document')
-    //     return <Document contacts={contacts} />
-    // }
-    // case 1:
-    //    // setActive('Image')
-    //   return <Images contacts={contacts} />
-    // case 2:
-    //    // setActive('Link')
-    //   return <Link contacts={contacts} />
-    // default:
-    //   return <Document />
-    //}
   }
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea) 
   }
-  console.log("Active ====>", active)
-  console.log("seleted tab ====>", selectedTab)
+ 
+  console.log("contacts ====>", contacts)
   return (
-  // <Container>
-  //   <Row>
-  //     <Col>
-  //       <div className='heading'>
-  //         <h4>User Info</h4>
-  //       </div>
-  //     </Col>
-  //   </Row>
-  //   {
-  //     contacts.map(contact => {
-  //       return (
-  //         <div>
-  //           <Row>
-  //             <Col className='user-documents'>
-  //               <h1>Username:{contact.Name}</h1>
-  //               <p>Transaction Number: 123456</p>
-  //               <p>Email:{contact.Email}</p>
-  //             </Col>
-  //           </Row>
-  //           <h4 className='image-headings'>Images</h4>
-  //           {
-  //             contact.Image.length > 0 ? <Row className='images'>
-  //               {contact.Image.map((img, index) => {
-  //                 let getimg = img.split('/')[1]
-  //                 let url = 'http://localhost:7777/'
-  //                 let imgurl = url.concat(getimg)
-  //                 return (
-  //                   <Col md='3'>
-  //                     <img src={'http://localhost:7777/2019-07-02T11:41:52.837Zpexels-photo-459225.jpeg'} />
-  //                   </Col>
-  //                 )
-  //               })}
-  //             </Row> : <img className='images' src={require('../../images/NO Image Available.jpg')} width='100px' />
-  //           }
-
-  //           <h4 className='image-headings'>Documents</h4>
-  //           {
-  //             contact.Document.length > 0 ? <Row className='documents'>
-  //               {
-  //                 contact.Document.map((Document, index) => {
-  //                   return (
-  //                     <Col md='2' >
-  //                       <a href={Document} target='_blank'>
-  //                         <img className='link-images documents' src={require('../../images/doc.png')} />
-  //                       </a>
-  //                     </Col>
-  //                   )
-  //                 })
-  //               }
-
-  //             </Row> : <img src={require('../../images/dummy.jpg')} width='100px' />
-  //           }
-
-  //           <h4 className='image-headings'>Links</h4>
-
-  //           {
-  //             contact.Link.length > 0 ? <Row className='documents'>
-  //               {
-  //                 contact.Link.map((link, index) => {
-  //                   return (
-  //                     <Col md='2' >
-  //                       <a href={link} target='_blank'>
-  //                         <img className='link-images documents' src={require('../../images/WebSearch_link_Building.jpg')} />
-  //                       </a>
-  //                     </Col>
-  //                   )
-  //                 })
-  //               }
-
-  //             </Row> : <img src={require('../../images/dummy.jpg')} width='100px' />
-  //           }
-
-  //         </div>
-  //       )
-  //     })
-  //   }
-  //   <Row>
-  //     <Col className='admin-chats-data'>
-  //       <div className='comments'>
-  //         <p className='image-headings'>Comments</p>
-  //       </div>
-  //     </Col>
-  //   </Row>
-
-  //   <Row>
-  //     <Col>
-  //       <div>
-  //         <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
-  //           value={reply} onChange={(e) => onMessageChange(e)} />
-  //       </div>
-  //       <div className='load-msg-btn btn1'>
-  //         <button className='reply-btn' onClick={sendemail}>Add Reply</button>
-  //       </div>
-  //     </Col>
-  //   </Row>
-
-  //   {
-  //     messageLogs.map((message, index) => {
-  //       console.log('message ===>', message)
-  //       if (message.Type == 'user') {
-  //         return (
-  //           <Row>
-  //             <Col>
-  //               <div className='admin-panel-chat admin'>
-  //                 <img src={require('../../images/head-659652_960_720.png')} />
-  //                 <div className='user-info'>
-  //                   <span className='name'>{message.Name}</span>
-  //                   <span className='time'>{message.Date.split('T')[0]}</span>
-  //                 </div>
-  //               </div>
-  //               <Row className='msg admin-msg-text'>
-  //                 <p>{message.Message}jslhdzmxhbfv;cksdzxbv;k </p>
-  //               </Row>
-  //             </Col>
-  //           </Row>
-  //         )
-  //       } else if (message.Type == 'admin') {
-  //         return (
-  //           <Row>
-  //             <Col>
-  //               <div className='admin-panel-chat'>
-  //                 <img src={require('../../images/head-659652_960_720.png')} />
-  //                 <div className='user-info'>
-  //                   <span className='name'>{message.Name}</span>
-  //                   <span className='time'>{message.Date.split('T')[0]}</span>
-
-  //                 </div>
-  //               </div>
-  //               <Row className='msg'>
-  //                 <p>{message.Message}</p>
-  //               </Row>
-  //             </Col>
-  //           </Row>
-  //         )
-  //       }
-  //     })
-  //   }
-  // </Container>
+  
 
     <Col className='container-fluid'>
       {loader ?
-                        <div className='loader-img'>
-                          <img src={require('../../images/loader.gif')} />
-                        </div>:
+        <div className='loader-img'>
+          <img src={require('../../images/loader.gif')} />
+        </div> :
 
 <Row>
 {
@@ -310,46 +160,6 @@ const AdminTicket = (props) => {
 </Col>
 </Row>
 
-{/* <Row>
-<Col md={{ size: 10, offset: 1 }}>
-  <div className='text-area-field'>
-    <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
-      value={reply} onChange={(e) => onMessageChange(e)} />
-    <button className='reply-btn' onClick={sendemail}>Add Reply</button>
-  </div>
-</Col>
-</Row>
-
-<Row>
-<Col md={{ size: 10, offset: 1 }}>
-  <div className='admin-panel-chat admin'>
-    <img src={require('../../images/head-659652_960_720.png')} />
-    <div className='user-info'>
-      <span className='name' />
-      <span className='time' />
-    </div>
-
-  </div>
-  <Row className='msg admin-msg-text'>
-    <p>jslhdzmxhbfv;cksdzxbv;k </p>
-  </Row>
-</Col>
-</Row>
-
-<Row>
-<Col md={{ size: 10, offset: 1 }}>
-  <div className='admin-panel-chat'>
-    <img src={require('../../images/head-659652_960_720.png')} />
-    <div className='user-info'>
-      <span className='name'>kjsdhfvlcjh</span>
-      <span className='time'>12-10-2019</span>
-    </div>
-  </div>
-  <Row className='msg'>
-    <p>hello</p>
-  </Row>
-</Col>
-</Row> */}
 
 <Row>
 <Col md={{ size: 10, offset: 1 }} className="comment-inner">

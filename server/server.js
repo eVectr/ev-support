@@ -1,10 +1,8 @@
 
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const express = require('express')
-var multer  = require('multer');
+var multer  = require('multer')
 const nodemailer = require('nodemailer')
-const path = require('path')
-var fs = require('fs')
 
 const User = require('../db/user.js')
 const ContactForm = require('../db/ContactForm')
@@ -19,6 +17,8 @@ const UserMessagelogs = require('../db/usermessagelogs')
 const UserMessage = require('../db/usermessage')
 const AdminMessage = require('../db/adminmessage')
 const Notification = require('../db/notification')
+const SupportLogs = require('../db/supportlogs')
+const TicketAssign = require('../db/ticketassign')
 let api = require("../api/api")
 
 var app = express()
@@ -27,22 +27,21 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server)
 
 app.use(express.static('uploads'))
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // let client = redis.createClient();
 // client.on('connect', ()=>{
 //     console.log("Redis database Connected")
 // })
-mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact',  (err) => {
-   if (err) throw err;
-   console.log('Mongoose connected');
- 
+mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact', (err) => {
+  if (err) throw err
+  console.log('Mongoose connected')
 })
 api(app)
 
-app.use((req, res, next)=>{
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     next();
@@ -135,47 +134,65 @@ app.post('/transactionSurveyResponse', (req, res) => {
       console.log(err)
       res.send('err')
     }else{
-      console.log("transaction response=>", data)
+      console.log('transaction response=>', data)
       res.send(data)
     }
   }) 
 })
 
-const storage = multer.diskStorage({
+var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, './uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + '/' + file.originalname)
+    cb(null, new Date().toISOString() + file.originalname )
   }
 })
-const upload = multer({ storage: storage }).array('SelectedImage')
+var upload = multer({ storage: storage })
+//const upload = multer({ storage: storage }).array('SelectedImage')
+//const upload = multer({ dest: 'uploads/' })
 
 let imagepaths = []
 let filepaths = []
 
-app.post('/upload', (req, res) => {
-  upload(req, res, function (err) {
-    let path = req.files.map((file, index) => {
-      imagepaths.push(file.path)
-    })
-    console.log('req.file=>', req.files)
-    res.send('done')
+// app.post('/upload', (req, res) => {
+//   upload(req, res, function (err) {
+//     let path = req.files.map((file, index) => {
+//       imagepaths.push(file.path)
+//     })
+//     console.log('req.file=>', req.files)
+//     res.send('done')
+//   })
+// })
+
+app.post('/upload', upload.array('SelectedImage'), (req, res) => {
+  let path = req.files.map((file, index) => {
+    imagepaths.push(file.path)
+    console.log("req.file ==>", file.path)
+    console.log('image path -=>', imagepaths)
   })
+  res.send('send')
 })
 
-
-app.post('/fileupload', (req, res) => {
-  upload(req, res, function (err) {
-    console.log("req.file ====>", req.file)
-    let path = req.files.map((file, index) => {
-      filepaths.push(file.path)
-      console.log(filepaths)
-    })
-    console.log("req.file =>", req.files)
-    res.send("done")
+app.post('/fileupload', upload.array('SelectedImage'), (req, res) => {
+  let path = req.files.map((file, index) => {
+    filepaths.push(file.path)
+    console.log('file path -=>', filepaths)
   })
+  res.send('send')
 })
+
+// app.post('/fileupload', (req, res) => {
+//   upload(req, res, function (err) {
+//     console.log("req.file ====>", req.file)
+//     let path = req.files.map((file, index) => {
+//       filepaths.push(file.path)
+//       console.log(filepaths)
+//     })
+//     console.log("req.file =>", req.files)
+//     res.send("done")
+//   })
+// })
 
 let generateId = () => {
   return new Promise((resolve, reject) => {
@@ -240,8 +257,6 @@ let userlogs = (name, message, id, date) => {
     }
   })
 }
-
-
 app.post('/updateStatus', (req, res) => {
   let Id = req.body.Id
   let changedStatus = req.body.changedStatus
@@ -257,7 +272,7 @@ app.post('/updateStatus', (req, res) => {
 })
 
 app.post('/saveContact', (req, res) => {
-  console.log("save contactct ===>",req.body.Name )
+  console.log("save contactct ===>",req.body.Name)
   let UserId = req.body.UserId
   let Transaction_Number = req.body.Transaction_Number 
   let Name = req.body.Name
@@ -303,7 +318,6 @@ app.post('/saveContact', (req, res) => {
   res.send("saved")
   
 })
-
 
 app.get('/findcontact', (req, res) => {
   ContactCategory.find({}, function (err, docs) {
@@ -495,16 +509,16 @@ app.get('/getcontactslength', (req, res) => {
 
 ////////////////////////////////////////
 
-  app.get('/getcontacts', (req, res) => {
-    ContactForm.find({}, function (err, docs) {
-      if (err) {
-        console.log("error")
-        res.send(err)
-      } else {
-        res.send(docs)
-      }
-    })
+app.get('/getcontacts', (req, res) => {
+  ContactForm.find({}, function (err, docs) {
+    if (err) {
+      console.log('error')
+      res.send(err)
+    } else {
+      res.send(docs)
+    }
   })
+})
 
 app.post('/getbycaseno', (req, res) => {
   let caseNo = req.body.caseNo
@@ -976,6 +990,36 @@ app.post('/getusermessagelogs', (req, res) => {
       res.send(data)
     }
   })
+})
+
+app.post('/createagent', (req, res) => {
+  let Name = req.body.name
+  var user = new User({
+    Name: Name,
+    Password: 'agent@123',
+    Type: 'agent'
+  })
+  user.save()
+})
+
+app.post('/logentry', (req, res) => {
+  let log = req.body.log
+  let date = Date.now()
+  var supportLogs = new SupportLogs({
+    log: log,
+    Date: date
+  })
+  supportLogs.save()
+})
+
+app.post('/assignticket', (req, res) => {
+  let Id = req.body.Id
+  let Name = req.body.Name
+  var assignticket = new TicketAssign({
+    Id: Id,
+    Name: Name
+  })
+  assignticket.save()
 })
 
 server.listen(7788, () => {
