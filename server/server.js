@@ -143,7 +143,7 @@ app.post('/transactionSurveyResponse', (req, res) => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads');
+    cb(null, './uploads')
   },
   filename: function (req, file, cb) {
     cb(null, new Date().toISOString() + '/' + file.originalname)
@@ -155,12 +155,11 @@ let imagepaths = []
 let filepaths = []
 
 app.post('/upload', (req, res) => {
-  console.log("upload =====>")
   upload(req, res, function (err) {
     let path = req.files.map((file, index) => {
       imagepaths.push(file.path)
     })
-    console.log('req.file api=>', req.files)
+    console.log('req.file=>', req.files)
     res.send('done')
   })
 })
