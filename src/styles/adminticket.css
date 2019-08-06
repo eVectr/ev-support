@@ -7,9 +7,9 @@
 }
 
 .comments p {
-    border-bottom: 1px solid #999;
+    margin-bottom: 0px;
     font-family: 'Roboto';
-    margin-left: 40px;
+    margin-left: 20px;
     padding-left: 0px;
     color: #212529;
     font-size: 24px;
@@ -24,9 +24,9 @@
 }
 
 .admin-panel-chat img {
-    width: 70px;
-    height: auto;
-    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 75px;
 }
 
 
@@ -41,10 +41,10 @@
 .msg {
     margin-bottom: 15px;
     width: 50%;
-    transform: translate(95px, -22px)
+    transform: translate(76px, -22px)
 }
 .msg.admin-msg-text.row {
-    transform: translate(140px, -20px);
+    transform: translate(108px, -20px);
 }
 .load-msg-btn {
     display: block;
@@ -78,9 +78,11 @@
 } */
 
 .reply-msg {
-    height: 150px;
+    height: 90px;
 }    
-
+.textarea:focus {
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1) !important;
+}
 /* .load-msg-btn {  
     border-radius:4px;
     cursor: pointer;
@@ -101,6 +103,7 @@
 .reply-btn:focus {
     outline:0;
     box-shadow:0;
+    
 }
 
 /* .admin-user-info{
@@ -225,10 +228,10 @@
 span {
     color: #3e3b3b;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 18px;
 }
 .user-data p{
-    margin-bottom: 0;
+    margin: 15px 0px;
     font-size:16px;
     color: #888989;
     font-family: 'Roboto';
@@ -236,14 +239,13 @@ span {
 
 .user-data .email{
     font-weight: 700;
-    font-size: 15px;
+    font-size: 18px;
     margin-right: 4px;
     color:#ca6627;
 }
 
 .document-uploaded{
-    display: flex;
-   
+    display: block !important;
     color: #212529!important;
 }
 
@@ -357,7 +359,7 @@ margin-bottom: 40px;
 }
 .admin-chats-data.col {
     margin-bottom: 12px;
-    margin-top: 20px;
+    margin-top: 200px;
 }
 .comment-inner.col-md-10.offset-md-1 {
     margin-left: 40px;
@@ -423,4 +425,139 @@ button.reply-btn.btn.btn-secondary {
 .inner-containers {
     max-width: 1140px;
     margin: auto;
+}
+.btn-status button.dropdown-toggle.btn.btn-secondary {
+    background: #59cc73;
+    border-color: #59cc73;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+}
+.btn-secondary:focus {
+    box-shadow: none !important;
+}
+.btn-status.form-control {
+    width: 30%;
+    display: inline;
+    background: #59cc73;
+    border-color: #59cc73;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+    color: white !important;
+}
+.btn-status.form-control:focus {
+    box-shadow: none !important;
+    background: #59cc73;
+    border-color: #59cc73;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+    color: white !important;
+}
+.descibe {
+    display: inline !important;
+    width: 92% !important;
+    outline: none;
+    border: none !important;
+    box-shadow: none;
+    padding-left: 15px !important;
+}
+.descibe:focus {
+    box-shadow: none !important;
+    border-bottom: 1px solid #ced4da !important;
+}
+.docs-details-inner {
+    float: left;
+}
+.docs-details-inner label {
+    color: #5c98ca;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    line-height: 0;
+}
+.docs-details-inner textarea {
+    display: block;
+    width: 100%;
+    resize: none;
+    height: 150px;
+    border-color: #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+    padding: 10px;
+}
+.docs-details-inner span {
+    padding-left: 0px;
+    font-size: 1rem;
+    font-weight: 800;
+}
+.docs-details-inner.right-assign {
+    float: right;
+    text-align: right;
+    margin: 0 20px;
+}
+.docs-details-inner p {
+    max-width: 850px;
+    font-size: 16px;
+    
+}
+label.des-head {
+    color: #333131;
+    font-size: 25px;
+    font-weight: bold;
+}
+.icons-links {
+    margin: 20px 0px;
+    margin-bottom: 30px;
+}
+.icons-links span {
+    font-size: 20px;
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 0 10px;
+}
+.document-uploaded img {
+    width: 35px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border-radius: 23px;
+}
+.comment-inner.col-md-7.offset-md-1 {
+    margin-left: 20px;
+}
+.right-tab .col-md-7.offset-md-1 {
+    margin-left: 21px;
+}
+.textarea:focus {
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1) !important;
+    border-color: #ded7d7;
+}
+.assign-task .css-2b097c-container {
+    width: 310px !important;
+   
+}
+.assign-task {
+    width: 100%;
+    text-align: left;
+    margin-left: 7%;
+    cursor: pointer;
+    
+}
+.arrow-down {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.assign-data.row {
+    width: 100%;
+}
+.user-docs-detail {
+    width: 100%;
+}
+.docs-details-inner.right-side {
+    float: right;
 }

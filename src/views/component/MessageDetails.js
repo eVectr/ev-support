@@ -11,7 +11,7 @@ const MessageDetails = (props) => {
   const [adminMessage, setAdminMessage] = useState([])
   const [sentMessage, setSentMessage] = useState([])
   const [replyMessage, setReplyMessage] = useState('')
-  const [showTextArea, setshowTextArea] = useState(true)
+  const [showTextArea, setshowTextArea] = useState(false)
   const [showLoader, setshowLoader] = useState(true)
   const [Errors, setErrors] = useState('')
   useEffect(() => {
@@ -174,7 +174,7 @@ const MessageDetails = (props) => {
                 </div>
            
             <div className="Reply-section">
-                <button><span><i class="fas fa-reply"></i></span>Reply</button>
+                <button onClick={showTestMsgBox}><span><i class="fas fa-reply"></i></span>Reply</button>
             </div>
             {
           showTextArea ?  <div className="reply-detail-text">
