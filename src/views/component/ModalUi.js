@@ -72,16 +72,22 @@ const ModalUi = props => {
   let onSelect = (e) => {
     console.log('selecte value ==>', e.value)
     setSelectedUserId(e.value.Id)
-    setSelectedUserName(e.value.Name)
+    
   }
   let composeMessage = () => {
     if (Message == '' || selectedUserId === '') {
+      setTimeout(() => {
+        setErrors(false)
+        setErrors('')
+    }, 1000)
       setErrors('Please select required fields')
     } else {
       changeUserStatue().then(res => {
         setTimeout(() => {
           setSuccessModal(false)
+         
       }, 1000)
+      setSelectedUserId('')
       })
       //axios.post(`http://localhost:7777/usertousermessage`, {
         axios.post(`http://3.83.23.220:7788/usertousermessage`, {
@@ -113,6 +119,10 @@ const ModalUi = props => {
 
   let sendAdminMessage = () => {
     if (AdminMessage == '') {
+      setTimeout(() => {
+        setErrors(false)
+        setErrors('')
+    }, 1000)
       setErrors('Please select required fields')
     } else {
       changeStatue().then(res =>{

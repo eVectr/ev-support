@@ -11,7 +11,8 @@ const MessageDetails = (props) => {
   const [adminMessage, setAdminMessage] = useState([])
   const [sentMessage, setSentMessage] = useState([])
   const [replyMessage, setReplyMessage] = useState('')
-  const [showTextArea, setshowTextArea] = useState(true)
+  const [showTextArea, setshowTextArea] = useState(false)
+  const [showLoader, setshowLoader] = useState(true)
   const [Errors, setErrors] = useState('')
   useEffect(() => {
     // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
@@ -30,12 +31,14 @@ const MessageDetails = (props) => {
     .then(res => {
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
+        setshowLoader(false)
        // axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
         axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
             console.log('res -======>', res)
             setUserMessageLogs(res.data)
           })
+          
       })
   }, [])
 
@@ -47,6 +50,7 @@ const MessageDetails = (props) => {
           console.log('res -======>', res)
           setUserMessageLogs(res.data)
         })
+        setshowLoader(false)
      // axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
       axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: props.logsId })
       .then(res => {
@@ -74,12 +78,14 @@ const MessageDetails = (props) => {
         .then(res => {
           console.log('send reply ==>', res)
         })
+        setshowLoader(false)
     }
     //axios.post(`http://localhost:7777/checkallusertousermessage`, { Id: userMessage._id })
     axios.post(`http://3.83.23.220:7788/checkallusertousermessage`, { Id: userMessage._id })
     .then(res => {
         console.log('check response ==>', res.data)
         if (res.data.length < 1) {
+         
           //axios.post(`http://localhost:7777/checkallusermessage`, { Id: props.messageId })
           axios.post(`http://3.83.23.220:7788/checkallusermessage`, { Id: props.messageId }) 
           .then(res => {
@@ -94,6 +100,7 @@ const MessageDetails = (props) => {
                   ReceiverName: userMessage.SenderName,
                   Message: replyMessage
                 })
+                
               }
             })
         }
@@ -113,6 +120,11 @@ const MessageDetails = (props) => {
 
       </Col>  */}
           { props.showCase == '1'?
+           <Fragment>
+           {showLoader ?
+             <div className='loader-img'>
+               <img src={require('../../images/loader.gif')} />
+             </div> :
         <Col md="10" className="message-deatil-inner">
           <div className="message-outer">
             <div className="conversation-mess ">
@@ -162,18 +174,28 @@ const MessageDetails = (props) => {
                 </div>
            
             <div className="Reply-section">
-                <button><span><i class="fas fa-reply"></i></span>Reply</button>
+                <button onClick={showTestMsgBox}><span><i class="fas fa-reply"></i></span>Reply</button>
             </div>
             {
           showTextArea ?  <div className="reply-detail-text">
           <textarea placeholder="input reply" onChange = {(e) =>onReplyChange(e)}></textarea>
           <button className="message-btn btn btn-secondary" onClick = {sendReply}>Send</button>
-           <p className="error-msg">{Errors != 'success'? Errors: ''}</p>
+           <Fragment>
+             {
+               setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+             }
+            </Fragment>
       </div> : ''
         }
-        </Col> 
+           </Col> }
+        </Fragment>
         :<Fragment>{
           props.showCase == '0'?
+          <Fragment>
+          {showLoader ?
+            <div className='loader-img'>
+              <img src={require('../../images/loader.gif')} />
+            </div> :
           <Col md="10" className='message-deatil-inner'>
              <div className="conversation-mess">
 
@@ -191,9 +213,14 @@ const MessageDetails = (props) => {
         </div>
           </div>
           </div>
-          </Col>
+          </Col>}</Fragment>
           
          :
+         <Fragment>
+         {showLoader ?
+           <div className='loader-img'>
+             <img src={require('../../images/loader.gif')} />
+           </div> :
          <Col md="10" className='message-deatil-inner'>
         <div className='conversation-mess'>
          <div className='message-section'>
@@ -210,7 +237,7 @@ const MessageDetails = (props) => {
        </div>
          </div>
          </div>
-         </Col>
+         </Col>}</Fragment>
         }</Fragment>}
       </Row>
     </div>

@@ -473,6 +473,7 @@ svg.styles_closeIcon__1QwbI path {
 }
 .messagedetail .reply-detail-text .error-msg {
     text-align: left;
+    margin-top: 10px;
 }
 .messagelogs .col-md-10 {
     overflow: scroll;

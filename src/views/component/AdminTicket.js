@@ -2,9 +2,12 @@ import React, { useState, useEffect} from 'react'
 import { Card, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import moment from 'moment'
 import Document from './Documents'
-import Images from './Images'
+import SelectAssign from './SelectAssign'
 import Link from './Link'
+import { Input,ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
 import '../../styles/adminticket.css'
 
 let dataArray = [
@@ -33,6 +36,10 @@ const AdminTicket = (props) => {
   const [active, setActive] = useState('')
   const [loader, setLoader] = useState(true)
   const [showTextArea, setshowTextArea] = useState(false)
+  const [dropdownOpen, setdropdownOpen] = useState(false)
+  const [SelectedStatus, setSelectedStatus] = useState('')
+  const [SelectOptions, setSelectOptions] = useState([])
+  const item = ['Open', 'Close', 'Active']
 
   useEffect(() => {
     //axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
@@ -43,10 +50,25 @@ const AdminTicket = (props) => {
    // axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
     axios.post(`http://3.83.23.220:7788/getcontactbycaseno`, { caseno: props.match.params.id })
     .then(res => {
+      console.log('all contact details ==>', res.data)
         setLoader(false)
         setContacts(res.data)
+        let findObj = item.find(itm => itm === res.data[0].Status)
+        console.log(findObj,"findObjfindObjfindObj")
+        if(findObj){
+          setSelectedStatus(findObj)
+        }
+        
+        // if(res.data[0].Status == 'Open'){
+        //   setSelectOptions(['Open', 'Close', 'Active'])
+        // }else if (res.data[0].Status == 'Close'){
+        //   setSelectOptions(['Close', 'Open', 'Active'])
+        // }else if(res.data[0].Status == 'Active'){
+        //   setSelectOptions(['Active', 'Close', 'Open'])
+        // }
+        
       })
-  }, [reply, messageLogs])
+  }, [SelectedStatus])
 
   let sendemail = () => {
    // axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
@@ -81,12 +103,8 @@ const AdminTicket = (props) => {
 
   const renderTabs = () => {
     //switch (selectedTab) {
-    if (selectedTab === 0) {
+    if (selectedTab === 0 || selectedTab === 1 || selectedTab === 2) {
       return <Document contacts={contacts} />
-    } else if (selectedTab === 1) {
-      return <Images contacts={contacts} />
-    } else if (selectedTab === 2) {
-      return <Link contacts={contacts} />
     }
     else {
       return <Document />
@@ -95,18 +113,24 @@ const AdminTicket = (props) => {
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea) 
   }
- 
-  console.log("contacts ====>", contacts)
+  let toggle = () => {
+    setdropdownOpen(!dropdownOpen) 
+  }
+  let Status = (e) =>{
+    console.log(e.target.value,"e.target.value")
+    setSelectedStatus(e.target.value)
+    axios.post(`http://3.83.23.220:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+    .then(res => {
+      console.log(res.data.Status, 'res.data.Status')
+      })
+  }
   return (
-  
-
     <Col className='container-fluid'>
       {loader ?
         <div className='loader-img'>
-          <img src={require('../../images/loader.gif')} />
-        </div> :
-
-<Row>
+            <img src={require('../../images/loader.gif')} />
+        </div>:
+    <Row>
 {
   contacts.map((element, index) => {
     return (
@@ -116,30 +140,31 @@ const AdminTicket = (props) => {
           <span>{element.Name}</span>
         </div>
         <div className='user-data'>
-          <p><span className='email'>Transaction No:</span><span>123456789</span></p>
+          <p><span className='email'>Case No:</span><span>{element.Case_No}</span></p>
+          <p><span className='email'>Date:</span><span>{moment(element.date).format('MMMM Do YYYY, h:mm:ss a')}</span></p>
+          <p><span className='email'>Transaction No:</span><span>1234567</span></p>
           <p><span className='email'>Email:</span><span>{element.Email}</span></p>
-          <p><span className='email'>Status:</span><span>Open</span>
-          <span class="editicon is-medium is-left icn" onClick={showTestMsgBox} ><i class="fas fa-edit icn1 "></i></span></p>
-          {
-          showTextArea ?  <div className="reply-detail-text">
-          <input placeholder="status" className="status-field"/>
-          <button className="reply-btn btn btn-secondary">Send</button>
-           {/* <p className="error-msg">{Errors != 'success'? Errors: ''}</p> */}
-      </div> : ''
-        }
+          <p><span className='email'>Reason:</span><span>{element.Reason}</span></p>
+          <p><span className='email'>Status:</span><span>
+          <Input type="select" name="select" id="exampleSelect" className="btn-status" onChange={(e) => Status(e)} value={SelectedStatus}>
+            <option>Open</option>
+            <option>Close</option>
+            <option>Active</option>
+          </Input>
+          </span>
+         </p> 
         </div>
         <div className='setting-tab-list'>
           <ul className='list-group'>
-            {
-              dataArray.map((data, index) => {
-                console.log("index === >" , index)
-                return (
-                 <li className={`${index == selectedTab ? 'selectedtab list-group-item' : 'notselected list-group-item'}`} onClick={() => onSelectedTab(index)}>
-                      <span>{data.value}</span>
-                  </li>
-                )
-              })
-            }
+
+                 <li className="assign-task" onClick={showTestMsgBox}>
+                    <span>Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                    {
+          showTextArea ?  <SelectAssign />
+          
+      : ''
+        }
+      </li>
           </ul>
         </div>
       </Col>
@@ -153,7 +178,7 @@ const AdminTicket = (props) => {
   {/* --------------------------------------comment-section----------------------------------- */}
 
 <Row>
-<Col className='admin-chats-data'>
+<Col md='5' className='admin-chats-data'>
   <div className='comments'>
     <p className='image-headings'>Comments</p>
   </div>
@@ -177,7 +202,7 @@ messageLogs.map((message, index) => {
   if (message.Type == 'user') {
     return (
       <Row>
-        <Col md={{ size: 10, offset: 1 }}>
+        <Col md={{ size: 7, offset: 1 }}>
           <div className='admin-panel-chat admin'>
             <img src={require('../../images/admin.jpg')} />
             <div className='user-info'>
@@ -194,7 +219,7 @@ messageLogs.map((message, index) => {
   } else if (message.Type == 'admin') {
     return (
       <Row>
-        <Col md={{ size: 10, offset: 1 }}>
+        <Col md={{ size: 7, offset: 1 }}>
           <div className='admin-panel-chat'>
             <img src={require('../../images/images.jpeg')} />
             <div className='user-info'>
@@ -212,13 +237,18 @@ messageLogs.map((message, index) => {
   }
 })
 }
+ <Row>
+<Col md={{ size: 7, offset: 1 }} className="comment-inner">
+  <div className='text-area-field'>
+    <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
+      value={reply} onChange={(e) => onMessageChange(e)} />
+    <button className='reply-btn' onClick={sendemail}>Add Reply</button>
+  </div>
+</Col>
+</Row>
 </Col>
 </Row>
       }
-      
-
-      
-
     </Col>
   )
 }
