@@ -223,12 +223,12 @@
     font-weight: 500;
     justify-content: center;
     line-height: 70px;
-    color: black;
+    color: #757474;
 }
-span {
-    color: #3e3b3b;
-    font-weight: 700;
-    font-size: 18px;
+.user-data span {
+    color: #7d7d7d;
+    font-weight: 600;
+    font-size: 16px;
 }
 .user-data p{
     margin: 15px 0px;
@@ -488,9 +488,9 @@ button.reply-btn.btn.btn-secondary {
     padding: 10px;
 }
 .docs-details-inner span {
-    padding-left: 0px;
-    font-size: 1rem;
-    font-weight: 800;
+    padding-left: 5px;
+    font-size: 16px;
+    font-weight: 600;
 }
 .docs-details-inner.right-assign {
     float: right;
@@ -503,12 +503,16 @@ button.reply-btn.btn.btn-secondary {
     
 }
 label.des-head {
-    color: #333131;
-    font-size: 25px;
+    color: #808080;
+    font-size: 16px;
     font-weight: bold;
 }
+.des-head {
+    font-weight: 600;
+    font-size: 20px;
+}
 .icons-links {
-    margin: 20px 0px;
+    margin: 30px 0px;
     margin-bottom: 30px;
 }
 .icons-links span {
@@ -538,11 +542,21 @@ label.des-head {
    
 }
 .assign-task {
-    width: 100%;
+    width: 40%;
     text-align: left;
     margin-left: 7%;
     cursor: pointer;
-    
+    float: left;
+}
+.assignee-task {
+    width: 40%;
+    display: inline;
+    float: right;
+    text-align: right;
+    color: #3e3b3b;
+    font-weight: 700;
+    font-size: 18px;
+    transform: translate(-30px, 3px);
 }
 .arrow-down {
     display: inline-block;
@@ -588,6 +602,7 @@ list-style: none;
     text-align: left;
     background: #fff;
     padding: 15px;
+    border-top: 2px solid #4c6eb3;
 }
 .list-view .email {
     color: #ca652f;
@@ -604,7 +619,7 @@ list-style: none;
     font-weight: bold;
     color: #fff;
     margin-top: 15px;
-    width: 40%;
+    width: 120px !important;
     padding: 5px;
     border-radius: 5px;
     outline: none;
@@ -625,6 +640,7 @@ li.docs-details-inner.right-side {
 }
 .activity-logs.col-md-2 {
     padding-top: 25px;
+    overflow-y: scroll;
 }
 .ticket-assign {
     margin-bottom: 0px;
@@ -637,4 +653,47 @@ li.docs-details-inner.right-side {
     text-align: right;
     float: right;
     line-height: 27px;
+}
+.assignee-label {
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 15px;
+}
+.inner-assign {
+    margin-right: 5px;
+    line-height: 0px;
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.assign-name {
+    color: #3896de;
+    font-size: 15px;
+    line-height: 0;
+    font-weight: 600;
+}
+.select-inner {
+    margin-top: 40px;
+}
+.assignee-task img {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+}
+.ticket-docs {
+    margin-bottom: 20px;
+}
+.settings-tab .ticket-docs {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    transform: translate(23px, 8px);
+}
+.ticket-docs i {
+    cursor: pointer;
+    color: #7d7d7d;
+    font-size: 18px;
+}
+.assign-task span {
+    color: #2b2b2b;
 }
