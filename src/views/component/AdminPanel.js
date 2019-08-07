@@ -10,11 +10,11 @@ import PaginationAdmin from '../component/Pagination'
 import is from 'is_js'
 import Moment from 'react-moment'
 import FlashMassage from 'react-flash-message'
-import AdminModal from './AdminModal'
 import Modal from 'react-responsive-modal'
 import '../../styles/adminpanel.css'
 import Navbar from './Navbar'
 import ModalUi from './ModalUi'
+import AgentModal from './AgentModal'
 import { longStackSupport } from 'q'
 import { CaseNo } from '../../redux/actions/notification/notification'
 import '../../styles/adminpanel1.css'
@@ -42,6 +42,7 @@ const AdminPanel = (props) => {
   const [filterName, setFilterName] = useState('')
   const [sortData, setSortData] = useState('')
   const [test, setTest] = useState([])
+  const [AgentOpen, setAgentOpen] = useState(false)
   const [filterData1, setFilterData1] = useState({
     filterValue: '',
     filterName: ''
@@ -120,6 +121,7 @@ const AdminPanel = (props) => {
   let onCloseModal = () => {
     setOpen(false)
   }
+  
 
   let clearEmailCheck = () => {
     setTimeout(function () { setEmailStatus('') }, 3000)
@@ -268,13 +270,22 @@ const AdminPanel = (props) => {
   let sendMessage = () => {
     setOpen(true)
   }
-
+  let AgentUserMessage = () => {
+    setAgentOpen(true)
+  }
+  // let AgentCloseModal = () => {
+  //   alert('close')
+  //   AgentOpen(false)
+  // }
   let closeModal = () => {
     setOpen(false)
   }
+  let onAgentCloseModal = () =>{
+    setAgentOpen(false)
+  }
   let totalPages = Math.ceil(totalContact / limit)
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
-
+ 
   return (
     <div className="containers">
       <div className="inner-containers">
@@ -333,6 +344,13 @@ const AdminPanel = (props) => {
 
           </div>
         </Col>
+      </Row>
+      <Row>
+      <Col>
+          <AgentModal className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
+          <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>
+      </Col>
+
       </Row>
 
       {loader

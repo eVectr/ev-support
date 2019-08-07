@@ -199,7 +199,6 @@ const AdminTicket = (props) => {
                       </li>
                       <li className="assignee-task">
                         <div className="inner-assign">
-                          <span><img src={require('../../images/head-659652_960_720.png')} /></span>
                           <span className="assign-name">Vijaya</span>
                         </div>
                       </li>
