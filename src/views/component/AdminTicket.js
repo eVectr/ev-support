@@ -52,7 +52,8 @@ const AdminTicket = (props) => {
         }
 
       })
-      axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+      axios.post(`http://3.83.23.220:7788findlogentry`,{Id:props.match.params.id})
+     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
       .then(res =>{
         setActivityLog(res.data.reverse())
       })
@@ -102,21 +103,32 @@ const AdminTicket = (props) => {
   }
   let showHideTestMsgBox = () => {
     setshowTextArea(!showTextArea)
-    axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
-    log:'Ticket assigned to ' + assignTo }) 
+    //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+    axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
+    log:'Ticket assigned to ' + assignTo })
+    .then(res => {
+      axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+        .then(res =>{
+          setActivityLog(res.data.reverse())
+        })
+    }) 
   }
 
   let toggle = () => {
     setdropdownOpen(!dropdownOpen)
   }
   let Status = (e) => {
+    console.log("e.target.value ==>", e.target.value)
     setSelectedStatus(e.target.value)
     axios.post(`http://3.83.23.220:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
-      axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+      axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
+     // axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
       log:'Ticket Status Changed to ' + SelectedStatus })
       .then(res =>{
-        axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+        axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+       // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{
           setActivityLog(res.data.reverse())
         })
@@ -186,8 +198,7 @@ const AdminTicket = (props) => {
                       </li>
                       <li className="assignee-task">
                         <div className="inner-assign">
-                          <span><img src={require('../../images/head-659652_960_720.png')} /></span>
-                          <span className="assign-name">Vijaya</span>
+                          <span className="assign-name">{assignTo == ''?'Not Assigned':assignTo}</span>
                         </div>
                       </li>
 

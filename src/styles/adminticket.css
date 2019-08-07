@@ -319,6 +319,9 @@ margin-bottom: 40px;
     margin-bottom: 30px;
     margin: 8px;
 }
+.attach-item .image-section-data li {
+    width: 100%;
+}
 .image-section-data img {
     width: 100%;
     height: auto;
@@ -670,10 +673,10 @@ li.docs-details-inner.right-side {
 }
 .inner-assign {
     margin-right: 5px;
-    line-height: 0px;
+    line-height: 20px;
     white-space: nowrap;
     width: 150px;
-    overflow: hidden;
+    
     text-overflow: ellipsis;
 }
 .assign-name {
@@ -711,4 +714,40 @@ li.docs-details-inner.right-side {
 }
 .show-card.card .col-md-12 {
     padding: 0;
+}
+.sent-modal.agent-modal-inner label {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 123px !important;
+}
+.sent-modal.agent-modal-inner   input {
+    overflow: visible;
+    border-bottom: 1px solid #c1bfbf;
+    margin-bottom: 0px;
+    color: black;
+    width: 570px;
+    margin-left: 0;
+}
+.sent-modal.agent-modal-inner  #exampleSelect {
+    width: 570px;
+}
+.sent-modal.agent-modal-inner .form-check {
+    padding: 0;
+}
+.sent-modal.agent-modal-inner .col-sm-12 {
+    padding: 0;
+}
+.sent-modal.agent-modal-inner .col-sm-10 {
+    padding: 0;
+}
+.sent-modal.agent-modal-inner .modal-inner {
+    padding: 30px 40px !important;
+}
+.inner-image-section-data li {
+    text-align: center;
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 30px;
+    margin: 8px;
 }
