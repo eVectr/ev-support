@@ -68,14 +68,14 @@ const AdminTicket = (props) => {
         // }
         
       })
-  }, [SelectedStatus])
+  }, [SelectedStatus, reply])
 
   let sendemail = () => {
    // axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
     axios.post(`http://3.83.23.220:7788/adminreply`, { ID: props.match.params.id, Message: reply })
     .then(res => {
         console.log('replyy===>', res)
-        setContacts([res.data])
+       // setContacts([res.data])
         setReply('')
       })
   }
@@ -124,6 +124,7 @@ const AdminTicket = (props) => {
       console.log(res.data.Status, 'res.data.Status')
       })
   }
+  console.log("ticket contacts ->", contacts)
   return (
     <Col className='container-fluid'>
       {loader ?
@@ -186,7 +187,7 @@ const AdminTicket = (props) => {
 </Row>
 
 
-<Row>
+{/* <Row>
 <Col md={{ size: 10, offset: 1 }} className="comment-inner">
   <div className='text-area-field'>
     <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
@@ -194,27 +195,14 @@ const AdminTicket = (props) => {
     <button className='reply-btn' onClick={sendemail}>Add Reply</button>
   </div>
 </Col>
-</Row>
+</Row> */}
 
 {
 messageLogs.map((message, index) => {
   console.log('message ===>', message)
   if (message.Type == 'user') {
     return (
-      <Row>
-        <Col md={{ size: 7, offset: 1 }}>
-          <div className='admin-panel-chat admin'>
-            <img src={require('../../images/admin.jpg')} />
-            <div className='user-info'>
-              <span className='name'>{message.Name}</span>
-              <span className='time'>{message.Date.split('T')[0]}</span>
-            </div>
-          </div>
-          <Row className='msg admin-msg-text'>
-            <p>{message.Message}</p>
-          </Row>
-        </Col>
-      </Row>
+      ''
     )
   } else if (message.Type == 'admin') {
     return (

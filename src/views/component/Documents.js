@@ -16,8 +16,8 @@ const Document = ({ contacts }) => {
   const document = contacts.map(element => {
     return element.Document
   })
-  console.log(document, 'documents')
-  console.log(contacts[0], 'contactsssssss')
+
+  console.log('contacts   ===>', contacts)
   return (
     <Container>
       <Row>
