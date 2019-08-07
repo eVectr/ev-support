@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { Container, Row, Col, Card,Input } from 'reactstrap'
-const item = [
-  {
+
+
+
+const Document = ({ contacts }) => {
+  const [activityLogs, setActivityLogs] = useState([ {
     StatusValue: 'Ticket created'
   },
   {
@@ -9,15 +12,12 @@ const item = [
   },
   {
     StatusValue: 'Ticket status changed to closed'
-  },
-]
-
-const Document = ({ contacts }) => {
+  }])
   const document = contacts.map(element => {
     return element.Document
   })
 
-  console.log('contacts   ===>', contacts)
+  console.log('contacts docs   ===>', contacts)
   return (
     <Container>
       <Row>
@@ -53,25 +53,37 @@ const Document = ({ contacts }) => {
         </Row>
       <Row>
          <Col md='9' className="attach-item">
-          {
-            document.map(element => {
-              return (
+          {contacts.length > 0? <Fragment>
+            {contacts[0].Image.length ? (
+          contacts[0].Image.map(img => {
+            let getimg = img.split('/')[1]
+            let url = 'http://localhost:7788/'
+           // let url = 'http://3.83.23.220:7788/'
+            let imgurl = url.concat(getimg)
+            return (
+              <Col md='3' className='image-section-data'>
                 <Card>
-                  <img src={require('../../images/doc.png')} className='document-img' />
-                  <li>
-                    <a href='#' target= '_blank'>{element}</a>
-                  </li>
-                  
+                  <ul>
+                    <li>
+                      <img src={imgurl}  />
+                    </li>
+                  </ul>
                 </Card>
-                
-              )
-            })
-          }
+              </Col>
+            )
+          })
+        ) : (
+          <div className='no-images-icon'>
+            <img src = {'http://localhost:7777/2019-07-19T07:41:58.967Zimg4.jpeg'}/>
+          </div>
+        )}
+          </Fragment>: ''}
+         
         </Col>
         <Col md='3' className="logs-section">
           <div className="list-view">
             <h6>Message Logs</h6>
-              {item.map(function(d, idx){
+              {activityLogs.map(function(d, idx){
               return (<li key={idx}>
                 <span class="email">Status:</span>
                 <span>{d.StatusValue}</span>

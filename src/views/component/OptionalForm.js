@@ -310,7 +310,8 @@ const ContactForm = (props) => {
                             })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
-                           
+                            axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                            log:'Ticket Created'})    
                         })
                         if(res.data == 'done'){
                             setFileNames([])
@@ -362,6 +363,8 @@ const ContactForm = (props) => {
                             })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
+                            axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                            log:'Ticket Created' })
                             
                         })
                         if(res.data == 'done'){
@@ -410,7 +413,8 @@ const ContactForm = (props) => {
                             setsuccessmsg('Your query has been recorded')
                             setShowLinks([])
                         }
-                        
+                        axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                        log:'Ticket Created' }) 
                     })
                     setshowFlashMsg(false)                
             })

@@ -310,12 +310,12 @@ app.post('/saveContact', (req, res) => {
     } else {
       imagepaths.splice(0, imagepaths.length)
       filepaths.splice(0, imagepaths.length)
+      res.send(data)
     }
   })
   console.log("contact saved")
   imagepaths.splice(0, imagepaths.length)
   filepaths.splice(0, imagepaths.length)
-  res.send("saved")
   
 })
 
@@ -1003,11 +1003,15 @@ app.post('/createagent', (req, res) => {
 })
 
 app.post('/logentry', (req, res) => {
+  let Id = req.body.Id
+  console.log("Id ==>", Id)
   let log = req.body.log
+  console.log("log ==>", log)
   let date = Date.now()
   var supportLogs = new SupportLogs({
-    log: log,
-    Date: date
+    Log: log,
+    Date: date,
+    Id:Id
   })
   supportLogs.save()
 })

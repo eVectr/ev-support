@@ -112,5 +112,4 @@ const Loginform = (props) => {
     </div>
   )
 }
-
 export default connect(state => state)(Loginform)

@@ -121,10 +121,11 @@ const AdminTicket = (props) => {
     setSelectedStatus(e.target.value)
     axios.post(`http://3.83.23.220:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
-      console.log(res.data.Status, 'res.data.Status')
+      axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+      log:'Ticket Created' })
       })
   }
-  console.log("ticket contacts ->", contacts)
+  console.log("contacts  ===>", contacts)
   return (
     <Col className='container-fluid'>
       {loader ?
@@ -132,7 +133,7 @@ const AdminTicket = (props) => {
             <img src={require('../../images/loader.gif')} />
         </div>:
     <Row>
-{
+  {
   contacts.map((element, index) => {
     return (
       <Col md='3' className='settings-tab'>
