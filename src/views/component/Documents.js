@@ -48,15 +48,15 @@ const Document = ({ contacts }) => {
            // let url = 'http://3.83.23.220:7788/'
             let imgurl = url.concat(getimg)
             return (
-              <Col md='3' className='image-section-data'>
-                <Card>
+              <Col md='12' className='image-section-data'>
+               
                   <ul>
                     <li>
                       <img src={imgurl}  />
                       <a href={imgurl} download>Download</a>
                     </li>
                   </ul>
-                </Card>
+                
               </Col>
             )
           })
@@ -72,14 +72,14 @@ const Document = ({ contacts }) => {
             let imgurl = url.concat(getimg)
             return (
               <Col md='3' className='image-section-data'>
-                <Card>
+                
                   <ul>
                     <li>
-                      <img src={imgurl}  />
+                    <img src={require('../../images/doc.png')} className='document-img' />
                       <a href={imgurl} download>Download</a>
                     </li>
                   </ul>
-                </Card>
+                
               </Col>
             )
           })

@@ -251,7 +251,6 @@ const AdminTicket = (props) => {
                 <li className="list-view">
                     <h6>Activity Logs</h6>
                       {activityLog.map(function(d, idx){
-                        console.log("ddddd =>", d)
                       return (<li key={idx}>
                         {/* <span class="email">Status:</span> */}
                         <span>{d.Log}</span>
