@@ -4,24 +4,11 @@ import { Container, Row, Col, Card,Input } from 'reactstrap'
 
 
 const Document = ({ contacts }) => {
-  const [activityLogs, setActivityLogs] = useState([ {
-    StatusValue: 'Ticket created'
-  },
-  {
-    StatusValue: 'Ticket status changed to active'
-  },
-  {
-    StatusValue: 'Ticket status changed to closed'
-  }])
-  const document = contacts.map(element => {
-    return element.Document
-  })
 
-  console.log('contacts docs   ===>', contacts)
   return (
     <Container>
       <Row>
-      <Col md='12'>
+      <Col md='9'>
           <div className="assign-data">
             <div className="user-docs-detail">
               <div className="docs-details-inner">
@@ -32,14 +19,6 @@ const Document = ({ contacts }) => {
                     <span><i class="fa fa-link" aria-hidden="true"></i></span>
                 </div>
               </div>
-              <div className="docs-details-inner right-side">
-                <label>Assignee</label>
-                <div className="">
-                  <span><img src={require('../../images/head-659652_960_720.png')} /></span>
-                  <span>Vijaya</span>
-                </div>
-              </div>
-              
               </div>
             </div>
       </Col>
@@ -79,20 +58,6 @@ const Document = ({ contacts }) => {
         )}
           </Fragment>: ''}
          
-        </Col>
-        <Col md='3' className="logs-section">
-          <div className="list-view">
-            <h6>Message Logs</h6>
-              {activityLogs.map(function(d, idx){
-              return (<li key={idx}>
-                <span class="email">Status:</span>
-                <span>{d.StatusValue}</span>
-                </li>)
-            })}
-          </div>
-          <div className="other-view">
-            <li>{contacts.length > 0? contacts[0].Reason:''}</li>
-          </div>
         </Col>
 
      </Row>

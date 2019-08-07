@@ -1016,6 +1016,21 @@ app.post('/logentry', (req, res) => {
   supportLogs.save()
 })
 
+
+app.post('/findlogentry', (req, response) => {
+  let Id = req.body.Id
+  console.log("id --->", Id)
+  SupportLogs.find({Id:Id}, (err, data)=>{
+    if(err){
+      response.send(err)
+    }else{
+      console.log(data)
+      response.send(data)
+    }
+  } )
+})
+
+
 app.post('/assignticket', (req, res) => {
   let Id = req.body.Id
   let Name = req.body.Name

@@ -353,9 +353,9 @@ margin-bottom: 40px;
     font-size: 18px;
 }
 .show-card.card {
-    margin-top: 15px;
     border: none !important;
     box-shadow: none;
+    padding: 0;
 }
 .admin-chats-data.col {
     margin-bottom: 12px;
@@ -470,9 +470,6 @@ button.reply-btn.btn.btn-secondary {
     box-shadow: none !important;
     border-bottom: 1px solid #ced4da !important;
 }
-.docs-details-inner {
-    float: left;
-}
 .docs-details-inner label {
     color: #5c98ca;
     font-size: 16px;
@@ -558,9 +555,6 @@ label.des-head {
 .user-docs-detail {
     width: 100%;
 }
-.docs-details-inner.right-side {
-    float: right;
-}
 .docs-details-inner.right-side img {
     width: 40px;
     height: 40px;
@@ -582,7 +576,7 @@ list-style: none;
 }
 .logs-section span {
     font-size: 15px;
-    margin: 2px;
+    /* margin: 2px; */
     text-align: left;
 }
 .logs-section.col-md-3 {
@@ -592,6 +586,8 @@ list-style: none;
 .list-view li {
     margin-bottom: 20px;
     text-align: left;
+    background: #fff;
+    padding: 15px;
 }
 .list-view .email {
     color: #ca652f;
@@ -601,4 +597,47 @@ list-style: none;
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 23px;
+}
+.list-save {
+    background: #4c6eb3;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 15px;
+    width: 40%;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: none;
+}
+.list-save:focus {
+    outline: none;
+    box-shadow: none;
+}
+li.docs-details-inner.right-side {
+    list-style: none;
+}
+.assign-data {
+    margin-top: 40px;
+}
+.activity-logs{
+    background: #f4f5f7;
+}
+.activity-logs.col-md-2 {
+    padding-top: 25px;
+    overflow-y: scroll;
+    height: calc(100vh - 100px);
+    padding-bottom: 30px;
+}
+.ticket-assign {
+    margin-bottom: 0px;
+}
+.ticket-assign span {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+.right-ticket {
+    text-align: right;
+    float: right;
+    line-height: 27px;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import Select from 'react-select'
  
 let agentAsing = (props) =>{
@@ -11,7 +11,10 @@ const options = [
     
   ]
   return (
-    <Select options={options} />
+    <div>
+      <Select options={options}  />
+      
+    </div>
   )
   }
 export default agentAsing
