@@ -12,7 +12,22 @@ const Document = ({ contacts }) => {
           <div className="assign-data">
             <div className="user-docs-detail">
               <div className="docs-details-inner">
-                <label className="des-head">{contacts.length > 0? contacts[0].Subject:''}</label>
+               
+                <div className="ticket-docs">
+                    <label className="des-head">Subject:</label>
+                    <span className="des-head">{contacts.length > 0? contacts[0].Subject:''}</span>
+                </div>
+               <div className="ticket-docs">
+                  <label className="des-head">Reason:</label> <span>
+                  <span className="des-head">{contacts.length > 0? contacts[0].Reason:''}</span>
+                </span>
+               </div>
+               <div className="test">
+               <label className="des-head">Message:</label> 
+                  <span>
+                  {contacts.length > 0? contacts[0].Message:''}
+                  </span>
+                </div>
                 <div className="icons-links">
                     <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
                     <span><i class="fa fa-file-image" aria-hidden="true"></i></span>
@@ -22,19 +37,12 @@ const Document = ({ contacts }) => {
               </div>
             </div>
       </Col>
-      <Col md='12'>
-        <div className="test">
-              <p>
-              {contacts.length > 0? contacts[0].Message:''}
-              </p>
-          </div>
-      </Col>
         </Row>
       <Row>
          <Col md='9' className="attach-item">
           {contacts.length > 0? <Fragment>
             {contacts[0].Image.length ? (
-          contacts[0].Image.map(img => {
+            contacts[0].Image.map(img => {
             let getimg = img.split('/')[1]
             let url = 'http://localhost:7788/'
            // let url = 'http://3.83.23.220:7788/'
@@ -45,6 +53,7 @@ const Document = ({ contacts }) => {
                   <ul>
                     <li>
                       <img src={imgurl}  />
+                      <a href={imgurl} download>Download</a>
                     </li>
                   </ul>
                 </Card>
@@ -52,10 +61,48 @@ const Document = ({ contacts }) => {
             )
           })
         ) : (
-          <div className='no-images-icon'>
-            <img src = {'http://localhost:7777/2019-07-19T07:41:58.967Zimg4.jpeg'}/>
-          </div>
+        ''
         )}
+
+          {contacts[0].Document.length ? (
+            contacts[0].Document.map(img => {
+            let getimg = img.split('/')[1]
+            let url = 'http://localhost:7788/'
+           // let url = 'http://3.83.23.220:7788/'
+            let imgurl = url.concat(getimg)
+            return (
+              <Col md='3' className='image-section-data'>
+                <Card>
+                  <ul>
+                    <li>
+                      <img src={imgurl}  />
+                      <a href={imgurl} download>Download</a>
+                    </li>
+                  </ul>
+                </Card>
+              </Col>
+            )
+          })
+        ) : (
+        ''
+        )}
+         {contacts[0].Link.length ? (
+            contacts[0].Link.map(url => {
+              console.log("url ==>", url)
+              return (
+              <Col md='6' className='links-data'>
+                  <ul>
+                    <li>
+                     <a href = {url}>{url}</a>
+                    </li>
+                  </ul>
+              </Col>
+            )
+          })
+        ) : (
+        ''
+        )}
+        
           </Fragment>: ''}
          
         </Col>

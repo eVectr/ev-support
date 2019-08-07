@@ -27,6 +27,7 @@ const AdminTicket = (props) => {
   let [showTextArea, setshowTextArea] = useState(false)
   let [Test, setTest] = useState(false)
   const [dropdownOpen, setdropdownOpen] = useState(false)
+  const [showAdminPanel, setshowAdminPanel] = useState(false)
   const [SelectedStatus, setSelectedStatus] = useState('')
   const [SelectOptions, setSelectOptions] = useState([])
   const [assignTo, setAssignto] = useState('')
@@ -54,7 +55,6 @@ const AdminTicket = (props) => {
       axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
       .then(res =>{
         setActivityLog(res.data.reverse())
-        console.log("logresponsedata ============== ==>", res.data)
       })
   }, [SelectedStatus, reply])
 
@@ -115,12 +115,24 @@ const AdminTicket = (props) => {
     .then(res => {
       axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
       log:'Ticket Status Changed to ' + SelectedStatus })
+      .then(res =>{
+        axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+        .then(res =>{
+          setActivityLog(res.data.reverse())
+        })
+      })
       })
   }
   let onAssignChange = (e) =>{
     setAssignto(e.value)
   }
  
+  let backtopage = () => {
+    props.history.push('/admin')
+    //setshowAdminPanel(!showAdminPanel)
+  }
+  console.log('contacts  ==> ', contacts)
+  
   return (
     <Col className='container-fluid'>
       {loader ?
@@ -132,16 +144,20 @@ const AdminTicket = (props) => {
             contacts.map((element, index) => {
               return (
                 <Col md='3' className='settings-tab'>
+                   <div className="ticket-docs" onClick={() => backtopage()}>
+                      <i class="fas fa-arrow-left"></i>
+                   </div>
                   <div className='user-img'>
                     <img src={require('../../images/head-659652_960_720.png')} />
                     <span>{element.Name}</span>
                   </div>
                   <div className='user-data'>
                     <p><span className='email'>Case No:</span><span>{element.Case_No}</span></p>
-                    <p><span className='email'>Date:</span><span>{moment(element.date).format('MMMM Do YYYY, h:mm:ss a')}</span></p>
-                    <p><span className='email'>Transaction No:</span><span>1234567</span></p>
+                    <p><span className='email'>Type:</span><span>{element.Template}</span></p>
+                    <p><span className='email'>Date:</span><span>{moment(element.date).format('lll')}</span></p>
+                    <p><span className='email'>Transaction No:</span><span>{element.Transaction_Number == ""?'N/A':element.Transaction_Number}</span></p>
                     <p><span className='email'>Email:</span><span>{element.Email}</span></p>
-                    <p><span className='email'>Reason:</span><span>{element.Reason}</span></p>
+                    {/* <p><span className='email'>Reason:</span><span>{element.Reason}</span></p> */}
                     <p><span className='email'>Status:</span><span>
                       <Input type="select" name="select" id="exampleSelect" className="btn-status" onChange={(e) => Status(e)} value={SelectedStatus}>
                         <option>Open</option>
@@ -152,7 +168,7 @@ const AdminTicket = (props) => {
                     </p>
                   </div>
                   <div className='setting-tab-list'>
-                    <ul className='list-group'>
+                    <ul>
                       <li className="assign-task" >
                         <span onClick={showTestMsgBox}>Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                         {
@@ -167,6 +183,12 @@ const AdminTicket = (props) => {
                             : ''
                         }
 
+                      </li>
+                      <li className="assignee-task">
+                        <div className="inner-assign">
+                          <span><img src={require('../../images/head-659652_960_720.png')} /></span>
+                          <span className="assign-name">Vijaya</span>
+                        </div>
                       </li>
 
                     </ul>
@@ -218,19 +240,13 @@ const AdminTicket = (props) => {
               <Col md={{ size: 7, offset: 1 }} className="comment-inner">
                 <div className='text-area-field'>
                   <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
-                    value={reply} onChange={(e) => onAssignChange(e)} />
+                    value={reply} onChange={(e) => onMessageChange(e)} />
                   <button className='reply-btn' onClick={sendemail}>Add Reply</button>
                 </div>
               </Col>
           </Col>
           <Col md="2" className="activity-logs">
-      {/* <li className="docs-details-inner right-side">
-                <label>Assignee</label>
-                <div className="">
-                  <span><img src={require('../../images/head-659652_960_720.png')} /></span>
-                  <span>Vijaya</span>
-                </div>
-              </li> */}
+
               <li className="logs-section">
                 <li className="list-view">
                     <h6>Activity Logs</h6>
