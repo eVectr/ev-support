@@ -1004,9 +1004,7 @@ app.post('/createagent', (req, res) => {
 
 app.post('/logentry', (req, res) => {
   let Id = req.body.Id
-  console.log("Id ==>", Id)
   let log = req.body.log
-  console.log("log ==>", log)
   let date = Date.now()
   var supportLogs = new SupportLogs({
     Log: log,
@@ -1014,6 +1012,7 @@ app.post('/logentry', (req, res) => {
     Id:Id
   })
   supportLogs.save()
+  res.send('done')
 })
 
 
