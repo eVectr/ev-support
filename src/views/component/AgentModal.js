@@ -1,11 +1,19 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
+import Select from 'react-select'
 import Modal from 'react-responsive-modal'
 import { Col, Button, Form, FormGroup, Label, Input, FormText  } from 'reactstrap'
-import Select from 'react-select'
+
 
 const AgentModal = props => {
   const [isOpen, setIsOpen] = useState(false)
+
+
+const options = [
+  { value: 'Standard', label: 'Standard' },
+  { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
+  { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
+]
  
   const styles = {
     fontFamily: 'sans-serif',
@@ -18,6 +26,12 @@ const AgentModal = props => {
     } else {
       setIsOpen(false)
     }
+  }
+  let onAgentChange = (e) =>{
+    for(let i = 0; i< e.length ; i++){
+      console.log("agent selcet =======>", e[i].value)
+    }
+   
   }
   return (
     <div style={styles} >
@@ -54,11 +68,7 @@ const AgentModal = props => {
                     <FormGroup row>
                         <Label for="exampleSelect">Type</Label>
                         <Col sm={10}>
-                        <Input type="select" name="select" id="exampleSelect">
-                            <option>Standard</option>
-                            <option>Optional Uploads + Transaction Number</option>
-                            <option>Mandatory Uploads</option>
-                        </Input>
+                        <Select onChange={(e) =>onAgentChange(e)} isMulti options={options} />
                         </Col>
                     </FormGroup>
                     <FormGroup check row>
