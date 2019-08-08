@@ -329,7 +329,7 @@ margin-bottom: 20px;
 }
 .image-section-data img {
     width: 100%;
-    height: auto;
+    height: 150px;
     text-align: center;
     object-fit: contain;
     margin-bottom: 18px;
@@ -412,6 +412,7 @@ margin-bottom: 20px;
 .right-tab {
     height: calc(100vh - 100px);
     overflow: scroll;
+    padding: 0px !important;
 }
 .status-field {
     width: 300px;
@@ -652,9 +653,17 @@ li.docs-details-inner.right-side {
 }
 .assign-data {
     margin-top: 40px;
+    padding-left: 30px;
 }
 .activity-logs{
     background: #f4f5f7;
+}
+.download-docs {
+    border-top: 2px solid #edeff1;
+    border-bottom: 2px solid #edeff1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 .activity-logs.col-md-2 {
     padding-top: 25px;
@@ -764,12 +773,19 @@ li.docs-details-inner.right-side {
     box-shadow: none !important;
     border: 1px solid #c1bfbf !important;
 }
-.inner-image-section-data li {
+/* .inner-image-section-data li {
     text-align: center;
     display: inline-block;
     width: 30%;
     margin-bottom: 30px;
     margin: 8px;
+} */
+.inner-image-section-data {
+    display: inline-block;
+    max-width: 32%;
+    vertical-align: top;
+    text-align: center;
+    padding: 0;
 }
 .settings-tab .error-msg {
     color: red;
@@ -786,21 +802,27 @@ li.docs-details-inner.right-side {
 }
 .image-section-data {
     padding-left: 0 !important;
-    margin: 0;
+    margin: 10px 0px;
+    width: 15%;
+}
+.links-data  ul {
+    margin-bottom: 0 !important;
+}
+.links-data {
+    margin: 24px;
+    margin-bottom: 0px;
 }
 .inner-image-section-data li img {
     height: 150px;
     margin-bottom: 18px;
+    width: auto;
 }
 .icons-links span:first-child {
     margin: 0;
 }
 .inner-image-section-data ul {
-    padding-left: 10px;
+    /* padding-left: 10px; */
 }
-.inner-image-section-data {
-    border-bottom: 2px solid #f4f5f7;
-    margin-bottom: 40px;
-    border-top: 2px solid #f4f5f7;
-    padding-top: 32px !important; 
+.admin-chats-data.col-md-5 {
+    padding-left: 30px;
 }

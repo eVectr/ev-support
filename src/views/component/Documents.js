@@ -35,10 +35,10 @@ const Document = ({ contacts }) => {
               </div>
             </div>
       </Col>
-        </Row>
-      <Row>
-         <Col md='12' className="attach-item">
-          {contacts.length > 0? <Fragment>
+    </Row>
+      <Col md='12' className="attach-item">
+          {
+            contacts.length > 0? <Fragment>
             {contacts[0].Image.length ? (
             contacts[0].Image.map(img => {
             let getimg = img.split('/')[1]
@@ -46,8 +46,7 @@ const Document = ({ contacts }) => {
            // let url = 'http://3.83.23.220:7788/'
             let imgurl = url.concat(getimg)
             return (
-              <Col md='12' className='inner-image-section-data'>
-               
+                <Col md='4' className='inner-image-section-data'>
                   <ul>
                     <li>
                       <img src={imgurl}  />
@@ -61,7 +60,8 @@ const Document = ({ contacts }) => {
         ) : (
         ''
         )}
-
+        <Fragment>
+          <div className="download-docs">
           {contacts[0].Document.length ? (
             contacts[0].Document.map(img => {
             let getimg = img.split('/')[1]
@@ -71,19 +71,20 @@ const Document = ({ contacts }) => {
             console.log("document liks   ===>", imgurl)
             return (
               <Col md='3' className='image-section-data'>
-                  <ul>
-                    <li>
-                    <img src={require('../../images/doc.png')} className='document-img' />
-                      <a href={imgurl} download="download.png">Download</a>
-                    </li>
-                  </ul>
-                
-              </Col>
+                    <ul>
+                      <li>
+                        <img src={require('../../images/doc.png')} className='document-img' />
+                        <a href={imgurl} download="download.png">Download</a>
+                      </li>
+                    </ul>
+                  </Col>
             )
           })
         ) : (
         ''
         )}
+          </div>
+        </Fragment>
          {contacts[0].Link.length ? (
             contacts[0].Link.map(url => {
               console.log("url ==>", url)
@@ -105,7 +106,7 @@ const Document = ({ contacts }) => {
          
         </Col>
 
-     </Row>
+
     </Container>
   )
 }
