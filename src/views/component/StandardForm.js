@@ -69,7 +69,7 @@ const ContactForm = (props) => {
         Reason: props.notificationreducer.selectedReason.name,
         Template: props.notificationreducer.selectedReason.template })
         .then(res => {
-          console.log('res =>', res)
+          console.log('res ====================>', res)
           setShowFlashMsg(true)
           setLoader(false)
           if (res.status == 200) {
@@ -82,6 +82,9 @@ const ContactForm = (props) => {
             subject: '',
             message: ''
           })
+         // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+          axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+          log:'Ticket Created' }) 
         })
       setShowFlashMsg(false)
     })

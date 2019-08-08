@@ -1,13 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { Container, Row, Col, Card,Input } from 'reactstrap'
 
 
-const Document = ({ contacts }) => {
-  const document = contacts.map(element => {
-    return element.Document
-  })
 
-  console.log('contacts   ===>', contacts)
+const Document = ({ contacts }) => {
+
   return (
     <Container>
       <Row>
@@ -39,28 +36,76 @@ const Document = ({ contacts }) => {
               </div>
               </div>
             </div>
-           
-          <Col md='9' className="attach-item">
-          {
-            document.map(element => {
-              return (
-                <Card>
-                  <img src={require('../../images/doc.png')} className='document-img' />
-                  <li>
-                    <a href='#' target= '_blank'>{element}</a>
-                  </li>
-                  
-                </Card>
-                
-              )
-            })
-          }
-        </Col>
       </Col>
         </Row>
       <Row>
+         <Col md='9' className="attach-item">
+          {contacts.length > 0? <Fragment>
+            {contacts[0].Image.length ? (
+            contacts[0].Image.map(img => {
+            let getimg = img.split('/')[1]
+           // let url = 'http://localhost:7788/'
+            let url = 'http://3.83.23.220:7788/'
+            let imgurl = url.concat(getimg)
+            return (
+              <Col md='12' className='inner-image-section-data'>
+               
+                  <ul>
+                    <li>
+                      <img src={imgurl}  />
+                      <a href={imgurl} download>Download</a>
+                    </li>
+                  </ul>
+                
+              </Col>
+            )
+          })
+        ) : (
+        ''
+        )}
+
+          {contacts[0].Document.length ? (
+            contacts[0].Document.map(img => {
+            let getimg = img.split('/')[1]
+           // let url = 'http://localhost:7788/'
+            let url = 'http://3.83.23.220:7788'
+            let imgurl = url.concat(getimg)
+            return (
+              <Col md='3' className='image-section-data'>
+                
+                  <ul>
+                    <li>
+                    <img src={require('../../images/doc.png')} className='document-img' />
+                      <a href={imgurl} download>Download</a>
+                    </li>
+                  </ul>
+                
+              </Col>
+            )
+          })
+        ) : (
+        ''
+        )}
+         {contacts[0].Link.length ? (
+            contacts[0].Link.map(url => {
+              console.log("url ==>", url)
+              return (
+              <Col md='6' className='links-data'>
+                  <ul>
+                    <li>
+                     <a href = {url}>{url}</a>
+                    </li>
+                  </ul>
+              </Col>
+            )
+          })
+        ) : (
+        ''
+        )}
         
-       
+          </Fragment>: ''}
+         
+        </Col>
 
      </Row>
     </Container>

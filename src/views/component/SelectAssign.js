@@ -12,10 +12,9 @@ const options = [
   ]
   return (
     <div>
-      <Select options={options} />
+      <Select options={options}  />
       
     </div>
-    
   )
   }
 export default agentAsing

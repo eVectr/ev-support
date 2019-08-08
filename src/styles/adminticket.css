@@ -302,7 +302,8 @@ margin-bottom: 40px;
 }
 
 .links-data a{
-    color:#212529
+    color: #1e60e3;
+    text-decoration: underline;
 }
 
 .image-section-data .card:hover {
@@ -313,12 +314,20 @@ margin-bottom: 40px;
 }
 .image-section-data li {
     text-align: center;
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 30px;
+    margin: 8px;
+}
+.attach-item .image-section-data li {
+    width: 100%;
 }
 .image-section-data img {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: auto;
     text-align: center;
     object-fit: contain;
+    margin-bottom: 18px;
 }
 
 .image-section-data .card{
@@ -641,7 +650,10 @@ li.docs-details-inner.right-side {
 .activity-logs.col-md-2 {
     padding-top: 25px;
     overflow-y: scroll;
+    height: calc(100vh - 100px);
+    padding-bottom: 30px;
 }
+
 .ticket-assign {
     margin-bottom: 0px;
 }
@@ -697,6 +709,12 @@ li.docs-details-inner.right-side {
 .assign-task span {
     color: #2b2b2b;
 }
+.image-section-data {
+    display: inline-block;
+}
+.show-card.card .col-md-12 {
+    padding: 0;
+}
 .sent-modal.agent-modal-inner label {
     text-align: left;
     margin: 0;
@@ -737,3 +755,11 @@ li.docs-details-inner.right-side {
     box-shadow: none !important;
     border: 1px solid #c1bfbf !important;
 }
+.inner-image-section-data li {
+    text-align: center;
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 30px;
+    margin: 8px;
+}
+
