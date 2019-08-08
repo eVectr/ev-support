@@ -37,13 +37,13 @@ const Document = ({ contacts }) => {
       </Col>
         </Row>
       <Row>
-         <Col md='9' className="attach-item">
+         <Col md='12' className="attach-item">
           {contacts.length > 0? <Fragment>
             {contacts[0].Image.length ? (
             contacts[0].Image.map(img => {
             let getimg = img.split('/')[1]
-            let url = 'http://localhost:7788/'
-           // let url = 'http://3.83.23.220:7788/'
+           // let url = 'http://localhost:7788/'
+            let url = 'http://3.83.23.220:7788/'
             let imgurl = url.concat(getimg)
             return (
               <Col md='12' className='inner-image-section-data'>
@@ -65,13 +65,12 @@ const Document = ({ contacts }) => {
           {contacts[0].Document.length ? (
             contacts[0].Document.map(img => {
             let getimg = img.split('/')[1]
-            let url = 'http://localhost:7788/'
-           // let url = 'http://3.83.23.220:7788/'
+           // let url = 'http://localhost:7788/'
+            let url = 'http://3.83.23.220:7788/'
             let imgurl = url.concat(getimg)
             console.log("document liks   ===>", imgurl)
             return (
               <Col md='3' className='image-section-data'>
-                
                   <ul>
                     <li>
                     <img src={require('../../images/doc.png')} className='document-img' />

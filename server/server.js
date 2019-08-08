@@ -1051,6 +1051,39 @@ app.post('/findlogentry', (req, response) => {
   } )
 })
 
+app.post('/saveagent', (req, res) => {
+  let FirstName = req.body.FirstName
+  let LastName = req.body.LastName
+  let Password = req.body.Password
+  let Type = req.body.Type
+  let TicketId = req.body.TicketId
+  var supportagent = new  SupportAgent({
+    FirstName: FirstName,
+    LastName: LastName,
+    Password:Password,
+    Type:Type,
+    TicketId:TicketId
+  })
+  supportagent.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
+
+app.get('/findagent', (req, res) => {
+  SupportAgent.find({}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
 
 app.post('/assignticket', (req, res) => {
   let Id = req.body.Id

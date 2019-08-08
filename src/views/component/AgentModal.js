@@ -7,13 +7,17 @@ import { Col, Button, Form, FormGroup, Label, Input, FormText  } from 'reactstra
 
 const AgentModal = props => {
   const [isOpen, setIsOpen] = useState(false)
-
-
 const options = [
   { value: 'Standard', label: 'Standard' },
   { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
   { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
 ]
+  const [selectedFirstName, setSelectedFirstName] = useState('')
+  const [selectedLastName, setSelectedLastName] = useState('')
+  const [selectedEmail, setSelectedEmail] = useState('')
+  const [selectedPassword, setSelectedPassword] = useState('')
+  const [selectedType, setSelectedType] = useState([])
+  const [Errors, setErrors] = useState('')
  
   const styles = {
     fontFamily: 'sans-serif',
@@ -28,11 +32,48 @@ const options = [
     }
   }
   let onAgentChange = (e) =>{
-    for(let i = 0; i< e.length ; i++){
-      console.log("agent selcet =======>", e[i].value)
-    }
-   
+  
+      setSelectedType(e)
+      // setSelectedType(prev => {
+      //   const update = prev.concat(e[i].value)
+      //   return update
   }
+   
+  let onSelectFirstName = (e) => {
+    console.log('first value ==>', e.target.value)
+    setSelectedFirstName(e.target.value)
+  }
+  let onSelectLastName = (e) => {
+    setSelectedLastName(e.target.value)
+  }
+  let onSelectEmail = (e) => {
+    setSelectedEmail(e.target.value)
+  }
+  let onSelectPassword = (e) => {
+    setSelectedPassword(e.target.value)
+  }
+ 
+  let handleCloseOnSave = () => {
+    if(selectedFirstName == '' || selectedLastName == '' || selectedEmail == '' || selectedPassword  == '' || selectedType == ''){
+      setTimeout(() => {
+        setErrors(false)
+        setErrors('')
+    }, 2000)
+      setErrors('Please enter required fields')
+    }else {
+      axios.post(`http://3.83.23.220:7788/saveagent`, {FirstName:selectedFirstName,
+     // axios.post(`http://localhost:7788/saveagent`, {FirstName:selectedFirstName,
+      LastName: selectedLastName,
+      Password: selectedPassword,
+      Type:selectedType,
+      TicketId: ''})
+      .then(res =>{
+        console.log("res ==>", res)
+      })
+      props.onAgentCloseModal()
+    }
+  }
+
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
@@ -44,25 +85,37 @@ const options = [
                     <FormGroup row>
                         <Label for="exampleEmail">First Name</Label> 
                             <Col sm={10}>
-                                <Input type="First name" name="First name" id="exampleEmail" placeholder="First Name" />
+                                <Input type="First name" name="First name" id="exampleEmail" placeholder="First Name" onChange={(e) => onSelectFirstName(e)}/>
+                                {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                }
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="exampleEmail">Last Name</Label> 
                                 <Col sm={10}>
-                                <Input type="Last name" name="Last name" id="exampleEmail" placeholder="Last Name" />
+                                  <Input type="Last name" name="Last name" id="exampleEmail" placeholder="Last Name" onChange={(e) => onSelectLastName(e)}/>
+                                  {
+                                    setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                  }
                                 </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="exampleEmail" sm={2}>Email</Label>
                             <Col sm={10}>
-                                <Input type="Email" name="Email" id="exampleEmail" placeholder="Email" />
-                                </Col>
+                                <Input type="Email" name="Email" id="exampleEmail" placeholder="Email" onChange={(e) => onSelectEmail(e)}/>
+                                {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                }
+                            </Col>
                         </FormGroup>
                     <FormGroup row>
                         <Label for="examplePassword">Password</Label>
                             <Col sm={10}>
-                                <Input type="password" name="password" id="examplePassword" placeholder="password" />
+                                <Input type="password" name="password" id="examplePassword" placeholder="Password" onChange={(e) => onSelectPassword(e)}/>
+                                {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                }
                             </Col>     
                     </FormGroup>
                     <FormGroup row>
@@ -73,7 +126,7 @@ const options = [
                     </FormGroup>
                     <FormGroup check row>
                         <Col sm={{ size: 12 }}>
-                            <Button className="sendmessage-btn btn btn-secondary">Save</Button>
+                            <Button className="sendmessage-btn btn btn-secondary" onClick ={handleCloseOnSave}>Save</Button>
                         </Col>
                     </FormGroup>
                 
