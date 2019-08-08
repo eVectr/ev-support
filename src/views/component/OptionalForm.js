@@ -48,6 +48,7 @@ const ContactForm = (props) => {
         setErrors({})
     }
 
+
     const onDrop = (files) => {
         if (!files.length) {
             return
@@ -55,8 +56,20 @@ const ContactForm = (props) => {
 
         if (files.length > 1) {
             setFileNames(files)
+            let formData = new FormData()
+            for (let i = 0; i < files.length; i++) {
+                formData.append('SelectedImage', files[i])
+            }
+            axios.post(`http://localhost:7788/fileupload`, formData,
+           // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+            ).then(res => { })
             
         } else {
+            let formData = new FormData()
+            formData.append('SelectedImage', files[0])
+            axios.post(`http://localhost:7788/fileupload`, formData,
+           // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+            ).then(res => { })
             setFileNames(prev => {
                 const update = prev.concat(files[0])
                 return update
@@ -69,31 +82,42 @@ const ContactForm = (props) => {
             return
         }
         if (files.length > 1) {
+            let formData = new FormData()
+            for (let i = 0; i < files.length; i++) {
+                formData.append('SelectedImage', files[i])
+            }
+             axios.post(`http://localhost:7788/upload`, formData,
+             )
+            //axios.post(`http://3.83.23.220:7788/upload`, formData,
+            //)
+            .then(res => {})
             setSelectedImage(files)
             for (let file of files) {
                 let temp = Math.random().toString()
                 temp = new FileReader()
                 temp.onloadend = () => {
-            
                     setimagePreviewUrl(prev => {
                         const update = prev.concat([temp.result])
                         return update
                     })
                 }
-                
                     if (file) {
                         try {
                             temp.readAsDataURL(file)
                         }
                         catch (err) {
                             console.log(err)
-                        }
-    
-                    
+                        }   
                 }
             }
-
         } else {
+            let formData = new FormData()
+            formData.append('SelectedImage', files[0])
+             axios.post(`http://localhost:7788/upload`, formData,
+             )
+           // axios.post(`http://3.83.23.220:7788/upload`, formData,
+            //)
+            .then(res => {})
             setSelectedImage(prev => {
                 const update = prev.concat(files[0])
                 return update
@@ -290,16 +314,16 @@ const ContactForm = (props) => {
                 let Subject = data.subject
                 let Message = data.message
                 let Case_No = no
-                let formData = new FormData()
-                for (let i = 0; i < FileNames.length; i++) {
-                    formData.append('SelectedImage', FileNames[i])
-                }
+                // let formData = new FormData()
+                // for (let i = 0; i < FileNames.length; i++) {
+                //     formData.append('SelectedImage', FileNames[i])
+                // }
                // axios.post(`http://localhost:7788/fileupload`, formData,
-                axios.post(`http://3.83.23.220:7788/fileupload`, formData,
-                ).then(res => {
-                    console.log("response =>", res)
-                    //axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
-                    axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+                // ).then(res => { 
+                    
+                    axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                    //axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                     Case_No, Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             setloader(false)
@@ -312,16 +336,17 @@ const ContactForm = (props) => {
                             })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
-                            //axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                            axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+                            axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                           // axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created'})    
+                            if(res.status == 200){
+                                setFileNames([])
+                                setsuccessmsg('Your query has been recorded ')
+                            }
                         })
-                        if(res.data == 'done'){
-                            setFileNames([])
-                            setsuccessmsg('Your query has been recorded ')
-                        }
                        
-                     })
+                       
+                    // })
                      setshowFlashMsg(false)
                      setselectDocument('')
                     
@@ -341,21 +366,20 @@ const ContactForm = (props) => {
                 let Subject = data.subject
                 let Message = data.message
                 let Case_No = no
-                let formData = new FormData()
-                console.log("selected imagage ===== >",SelectedImage)
-                for (let i = 0; i < SelectedImage.length; i++) {
-                    formData.append('SelectedImage', SelectedImage[i])
-                }
-                // axios.post(`http://localhost:7777/upload`, formData,
+                // let formData = new FormData()
+                // for (let i = 0; i < SelectedImage.length; i++) {
+                //     formData.append('SelectedImage', SelectedImage[i])
+                // }
+                // // axios.post(`http://localhost:7777/upload`, formData,
+                // // )
+                // axios.post(`http://3.83.23.220:7788/upload`, formData,
                 // )
-                axios.post(`http://3.83.23.220:7788/upload`, formData,
-                )
-                .then(res => {
-                    console.log("res =>", res)
-                   // axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                   axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                // .then(res => {})
+                    axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                  // axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
                    Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
+                            setSelectedImage([])
                             setloader(false)
                             setData({
                                 transaction_number: '',
@@ -366,17 +390,18 @@ const ContactForm = (props) => {
                             })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
-                           // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                            axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+                            axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                           // axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created' })
+                            if(res.status == 200){
+                                setSelectedImage([])
+                                setsuccessmsg('Your query has been recorded')
+                            }
                             
                         })
-                        if(res.data == 'done'){
-                            setSelectedImage([])
-                            setsuccessmsg('Your query has been recorded')
-                        }
+                       
 
-                })
+               // })
                 setshowFlashMsg(false)
 
             })
@@ -399,8 +424,8 @@ const ContactForm = (props) => {
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-               // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
-                axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                //axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                 Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                     .then(res => {
                         setloader(false)
@@ -418,8 +443,8 @@ const ContactForm = (props) => {
                             setsuccessmsg('Your query has been recorded')
                             setShowLinks([])
                         }
-                       // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                        axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+                        axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                        //axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
                         log:'Ticket Created' }) 
                     })
                     setshowFlashMsg(false)                
