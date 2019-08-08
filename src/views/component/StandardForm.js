@@ -69,7 +69,7 @@ const ContactForm = (props) => {
         Reason: props.notificationreducer.selectedReason.name,
         Template: props.notificationreducer.selectedReason.template })
         .then(res => {
-          console.log('res ====================>', res)
+          console.log('res ===========>', res)
           setShowFlashMsg(true)
           setLoader(false)
           if (res.status == 200) {
