@@ -107,7 +107,6 @@ const AdminTicket = (props) => {
     axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
     log:'Ticket assigned to ' + assignTo })
     .then(res => {
-      alert("test")
       axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
      // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{  
