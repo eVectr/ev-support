@@ -168,6 +168,7 @@ let filepaths = []
 app.post('/upload', upload.array('SelectedImage'), (req, res) => {
   let path = req.files.map((file, index) => {
     imagepaths.push(file.path)
+    console.log("image.path -",file.path )
     console.log('image path -=>', imagepaths)
   })
   res.send('send')
@@ -182,6 +183,12 @@ app.post('/fileupload', upload.array('SelectedImage'), (req, res) => {
   res.send('send')
 })
 
+// app.get('/clearfile',(req, res) => {
+//   while (filepaths.length > 0) {
+//     filepaths.pop()
+//   }
+//   res.send("cleared")
+// })
 // app.post('/fileupload', (req, res) => {
 //   upload(req, res, function (err) {
 //     console.log("req.file ====>", req.file)
@@ -309,14 +316,23 @@ app.post('/saveContact', (req, res) => {
   contactForm.save((err, data) => {
     if (err) {
     } else {
+      while (filepaths.length > 0) {
+        filepaths.pop()
+      }
+      while (imagepaths.length > 0) {
+        imagepaths.pop()
+      }
       imagepaths.splice(0, imagepaths.length)
       filepaths.splice(0, imagepaths.length)
       res.send(data)
     }
   })
-  imagepaths.splice(0, imagepaths.length)
-  filepaths.splice(0, imagepaths.length)
-  
+  while (filepaths.length > 0) {
+    filepaths.pop()
+  }
+  while (imagepaths.length > 0) {
+    imagepaths.pop()
+  }
 })
 
 app.get('/findcontact', (req, res) => {

@@ -48,6 +48,7 @@ const ContactForm = (props) => {
         setErrors({})
     }
 
+
     const onDrop = (files) => {
         if (!files.length) {
             return
@@ -59,15 +60,15 @@ const ContactForm = (props) => {
             for (let i = 0; i < files.length; i++) {
                 formData.append('SelectedImage', files[i])
             }
-           // axios.post(`http://localhost:7788/fileupload`, formData,
-            axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+            axios.post(`http://localhost:7788/fileupload`, formData,
+           // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
             ).then(res => { })
             
         } else {
             let formData = new FormData()
-                formData.append('SelectedImage', files[0])
-           // axios.post(`http://localhost:7788/fileupload`, formData,
-            axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+            formData.append('SelectedImage', files[0])
+            axios.post(`http://localhost:7788/fileupload`, formData,
+           // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
             ).then(res => { })
             setFileNames(prev => {
                 const update = prev.concat(files[0])
@@ -85,10 +86,10 @@ const ContactForm = (props) => {
             for (let i = 0; i < files.length; i++) {
                 formData.append('SelectedImage', files[i])
             }
-            // axios.post(`http://localhost:7777/upload`, formData,
-            // )
-            axios.post(`http://3.83.23.220:7788/upload`, formData,
-            )
+             axios.post(`http://localhost:7788/upload`, formData,
+             )
+            //axios.post(`http://3.83.23.220:7788/upload`, formData,
+            //)
             .then(res => {})
             setSelectedImage(files)
             for (let file of files) {
@@ -111,11 +112,11 @@ const ContactForm = (props) => {
             }
         } else {
             let formData = new FormData()
-            formData.append('SelectedImage', SelectedImage[0])
-            // axios.post(`http://localhost:7777/upload`, formData,
-            // )
-            axios.post(`http://3.83.23.220:7788/upload`, formData,
-            )
+            formData.append('SelectedImage', files[0])
+             axios.post(`http://localhost:7788/upload`, formData,
+             )
+           // axios.post(`http://3.83.23.220:7788/upload`, formData,
+            //)
             .then(res => {})
             setSelectedImage(prev => {
                 const update = prev.concat(files[0])
@@ -321,8 +322,8 @@ const ContactForm = (props) => {
                 // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
                 // ).then(res => { 
                     
-                    //axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
-                    axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                    axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                    //axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                     Case_No, Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             setloader(false)
@@ -335,8 +336,8 @@ const ContactForm = (props) => {
                             })
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
-                            //axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                            axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+                            axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                           // axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created'})    
                             if(res.status == 200){
                                 setFileNames([])
@@ -374,8 +375,8 @@ const ContactForm = (props) => {
                 // axios.post(`http://3.83.23.220:7788/upload`, formData,
                 // )
                 // .then(res => {})
-                   // axios.post(`http://localhost:7777/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                   axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                    axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                  // axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
                    Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                         .then(res => {
                             setSelectedImage([])
@@ -389,8 +390,8 @@ const ContactForm = (props) => {
                             })
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
-                           // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                            axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+                            axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                           // axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created' })
                             if(res.status == 200){
                                 setSelectedImage([])
@@ -423,8 +424,8 @@ const ContactForm = (props) => {
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-               // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
-                axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                //axios.post(`http://3.83.23.220:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                 Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
                     .then(res => {
                         setloader(false)
@@ -442,8 +443,8 @@ const ContactForm = (props) => {
                             setsuccessmsg('Your query has been recorded')
                             setShowLinks([])
                         }
-                       // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                        axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
+                        axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
+                        //axios.post(`http://3.83.23.220:7788/logentry`,{Id:res.data.Case_No,
                         log:'Ticket Created' }) 
                     })
                     setshowFlashMsg(false)                

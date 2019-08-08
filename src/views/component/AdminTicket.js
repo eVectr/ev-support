@@ -36,13 +36,13 @@ const AdminTicket = (props) => {
   const [activityLog, setActivityLog] = useState([])
 
   useEffect(() => {
-    //axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
-    axios.post(`http://3.83.23.220:7788/messagelogs`, { ID: props.match.params.id })
+    axios.post(`http://localhost:7788/messagelogs`, { ID: props.match.params.id })
+   // axios.post(`http://3.83.23.220:7788/messagelogs`, { ID: props.match.params.id })
       .then(res => {
         setMessageLogs(res.data.reverse())
       })
-    // axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
-    axios.post(`http://3.83.23.220:7788/getcontactbycaseno`, { caseno: props.match.params.id })
+     axios.post(`http://localhost:7788/getcontactbycaseno`, { caseno: props.match.params.id })
+    //axios.post(`http://3.83.23.220:7788/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
         setLoader(false)
         setContacts(res.data)
@@ -52,16 +52,16 @@ const AdminTicket = (props) => {
         }
 
       })
-      axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
-     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+     // axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+      axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
       .then(res =>{
         setActivityLog(res.data.reverse())
       })
   }, [SelectedStatus, reply])
 
   let sendemail = () => {
-    // axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
-    axios.post(`http://3.83.23.220:7788/adminreply`, { ID: props.match.params.id, Message: reply })
+     axios.post(`http://localhost:7788/adminreply`, { ID: props.match.params.id, Message: reply })
+    //axios.post(`http://3.83.23.220:7788/adminreply`, { ID: props.match.params.id, Message: reply })
       .then(res => {
         // setContacts([res.data])
         setReply('')
@@ -103,12 +103,12 @@ const AdminTicket = (props) => {
   }
   let showHideTestMsgBox = () => {
      setshowTextArea(!showTextArea)
-    //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
-    axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
+    axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+   // axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
     log:'Ticket assigned to ' + assignTo })
     .then(res => {
-      axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
-     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+      //axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+      axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{  
           setActivityLog(res.data.reverse())
         })
@@ -118,14 +118,15 @@ const AdminTicket = (props) => {
   
   let Status = (e) => {
     console.log("e.target.value ==>", e.target.value)
-    axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
-    // axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+   // axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
+     axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
      log:'Ticket Status Changed to ' + e.target.value })
     setSelectedStatus(e.target.value)
-    axios.post(`http://3.83.23.220:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+    axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+   // axios.post(`http://3.83.23.220:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
-        axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
-       // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+        //axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+        axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{
           setActivityLog(res.data.reverse())
         })
