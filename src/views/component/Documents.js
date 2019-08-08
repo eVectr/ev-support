@@ -66,8 +66,9 @@ const Document = ({ contacts }) => {
             contacts[0].Document.map(img => {
             let getimg = img.split('/')[1]
            // let url = 'http://localhost:7788/'
-            let url = 'http://3.83.23.220:7788'
+            let url = 'http://3.83.23.220:7788/'
             let imgurl = url.concat(getimg)
+            console.log("document liks   ===>", imgurl)
             return (
               <Col md='3' className='image-section-data'>
                 
