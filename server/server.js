@@ -168,7 +168,6 @@ let filepaths = []
 app.post('/upload', upload.array('SelectedImage'), (req, res) => {
   let path = req.files.map((file, index) => {
     imagepaths.push(file.path)
-    console.log("req.file ==>", file.path)
     console.log('image path -=>', imagepaths)
   })
   res.send('send')
@@ -177,7 +176,8 @@ app.post('/upload', upload.array('SelectedImage'), (req, res) => {
 app.post('/fileupload', upload.array('SelectedImage'), (req, res) => {
   let path = req.files.map((file, index) => {
     filepaths.push(file.path)
-    console.log('file path -=>', filepaths)
+    console.log("file.pah ======>", file.path)
+    console.log('file ==path -=>', filepaths)
   })
   res.send('send')
 })
@@ -314,7 +314,6 @@ app.post('/saveContact', (req, res) => {
       res.send(data)
     }
   })
-  console.log("contact saved")
   imagepaths.splice(0, imagepaths.length)
   filepaths.splice(0, imagepaths.length)
   

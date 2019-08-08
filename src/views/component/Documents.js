@@ -75,7 +75,7 @@ const Document = ({ contacts }) => {
                   <ul>
                     <li>
                     <img src={require('../../images/doc.png')} className='document-img' />
-                      <a href={imgurl} download>Download</a>
+                      <a href={imgurl} download="download.png">Download</a>
                     </li>
                   </ul>
                 
