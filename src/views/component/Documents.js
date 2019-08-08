@@ -39,7 +39,7 @@ const Document = ({ contacts }) => {
       </Col>
         </Row>
       <Row>
-         <Col md='9' className="attach-item">
+         <Col md='12' className="attach-item">
           {contacts.length > 0? <Fragment>
             {contacts[0].Image.length ? (
             contacts[0].Image.map(img => {
@@ -72,7 +72,6 @@ const Document = ({ contacts }) => {
             let imgurl = url.concat(getimg)
             return (
               <Col md='3' className='image-section-data'>
-                
                   <ul>
                     <li>
                     <img src={require('../../images/doc.png')} className='document-img' />

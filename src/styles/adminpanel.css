@@ -418,3 +418,10 @@ select{
     margin-bottom: 0px;
     text-align: left;
 }
+.comment-inner .error-msg {
+    text-align: left;
+    color: red;
+    font-size: 15px;
+    margin-top: 8px;
+    font-weight: bold;
+}

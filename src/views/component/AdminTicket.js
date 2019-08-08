@@ -14,6 +14,11 @@ import '../../styles/adminticket.css'
 const options = [
   { value: 'Akash', label: 'Akash' },
   { value: 'Love', label: 'Love' },
+  { value: 'Rohan', label: 'Rohan' },
+  { value: 'Ramesh', label: 'Ramesh' },
+  { value: 'Sohan', label: 'Sohan' },
+  { value: 'Johan', label: 'Johan' },
+  
   
 ]
 
@@ -31,18 +36,19 @@ const AdminTicket = (props) => {
   const [SelectedStatus, setSelectedStatus] = useState('')
   const [SelectOptions, setSelectOptions] = useState([])
   const [assignTo, setAssignto] = useState('')
+  const [Errors, setErrors] = useState('')
   
   const item = ['Open', 'Close', 'Active']
   const [activityLog, setActivityLog] = useState([])
 
   useEffect(() => {
-    //axios.post(`http://localhost:7777/messagelogs`, { ID: props.match.params.id })
-    axios.post(`http://3.83.23.220:7788/messagelogs`, { ID: props.match.params.id })
+    axios.post(`http://localhost:7788/messagelogs`, { ID: props.match.params.id })
+    // axios.post(`http://3.83.23.220:7788/messagelogs`, { ID: props.match.params.id })
       .then(res => {
         setMessageLogs(res.data.reverse())
       })
-    // axios.post(`http://localhost:7777/getcontactbycaseno`, { caseno: props.match.params.id })
-    axios.post(`http://3.83.23.220:7788/getcontactbycaseno`, { caseno: props.match.params.id })
+    axios.post(`http://localhost:7788/getcontactbycaseno`, { caseno: props.match.params.id })
+    // axios.post(`http://3.83.23.220:7788/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
         setLoader(false)
         setContacts(res.data)
@@ -52,20 +58,30 @@ const AdminTicket = (props) => {
         }
 
       })
-      axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
-     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+      // axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+     axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
       .then(res =>{
         setActivityLog(res.data.reverse())
       })
   }, [SelectedStatus, reply])
 
   let sendemail = () => {
-    // axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })
-    axios.post(`http://3.83.23.220:7788/adminreply`, { ID: props.match.params.id, Message: reply })
+    if(reply == ''){
+      setTimeout(() => {
+        setErrors('')
+    }, 1000)
+      setErrors('Please enter required fields')
+    }
+    else{
+      axios.post(`http://localhost:7788/adminreply`, { ID: props.match.params.id, Message: reply })
+     // axios.post(`http://3.83.23.220:7788/adminreply`, { ID: props.match.params.id, Message: reply })
       .then(res => {
         // setContacts([res.data])
         setReply('')
+        setErrors('')
       })
+    }
+    // axios.post(`http://localhost:7777/adminreply`, { ID: props.match.params.id, Message: reply })    
   }
 
   let onMessageChange = (e) => {
@@ -102,37 +118,50 @@ const AdminTicket = (props) => {
     setshowTextArea(!showTextArea)
   }
   let showHideTestMsgBox = () => {
-     setshowTextArea(!showTextArea)
-    //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
-    axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
+    if (assignTo == '') {
+      setTimeout(() => {
+        setErrors('')
+    }, 2000)
+      setErrors('Please enter required fields')
+    } else {
+      setshowTextArea(!showTextArea)
+      setAssignto('')
+    axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+    // axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
     log:'Ticket assigned to ' + assignTo })
     .then(res => {
-      axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
-     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+      // axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+      axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{  
           setActivityLog(res.data.reverse())
         })
     }) 
+    }
+     
   }
 
   
   let Status = (e) => {
     console.log("e.target.value ==>", e.target.value)
-    axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
-    // axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+    // axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
+    axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
      log:'Ticket Status Changed to ' + e.target.value })
     setSelectedStatus(e.target.value)
     axios.post(`http://3.83.23.220:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
-        axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
-       // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+        // axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
+       axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{
           setActivityLog(res.data.reverse())
         })
       })
   }
   let onAssignChange = (e) =>{
-    setAssignto(e.value)
+    if (setAssignto == '') {
+      setErrors('Please fill in this filed')
+    } else {
+      setAssignto(e.value)
+    }
   }
  
   let backtopage = () => {
@@ -178,7 +207,7 @@ const AdminTicket = (props) => {
                   <div className='setting-tab-list'>
                     <ul>
                       <li className="assign-task" >
-                        <span onClick={showTestMsgBox}>Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                        <span onClick={showTestMsgBox}>Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true" onClick={showTestMsgBox}></i></span>
                         {
                           showTextArea ?
                             <div>
@@ -186,6 +215,9 @@ const AdminTicket = (props) => {
                               <Select options={options} onChange={e => onAssignChange(e)} />
                               </li>
                               <button onClick={showHideTestMsgBox} className="list-save">Save</button>
+                              {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                              }
                             </div>
 
                             : ''
@@ -249,6 +281,9 @@ const AdminTicket = (props) => {
                   <textarea className='textarea reply-msg' name='message' placeholder='Enter Message'
                     value={reply} onChange={(e) => onMessageChange(e)} />
                   <button className='reply-btn' onClick={sendemail}>Add Reply</button>
+                    {
+                      setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                    }
                 </div>
               </Col>
           </Col>
