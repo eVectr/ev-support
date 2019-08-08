@@ -1015,7 +1015,7 @@ app.post('/logentry', (req, res) => {
     if(err){
       res.send(err)
     }else{
-      console.log("log entry data ==>", data)
+      console.log("log entry ==>", data)
       res.send(data)
     }
   })
