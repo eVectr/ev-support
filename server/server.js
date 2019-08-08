@@ -286,6 +286,7 @@ app.post('/saveContact', (req, res) => {
   let Link = req.body.Link
   let Reason = req.body.Reason
   let  Template = req.body.Template
+  console.log("link =>-------- ", Link)
 
   userlogs(Name, Message, Case_No, date)
 

@@ -1,8 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import { Container, Row, Col, Card,Input } from 'reactstrap'
 
-
-
 const Document = ({ contacts }) => {
 
   return (
@@ -93,7 +91,7 @@ const Document = ({ contacts }) => {
               <Col md='6' className='links-data'>
                   <ul>
                     <li>
-                     <a href = {url}>{url}</a>
+                    <a href = {url}>{url}</a>
                     </li>
                   </ul>
               </Col>
