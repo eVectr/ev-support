@@ -283,6 +283,7 @@ const AdminPanel = (props) => {
   let onAgentCloseModal = () =>{
     setAgentOpen(false)
   }
+ 
   let totalPages = Math.ceil(totalContact / limit)
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
  
@@ -345,7 +346,7 @@ const AdminPanel = (props) => {
           </div>
         </Col>
       </Row>
-      <Row>
+      <Row className="agent-modal-admin">
       <Col>
           <AgentModal className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
           <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>

@@ -6,6 +6,12 @@ import Select from 'react-select'
 
 const AgentModal = props => {
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedFirstName, setSelectedFirstName] = useState('')
+  const [selectedLastName, setSelectedLastName] = useState('')
+  const [selectedEmail, setSelectedEmail] = useState('')
+  const [selectedPassword, setSelectedPassword] = useState('')
+  const [selectedType, setSelectedType] = useState('')
+  const [Errors, setErrors] = useState('')
  
   const styles = {
     fontFamily: 'sans-serif',
@@ -19,6 +25,37 @@ const AgentModal = props => {
       setIsOpen(false)
     }
   }
+  let onSelectFirstName = (e) => {
+    console.log('first value ==>', e.target.value)
+    setSelectedFirstName(e.target.value)
+  }
+  let onSelectLastName = (e) => {
+    setSelectedLastName(e.target.value)
+  }
+  let onSelectEmail = (e) => {
+    setSelectedEmail(e.target.value)
+  }
+  let onSelectPassword = (e) => {
+    setSelectedPassword(e.target.value)
+  }
+  let onSelectType = (e) => {
+    console.log('type value ==>', e.value)
+    setSelectedType(e.value)
+  }
+  let handleCloseOnSave = () => {
+    if(selectedFirstName == '' || selectedLastName == '' || selectedEmail == '' || selectedPassword  == '' || selectedType == ''){
+      setTimeout(() => {
+        setErrors(false)
+        setErrors('')
+    }, 2000)
+      setErrors('Please enter required fields')
+    }else {
+      props.onAgentCloseModal()
+    }
+    
+    
+   // setIsOpen(false)
+  }
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
@@ -30,40 +67,55 @@ const AgentModal = props => {
                     <FormGroup row>
                         <Label for="exampleEmail">First Name</Label> 
                             <Col sm={10}>
-                                <Input type="First name" name="First name" id="exampleEmail" placeholder="First Name" />
+                                <Input type="First name" name="First name" id="exampleEmail" placeholder="First Name" onChange={(e) => onSelectFirstName(e)}/>
+                                {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                }
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="exampleEmail">Last Name</Label> 
                                 <Col sm={10}>
-                                <Input type="Last name" name="Last name" id="exampleEmail" placeholder="Last Name" />
+                                  <Input type="Last name" name="Last name" id="exampleEmail" placeholder="Last Name" onChange={(e) => onSelectLastName(e)}/>
+                                  {
+                                    setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                  }
                                 </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="exampleEmail" sm={2}>Email</Label>
                             <Col sm={10}>
-                                <Input type="Email" name="Email" id="exampleEmail" placeholder="Email" />
-                                </Col>
+                                <Input type="Email" name="Email" id="exampleEmail" placeholder="Email" onChange={(e) => onSelectEmail(e)}/>
+                                {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                }
+                            </Col>
                         </FormGroup>
                     <FormGroup row>
                         <Label for="examplePassword">Password</Label>
                             <Col sm={10}>
-                                <Input type="password" name="password" id="examplePassword" placeholder="password" />
+                                <Input type="password" name="password" id="examplePassword" placeholder="Password" onChange={(e) => onSelectPassword(e)}/>
+                                {
+                                  setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                                }
                             </Col>     
                     </FormGroup>
                     <FormGroup row>
                         <Label for="exampleSelect">Type</Label>
                         <Col sm={10}>
-                        <Input type="select" name="select" id="exampleSelect">
+                        <Input type="select" name="select" id="exampleSelect" onChange={(e) => onSelectType(e)}> 
                             <option>Standard</option>
                             <option>Optional Uploads + Transaction Number</option>
                             <option>Mandatory Uploads</option>
                         </Input>
+                        {
+                              setErrors? <p className="error-msg">{Errors != 'success'? Errors: ''}</p>:<p>Success</p>
+                        }
                         </Col>
                     </FormGroup>
                     <FormGroup check row>
                         <Col sm={{ size: 12 }}>
-                            <Button className="sendmessage-btn btn btn-secondary">Save</Button>
+                            <Button className="sendmessage-btn btn btn-secondary" onClick ={handleCloseOnSave}>Save</Button>
                         </Col>
                     </FormGroup>
                 
