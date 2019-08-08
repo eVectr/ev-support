@@ -99,26 +99,24 @@ const AdminTicket = (props) => {
     }
   }
   let showTestMsgBox = () => {
-    setshowTextArea(true)
+    setshowTextArea(!showTextArea)
   }
   let showHideTestMsgBox = () => {
-    setshowTextArea(!showTextArea)
+     setshowTextArea(!showTextArea)
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
     axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,
     log:'Ticket assigned to ' + assignTo })
     .then(res => {
+      alert("test")
       axios.post(`http://3.83.23.220:7788/findlogentry`,{Id:props.match.params.id})
      // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
-        .then(res =>{
-          alert(",h")
+        .then(res =>{  
           setActivityLog(res.data.reverse())
         })
     }) 
   }
 
-  let toggle = () => {
-    setdropdownOpen(!dropdownOpen)
-  }
+  
   let Status = (e) => {
     console.log("e.target.value ==>", e.target.value)
     axios.post(`http://3.83.23.220:7788/logentry`,{Id:contacts[0].Case_No,

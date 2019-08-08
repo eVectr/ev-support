@@ -1011,9 +1011,15 @@ app.post('/logentry', (req, res) => {
     Date: date,
     Id:Id
   })
-  supportLogs.save()
-  res.send('done')
-})
+  supportLogs.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("log entry data ==>", data)
+      res.send(data)
+    }
+  })
+ })
 
 
 app.post('/findlogentry', (req, response) => {
