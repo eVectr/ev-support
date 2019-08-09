@@ -5,12 +5,13 @@ import { Button } from 'reactstrap'
 import Select from 'react-select'
 import '../../styles/MessageLogs.css'
 import ImageUploader from './ImageUploader'
-import Uploader from './Uploader'
+import Uploader from './EmailUploader'
 const ModalUi = props => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedUserId, setSelectedUserId] = useState('')
+  const [selectedUserId, setSelectedUserId] = useState([])
   const [FileNames, setFileNames] = useState([])
   const [selectedUserName, setSelectedUserName] = useState('')
+  const [ subject, setSubject] = useState('')
   const [Message, setMessage] = useState('')
   const [AdminMessage, setAdminMessage] = useState('')
   const [options, setOptions] = useState([])
@@ -29,8 +30,8 @@ const ModalUi = props => {
     textAlign: 'center'
   }
   useEffect(() => {
-    //axios.get(`http://localhost:7777/getalluser`)
-    axios.get(`http://3.83.23.220:7788/getalluser`)
+    axios.get(`http://localhost:7788/getalluser`)
+    //axios.get(`http://3.83.23.220:7788/getalluser`)
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
           if (res.data[i].Name === 'Admin' || res.data[i].Name === JSON.parse(localStorage.user).Name) {
@@ -45,7 +46,7 @@ const ModalUi = props => {
               Name: res.data[i].Name
             }
             setOptions(prev => {
-              const updated = prev.concat({ value:data, label:res.data[i].Name})
+              const updated = prev.concat({ value:res.data[i]._id, label:res.data[i].Name})
               return updated
             })
           }
@@ -72,11 +73,19 @@ const ModalUi = props => {
     setAdminMessage(e.target.value)
   }
 
+  let userNameArray = []
+  let userIdArray = []
+
   let onSelect = (e) => {
-    console.log('selecte value ==>', e.value)
-    setSelectedUserId(e.value.Id)
-    
+    for(let i = 0; i< e.length ; i++){
+      userIdArray.push(e[i].value)
+      userNameArray.push(e[i].label)
+      setSelectedUserId(userIdArray)
+      setSelectedUserName(userNameArray)
+     // console.log('selecte value ==>', e[i].label)
+    }
   }
+
   let composeMessage = () => {
     if (Message == '' || selectedUserId === '') {
       setTimeout(() => {
@@ -92,8 +101,8 @@ const ModalUi = props => {
       }, 1000)
       setSelectedUserId('')
       })
-      //axios.post(`http://localhost:7777/usertousermessage`, {
-        axios.post(`http://3.83.23.220:7788/usertousermessage`, {
+        axios.post(`http://localhost:7788/usertousermessage`, {
+       // axios.post(`http://3.83.23.220:7788/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
         ReceiverId: selectedUserId,
@@ -113,6 +122,10 @@ const ModalUi = props => {
       resolve(setAdminSuccessModal(!showAdminSuccessModal))
     })
   }
+  let onSubChange = (e) =>{
+    setSubject(e.target.value)
+  }
+
   let changeUserStatue = () =>{
     return new Promise((resolve, reject)=>{
       resolve(setSuccessModal(!showSuccessModal))
@@ -133,10 +146,8 @@ const ModalUi = props => {
           setAdminSuccessModal(false)
        }, 1000)
       })
-    // axios.post(`http://localhost:7777/admintousermessage`, { ReceiverId: userIds,
-    //   Urgegent: isChecked,
-    //   Message: AdminMessage })
-      axios.post(`http://3.83.23.220:7788/admintousermessage`, { ReceiverId: userIds,
+      axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
+     // axios.post(`http://3.83.23.220:7788/admintousermessage`, { ReceiverId: userIds,
       Urgegent: isChecked,
       Message: AdminMessage })
       .then(res => {
@@ -162,10 +173,16 @@ const onDrop = (files) => {
       for (let i = 0; i < files.length; i++) {
         formData.append('SelectedImage', files[i])
       }
+        axios.post(`http://localhost:7788/fileupload`, formData,
+      // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+       ).then(res => { })
 
     } else {
       let formData = new FormData()
       formData.append('SelectedImage', files[0])
+       axios.post(`http://localhost:7788/fileupload`, formData,
+      // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+       ).then(res => { })
       setFileNames(prev => {
         const update = prev.concat(files[0])
         return update
@@ -179,6 +196,7 @@ const onDrop = (files) => {
     })
     setFileNames(files)
   }
+  console.log("e.ss", subject)
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
@@ -187,8 +205,24 @@ const onDrop = (files) => {
         <div className='sent-modal'>
           <h2>New Message</h2>
           <div className='modal-inner'>
-            <label>To:</label> <Select options={options} onChange={(e) => onSelect(e)} />
+            <label>To:</label> <Select isMulti options={options} onChange={(e) => onSelect(e)} />
+            <label>Subject:</label><input type = "text" onChange ={(e) => onSubChange(e)}></input>
             <textarea placeholder='write a message .....' onChange = {(e) => onMessage(e)} ></textarea>
+            <div> {
+                    FileNames.map((file, index) => {
+                        return (
+                            <ul>
+                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={()=> deleteFile(file.name)} ></i></li>
+                            </ul>
+                        )
+                    })
+                }</div>
+              <Uploader onDrop={onDrop}>
+                    <Fragment>
+                        <button className='link-btn'>Add</button>
+                        <p className="show-document-msg"></p>
+                    </Fragment>
+                </Uploader>           
             <Button className='message-btn' onClick={composeMessage}>Send</Button>
             {!showSuccessModal ?
             <p className="error-msg">{Errors != ''? Errors: ''}</p>
