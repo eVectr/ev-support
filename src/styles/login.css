@@ -506,3 +506,9 @@ a.navbar-item:hover {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.navbar-start li {
+  list-style: none;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 48px;
+}

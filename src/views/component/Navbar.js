@@ -55,6 +55,9 @@ const Navbar = (props) => {
   let onMessageLogs = () => {
     props.history.push('/messageLogs')
   }
+  let showUserlist = () => {
+    props.history.push('/userlist')
+  }
 
   return (
     <div>
@@ -80,9 +83,29 @@ const Navbar = (props) => {
 
             {
               adminCheck
-                ? <a class='navbar-item' onClick={admin}>
-                  <strong>Admin</strong>
-                </a> : ''
+                ? 
+                  <div>
+                    <li>
+                        <a class='navbar-item' onClick={admin}>
+                          <strong>Admin</strong>
+                        </a>
+                    </li>
+                    <li>
+                    <li>
+                        <a class='navbar-item' onClick={() => showUserlist()}>
+                            <strong>User List</strong>
+                        </a>
+                    </li>
+
+                    </li>
+
+
+                  </div>
+
+
+                
+               
+                 : ''
             }
             {/* {
               !adminCheck && localStorage.user !== undefined
