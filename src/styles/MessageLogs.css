@@ -480,3 +480,68 @@ svg.styles_closeIcon__1QwbI path {
     height: calc(100vh - 100px);
     /* pointer-events: none; */
 }
+.admin-input {
+    outline: none;
+    display: inline-block;
+    width: 90% !important;
+    line-height: 10px;
+    vertical-align: top;
+    margin-left: 0 !important;
+}
+.send-user-details-inner span {
+    vertical-align: middle;
+    line-height: 32px;
+}
+.modal-inner input {
+    width: 91%;
+    outline: none;
+    margin-left: 2px !important;
+    display: inline-block;
+}
+.send-user-details-inner {
+    height: 35px;
+}
+.modal-inner textarea {
+    margin-top: 28px;
+}
+.subject-describe {
+    padding: 5px;
+}
+.sent-modal button {
+    background: #fff;
+    border: none;
+    color: #b9b6b6;
+    border-radius: 2px;
+    width: 40px;
+    padding: 0px;
+}
+.sent-modal button.message-btn.btn.btn-secondary {
+    padding: 8px 0px;
+    color: #fff;
+    font-size: 20px !important;
+    border: 0px;
+    border-radius: 9px !important;
+    width: 150px !important;
+    float: left;
+    margin-right: 12px;
+}
+.file-name {
+    border-style: none;
+    background: #f8f8fb;
+    border: none;
+    border-radius: 0px;
+    color: #2c68e2;
+    text-decoration: underline;
+}
+.uploding-file {
+    background: #f8f8fb;
+    padding: 2px 20px 0px 2px;
+}
+.sent-modal ul {
+    width: 100%;
+}
+.dropzone i {
+    font-size: 28px;
+    line-height: 44px;
+    color: #4c4848;
+}

@@ -15,6 +15,7 @@ import Survey from './component/Survey'
 import TransactionSurvey from './component/TransactionSurvey'
 import MessageLogs from './component/MessageLogs'
 import AdminTicket from './component/AdminTicket'
+import UserList from './component/UserList'
 import Notification from './component/Notification'
 const Routes = (props) => {
   let { notificationreducer = {} } = props
@@ -38,8 +39,8 @@ const Routes = (props) => {
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
           <Route exact path='/adminticket/:id' component={AdminTicket} />
           <Route exact path='/messageLogs' component={MessageLogs} />
-          <Route exact path="/notification" component={Notification} />
-          
+          <Route exact path='/userList' component={UserList} />
+          <Route exact path="/notification" component={Notification} />          
         </Switch>
         <Footer />
       </RouterChangeObserver>

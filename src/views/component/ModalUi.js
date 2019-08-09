@@ -248,8 +248,14 @@ const onDrop = (files) => {
               <div className='sent-modal'>
               <h2>Send Message</h2>
               <div className='modal-inner'>
-              <label>To:</label> <input value="All Users" className="admin-input" ></input>
-              <label>Subject:</label> <input type = 'text' ></input>
+                <div className="send-user-details-inner">
+                    <span>To :</span> 
+                    <input value="All Users" className="admin-input"></input>
+                </div>
+                <div className='send-user-details-inner'>
+                    <span>Subject :</span> 
+                    <input type = 'text' className="subject-describe"></input>
+                </div>
               {/* <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>
                   <label>Mark as a Urgent</label>
@@ -266,8 +272,9 @@ const onDrop = (files) => {
                 }</div>
               <Uploader onDrop={onDrop}>
                     <Fragment>
-                        <button className='link-btn'>Add</button>
+                        <button><i class="fa fa-paperclip" aria-hidden="true"></i></button>
                         <p className="show-document-msg"></p>
+                        
                     </Fragment>
                 </Uploader>
                 <Button className='message-btn' onClick={sendAdminMessage}>Send</Button>

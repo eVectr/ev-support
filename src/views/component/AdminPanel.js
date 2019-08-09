@@ -15,6 +15,7 @@ import '../../styles/adminpanel.css'
 import Navbar from './Navbar'
 import ModalUi from './ModalUi'
 import AgentModal from './AgentModal'
+import UserList from './UserList'
 import { longStackSupport } from 'q'
 import { CaseNo } from '../../redux/actions/notification/notification'
 import '../../styles/adminpanel1.css'
@@ -184,6 +185,10 @@ const AdminPanel = (props) => {
 
   let showAdminTicket = (caseNo) => {
     props.history.push('/adminticket/' + caseNo)
+  }
+
+  let showUserlist = () => {
+    props.history.push('/userlist')
   }
 
   let paginate = (number) => {
