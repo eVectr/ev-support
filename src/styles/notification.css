@@ -1,0 +1,165 @@
+@import url("./common.css");
+
+.notification {
+    width:100%;
+}
+
+.notification-header {
+    background-color: #99999926;
+    width:100%;
+    padding:10px;
+    margin-bottom:30px;
+}
+
+.notification-header i {
+    color:#000;
+    margin-right: 10px;
+}
+.notification-header span {
+    color:#000;
+}
+
+/* --------------------------------------NOTIFICATION-HEAD-CSS------------------------------- */
+
+.notification-head {
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.notification-table {
+    padding: 30px 100px;
+}
+
+.notification-select {
+    display: flex;
+    align-items: center;
+}
+
+.notification-select input{
+    margin-bottom: 2px;
+    margin-right: 7px;
+    width: 20px !important;
+}
+
+.notification-head b{
+    font-size: 18px;
+}
+
+.select {
+  width:100px;
+}
+
+.notification-type {
+    width:190px;
+}
+
+.data-recevied { 
+    width:160px;
+}
+
+.sent {
+    width:130px;
+}
+
+.action {
+    width:130px;
+}
+
+.delete-select { 
+   margin: 30px 0;
+}
+
+.delete-select span {
+    border-bottom: 1px solid #999;
+    color:#999;
+}
+
+.notification_button {
+    color:red;
+}
+
+
+/* ------------------------------------------NOTIFICATION-LIST-CSS-------------------------------- */
+
+.notification-list {
+    display: flex;
+    justify-content:space-between;
+    box-shadow: 0px 1px 0px #000;
+    margin-bottom: 5px;
+    font-size:16px;
+}
+
+.fa-comment-dots {
+    margin-right: 15px;
+}
+
+.list-btn {
+    font-size: 12px!important;
+    width:100%!important;
+}
+
+.btn-secondary {
+    color: #fff;
+    font-size: 12px!important;
+    width: 100%!important;
+    border-radius:0!important;
+}
+
+.notification-btn {  
+    padding-right: 0!important;
+}
+
+.time {
+    margin-left: 20px;
+}
+
+
+/* ----------------------------------------------PAGINATION-CSS-------------------------------- */
+
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-select-btn{
+    outline: 0;
+    background-color: transparent;
+    border:0;  
+    border-bottom: 1px solid #000;
+}
+
+.delete-select-btn:focus{
+    outline: 0;
+}
+
+.pagination-pages{
+    padding:6px 10px;
+    background-color:transparent;
+    border-radius: 2px;
+}
+
+.pagination-pages:focus{
+    outline:0;
+    box-shadow:none!important;
+}
+
+.pagination-active{
+    background-color:lightblue!important;
+}
+.checkbox {
+    width: 20px;
+    margin-top: 12px;
+}
+.message {
+    margin-top: 10px;
+}
+.date {
+    margin-top: 10px;
+}
+.notification-name {
+    margin-top: 10px;
+}

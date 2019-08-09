@@ -870,9 +870,9 @@ app.post('/admintousermessage', (req, res) => {
   var notification = new Notification({
     Type: Type,
     Date: date,
-    SentBy: 'Admin',
+    SentBy: 'eVectrInc',
     SentTo: ReceiverId,
-    Message: Message,
+    Message: 'SEE MESSAGE',
     Checked: false
   })
   notification.save()

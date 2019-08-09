@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Loginform from './component/Loginform.js'
-import RegisterForm from './component/RegisterForm'
 import StandardForm from './component/StandardForm'
 import OptionalForm from './component/OptionalForm'
 import Navbar from './component/Navbar'
@@ -16,6 +15,7 @@ import Survey from './component/Survey'
 import TransactionSurvey from './component/TransactionSurvey'
 import MessageLogs from './component/MessageLogs'
 import AdminTicket from './component/AdminTicket'
+import Notification from './component/Notification'
 const Routes = (props) => {
   let { notificationreducer = {} } = props
   let { notification = {} } = notificationreducer
@@ -38,6 +38,7 @@ const Routes = (props) => {
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
           <Route exact path='/adminticket/:id' component={AdminTicket} />
           <Route exact path='/messageLogs' component={MessageLogs} />
+          <Route exact path="/notification" component={Notification} />
           
         </Switch>
         <Footer />
