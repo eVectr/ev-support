@@ -4,10 +4,12 @@ import Modal from 'react-responsive-modal'
 import { Button } from 'reactstrap'
 import Select from 'react-select'
 import '../../styles/MessageLogs.css'
-import { isCallExpression } from '@babel/types';
+import ImageUploader from './ImageUploader'
+import Uploader from './Uploader'
 const ModalUi = props => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedUserId, setSelectedUserId] = useState('')
+  const [FileNames, setFileNames] = useState([])
   const [selectedUserName, setSelectedUserName] = useState('')
   const [Message, setMessage] = useState('')
   const [AdminMessage, setAdminMessage] = useState('')
@@ -18,6 +20,7 @@ const ModalUi = props => {
   const [adminmessagesend, setAdminmessagesend] = useState(false)
   const [showSuccessModal, setSuccessModal] = useState(false)
   const [showAdminSuccessModal, setAdminSuccessModal] = useState(false)
+  const [selectDocument, setselectDocument] = useState('')
   
   const [MessageSend, setMessageSend] = useState('')
   const [Errors, setErrors] = useState('')
@@ -147,6 +150,35 @@ const ModalUi = props => {
       })
   }
 }
+
+const onDrop = (files) => {
+    if (!files.length) {
+      return
+    }
+
+    if (files.length > 1) {
+      setFileNames(files)
+      let formData = new FormData()
+      for (let i = 0; i < files.length; i++) {
+        formData.append('SelectedImage', files[i])
+      }
+
+    } else {
+      let formData = new FormData()
+      formData.append('SelectedImage', files[0])
+      setFileNames(prev => {
+        const update = prev.concat(files[0])
+        return update
+      })
+    }
+  }
+  let deleteFile = (file) => {
+    let files = FileNames.filter((filename, index) => {
+      console.log(filename, 'filename')
+      return filename.name !== file
+    })
+    setFileNames(files)
+  }
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
@@ -183,11 +215,27 @@ const ModalUi = props => {
               <h2>Send Message</h2>
               <div className='modal-inner'>
               <label>To:</label> <input value="All Users" className="admin-input" ></input>
-              <div className="check-label">
+              <label>Subject:</label> <input type = 'text' ></input>
+              {/* <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>
                   <label>Mark as a Urgent</label>
-              </div>
+              </div> */}
               <textarea placeholder='write a message .....' onChange = {(e) => onAdminMessage(e)} className="admin-area"></textarea>
+              <div> {
+                    FileNames.map((file, index) => {
+                        return (
+                            <ul>
+                                <li className='uploding-file'><h1 className='file-name'>{file.name} </h1><i class="fas fa-times" onClick={()=> deleteFile(file.name)} ></i></li>
+                            </ul>
+                        )
+                    })
+                }</div>
+              <Uploader onDrop={onDrop}>
+                    <Fragment>
+                        <button className='link-btn'>Add</button>
+                        <p className="show-document-msg"></p>
+                    </Fragment>
+                </Uploader>
                 <Button className='message-btn' onClick={sendAdminMessage}>Send</Button>
                 {!showSuccessModal ?
                 <p className="error-msg">{Errors != ''? Errors: ''}</p>

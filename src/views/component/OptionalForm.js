@@ -206,20 +206,6 @@ const ContactForm = (props) => {
 
                 <Uploader onDrop={onDrop}>
                     <Fragment>
-                        {/* <div className='field'>
-                            <div className='file is-small'>
-                                <label className='file-label'>
-                                    <span className={`file-cta font-1rem `}>
-                                        <span className='file-icon'>
-                                            <i className='fas fa-upload'></i>
-                                        </span>
-                                        <span className='file-label'>
-                                            Add
-                                        </span>
-                                    </span>
-                                </label>
-                            </div>
-                        </div>     */}
                         <button className='link-btn'>Add</button>
                         <p className="show-document-msg">{selectDocument}</p>
                     </Fragment>
@@ -397,10 +383,7 @@ const ContactForm = (props) => {
                                 setSelectedImage([])
                                 setsuccessmsg('Your query has been recorded')
                             }
-                            
                         })
-                       
-
                // })
                 setshowFlashMsg(false)
 
