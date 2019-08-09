@@ -900,6 +900,19 @@ app.post('/getadminmessagebyId', (req, res) => {
   })
 })
 
+app.post('/test', (req, res) => {
+  let Id = req.body.Id
+  AdminMessage.find({ ReceiverId: { "$in": Id } }, (err, data) => {
+  //AdminMessage.find({ _id: Id }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
 app.post('/getsentmessagebyId', (req, res) => {
   let Id = req.body.Id
   UserMessage.find({ _id: Id }, (err, data) => {
