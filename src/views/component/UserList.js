@@ -14,7 +14,15 @@ const UserList = props => {
     textAlign: 'center'
   }
   const [isActive, setIsActive] = useState(false)
+  const [subAdmin, setSubAdmin] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
+  useEffect(() => {
+    axios.get(`http://localhost:7788/findagent`)
+      .then(res => {
+        setSubAdmin(res.data)
+      })
+  }, [])
+
   const data =[
       {
        "Firstname":"John",
@@ -44,6 +52,7 @@ const UserList = props => {
     
     ];
    
+    console.log("res =>", subAdmin)
   return (
     <div style={styles} className="userlist-show" >
          <Table>
@@ -52,18 +61,18 @@ const UserList = props => {
                 <th>First name </th>
                 <th>Last name </th>
                 <th>Email</th>
-                <th>Ticket Assign To </th>
+                <th>Assigned Ticket </th>
                 <th></th>
               
               </tr>
             </thead>
-            {data.map(function(d, idx){
+            {subAdmin.map(function(d, idx){
          return (
             <tr key={idx}>{d.name}
-            <td>{d.Firstname}</td>
-            <td>{d.Lastname}</td>
+            <td>{d.FirstName}</td>
+            <td>{d.LastName}</td>
             <td>{d.Email}</td>
-            <td>{d.TicketAssignTo}</td>
+            <td>{d.Type}</td>
             <td className="edit-icons"> <i class="fas fa-edit"></i></td>
 
             

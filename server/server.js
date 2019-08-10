@@ -177,7 +177,6 @@ app.post('/upload', upload.array('SelectedImage'), (req, res) => {
 app.post('/fileupload', upload.array('SelectedImage'), (req, res) => {
   let path = req.files.map((file, index) => {
     filepaths.push(file.path)
-    console.log("file.pah ======>", file.path)
     console.log('file ==path -=>', filepaths)
   })
   res.send('send')
@@ -814,7 +813,7 @@ app.post('/usertousermessage', (req, res) => {
     SentBy: SenderName,
     SentTo: ReceiverId,
     Action: 'SEE MESSAGE',
-    Checked: false
+    FontStyle: false
   })
   notification.save()
 })
@@ -868,14 +867,14 @@ app.post('/admintousermessage', (req, res) => {
       res.send('done')
     }
   })
-  let Type = 'eVectr Urgent Messages'
+  let Type = 'eVectr Urgent Message'
   var notification = new Notification({
     Type: Type,
     Date: date,
     SentBy: 'eVectrInc',
     SentTo: ReceiverId,
     Action: 'SEE MESSAGE',
-    Checked: false
+    FontStyle: false
   })
   notification.save()
   while (filepaths.length > 0) {
@@ -1063,12 +1062,14 @@ app.post('/saveagent', (req, res) => {
   let LastName = req.body.LastName
   let Password = req.body.Password
   let Type = req.body.Type
+  let Email = req.body.Email
   let TicketId = req.body.TicketId
   var supportagent = new  SupportAgent({
     FirstName: FirstName,
     LastName: LastName,
     Password:Password,
     Type:Type,
+    Email: Email,
     TicketId:TicketId
   })
   supportagent.save((err, data)=>{
@@ -1137,6 +1138,17 @@ app.post('/assignticket', (req, res) => {
     Name: Name
   })
   assignticket.save()
+})
+
+app.post('/changenotificationstatus', (req, res) => {
+  let Id = req.body.Id
+  Notification.findOneAndUpdate({_id: Id}, {$set:{FontStyle:true}}, {new: true}, (err, doc) => {
+    if(err){
+      res.send(err)
+    }else{
+      res.send("done")
+    }
+  })
 })
 
 server.listen(7788, () => {

@@ -4,6 +4,7 @@ var SupportAgent = new mongoose.Schema({
   FirstName: String,
   LastName: String,
   Password: String,
+  Email: String,
   TicketId: [],
   Type: []
 })
