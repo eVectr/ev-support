@@ -157,3 +157,148 @@
 .notification-name {
     margin-top: 10px;
 }
+.notification.notification-detail {
+    background: transparent;
+}
+li.page-item.active {
+    padding-top: 0px !important;
+    color: #fff !important;
+}
+.page-link {
+    text-decoration: none !important;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff !important;
+    background-color: #4c6eb3 !important;
+    border-color: #4c6eb3 !important;
+}
+.notification-list .col-1 {
+    text-align: center;
+}
+.notification-list .checkbox {
+    transform: inherit;
+}
+.notification-list .message {
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+.notify-table .table {
+    width: 90% !important;
+    margin: 70px auto;
+    border: 1px solid #e8e3e3;
+}
+.notify-table button.btn {
+    text-align: center;
+    width: 180px;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.notify-table i  {
+    margin: 5px;
+}
+.ui-head {
+    background: #dee2e6;
+}
+.notify-table .table tr {
+    border-bottom: 0px !important;
+}
+.table td {
+    border-top: none !important;
+    /* border-bottom: none !important; */
+    padding: 8px !important;
+}
+.table thead th {
+    border-bottom:none !important;
+}
+.table thead tr {
+    border: none !important;
+}
+.notify-table .table tr {
+    border-bottom: 1px solid #dee2e6;
+}
+.notify-table .table thead tr hr {
+    margin-top: 5px !important;
+    margin-bottom: 0 !important;
+    border: 0 !important;
+    width: 180px !important;
+    border-top: 3px solid #000 !important;
+}
+/* .notify-table .table tbody {
+    font-size: 15px;
+    font-weight: bold;
+} */
+td.check-table {
+    padding-left: 1% !important;
+}
+.activeurgentMessage {
+    color: red;
+}
+.nonactiveblack {
+    color: #000;
+}
+.nonactiveblackio {
+    color: #000;
+}
+.activeurgentMessage.btn.btn-secondary {
+    background: red;
+    border: red;
+}
+.check-table span {
+    display: flex;
+}
+.check-table .check-list-notifi {
+    font-size: 20px;
+    margin-top: 4px;
+    text-align: center;
+    margin: auto;
+    transform: translate(30px, 0px);
+}
+.alert {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 20px;
+    color: #d2d205;
+}
+.check-alert {
+    float: right;
+    width: 80%;
+    text-align: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    transform: translate(10px, 6px);
+    
+}
+button.missedchatbtn {
+    background: #51b14d;
+    border: #51b14d;
+}
+button.Surveybtn {
+   
+    background:  #7092be;
+    border: #7092be;
+}
+button.Transactionbtn {
+    background:  #000;
+    border: #000;
+}
+.clientblue {
+   color: #7092be; 
+}
+.typeicons i {
+    font-size: 20px;
+}
+.boldlistText {
+    font-weight: 800;
+    font-size: 15px;
+}
+.normallistText {
+    font-weight: normal;
+    font-size: 15px;
+}

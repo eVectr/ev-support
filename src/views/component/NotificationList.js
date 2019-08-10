@@ -8,6 +8,7 @@ const NotificationList = (props) =>{
     const { notificationItem ,getCheckboxValue, index, checkedValue} = props
     const{ Type, Date, SentBy, Action, color, style, _id, Checked } = notificationItem
     let [selectedIds, setSelectedIds] = useState([])
+    
   
 
     let handleButtonClick = (action) =>{
@@ -53,16 +54,53 @@ const NotificationList = (props) =>{
             return {backgroundColor:"green"}
           }   
     }
-   
+    let NotificationName = (Type) => {
+        switch(Type) {
+            
+            case 'Complete Client Survey':
+            return {color:"blue"}
+                 
+            case 'Complete Transaction Survey':
+            return {color:"black"}
+                 
+            case 'User to User Message':
+            return {color:"green"}
+                
+            case 'eVectr Urgent Messages':
+            return {color:"red"}
+                 
+            default:
+            return {color:"green"}
+          }   
+    }
 
+    let icon = (Type) => {
+        switch(Type) {
+            
+            case 'Complete Client Survey':
+            return {color:"blue"}
+                 
+            case 'Complete Transaction Survey':
+            return {color:"black"}
+                 
+            case 'User to User Message':
+            return {color:"green"}
+                
+            case 'eVectr Urgent Messages':
+            return {color:"red"}
+                 
+            default:
+            return {color:"green"}
+          }   
+    }
         return(
             <div>
                 <Row>
                     <Col>
                         <div className='notification-list'>
-                            <Col className='col-2'>
+                            <Col className='col-1'>
                                 <div>
-                                <CheckBox getCheckboxValue={getCheckboxValue} checked={checkedValue} onChange ={(e) => getCheckboxValue(e, notificationItem)}/>
+                                <CheckBox getCheckboxValue={getCheckboxValue} checked={checkedValue} onChange ={(e) => getCheckboxValue(e, notificationItem)}  />
                                 </div>
                             </Col>
                             <Col className='col-3'>
@@ -79,7 +117,7 @@ const NotificationList = (props) =>{
                             </Col>
                             <Col className='col-2'>  
                                 <div>
-                                    <span className='notification-name'>{SentBy}</span>  
+                                    <span className='notification-name' style={NotificationName(Type)}>{SentBy}</span>  
                                 </div> 
                             </Col>  
                            

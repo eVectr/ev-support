@@ -1113,6 +1113,17 @@ app.post('/assignticket', (req, res) => {
   assignticket.save()
 })
 
+app.post('/changenotificationstatus', (req, res) => {
+  console.log("id ==>", Id)
+  Notification.findOneAndUpdate({_id: Id}, {$set:{FontStyle:true}}, {new: true}, (err, doc) => {
+    if(err){
+      res.send(err)
+    }else{
+      res.send("done")
+    }
+  })
+ })
+
 server.listen(7788, () => {
   console.log('server connected')
 })
