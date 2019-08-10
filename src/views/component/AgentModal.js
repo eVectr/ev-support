@@ -61,25 +61,31 @@ const options = [
   }
  
   let handleCloseOnSave = () => {
-    if(selectedFirstName == '' || selectedLastName == '' || selectedEmail == '' || selectedPassword  == '' || selectedType == ''){
-      setTimeout(() => {
-        setErrors(false)
-        setErrors('')
-    }, 2000)
-      setErrors('Please enter required fields')
-    }else {
+    // if(selectedFirstName == '' || selectedLastName == '' || selectedEmail == '' || selectedPassword  == '' || selectedType == ''){
+    //   setTimeout(() => {
+    //     setErrors(false)
+    //     setErrors('')
+    // }, 2000)
+    //   setErrors('Please enter required fields')
+    // }
+   // else {
       axios.post(`http://54.165.185.4:7788/saveagent`, {FirstName:selectedFirstName,
      // axios.post(`http://localhost:7788/saveagent`, {FirstName:selectedFirstName,
       LastName: selectedLastName,
       Password: selectedPassword,
       Type:selectedType,
-      TicketId: ''})
+      TicketId: []})
       .then(res =>{
         console.log("res ==>", res)
       })
       props.onAgentCloseModal()
-    }
+   // }
   }
+
+  console.log("First name ==>", selectedFirstName)
+  console.log("Last name ==>", selectedLastName)
+  console.log("password ==>", selectedPassword)
+  console.log("email==>", selectedEmail)
 
   return (
     <div style={styles} >

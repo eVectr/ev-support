@@ -183,7 +183,9 @@ const AdminTicket = (props) => {
     props.history.push('/admin')
     //setshowAdminPanel(!showAdminPanel)
   }
-  console.log('contacts  ==> ', contacts)
+  if(contacts.length){
+    console.log('contacts  =======> ', contacts[0].Case_No)
+  }
   
   return (
     <Col className='container-fluid'>
