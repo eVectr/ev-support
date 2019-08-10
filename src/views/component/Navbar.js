@@ -93,7 +93,7 @@ const Navbar = (props) => {
                     <li>
                     <li>
                         <a class='navbar-item' onClick={() => showUserlist()}>
-                            <strong>User List</strong>
+                            <strong>SubAdmin List</strong>
                         </a>
                     </li>
 

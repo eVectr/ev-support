@@ -220,8 +220,13 @@ const onDrop = (files) => {
         <div className='sent-modal'>
           <h2>New Message</h2>
           <div className='modal-inner'>
-            <label>To:</label> <Select isMulti options={options} onChange={(e) => onSelect(e)} />
-            <label>Subject:</label><input type = "text" onChange ={(e) => onSubChange(e)}></input>
+          <div className="send-user-details-inner">
+            <label>To:</label> <Select isMulti options={options} onChange={(e) => onSelect(e)} className="admin-input"/>
+            </div>
+            <div className="send-user-details-inner">
+            <label>Subject:</label><input type = "text" className="subject-describe" onChange ={(e) => onSubChange(e)}></input>
+            </div>
+            
             <textarea placeholder='write a message .....' onChange = {(e) => onMessage(e)} ></textarea>
             <div> {
                     FileNames.map((file, index) => {
@@ -234,7 +239,7 @@ const onDrop = (files) => {
                 }</div>
               <Uploader onDrop={onDrop}>
                     <Fragment>
-                        <button className='link-btn'>Add</button>
+                        <button><i class="fa fa-paperclip" aria-hidden="true"></i></button>
                         <p className="show-document-msg"></p>
                     </Fragment>
                 </Uploader>           
@@ -247,17 +252,17 @@ const onDrop = (files) => {
         </div>:
           <Fragment>{showSuccessModal?
              <div className='sent-modal'>
-             <h2>Send Succesfuly</h2>
+             <h2>Send Successfuly</h2>
              <div className='modal-inner'>
                 <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
-                <p className="succes-text">Send Message Succesfully</p>
+                <p className="succes-text">Send Message Successfully</p>
              </div>
            </div>:<Fragment>{showAdminSuccessModal? 
              <div className='sent-modal'>
-             <h2>Send Succesfuly</h2>
+             <h2>Send Successfuly</h2>
              <div className='modal-inner'>
                 <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
-                <p className="succes-text">Send Message Succesfully</p>
+                <p className="succes-text">Send Message Successfully</p>
              </div>
            </div>:
               <div className='sent-modal'>
@@ -265,7 +270,7 @@ const onDrop = (files) => {
               <div className='modal-inner'>
                 <div className="send-user-details-inner">
                     <span>To :</span> 
-                    <input value="All Users" className="admin-input"></input>
+                    <span className="admin-input"> All Users</span>
                 </div>
                 <div className='send-user-details-inner'>
                     <span>Subject :</span> 
