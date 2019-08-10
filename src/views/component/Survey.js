@@ -77,7 +77,8 @@ const SurveyCard = props => {
     let { Type = '' } = user || {}
     authRoutes(props)
     setLoader(true)
-    axios.get(`http://3.83.23.220:7788/getclientsurvey`).then(res => {
+   // axios.get(`http://localhost:7788/getclientsurvey`).then(res => {
+    axios.get(`http://54.165.185.4:7788/getclientsurvey`).then(res => {
       let { data = [] } = res
       console.log('data ==>', data)
 
@@ -141,7 +142,8 @@ const SurveyCard = props => {
     }
     setLoading(true)
     axios
-      .post(`http://18.219.191.74:7777/clientSurveyResponse`, {
+    //.post(`http://localhost:7788/clientSurveyResponse`
+      .post(`http://54.165.185.4:7788/clientSurveyResponse`, {
         Question1Response,
         Question2Response,
         Question3Response,

@@ -12,6 +12,7 @@ const ModalUi = props => {
   const [FileNames, setFileNames] = useState([])
   const [selectedUserName, setSelectedUserName] = useState('')
   const [ subject, setSubject] = useState('')
+  const [ adminSubject, setAdminSubject] = useState('')
   const [Message, setMessage] = useState('')
   const [AdminMessage, setAdminMessage] = useState('')
   const [options, setOptions] = useState([])
@@ -30,8 +31,8 @@ const ModalUi = props => {
     textAlign: 'center'
   }
   useEffect(() => {
-    axios.get(`http://localhost:7788/getalluser`)
-    //axios.get(`http://3.83.23.220:7788/getalluser`)
+    //axios.get(`http://localhost:7788/getalluser`)
+    axios.get(`http://54.165.185.4:7788/getalluser`)
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
           if (res.data[i].Name === 'Admin' || res.data[i].Name === JSON.parse(localStorage.user).Name) {
@@ -77,12 +78,14 @@ const ModalUi = props => {
   let userIdArray = []
 
   let onSelect = (e) => {
-    for(let i = 0; i< e.length ; i++){
-      userIdArray.push(e[i].value)
-      userNameArray.push(e[i].label)
-      setSelectedUserId(userIdArray)
-      setSelectedUserName(userNameArray)
-     // console.log('selecte value ==>', e[i].label)
+    if(e){
+      for(let i = 0; i< e.length ; i++){
+        userIdArray.push(e[i].value)
+        userNameArray.push(e[i].label)
+        setSelectedUserId(userIdArray)
+        setSelectedUserName(userNameArray)
+       // console.log('selecte value ==>', e[i].label)
+      }
     }
   }
 
@@ -101,8 +104,8 @@ const ModalUi = props => {
       }, 1000)
       setSelectedUserId('')
       })
-        axios.post(`http://localhost:7788/usertousermessage`, {
-       // axios.post(`http://3.83.23.220:7788/usertousermessage`, {
+        //axios.post(`http://localhost:7788/usertousermessage`, {
+        axios.post(`http://54.165.185.4:7788/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
         ReceiverId: selectedUserId,
@@ -131,6 +134,10 @@ const ModalUi = props => {
       resolve(setSuccessModal(!showSuccessModal))
     })
   }
+
+  let onAdminSubjectChange = (e) =>{
+    setAdminSubject(e.target.value)
+  }
  
 
   let sendAdminMessage = () => {
@@ -146,19 +153,27 @@ const ModalUi = props => {
           setAdminSuccessModal(false)
        }, 1000)
       })
-      axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
-     // axios.post(`http://3.83.23.220:7788/admintousermessage`, { ReceiverId: userIds,
-      Urgegent: isChecked,
-      Message: AdminMessage })
-      .then(res => {
-        console.log('res ==>', res)
-        if (props.closeModal) {
-          props.closeModal()
-        } else {
-          setIsOpen(false)
-        }
-        setAdminMessage('')
-      })
+      let formData = new FormData()
+      for (let i = 0; i < FileNames.length; i++) {
+        formData.append('SelectedImage', FileNames)
+      }
+       // axios.post(`http://localhost:7788/fileupload`, formData,
+       axios.post(`http://54.165.185.4:7788/fileupload`, formData,
+       ).then(res => {
+         axios.post(`http://54.165.185.4:7788/admintousermessage`, { ReceiverId: userIds,
+        //axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
+        Subject:adminSubject,
+         Message: AdminMessage })
+         .then(res => {
+           console.log('res ==>', res)
+           if (props.closeModal) {
+             props.closeModal()
+           } else {
+             setIsOpen(false)
+           }
+           setAdminMessage('')
+         })
+        })
   }
 }
 
@@ -169,20 +184,20 @@ const onDrop = (files) => {
 
     if (files.length > 1) {
       setFileNames(files)
-      let formData = new FormData()
-      for (let i = 0; i < files.length; i++) {
-        formData.append('SelectedImage', files[i])
-      }
-        axios.post(`http://localhost:7788/fileupload`, formData,
-      // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
-       ).then(res => { })
+      // let formData = new FormData()
+      // for (let i = 0; i < files.length; i++) {
+      //   formData.append('SelectedImage', files[i])
+      // }
+      //   axios.post(`http://localhost:7788/fileupload`, formData,
+      // // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+      //  ).then(res => { })
 
     } else {
-      let formData = new FormData()
-      formData.append('SelectedImage', files[0])
-       axios.post(`http://localhost:7788/fileupload`, formData,
-      // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
-       ).then(res => { })
+      //let formData = new FormData()
+      // formData.append('SelectedImage', files[0])
+      //  axios.post(`http://localhost:7788/fileupload`, formData,
+      // // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
+      //  ).then(res => { })
       setFileNames(prev => {
         const update = prev.concat(files[0])
         return update
@@ -196,7 +211,7 @@ const onDrop = (files) => {
     })
     setFileNames(files)
   }
-  console.log("e.ss", subject)
+
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
@@ -254,7 +269,7 @@ const onDrop = (files) => {
                 </div>
                 <div className='send-user-details-inner'>
                     <span>Subject :</span> 
-                    <input type = 'text' className="subject-describe"></input>
+                    <input type = 'text' className="subject-describe" onChange={(e) =>onAdminSubjectChange(e)}></input>
                 </div>
               {/* <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>

@@ -13,7 +13,8 @@ const Loginform = (props) => {
   const [template, setSelectedTemplate] = useState([])
   useEffect(() => {
     authRoutes(props)
-    axios.get(`http://18.219.191.74:7777/findcontact`)
+   // axios.get(`http://localhost:7788/findcontact`)
+    axios.get(`http://54.165.185.4:7788/findcontact`)
       .then(res => {
         setReason(res.data)
       })

@@ -19,11 +19,11 @@ const NotificationList = (props) =>{
                 window.location="http://18.219.191.74:3000/transactionsurvey"
                  break;
             case 'User to User Message':
-                 window.location="http://3.83.23.220:7007/messageLogs"
+                 window.location="http://54.165.185.4:7007/messageLogs"
                 
                   break;
             case 'eVectr Urgent Messages':
-                 window.location="http://3.83.23.220:7007/messageLogs"
+                 window.location="http://54.165.185.4:7007/messageLogs"
                   break;
             case 'Missed Chat Message':
                   window.location="https://reactchat.softuvo.xyz/chat"

@@ -55,7 +55,7 @@ const AdminPanel = (props) => {
 
   useEffect(() => {
    // axios.get(`http://localhost:7788/getcontactslength`)
-    axios.get(`http://3.83.23.220:7788/getcontactslength`)
+    axios.get(`http://54.165.185.4:7788//getcontactslength`)
       .then(res => {
         setTotalContact(res.data.length)
       })
@@ -71,7 +71,7 @@ const AdminPanel = (props) => {
     setLoader(true)
     if (!isFilterBySelected && !isSortBySelected) {
       //axios.post(`http://localhost:7788/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
-       axios.post(`http://3.83.23.220:7788/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
+       axios.post(`http://54.165.185.4:7788/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = [] } = res
           setContacts(data)
@@ -82,7 +82,7 @@ const AdminPanel = (props) => {
     else if (isFilterBySelected && isSortBySelected) {
 
    // axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-    axios.post(`http://3.83.23.220:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit }) 
+    axios.post(`http://54.165.185.4:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit }) 
     .then(res => {
           let { data = {} } = res
           console.log('filter data data ===>', data)
@@ -93,7 +93,7 @@ const AdminPanel = (props) => {
 
     } else if (isFilterBySelected) {
      // axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-      axios.post(`http://3.83.23.220:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+      axios.post(`http://54.165.185.4:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           setContacts(data)
@@ -103,7 +103,7 @@ const AdminPanel = (props) => {
     }
     else if (isSortBySelected) {
       //axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-      axios.post(`http://3.83.23.220:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+      axios.post(`http://54.165.185.4:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           setContacts(data.data)
@@ -142,7 +142,7 @@ const AdminPanel = (props) => {
     }
     setLoader(true)
     //axios.post(`http://localhost:7788/sendmail`, { message: message, email: contact.Email })
-    axios.post(`http://18.219.191.74:7788/sendmail`, { message: message, email: contact.Email })
+    axios.post(`http://54.165.185.4:7788/sendmail`, { message: message, email: contact.Email })
       .then(res => {
         setLoader(false)
         setShowFlashMsg(true)
@@ -213,7 +213,7 @@ const AdminPanel = (props) => {
   useEffect(() => {
     if (isFilterBySelected && !isSortBySelected) {
      // axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-      axios.post(`http://3.83.23.220:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+      axios.post(`http://54.165.185.4:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           setContacts(data)
@@ -240,7 +240,7 @@ const AdminPanel = (props) => {
   useEffect(() => {
     if (isSortBySelected && isFilterBySelected) {
       //axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-      axios.post(`http://3.83.23.220:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+      axios.post(`http://54.165.185.4:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           console.log('filter data data ===>', data)

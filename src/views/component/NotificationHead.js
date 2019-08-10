@@ -14,7 +14,8 @@ let NotificationHead = () => {
     const [totalItemsCount, settotalItemsCount] = useState()
     const [activePage, setactivePage] = useState(1)
     useEffect(() => {
-        axios.get(`http://3.83.23.220:7788/getnotification`)
+       // axios.get(`http://localhost:7788/getnotification`)
+        axios.get(`http://54.165.185.4:7788/getnotification`)
           .then(res => {
               console.log('res res res ==>', res)
             setNotificationList1(res.data.reverse())
@@ -50,7 +51,8 @@ let NotificationHead = () => {
 
     let deleteElement = () => {
         for(let i = 0; i< inputValue.length; i++){
-            axios.post(`http://3.83.23.220:7788/deletenotification`, {Id:inputValue[i]})
+            //axios.post(`http://localhost:7788/deletenotification`, {Id:inputValue[i]})
+            axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:inputValue[i]})
             .then(res => {
                 setRandom(Math.random())
                 setInputValue([])
