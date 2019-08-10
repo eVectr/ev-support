@@ -58,6 +58,9 @@ const Navbar = (props) => {
   let showUserlist = () => {
     props.history.push('/userlist')
   }
+  let onNotification = () => {
+    props.history.push('/notification')
+  }
 
   return (
     <div>
@@ -130,6 +133,12 @@ const Navbar = (props) => {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={onMessageLogs}>
                   <strong>Message Logs</strong>
+                </a> : ''
+            }
+             {
+              !adminCheck && localStorage.user !== undefined
+                ? <a class='navbar-item' onClick={onNotification}>
+                  <strong>Notification</strong>
                 </a> : ''
             }
           </div>

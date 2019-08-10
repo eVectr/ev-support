@@ -63,7 +63,7 @@ let NotificationHead = () => {
             <Row>
                 <Col>
                     <div className='notification-head'>
-                        <Col className='col-2'>
+                        <Col className='col-1'>
                             <div>
                                 {/* <b className='notification-select'><input type="checkbox"/><span>Select</span></b> */}
                                 <b>Select</b>
