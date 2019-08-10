@@ -847,15 +847,17 @@ app.post('/deletenotification', (req, res) => {
 app.post('/admintousermessage', (req, res) => {
 
   let SenderName = 'eVectr'
+  let Subject = req.body.Subject
   let ReceiverId = req.body.ReceiverId
   let Message = req.body.Message
-  let Urgent = req.body.Urgent
+  let Document = filepaths
   let date = Date.now()
   var adminmessage = new AdminMessage({
     SenderName: SenderName,
+    Subject: Subject,
     ReceiverId: ReceiverId,
     Message: Message,
-    Urgent: Urgent,
+    Document: Document,
     Date: date
   })
   adminmessage.save((err, data) => {
@@ -876,6 +878,9 @@ app.post('/admintousermessage', (req, res) => {
     Checked: false
   })
   notification.save()
+  while (filepaths.length > 0) {
+    filepaths.pop()
+  }
 })
 
 app.get('/getadminmessage', (req, res) => {

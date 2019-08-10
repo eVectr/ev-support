@@ -15,25 +15,25 @@ const MessageDetails = (props) => {
   const [showLoader, setshowLoader] = useState(true)
   const [Errors, setErrors] = useState('')
   useEffect(() => {
-    // axios.post(`http://localhost:7777/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
+    // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
     //   .then(res => {
     //     if (res.data.ReceiverName !== 'admin') {
     //       setUserMessage(res.data)
     //     }
     //   })
-    //axios.post(`http://localhost:7777/getadminmessagebyId`, { Id: props.messageId })
-    axios.post(`http://3.83.23.220:7788/getadminmessagebyId`, { Id: props.messageId })  
+    //axios.post(`http://localhost:7788/getadminmessagebyId`, { Id: props.messageId })
+    axios.post(`http://54.165.185.4:7788/getadminmessagebyId`, { Id: props.messageId })  
     .then(res => {
         setAdminMessage(res.data[0])
       })
-   // axios.post(`http://localhost:7777/getsentmessagebyId`, { Id: props.messageId })
-    axios.post(`http://3.83.23.220:7788/getsentmessagebyId`, { Id: props.messageId })
+   // axios.post(`http://localhost:7788/getsentmessagebyId`, { Id: props.messageId })
+    axios.post(`http://54.165.185.4:7788/getsentmessagebyId`, { Id: props.messageId })
     .then(res => {
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
         setshowLoader(false)
-       // axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
-        axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: userMessage._id })
+       // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
+        axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
             console.log('res -======>', res)
             setUserMessageLogs(res.data)
@@ -44,15 +44,15 @@ const MessageDetails = (props) => {
 
   useEffect(() => {
     if (props.showCase === 1) {
-    //  axios.post(`http://localhost:7777/getusermessagelogs`, { Id: userMessage._id })
-      axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: userMessage._id })
+    //  axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
+      axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
       .then(res => {
           console.log('res -======>', res)
           setUserMessageLogs(res.data)
         })
         setshowLoader(false)
-     // axios.post(`http://localhost:7777/getusermessagelogs`, { Id: props.logsId })
-      axios.post(`http://3.83.23.220:7788/getusermessagelogs`, { Id: props.logsId })
+     // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: props.logsId })
+      axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: props.logsId })
       .then(res => {
           console.log(' logs res -======>', res)
           setUserMessageLogs(res.data)
@@ -68,8 +68,8 @@ const MessageDetails = (props) => {
       setErrors('Please fill in this filed')
     } else {
       setErrors('success')
-     // axios.post(`http://localhost:7777/usermessagelogs`, {
-        axios.post(`http://3.83.23.220:7788/usermessagelogs`, {
+     // axios.post(`http://localhost:7788/usermessagelogs`, {
+        axios.post(`http://54.165.185.4:7788/usermessagelogs`, {
         Id: userMessage._id,
         SenderName: userMessage.SenderName,
         ReceiverName: userMessage.ReceiverName,
@@ -80,19 +80,19 @@ const MessageDetails = (props) => {
         })
         setshowLoader(false)
     }
-    //axios.post(`http://localhost:7777/checkallusertousermessage`, { Id: userMessage._id })
-    axios.post(`http://3.83.23.220:7788/checkallusertousermessage`, { Id: userMessage._id })
+    //axios.post(`http://localhost:7788/checkallusertousermessage`, { Id: userMessage._id })
+    axios.post(`http://54.165.185.4:7788/checkallusertousermessage`, { Id: userMessage._id })
     .then(res => {
         console.log('check response ==>', res.data)
         if (res.data.length < 1) {
          
-          //axios.post(`http://localhost:7777/checkallusermessage`, { Id: props.messageId })
+          //axios.post(`http://localhost:7788/checkallusermessage`, { Id: props.messageId })
           axios.post(`http://3.83.23.220:7788/checkallusermessage`, { Id: props.messageId }) 
           .then(res => {
               console.log('check second response ==>', res.data)
               if (res.data.length < 1) {
-               // axios.post(`http://localhost:7777/usertousermessage`, {
-                  axios.post(`http://3.83.23.220:7788/usertousermessage`, {
+               // axios.post(`http://localhost:7788/usertousermessage`, {
+                  axios.post(`http://54.165.185.4:7788/usertousermessage`, {
                   Id: userMessage._id,
                   SenderId: JSON.parse(localStorage.user)._id,
                   SenderName: JSON.parse(localStorage.user).Name,
