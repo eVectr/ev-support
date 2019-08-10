@@ -1104,13 +1104,26 @@ app.post('/test', (req, res) => {
   })
 })
 
-app.post('/findagentbyid', (req, res) => {
-  let TicketId = req.body.Id
-  SupportAgent.find({TicketId:{"$in": TicketId}}, (err, data) =>{
+app.post('/updateagentbyid', (req, res) => {
+  let Id = req.body.Id
+  let TicketId = req.body.TicketId
+  SupportAgent.findByIdAndUpdate({_id: Id}, {$push: {TicketId: TicketId}}, (err, data) =>{
     if(err){
       res.send(err)
     }else{
       console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/findagentbytickeid', (req, res) => {
+  let TicketId = req.body.TicketId
+  SupportAgent.find({TicketId:{"$in": TicketId}}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ----==>", data)
       res.send(data)
     }
   })
