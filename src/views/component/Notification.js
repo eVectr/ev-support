@@ -14,7 +14,7 @@ class Notification extends Component{
                                 <i className="fas fa-cog"></i><span>Notification</span>
                             </div>
                             <div className='notification-table'>
-                            <NotificationHead />
+                            <p>helo</p>
                             </div>
                            
                         </div>
