@@ -32,11 +32,18 @@ const options = [
     }
   }
   let onAgentChange = (e) =>{
+    console.log("agent ===>", e)
+
+    // if(e){
+    //   for(let i = 0; i< e.length ; i++){
+    //     userIdArray.push(e[i].value)
+    //     userNameArray.push(e[i].label)
+    //     setSelectedUserId(userIdArray)
+    //     setSelectedUserName(userNameArray)
+    //   }
+    // }
   
-      setSelectedType(e)
-      // setSelectedType(prev => {
-      //   const update = prev.concat(e[i].value)
-      //   return update
+      //setSelectedType(e)
   }
    
   let onSelectFirstName = (e) => {

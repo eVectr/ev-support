@@ -849,14 +849,14 @@ app.post('/admintousermessage', (req, res) => {
   let SenderName = 'eVectr'
   let Subject = req.body.Subject
   let ReceiverId = req.body.ReceiverId
-  let Message = req.body.Message
+  let Action = req.body.Message
   let Document = filepaths
   let date = Date.now()
   var adminmessage = new AdminMessage({
     SenderName: SenderName,
     Subject: Subject,
     ReceiverId: ReceiverId,
-    Message: Message,
+    Action: Action,
     Document: Document,
     Date: date
   })
