@@ -31,19 +31,18 @@ const options = [
       setIsOpen(false)
     }
   }
+
+  let selectedArray = []
+
   let onAgentChange = (e) =>{
     console.log("agent ===>", e)
 
-    // if(e){
-    //   for(let i = 0; i< e.length ; i++){
-    //     userIdArray.push(e[i].value)
-    //     userNameArray.push(e[i].label)
-    //     setSelectedUserId(userIdArray)
-    //     setSelectedUserName(userNameArray)
-    //   }
-    // }
-  
-      //setSelectedType(e)
+    if(e){
+      for(let i = 0; i< e.length ; i++){
+        selectedArray.push(e[i].value)
+        setSelectedType(selectedArray)
+      }
+    }
   }
    
   let onSelectFirstName = (e) => {
@@ -82,10 +81,6 @@ const options = [
    // }
   }
 
-  console.log("First name ==>", selectedFirstName)
-  console.log("Last name ==>", selectedLastName)
-  console.log("password ==>", selectedPassword)
-  console.log("email==>", selectedEmail)
 
   return (
     <div style={styles} >

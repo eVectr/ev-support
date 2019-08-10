@@ -905,18 +905,7 @@ app.post('/getadminmessagebyId', (req, res) => {
   })
 })
 
-app.post('/test', (req, res) => {
-  let Id = req.body.Id
-  AdminMessage.find({ ReceiverId: { "$in": Id } }, (err, data) => {
-  //AdminMessage.find({ _id: Id }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(data)
-      res.send(data)
-    }
-  })
-})
+
 
 app.post('/getsentmessagebyId', (req, res) => {
   let Id = req.body.Id
@@ -1094,6 +1083,30 @@ app.post('/saveagent', (req, res) => {
 
 app.get('/findagent', (req, res) => {
   SupportAgent.find({}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/test', (req, res) => {
+  let Id = req.body.Id
+  AdminMessage.find({ ReceiverId: { "$in": Id } }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/findagentbyid', (req, res) => {
+  let TicketId = req.body.Id
+  SupportAgent.find({TicketId:{"$in": TicketId}}, (err, data) =>{
     if(err){
       res.send(err)
     }else{
