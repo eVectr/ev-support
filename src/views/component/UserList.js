@@ -2,7 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
-import { Col, Button, Form, FormGroup, Label, Input, FormText, Table  } from 'reactstrap'
+import PaginationAdmin from '../component/Pagination'
+import { Col, Button, Row, Form, FormGroup, Label, Input, FormText, Table  } from 'reactstrap'
 import '../../styles/Userlist.css'
 
 
@@ -12,6 +13,8 @@ const UserList = props => {
     fontFamily: 'sans-serif',
     textAlign: 'center'
   }
+  const [isActive, setIsActive] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
   const data =[
       {
        "Firstname":"John",
@@ -40,6 +43,7 @@ const UserList = props => {
    
     
     ];
+   
   return (
     <div style={styles} className="userlist-show" >
          <Table>
@@ -70,6 +74,15 @@ const UserList = props => {
            
 
             </Table>
+            <Row>
+            <Col>
+                <PaginationAdmin
+                 
+
+                />
+              </Col>
+
+            </Row>
     </div>
   )
 }
