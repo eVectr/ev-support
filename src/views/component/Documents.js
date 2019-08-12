@@ -68,7 +68,6 @@ const Document = ({ contacts }) => {
            // let url = 'http://localhost:7788/'
             let url = 'http://54.165.185.4:7788/'
             let imgurl = url.concat(getimg)
-            console.log("document liks   ===>", imgurl)
             return (
               <Col md='3' className='image-section-data'>
                     <ul>

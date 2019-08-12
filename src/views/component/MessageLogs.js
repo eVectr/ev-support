@@ -100,7 +100,7 @@ const MessageLogs = (props) => {
   let backtopage = () => {
     setShowMessageDetails(!showMessageDetails)
   }
- console.log(adminMessagePagination, "adminMessagePagination")
+
   return (
     <div className="messagelogs">
       <Row className="message-mail">
@@ -214,6 +214,12 @@ const MessageLogs = (props) => {
                             </div> :
                             <tbody>
                               {sentMessagePagination.map((message, index) => {
+                              let receiver = ''
+                              for(let i = 0 ; i < message.ReceiverName.length; i++){
+                                console.log("receiver =>", receiver.concat(message.ReceiverName[i]))
+                                
+                              }
+                            
                                 return (<tr onClick={() => onMessageClick(message._id)}>
                                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                                   <td className="name-table">{message.ReceiverName}</td>

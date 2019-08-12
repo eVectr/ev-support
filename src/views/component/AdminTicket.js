@@ -11,17 +11,17 @@ import { Input, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } fro
 
 import '../../styles/adminticket.css'
 
-const options = [
-  { value: 'Akash', label: 'Akash' },
-  { value: 'Love', label: 'Love' },
-  { value: 'Rohan', label: 'Rohan' },
-  { value: 'Ramesh', label: 'Ramesh' },
-  { value: 'Sohan', label: 'Sohan' },
-  { value: 'Johan', label: 'Johan' }, 
-]
+// const options = [
+//   { value: 'Akash', label: 'Akash' },
+//   { value: 'Love', label: 'Love' },
+//   { value: 'Rohan', label: 'Rohan' },
+//   { value: 'Ramesh', label: 'Ramesh' },
+//   { value: 'Sohan', label: 'Sohan' },
+//   { value: 'Johan', label: 'Johan' }, 
+// ]
 
 const AdminTicket = (props) => {
-  //const [options, setOptions] = useState([])
+  const [options, setOptions] = useState([])
   const [messageLogs, setMessageLogs] = useState([])
   const [contacts, setContacts] = useState([])
   const [reply, setReply] = useState('')
@@ -35,6 +35,7 @@ const AdminTicket = (props) => {
   const [SelectedStatus, setSelectedStatus] = useState('')
   const [SelectOptions, setSelectOptions] = useState([])
   const [assignTo, setAssignto] = useState('')
+  const [subAdmin, setSubAdmin] = useState({})
   const [Errors, setErrors] = useState('')
   
   const item = ['Open', 'Close', 'Active']
@@ -63,21 +64,27 @@ const AdminTicket = (props) => {
         setActivityLog(res.data.reverse())
       })
 
-      // axios.get(`http://localhost:7788/findagent`,{Id:props.match.params.id})
-      // .then(res =>{
-      //   for(let i = 0 ; i < res.data.length; i++){
-      //     let data = {
-      //       value: res.data[i].id,
-      //       label: res.data[i].FirstName
-      //     }
-      //     setOptions(prev => {
-      //       const update = prev.concat(data)
-      //       return update
-      //   })
-      //   }
-      // })
+      let agentArray = []
+      axios.get(`http://54.165.185.4:7788/findagent`,{Id:props.match.params.id})
+      .then(res =>{
+          console.log("res ===>", res.data)
+        for(let i = 0 ; i < res.data.length; i++){
+          let data = {
+            value: res.data[i]._id,
+            label: res.data[i].FirstName
+          }
+          agentArray.push(data)
+          console.log("array  =>", agentArray)
+          setOptions(agentArray)
+         }
+      })
+     
+      axios.post(`http://localhost:7788/findagentbytickeid`,{TicketId:props.match.params.id})
+      .then(res =>{
+          setSubAdmin(res.data[0])
+      })
 
-  }, [SelectedStatus, reply])
+  }, [SelectedStatus, reply, assignTo])
 
   let sendemail = () => {
     if(reply == ''){
@@ -149,7 +156,12 @@ const AdminTicket = (props) => {
         .then(res =>{  
           setActivityLog(res.data.reverse())
         })
-    }) 
+    })
+     axios.post(`http://localhost:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
+     .then(res =>{
+       console.log("res ==>", res.data)
+       setSubAdmin(res.data)
+      })
     }
      
   }
@@ -183,8 +195,10 @@ const AdminTicket = (props) => {
     props.history.push('/admin')
     //setshowAdminPanel(!showAdminPanel)
   }
-  console.log('contacts  ==> ', contacts)
-  
+  // if(contacts.length){
+  //   console.log('contacts  =======> ', contacts[0].Case_No)
+  // }
+  console.log("subadmin ===>", subAdmin)
   return (
     <Col className='container-fluid'>
       {loader ?
@@ -241,7 +255,7 @@ const AdminTicket = (props) => {
                       </li>
                       <li className="assignee-task">
                         <div className="inner-assign">
-                          <span className="assign-name">{assignTo == ''?'Not Assigned':assignTo}</span>
+                          <span className="assign-name">{subAdmin == undefined?'Not Assigned': (subAdmin.FirstName)}</span>
                         </div>
                       </li>
 

@@ -4,10 +4,12 @@ import moment from 'moment'
 import { Container, Row, Col, Table, checkBox, Button } from 'reactstrap'
 import NotificationHead from './NotificationHead'
 import '../../styles/notification.css'
+import { set } from 'mongoose';
 
 //class Notification extends Component{
 const Notification = (props) => {
     const [notification, setNotification] = useState([])
+    const [selectedId, setSelectedId] = useState([])
     const [showLoader, setshowLoader] = useState(true)
     useEffect(() => {
          axios.get(`http://localhost:7788/getnotification`)
@@ -19,11 +21,30 @@ const Notification = (props) => {
            setshowLoader(false)
        }, [])
        let OnButtonClick = (Id) =>{
-        alert(Id)
         axios.post(`http://localhost:7788/changenotificationstatus`, {Id: Id}) 
+        .then(res =>{
+             axios.get(`http://localhost:7788/getnotification`)
+         //axios.get(`http://54.165.185.4:7788/getnotification`)
+           .then(res => {
+               console.log('res res res ==>', res.data)
+                setNotification(res.data.reverse())
+           })
+        })
        }
-
-       console.log("notification ==>", notification)
+    
+    let handleCheckBoxChange = (id) =>{
+        setSelectedId([...selectedId, id])
+    }
+    let deleteNotice = () => {
+        for(let i = 0; i< selectedId.length; i++){
+            axios.post(`http://localhost:7788/deletenotification`, {Id:selectedId[i]})
+          //  axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:inputValue[i]})
+            .then(res => {
+                setSelectedId([])
+                console.log('deleted')
+            })
+        }
+    }
     return (
         <Container fluid>
             <Row className="notify-table">
@@ -33,7 +54,7 @@ const Notification = (props) => {
                                 <i className="fas fa-cog"></i><span>Notification</span>
                             </div>
                             <div className='notification-table'>
-                            <p>hello</p>
+                            <p>helo</p>
                             </div>
                            
                         </div> */}

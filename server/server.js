@@ -177,7 +177,6 @@ app.post('/upload', upload.array('SelectedImage'), (req, res) => {
 app.post('/fileupload', upload.array('SelectedImage'), (req, res) => {
   let path = req.files.map((file, index) => {
     filepaths.push(file.path)
-    console.log("file.pah ======>", file.path)
     console.log('file ==path -=>', filepaths)
   })
   res.send('send')
@@ -814,7 +813,7 @@ app.post('/usertousermessage', (req, res) => {
     SentBy: SenderName,
     SentTo: ReceiverId,
     Action: 'SEE MESSAGE',
-    Checked: false
+    FontStyle: false
   })
   notification.save()
 })
@@ -868,14 +867,14 @@ app.post('/admintousermessage', (req, res) => {
       res.send('done')
     }
   })
-  let Type = 'eVectr Urgent Messages'
+  let Type = 'eVectr Urgent Message'
   var notification = new Notification({
     Type: Type,
     Date: date,
     SentBy: 'eVectrInc',
     SentTo: ReceiverId,
-    Message: 'SEE MESSAGE',
-    Checked: false
+    Action: 'SEE MESSAGE',
+    FontStyle: false
   })
   notification.save()
   while (filepaths.length > 0) {
@@ -905,18 +904,7 @@ app.post('/getadminmessagebyId', (req, res) => {
   })
 })
 
-app.post('/test', (req, res) => {
-  let Id = req.body.Id
-  AdminMessage.find({ ReceiverId: { "$in": Id } }, (err, data) => {
-  //AdminMessage.find({ _id: Id }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(data)
-      res.send(data)
-    }
-  })
-})
+
 
 app.post('/getsentmessagebyId', (req, res) => {
   let Id = req.body.Id
@@ -1074,12 +1062,14 @@ app.post('/saveagent', (req, res) => {
   let LastName = req.body.LastName
   let Password = req.body.Password
   let Type = req.body.Type
+  let Email = req.body.Email
   let TicketId = req.body.TicketId
   var supportagent = new  SupportAgent({
     FirstName: FirstName,
     LastName: LastName,
     Password:Password,
     Type:Type,
+    Email: Email,
     TicketId:TicketId
   })
   supportagent.save((err, data)=>{
@@ -1103,6 +1093,43 @@ app.get('/findagent', (req, res) => {
   })
 })
 
+app.post('/test', (req, res) => {
+  let Id = req.body.Id
+  AdminMessage.find({ ReceiverId: { "$in": Id } }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/updateagentbyid', (req, res) => {
+  let Id = req.body.Id
+  let TicketId = req.body.TicketId
+  SupportAgent.findByIdAndUpdate({_id: Id}, {$push: {TicketId: TicketId}}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/findagentbytickeid', (req, res) => {
+  let TicketId = req.body.TicketId
+  SupportAgent.find({TicketId:{"$in": TicketId}}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ----==>", data)
+      res.send(data)
+    }
+  })
+})
+
 app.post('/assignticket', (req, res) => {
   let Id = req.body.Id
   let Name = req.body.Name
@@ -1114,7 +1141,7 @@ app.post('/assignticket', (req, res) => {
 })
 
 app.post('/changenotificationstatus', (req, res) => {
-  console.log("id ==>", Id)
+  let Id = req.body.Id
   Notification.findOneAndUpdate({_id: Id}, {$set:{FontStyle:true}}, {new: true}, (err, doc) => {
     if(err){
       res.send(err)
@@ -1122,7 +1149,7 @@ app.post('/changenotificationstatus', (req, res) => {
       res.send("done")
     }
   })
- })
+})
 
 server.listen(7788, () => {
   console.log('server connected')

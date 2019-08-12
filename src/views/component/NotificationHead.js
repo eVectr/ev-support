@@ -17,24 +17,16 @@ let NotificationHead = () => {
        // axios.get(`http://localhost:7788/getnotification`)
         axios.get(`http://54.165.185.4:7788/getnotification`)
           .then(res => {
-              console.log('res res res ==>', res)
+            //  console.log('res res res ==>', res.data.reverse())
             setNotificationList1(res.data.reverse())
             settotalItemsCount(res.data.length)
           })
       }, [random])
-    const nextPage = () => {
-          setStart(start + limit)
-    }
    
-    const firstPage = () => setStart(0)
-    const prevPage = () => setStart(start - limit)
-    const lastPage = () => {
-        setStart(totalPages * limit  - limit)
-    } 
-
+   
     let usersListPagination = notificationList1.slice(activePage, activePage + 5)
-
     let totalPages = Math.ceil((notificationList1.length)/limit)
+    console.log("total page ===>", totalPages)
     
     let paginate = (number) => {
         console.log(number, 'number')
