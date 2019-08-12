@@ -18,6 +18,7 @@ const AgentModal = props => {
   const [selectedPassword, setSelectedPassword] = useState('')
   const [selectedType, setSelectedType] = useState([])
   const [Errors, setErrors] = useState('')
+  const [selectedTicketId, setSelectedTicketId] = useState([])
 
   const styles = {
     fontFamily: 'sans-serif',
@@ -60,19 +61,28 @@ const AgentModal = props => {
   }
 
   let handleCloseOnSave = () => {
-    
-    axios.post(`http://localhost:7788/saveagent`, {
-      FirstName: selectedFirstName,
-      LastName: selectedLastName,
-      Password: selectedPassword,
-      Type: selectedType,
-      Email: selectedEmail,
-      TicketId: []
-    })
-      .then(res => {
-        console.log("res ==>", res)
+    if (selectedTicketId === '') {
+      setTimeout(() => {
+        setErrors(false)
+        setErrors('')
+    }, 1000)
+      setErrors('Please select required fields')
+    } else {
+      setSelectedTicketId('')
+      axios.post(`http://localhost:7788/saveagent`, {
+        FirstName: selectedFirstName,
+        LastName: selectedLastName,
+        Password: selectedPassword,
+        Type: selectedType,
+        Email: selectedEmail,
+        TicketId: []
       })
-    props.onAgentCloseModal()
+        .then(res => {
+          console.log("res ==>", res)
+        })
+      props.onAgentCloseModal()
+    }
+   
     // }
   }
 
@@ -138,4 +148,5 @@ const AgentModal = props => {
     </div>
   )
 }
+
 export default AgentModal
