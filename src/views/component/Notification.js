@@ -37,6 +37,8 @@ const Notification = (props) => {
                             </div>
                            
                         </div> */}
+                        <div className="notification-list">
+                            <Col className='col-12'>
                     <Table>
                         <thead>
                             <tr style={{ 'background': "#dee2e6" }} className="table-head">
@@ -51,7 +53,7 @@ const Notification = (props) => {
                             <img src={require('../../images/loader.gif')} />
                         </div> :
                             <tr className="table-head">
-                                <th>Select <hr/></th>
+                                <th className="select-list"><input type="checkbox" class="select-list-check"/>Select <hr/></th>
                                 <th>Notification Type <hr/></th>
                                 <th>Data Received <hr/></th>
                                 <th>Sent by <hr/></th>
@@ -62,12 +64,9 @@ const Notification = (props) => {
                         </thead>
                         <tbody>
                         {notification.map(function (d, idx) {
-
                             return (
                                 <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText" : "boldlistText activeurgentMessage"  : d.Type == 'Missed Chat Message' ?  d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"   }`}   >{d.name}
                                     <td className="check-table"><div className="alert"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert"><input type="checkbox" className="check-list-notifi"/></div></td>
-                                    {/* <td ><i class="fa fa-envelope" aria-hidden="true"></i>{d.Type}</td> */}
-                                    
                                     <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue": "fa fa-list-alt"  }`} aria-hidden="true"></i>{d.Type}</td>
                                     <td>{moment(d.Date).format('lll')}</td>
                                     <td>{d.SentBy}</td>
@@ -76,8 +75,12 @@ const Notification = (props) => {
                         })}
                         </tbody>
                        
-                    
                     </Table>
+                    </Col>
+                    <div className="delete-select">
+                        <button>Delete Selected</button>
+                    </div>
+                    </div>
                 </Col>
             </Row>
         </Container>

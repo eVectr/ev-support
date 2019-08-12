@@ -84,9 +84,7 @@
 /* ------------------------------------------NOTIFICATION-LIST-CSS-------------------------------- */
 
 .notification-list {
-    display: flex;
     justify-content:space-between;
-    box-shadow: 0px 1px 0px #000;
     margin-bottom: 5px;
     font-size:16px;
 }
@@ -188,7 +186,7 @@ li.page-item.active {
 .notify-table .table {
     width: 90% !important;
     margin: 70px auto;
-    border: 1px solid #e8e3e3;
+    /* border: 1px solid #e8e3e3; */
 }
 .notify-table button.btn {
     text-align: center;
@@ -255,7 +253,7 @@ td.check-table {
     margin-top: 4px;
     text-align: center;
     margin: auto;
-    transform: translate(30px, 0px);
+    transform: translate(8px, 0px);
 }
 .alert {
     float: left;
@@ -301,4 +299,27 @@ button.Transactionbtn {
 .normallistText {
     font-weight: normal;
     font-size: 15px;
+}
+th.select-list{
+    padding-left: 7% !important;
+}
+.select-list .select-list-check {
+    display: inline;
+    width: 22px;
+    font-size: 20px;
+}
+.notify-table .table tr {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+.table thead tr.table-head {
+    border-bottom: none !important;
+}
+.delete-select button {
+    font-size: 17px;
+    margin: auto;
+    width: 10%;
+    margin-left: 12%;
+    border: none;
+    text-decoration: underline;
+    color: #4e4b4b;
 }
