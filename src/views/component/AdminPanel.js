@@ -14,7 +14,7 @@ import Modal from 'react-responsive-modal'
 import '../../styles/adminpanel.css'
 import Navbar from './Navbar'
 import ModalUi from './ModalUi'
-import AgentModal from './AgentModal'
+import AgentModal from './AgentModal/AgentModal';
 import UserList from './UserList'
 import { longStackSupport } from 'q'
 import { CaseNo } from '../../redux/actions/notification/notification'
@@ -202,14 +202,6 @@ const AdminPanel = (props) => {
       setLimit(e.target.value)
     }
   }
-
-  // let setFilterDatafun = (data) => {
-  //   setFilterData1({
-  //     filterName: data[1],
-  //     filterValue: data[0]
-  //   })
-  // }
-
   useEffect(() => {
     if (isFilterBySelected && !isSortBySelected) {
      axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
@@ -279,10 +271,6 @@ const AdminPanel = (props) => {
   let AgentUserMessage = () => {
     setAgentOpen(true)
   }
-  // let AgentCloseModal = () => {
-  //   alert('close')
-  //   AgentOpen(false)
-  // }
   let closeModal = () => {
     setOpen(false)
   }

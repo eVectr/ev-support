@@ -324,3 +324,11 @@ th.select-list{
     text-decoration: underline;
     color: #4e4b4b; 
 }
+.notify-table {
+    overflow: scroll;
+    height: calc(100vh - 90px);
+    z-index: 0;
+}
+.notification-list .pagination {
+    margin-bottom: 30px;
+}

@@ -216,8 +216,7 @@ const MessageLogs = (props) => {
                               {sentMessagePagination.map((message, index) => {
                               let receiver = ''
                               for(let i = 0 ; i < message.ReceiverName.length; i++){
-                                console.log("receiver =>", receiver.concat(message.ReceiverName[i]))
-                                
+                                console.log("receiver =>", receiver.concat(message.ReceiverName[i])) 
                               }
                             
                                 return (<tr onClick={() => onMessageClick(message._id)}>

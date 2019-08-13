@@ -2,25 +2,28 @@ import React, { Component, useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import { Container, Row, Col, Table, checkBox, Button } from 'reactstrap'
-import NotificationHead from './NotificationHead'
+import NoticePagination from './NoticePagination'
 import '../../styles/notification.css'
-import { set } from 'mongoose';
+import { set } from 'mongoose'
 
 //class Notification extends Component{
 const Notification = (props) => {
     const [notification, setNotification] = useState([])
     const [selectedId, setSelectedId] = useState([])
     const [showLoader, setshowLoader] = useState(true)
+    const [totalItemsCount, setTotalItemsCount] = useState()
+    const [activePage, setactivePage] = useState(1)
+    const [limit, setLimit] = useState(0)
     useEffect(() => {
          axios.get(`http://localhost:7788/getnotification`)
          //axios.get(`http://54.165.185.4:7788/getnotification`)
            .then(res => {
                console.log('res res res ==>', res.data)
                 setNotification(res.data.reverse())
-                setshowLoader(false)
+                setTotalItemsCount(res.data.length)
            })
-          
-       }, [])
+           setshowLoader(false)
+       }, [selectedId])
        let OnButtonClick = (Id) =>{
         axios.post(`http://localhost:7788/changenotificationstatus`, {Id: Id}) 
         .then(res =>{
@@ -37,13 +40,19 @@ const Notification = (props) => {
     let handleCheckBoxChange = (id) =>{
         setSelectedId([...selectedId, id])
     }
+    let  handlePageChange = (pageNumber) => {
+        setactivePage(pageNumber)
+       
+      }
+    let usersListPagination = notification.slice((activePage * 5) -5 , (activePage * 5) )
+    console.log("user notice list=>", usersListPagination)
+
     let deleteNotice = () => {
         for(let i = 0; i< selectedId.length; i++){
             axios.post(`http://localhost:7788/deletenotification`, {Id:selectedId[i]})
           //  axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:inputValue[i]})
             .then(res => {
                 setSelectedId([])
-                console.log('deleted')
             })
         }
     }
@@ -55,44 +64,55 @@ const Notification = (props) => {
                             </div> :
             <Row className="notify-table">
                 <Col>
-                    <div className="notification-list">
-                        <Col>
-                            <Table>
-                                <thead>
-                                    <tr style={{ 'background': "#dee2e6" }} className="table-head">
-                                        <th><i class="fa fa-cog" aria-hidden="true"></i>Notification</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                    <tr className="table-head">
-                                        <th className="select-list"><input type="checkbox" class="select-list-check"/>Select <hr/></th>
-                                        <th>Notification Type <hr/></th>
-                                        <th>Data Received <hr/></th>
-                                        <th>Sent by <hr/></th>
-                                        <th>Action <hr/></th>
+                  
+                        <div className="notification-list">
+                            <Col className='col-12'>
+                    <Table>
+                        <thead>
+                            <tr style={{ 'background': "#dee2e6" }} className="table-head">
+                                <th><i class="fa fa-cog" aria-hidden="true"></i>Notification</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        {showLoader ?
+                        <div className='loader-img'>
+                            <img src={require('../../images/loader.gif')} />
+                        </div> :
+                            <tr className="table-head">
+                                <th className="select-list"><input type="checkbox" class="select-list-check"/>Select <hr/></th>
+                                <th>Notification Type <hr/></th>
+                                <th>Data Received <hr/></th>
+                                <th>Sent by <hr/></th>
+                                <th>Action <hr/></th>
 
-                                    </tr>
+                            </tr>
+                             }
+                        </thead>
+                        <tbody>
+                        {usersListPagination.map(function (d, idx) {
+                            return (
+                                <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText" : "boldlistText activeurgentMessage"  : d.Type == 'Missed Chat Message' ?  d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"   }`}   >{d.name}
+                                    <td className="check-table"><div className="alert"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert"><input type="checkbox"
+                                    onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi"/></div></td>
+                                    {/* <td ><i class="fa fa-envelope" aria-hidden="true"></i>{d.Type}</td> */}
                                     
-                                </thead>
-                                <tbody>
-                                    {notification.map(function (d, idx) {
-                                        return (
-                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText" : "boldlistText activeurgentMessage"  : d.Type == 'Missed Chat Message' ?  d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"   }`}   >{d.name}
-                                                <td className="check-table"><div className="alert"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert"><input type="checkbox" className="check-list-notifi"/></div></td>
-                                                <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue": "fa fa-list-alt"  }`} aria-hidden="true"></i>{d.Type}</td>
-                                                <td>{moment(d.Date).format('lll')}</td>
-                                                <td>{d.SentBy}</td>
-                                                <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn": d.Type == 'Complete Transaction Survey' ? "Transactionbtn": "" }`} onClick ={() => OnButtonClick(d._id)}>{d.Action}</Button></td>
-                                            </tr>)
-                                    })}
-                                </tbody>
-                            </Table>
-                        </Col>
+                                    <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue": "fa fa-list-alt"  }`} aria-hidden="true"></i>{d.Type}</td>
+                                    <td>{moment(d.Date).format('lll')}</td>
+                                    <td>{d.SentBy}</td>
+                                    <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn": d.Type == 'Complete Transaction Survey' ? "Transactionbtn": "" }`} onClick ={() => OnButtonClick(d._id)}>{d.Action}</Button></td>
+                                </tr>)
+                        })}
+                        </tbody>
+                       
+                    </Table>
+                    </Col>
                     <div className="delete-select">
-                        <button>Delete Selected</button>
+                        <button onClick={deleteNotice}>Delete Selected</button>
                     </div>
+                    <NoticePagination totalItemsCount={totalItemsCount} handlePageChange={handlePageChange}
+                    activePage={activePage}></NoticePagination>
                     </div>
                 </Col>
             </Row>}

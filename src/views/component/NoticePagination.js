@@ -7,7 +7,7 @@ let NoticePagination= (props) => {
       <div>
         <Pagination
           activePage={props.activePage}
-          itemsCountPerPage={10}
+          itemsCountPerPage={5}
           totalItemsCount={props.totalItemsCount}
           pageRangeDisplayed={5}
           onChange={props.handlePageChange}
