@@ -35,6 +35,7 @@ const AdminTicket = (props) => {
   const [SelectedStatus, setSelectedStatus] = useState('')
   const [SelectOptions, setSelectOptions] = useState([])
   const [assignTo, setAssignto] = useState('')
+  const [name, setName] = useState('')
   const [subAdmin, setSubAdmin] = useState({})
   const [Errors, setErrors] = useState('')
   
@@ -81,7 +82,7 @@ const AdminTicket = (props) => {
      
       axios.post(`http://54.165.185.4:7788/findagentbytickeid`,{TicketId:props.match.params.id})
       //axios.post(`http://localhost:7788/findagentbytickeid`,{TicketId:props.match.params.id})
-      .then(res =>{
+      .then(res => {
           setSubAdmin(res.data[0])
       })
 
@@ -153,7 +154,7 @@ const AdminTicket = (props) => {
     
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
      axios.post(`http://54.165.185.4:7788/logentry`,{Id:contacts[0].Case_No,
-    log:'Ticket assigned to ' + subAdmin.FirstName })
+    log:'Ticket assigned to ' + name })
     .then(res => {
       axios.post(`http://54.165.185.4:7788/findlogentry`,{Id:props.match.params.id})
       //axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
@@ -193,6 +194,7 @@ const AdminTicket = (props) => {
       setErrors('Please fill in this filed')
     } else {
       setAssignto(e.value)
+      setName(e.label)
     }
   }
  
@@ -203,7 +205,7 @@ const AdminTicket = (props) => {
   // if(contacts.length){
   //   console.log('contacts  =======> ', contacts[0].Case_No)
   // }
-  console.log("subadmin ===>", subAdmin)
+  console.log("name ===>", name)
   return (
     <Col className='container-fluid'>
       {loader ?

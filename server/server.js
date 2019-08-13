@@ -1098,15 +1098,28 @@ app.post('/saveagent', (req, res) => {
 })
 
 app.get('/findagent', (req, res) => {
-  SupportAgent.find({}, (err, data) =>{
-    if(err){
-      res.send(err)
-    }else{
-      console.log("data ==>", data)
-      res.send(data)
-    }
-  })
+  SupportAgent.find({}, null,
+    {sort: { Date: -1 } }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    })
 })
+
+// app.get('/findagent', (req, res) => {
+//   SupportAgent.find({}, (err, data) =>{
+//     if(err){
+//       res.send(err)
+//     }else{
+//       console.log("data ==>", data)
+//       res.send(data)
+//     }
+//   })
+// })
 
 app.post('/test', (req, res) => {
   let Id = req.body.Id
