@@ -819,6 +819,30 @@ app.post('/usertousermessage', (req, res) => {
   notification.save()
 })
 
+app.post('/savenotification', (req, res) => {
+  let  Type = req.body.Type
+  let   SentBy = req.body. SentBy
+  let  SentTo = req.body.SentTo
+  let date = Date.now()
+  
+  var notification = new Notification({
+    Type: Type,
+    Date: date,
+    SentBy: SentBy,
+    SentTo: SentTo,
+    Action: 'SEE MESSAGE',
+    FontStyle: false,
+    isChecked: false
+  })
+  notification.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+})
+
 app.get('/getnotification', (req, res) => {
   Notification.find({}, null,
     {sort: { Date: -1 } }, function (err, data) {
