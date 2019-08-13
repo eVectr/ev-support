@@ -813,22 +813,36 @@ app.post('/usertousermessage', (req, res) => {
     SentBy: SenderName,
     SentTo: ReceiverId,
     Action: 'SEE MESSAGE',
-    FontStyle: false
+    FontStyle: false,
+    isChecked: false
   })
   notification.save()
 })
 
 app.get('/getnotification', (req, res) => {
-  Notification.find((err, data) => {
-    if (err) {
-      console.log(err)
-      res.send(err)
-    } else {
-      console.log(data)
-      res.send(data)
-    }
-  })
+  Notification.find({}, null,
+    {sort: { Date: -1 } }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    })
 })
+
+// app.get('/getnotification', (req, res) => {
+//   Notification.find((err, data) => {
+//     if (err) {
+//       console.log(err)
+//       res.send(err)
+//     } else {
+//       console.log(data)
+//       res.send(data)
+//     }
+//   })
+// })
 
 app.post('/deletenotification', (req, res) => {
   let Id = req.body.Id
@@ -874,7 +888,8 @@ app.post('/admintousermessage', (req, res) => {
     SentBy: 'eVectrInc',
     SentTo: ReceiverId,
     Action: 'SEE MESSAGE',
-    FontStyle: false
+    FontStyle: false,
+    isChecked:false
   })
   notification.save()
   while (filepaths.length > 0) {

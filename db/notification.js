@@ -6,7 +6,8 @@ var Notification = new mongoose.Schema({
   SentTo: [],
   SentBy: String,
   Action: String,
-  FontStyle: Boolean
+  FontStyle: Boolean,
+  isChecked: Boolean
 })
 
 module.exports = mongoose.model('Notification', Notification)
