@@ -1079,13 +1079,15 @@ app.post('/saveagent', (req, res) => {
   let Type = req.body.Type
   let Email = req.body.Email
   let TicketId = req.body.TicketId
+  let date = Date.now()
   var supportagent = new  SupportAgent({
     FirstName: FirstName,
     LastName: LastName,
     Password:Password,
     Type:Type,
     Email: Email,
-    TicketId:TicketId
+    TicketId:TicketId,
+    Date: date
   })
   supportagent.save((err, data)=>{
     if(err){
