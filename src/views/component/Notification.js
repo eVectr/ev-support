@@ -20,6 +20,7 @@ const Notification = (props) => {
             //axios.get(`http://54.165.185.4:7788/getnotification`)
             .then(res => {
                 for (let i = 0; i < res.data.length; i++) {
+                   
                     if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
                         setNotification(prev => {
                             const updated = prev.concat(res.data[i])
@@ -30,7 +31,7 @@ const Notification = (props) => {
                 //setTotalItemsCount(res.data.length)
             })
         setshowLoader(false)
-    }, [selectedId])
+    }, [])
 
     let OnButtonClick = (Id, index) => {
         axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
@@ -41,12 +42,19 @@ const Notification = (props) => {
             })
     }
 
+    let test = []
+
     let handleCheckBoxChange = (Id) => {
         setNotification(prevState => prevState.map(
-            item => item._id === Id ? {...item, isChecked: true} : item
+            item => {
+                return(
+                    item._id === Id ? {...item, isChecked: !item.isChecked} : item
+                )
+            }
         ))
-        setSelectedId([...selectedId, Id])
+         setSelectedId([...selectedId, Id])
     }
+
     let allselectedarray = []
     let onCheckall = () =>{
         let i = (activePage * 5) - 5
@@ -64,7 +72,6 @@ const Notification = (props) => {
 
     let handlePageChange = (pageNumber) => {
         setactivePage(pageNumber)
-
     }
 
     let usersListPagination = notification.slice((activePage * 5) - 5, (activePage * 5))
@@ -90,8 +97,7 @@ const Notification = (props) => {
        
     }
    
-
-    console.log("selected id==>", allSelectedId)
+    console.log("selected Id =>", selectedId)
     return (
         <Container fluid>
             <Row className="notify-table">
@@ -124,9 +130,7 @@ const Notification = (props) => {
                                 </thead>
                                 <tbody>
                                     {usersListPagination.map(function (d, idx) {
-                                        console.log("status ==>", idx)
-                                        console.log(d.Type, d.FontStyle)
-                                        console.log(` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`)
+                                      
                                         return (
                                             <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
                                                 <td className="check-table"><div className="alert"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">

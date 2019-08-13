@@ -146,10 +146,12 @@ const AdminTicket = (props) => {
       setErrors('Please enter required fields')
     } else {
       setshowTextArea(!showTextArea)
-     // setAssignto('')
+      axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
+      setSelectedStatus('Active')
+    
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
-     axios.post(`http://54.165.185.4:7788/`,{Id:contacts[0].Case_No,
-    log:'Ticket assigned to ' + assignTo })
+     axios.post(`http://54.165.185.4:7788/logentry`,{Id:contacts[0].Case_No,
+    log:'Ticket assigned to ' + subAdmin.FirstName })
     .then(res => {
       axios.post(`http://54.165.185.4:7788/findlogentry`,{Id:props.match.params.id})
       //axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
