@@ -81,7 +81,7 @@ const AgentModal = (props) => {
 
         .then(res => {
           setErrors('')
-          console.log("agentUserDetails ==>", res)
+          console.log("agentUser ==>", res)
 
 
         })
