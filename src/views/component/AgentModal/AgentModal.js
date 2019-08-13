@@ -66,7 +66,8 @@ const AgentModal = (props) => {
     }
     else {
       props.onAgentCloseModal()
-      axios.post(`http://localhost:7788/saveagent`, {
+      axios.post(`http://54.165.185.4:7788/saveagent`, {
+      //axios.post(`http://localhost:7788/saveagent`, {
         FirstName: agentUserDetails.first_name,
         LastName: agentUserDetails.last_name,
         Password: agentUserDetails.password,

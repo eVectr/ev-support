@@ -18,7 +18,7 @@ const UserList = props => {
   const [activePage, setactivePage] = useState(1)
   useEffect(() => {
     axios.get(`http://54.165.185.4:7788/findagent`)
-    axios.get(`http://localhost:7788/findagent`)
+    //axios.get(`http://localhost:7788/findagent`)
       .then(res => {
         // console.log("res data ==>", data)
         setSubAdmin(res.data)
