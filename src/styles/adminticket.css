@@ -777,6 +777,7 @@ li.docs-details-inner.right-side {
 }
 .inner-containers button.sendmessage-btn.btn.btn-secondary {
     width: 100% !important;
+    padding: 9px !important;
 }
 button.sendmessage-btn.btn.btn-secondary.btn.btn-secondary {
     width: 90px;
