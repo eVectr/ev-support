@@ -79,7 +79,8 @@ const AdminTicket = (props) => {
          }
       })
      
-      axios.post(`http://localhost:7788/findagentbytickeid`,{TicketId:props.match.params.id})
+      axios.post(`http://54.165.185.4:7788/findagentbytickeid`,{TicketId:props.match.params.id})
+      //axios.post(`http://localhost:7788/findagentbytickeid`,{TicketId:props.match.params.id})
       .then(res =>{
           setSubAdmin(res.data[0])
       })
@@ -146,7 +147,8 @@ const AdminTicket = (props) => {
       setErrors('Please enter required fields')
     } else {
       setshowTextArea(!showTextArea)
-      axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
+     // axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
+      axios.post(`http://54.165.185.4:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
       setSelectedStatus('Active')
     
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
@@ -159,7 +161,8 @@ const AdminTicket = (props) => {
           setActivityLog(res.data.reverse())
         })
     })
-     axios.post(`http://localhost:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
+    // axios.post(`http://localhost:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
+     axios.post(`http://54.165.185.4:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
      .then(res =>{
        console.log("res ==>", res.data)
        setSubAdmin(res.data)

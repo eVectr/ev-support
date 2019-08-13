@@ -87,7 +87,7 @@ const MessageDetails = (props) => {
         if (res.data.length < 1) {
          
           //axios.post(`http://localhost:7788/checkallusermessage`, { Id: props.messageId })
-          axios.post(`http://3.83.23.220:7788/checkallusermessage`, { Id: props.messageId }) 
+          axios.post(`http://54.165.185.4:7788/checkallusermessage`, { Id: props.messageId }) 
           .then(res => {
               console.log('check second response ==>', res.data)
               if (res.data.length < 1) {

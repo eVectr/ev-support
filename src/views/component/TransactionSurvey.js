@@ -136,7 +136,7 @@ const SurveyCard = (props) => {
     let user = JSON.parse(localStorage.getItem('user'))
     const { Type = '' } = user || {}
     setLoader(true)
-    axios.get(`http://localhost:7788/gettransactionsurvey`)
+   // axios.get(`http://localhost:7788/gettransactionsurvey`)
     axios.get(`http://54.165.185.4:7788/gettransactionsurvey`)
       .then(res => {
         let { data = [] } = res

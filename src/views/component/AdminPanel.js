@@ -55,7 +55,7 @@ const AdminPanel = (props) => {
 
   useEffect(() => {
    // axios.get(`http://localhost:7788/getcontactslength`)
-    axios.get(`http://54.165.185.4:7788//getcontactslength`)
+    axios.get(`http://54.165.185.4:7788/getcontactslength`)
       .then(res => {
         setTotalContact(res.data.length)
       })
@@ -225,8 +225,8 @@ const AdminPanel = (props) => {
 
   useEffect(() => {
     if (isSortBySelected && !isFilterBySelected) {
-      axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-      // axios.post(`http://3.83.23.220:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+     // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+       axios.post(`http://54.165.185.4:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           console.log('sort by response ====>', res.data)

@@ -16,8 +16,8 @@ const Notification = (props) => {
     const [activePage, setactivePage] = useState(1)
     const [limit, setLimit] = useState(0)
     useEffect(() => {
-        axios.get(`http://localhost:7788/getnotification`)
-            //axios.get(`http://54.165.185.4:7788/getnotification`)
+      //  axios.get(`http://localhost:7788/getnotification`)
+            axios.get(`http://54.165.185.4:7788/getnotification`)
             .then(res => {
                 for (let i = 0; i < res.data.length; i++) {
                    
@@ -34,7 +34,8 @@ const Notification = (props) => {
     }, [])
 
     let OnButtonClick = (Id, index) => {
-        axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
+       // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
+        axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
             .then(res => {
                 setNotification(prevState => prevState.map(
                     item => item._id === Id ? {...item, FontStyle: true} : item
@@ -78,8 +79,8 @@ const Notification = (props) => {
     let deleteNotice = () => {
         if(selectedId.length > 0){
             for (let i = 0; i < selectedId.length; i++) {
-                axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
-                    //  axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:inputValue[i]})
+               // axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
+                      axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:selectedId[i]})
                     .then(res => {
                        setSelectedId([])
                     })
@@ -87,8 +88,8 @@ const Notification = (props) => {
         }
         else{
             for (let i = 0; i < allSelectedId.length; i++) {
-                axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
-                    //  axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:inputValue[i]})
+               // axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
+                      axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:selectedId[i]})
                     .then(res => {
                        setAllSelectedId([])
                     })
