@@ -301,11 +301,12 @@ button.Transactionbtn {
     font-size: 15px;
 }
 th.select-list{
-    padding-left: 7% !important;
+    padding-left: 80px !important;
+    padding-right: 1% !important;
 }
 .select-list .select-list-check {
     display: inline;
-    width: 22px;
+    width: 10%;
     font-size: 20px;
 }
 .notify-table .table tr {
@@ -321,5 +322,13 @@ th.select-list{
     margin-left: 12%;
     border: none;
     text-decoration: underline;
-    color: #4e4b4b;
+    color: #4e4b4b; 
+}
+.notify-table {
+    overflow: scroll;
+    height: calc(100vh - 90px);
+    z-index: 0;
+}
+.notification-list .pagination {
+    margin-bottom: 30px;
 }

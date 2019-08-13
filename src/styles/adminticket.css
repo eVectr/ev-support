@@ -761,7 +761,7 @@ li.docs-details-inner.right-side {
     padding: 0;
 }
 .sent-modal.agent-modal-inner .modal-inner {
-    padding: 15px 20px 50px 60px !important
+    padding: 15px 20px 30px 70px !important
 }
 .agent-modal-admin {
     float: right;
@@ -844,4 +844,14 @@ button.sendmessage-btn.btn.btn-secondary.btn.btn-secondary {
 }
 .admin-chats-data.col-md-5 {
     padding-left: 30px;
+}
+.sent-modal.agent-modal-inner button {
+    background: #fff;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: bold;
+    width: 20%;
+}
+.agent-modal-inner .css-2b097c-container {
+    width: 94%;
 }

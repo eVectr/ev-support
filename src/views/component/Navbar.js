@@ -56,7 +56,7 @@ const Navbar = (props) => {
     props.history.push('/messageLogs')
   }
   let showUserlist = () => {
-    props.history.push('/userlist')
+    props.history.push('/subAdminList')
   }
   let onNotification = () => {
     props.history.push('/notification')
@@ -65,7 +65,6 @@ const Navbar = (props) => {
   return (
     <div>
       <nav class='navbar header-main' role='navigation' aria-label='main navigation'>
-
         <div class='navbar-brand'>
           <a class='navbar-item' href='' />
           <a class={`navbar-burger burger ${show ? 'is-active' : ''}`} aria-label='menu' aria-expanded='false' data-target='navMenu' onClick={() => showNavMenu()}>
@@ -77,13 +76,11 @@ const Navbar = (props) => {
 
         <div id='navbarMenu' class={`navbar-menu ${show ? 'is-active' : ''}`}>
           <div class='navbar-start'>
-
             {
               !adminCheck
                 ? <a class='navbar-item' onClick={home}>
                   <strong>Home</strong>
                 </a> : ''}
-
             {
               adminCheck
                 ? 
@@ -99,30 +96,16 @@ const Navbar = (props) => {
                             <strong>SubAdmin List</strong>
                         </a>
                     </li>
-
                     </li>
-
-
                   </div>
-
-
-                
-               
                  : ''
             }
-            {/* {
-              !adminCheck && localStorage.user !== undefined
-                ? <a class='navbar-item' onClick={support}>
-                  <strong>Support</strong>
-                </a> : ''
-            } */}
             {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={onClientSurvey}>
                   <strong>Client Survey</strong>
                 </a> : ''
             }
-
             {
               !adminCheck && localStorage.user !== undefined
                 ? <a class='navbar-item' onClick={onTransactionSurvey}>
@@ -142,7 +125,6 @@ const Navbar = (props) => {
                 </a> : ''
             }
           </div>
-
           <div class='navbar-end'>
             <div class='navbar-item'>
               <div class='buttons '>
@@ -157,7 +139,6 @@ const Navbar = (props) => {
             </div>
           </div>
         </div>
-
       </nav>
     </div>
   )

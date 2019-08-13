@@ -101,6 +101,10 @@ const Notification = (props) => {
     console.log("selected Id =>", selectedId)
     return (
         <Container fluid>
+             {showLoader ?
+                            <div className='loader-img'>
+                                <img src={require('../../images/loader.gif')} />
+                            </div> :
             <Row className="notify-table">
                 <Col>
 
@@ -156,7 +160,7 @@ const Notification = (props) => {
                             activePage={activePage}></NoticePagination>
                     </div>
                 </Col>
-            </Row>
+            </Row>}
         </Container>
     )
 }

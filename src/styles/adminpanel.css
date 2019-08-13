@@ -425,3 +425,12 @@ select{
     margin-top: 8px;
     font-weight: bold;
 }
+.inner-containers .loader-img {
+    text-align: center;
+}
+.inner-containers .loader-img img {
+    height: 60px !important;
+    width: 60px;
+    text-align: center;
+    position: inherit !important;
+}
