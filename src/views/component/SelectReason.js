@@ -13,6 +13,12 @@ const Loginform = (props) => {
   const [template, setSelectedTemplate] = useState([])
   useEffect(() => {
     authRoutes(props)
+    let user = JSON.parse(localStorage.getItem('user'))
+    console.log(user, 'user')
+    let { Type = '' } = user || {}
+    if (Type !== 'user') {
+      props.history.push('/admin')
+    }
    // axios.get(`http://localhost:7788/findcontact`)
     axios.get(`http://54.165.185.4:7788/findcontact`)
       .then(res => {

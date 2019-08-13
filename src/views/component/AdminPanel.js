@@ -64,6 +64,7 @@ const AdminPanel = (props) => {
   useEffect(() => {
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
+    console.log(user, 'user')
     let { Type = '' } = user || {}
     if (Type !== 'admin') {
       props.history.push('/contact')

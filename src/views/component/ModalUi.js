@@ -173,6 +173,7 @@ const ModalUi = props => {
            }
            setAdminMessage('')
          })
+         setFileNames([])
         })
   }
 }
