@@ -820,9 +820,9 @@ app.post('/usertousermessage', (req, res) => {
 })
 
 app.post('/savenotification', (req, res) => {
-  let  Type = req.body.Type
-  let   SentBy = req.body. SentBy
-  let  SentTo = req.body.SentTo
+  let Type = req.body.Type
+  let SentBy = req.body.SentBy
+  let SentTo = req.body.SentTo
   let date = Date.now()
   
   var notification = new Notification({
