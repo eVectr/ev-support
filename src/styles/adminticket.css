@@ -177,7 +177,7 @@
     padding:15px;
      /* margin-top: 135px;  */
     /* min-height: 100vh; */
-    position: fixed;
+    position: inherit;
     height: calc(100vh - 110px);
    
 }
@@ -370,6 +370,7 @@ margin-bottom: 20px;
     border: none !important;
     box-shadow: none;
     padding: 0;
+    background: transparent;
 }
 .admin-chats-data.col {
     margin-bottom: 12px;
@@ -411,7 +412,7 @@ margin-bottom: 20px;
 }
 .right-tab {
     height: calc(100vh - 100px);
-    overflow: scroll;
+    overflow: scroll !important; 
     padding: 0px !important;
 }
 .status-field {
