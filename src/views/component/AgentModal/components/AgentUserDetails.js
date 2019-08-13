@@ -14,7 +14,6 @@ const AgentUserDetails = ({agentUserDetails, onChangeText, errors, handleCloseOn
       <Fragment>
         {createAgentSuccess? 
             <div>
-           
             <div className='modal-inner'>
                <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
                <p className="succes-text">Send Message Successfully</p>

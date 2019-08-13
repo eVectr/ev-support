@@ -1,6 +1,8 @@
 .userlist-show {
     text-align: center;
-    margin: 90px;
+    height: calc(100vh - 150px);
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .userlist-show .table thead {
     background-color: #4c6eb3;
@@ -17,13 +19,24 @@
 .userlist-show .table td i {
     color: #3fb99d;
     font-size: 20px;
+    text-align: right;
+    float: right;
+    vertical-align: top;
 }
 .userlist-show .table td {
-    width: 820px;
+    /* width: 820px; */
     overflow: hidden;
-    font-size: 15px;
+    font-size: 17px;
     padding: 12px 15px;
+    color: #000;
 }
 .edit-icons {
     text-align: center !important;
+}
+.userlist-show .table tr {
+    border-bottom: 1px solid #efebeb !important;
+}
+.userlist-show .table {
+    max-width: 80%;
+    margin: 40px auto;
 }

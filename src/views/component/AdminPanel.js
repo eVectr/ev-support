@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Input, Table,Button } from 'reactstrap'
+import {Row, Col, Input, Table,Button } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import io from 'socket.io-client'
-
 import { filterArray, authRoutes } from '../../utils/Common'
 import adminValidation from '../../utils/adminValidation'
 import PaginationAdmin from '../component/Pagination'
 import is from 'is_js'
-import Moment from 'react-moment'
-import FlashMassage from 'react-flash-message'
-import Modal from 'react-responsive-modal'
 import '../../styles/adminpanel.css'
-import Navbar from './Navbar'
 import ModalUi from './ModalUi'
 import AgentModal from './AgentModal/AgentModal';
-import UserList from './UserList'
-import { longStackSupport } from 'q'
-import { CaseNo } from '../../redux/actions/notification/notification'
 import '../../styles/adminpanel1.css'
 
 const AdminPanel = (props) => {
@@ -187,8 +178,8 @@ const AdminPanel = (props) => {
     props.history.push('/adminticket/' + caseNo)
   }
 
-  let showUserlist = () => {
-    props.history.push('/userlist')
+  let showSubAdminList = () => {
+    props.history.push('/subAdminList')
   }
 
   let paginate = (number) => {
@@ -217,13 +208,14 @@ const AdminPanel = (props) => {
 
   useEffect(() => {
     if (isSortBySelected && !isFilterBySelected) {
+      setLoader(false)
       axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
       // axios.post(`http://3.83.23.220:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           console.log('sort by response ====>', res.data)
           setContacts(data.data)
-          setLoader(false)
+         
           setShow(true)
         })
     }
@@ -231,13 +223,14 @@ const AdminPanel = (props) => {
 
   useEffect(() => {
     if (isSortBySelected && isFilterBySelected) {
+      setLoader(false)
       axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
       // axios.post(`http://54.165.185.4:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           console.log('filter data data ===>', data)
           setContacts(data.data)
-          setLoader(false)
+         
           setShow(true)
         })
     }
@@ -290,8 +283,8 @@ const AdminPanel = (props) => {
             <h1 className='heading'>Admin Panel</h1>
           </div>
           <div className="msg-btn">
-        <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
-          <Button onClick={sendMessage} className="sendmessage-btn">Send Message to Users</Button>
+            <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>
+            <Button onClick={sendMessage} className="sendmessage-btn">Send Message to Users</Button>
         </div>
         </Col>
       </Row>
@@ -308,10 +301,8 @@ const AdminPanel = (props) => {
                   <option value='Standard,Type'>Standard Type</option>
                   <option value='Mandatory Uploads,Type'>Mandatory Uploads</option>
                   <option value='Optional Uploads + Transaction Number,Type'>Optional+Transaction Type</option>
-
                 </select>
               </div>
-
               <div>
                 <select onChange={(e) => getDataByFilter(e)}>
                   <option value='Filter by'>Sort By</option>
@@ -320,7 +311,6 @@ const AdminPanel = (props) => {
                 </select>
               </div>
             </div>
-
             <div>
               <form className='admin-search'>
                 <Input
@@ -336,7 +326,6 @@ const AdminPanel = (props) => {
                 </button> */}
               </form>
             </div>
-
           </div>
         </Col>
       </Row>
@@ -345,9 +334,7 @@ const AdminPanel = (props) => {
           <AgentModal className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
           <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>
       </Col>
-
       </Row>
-
       {loader
         ? <Row>
           <Col>
