@@ -244,6 +244,7 @@ td.check-table {
 .activeurgentMessage.btn.btn-secondary {
     background: red;
     border: red;
+    color: #fff !important;
 }
 .check-table span {
     display: flex;
