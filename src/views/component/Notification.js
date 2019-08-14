@@ -98,7 +98,7 @@ const Notification = (props) => {
        
     }
     let onButtonClick = (x) =>{
-        alert(x)
+    
     }
    
     console.log("selected Id =>", selectedId)

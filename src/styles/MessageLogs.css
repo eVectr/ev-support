@@ -123,11 +123,13 @@
     margin-top: 25px;
 } */
 .message-mail h2 {
-    font-size: 22px;
+    font-size: 18px;
     background: transparent;
     text-align: left;
-    padding: 0px 80px 8px 0px;
     text-transform: capitalize;
+    z-index: 1;
+    margin-top: 15px;
+    padding: 5px !important;
 }
 .adminlink {
     text-align: left;
@@ -323,9 +325,9 @@ svg.styles_closeIcon__1QwbI path {
     z-index: 1;
 }
 .reply-detail-text textarea {
-    width: 90%;
-    height: 150px;
-    margin-top: 28px;
+    width: 100%;
+    height: 90px;
+    margin-top: 10px;
     padding: 15px;
     margin-bottom: 0px;
     border: 1px solid #d4d4d4;
@@ -335,7 +337,7 @@ svg.styles_closeIcon__1QwbI path {
 }
 .reply-detail-text .message-btn.btn.btn-secondary {
     width: 12%;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 /* .reply-detail-text span {
     padding-right: 15px;
@@ -376,7 +378,6 @@ svg.styles_closeIcon__1QwbI path {
     width: 100%;
 }
 .backtopage {
-    transform: translate(272px, 32px);
     cursor: pointer;
     position: absolute;
     font-weight: 400;
@@ -396,7 +397,8 @@ svg.styles_closeIcon__1QwbI path {
     padding-top: 30px;
 }
 .backtopage i {
-    font-size: 15px;
+    font-size: 18px;
+    padding-left: 32px;
 }
 .time-detail {
     width: 200px;
@@ -418,9 +420,14 @@ svg.styles_closeIcon__1QwbI path {
     padding: 0;
 }
 .messagedetail {
-    width: 78%;
+    width: 83%;
     left: 0;
-    /* transform: translate(-180px, 40px); */
+   
+}
+.message-outer {
+    height: 380px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .error-msg {
     text-align: center;
@@ -476,9 +483,8 @@ svg.styles_closeIcon__1QwbI path {
     margin-top: 10px;
 }
 .messagelogs .col-md-10 {
-    overflow: scroll;
-    height: calc(100vh - 100px);
-    /* pointer-events: none; */
+    /* overflow: scroll;
+    height: calc(100vh - 200px); */
 }
 .admin-input {
     outline: none;

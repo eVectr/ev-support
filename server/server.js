@@ -19,6 +19,7 @@ const AdminMessage = require('../db/adminmessage')
 const Notification = require('../db/notification')
 const SupportLogs = require('../db/supportlogs')
 const TicketAssign = require('../db/ticketassign')
+const Conversation = require('../db/conversation')
 let api = require("../api/api")
 
 var app = express()
@@ -982,6 +983,18 @@ app.post('/getallusertousermessage', (req, res) => {
   })
 })
 
+// app.post('/getsentusertousermessage', (req, res) => {
+//   let SenderId = req.body.SenderId
+//   UserMessage.find({ SenderId: SenderId }, (err, data) => {
+//     if (err) {
+//       res.send(err)
+//     } else {
+//       console.log(data)
+//       res.send(data)
+//     }
+//   })
+// })
+
 app.post('/checkallusertousermessage', (req, res) => {
   let Id = req.body.Id
   UserMessage.find({ Id: Id }, (err, data) => {
@@ -1194,6 +1207,51 @@ app.post('/assignticket', (req, res) => {
   })
   assignticket.save()
 })
+
+app.post('/createconversation', (req, res) => {
+  let ConvId = req.body.ConvId
+  let ReceiverId = req.body.ReceiverId
+  let ReceiverName = req.body.ReceiverName
+  let SenderId = req.body.SenderId
+  let SenderName = req.body.SenderName
+  let Message = req.body.Message
+  let date = Date.now()
+  console.log("ConvId =>", ConvId )
+  console.log("ReceiverId =>", ReceiverId)
+  console.log("ReceiverName =>", ReceiverName)
+  console.log("SenderId =>", SenderId)
+  console.log("SenderName =>", SenderName)
+  console.log("Message =>", Message)
+  var conversation = new Conversation({
+    ConvId : ConvId ,
+    ReceiverId: ReceiverId,
+    ReceiverName: ReceiverName,
+    SenderId: SenderId,
+    SenderName: SenderName,
+    Message: Message,
+    Date: date
+  })
+  conversation.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/findconversation', (req, res) => {
+  let ConvId = req.body.ConvId
+  Conversation.find({ConvId:ConvId}, (err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+})
+
 
 app.post('/changenotificationstatus', (req, res) => {
   let Id = req.body.Id

@@ -67,14 +67,7 @@ const MessageLogs = (props) => {
               setIsNoSentData(true)
             }
             setshowLoader(false)
-            for (let i = 0; i < res.data.length; i++) {
-              if (res.data[i].SenderId === JSON.parse(localStorage.user)._id) {
-                setSentMessage(prev => {
-                  const updated = prev.concat(res.data.reverse())
-                  return updated
-                })
-              }
-            }
+                setSentMessage(res.data.reverse())
           })
       })
 
@@ -93,6 +86,7 @@ const MessageLogs = (props) => {
   }, [])
 
   let onMessageClick = (id, detailId) => {
+
     setLogsId(detailId)
     setMessageId(id)
     setShowMessageDetails(!showMessageDetails)
@@ -101,6 +95,7 @@ const MessageLogs = (props) => {
     setShowMessageDetails(!showMessageDetails)
   }
 
+  console.log("sent message =>", sentMessage)
   return (
     <div className="messagelogs">
       <Row className="message-mail">
@@ -116,7 +111,7 @@ const MessageLogs = (props) => {
             list={sentMessage}
           />
         </div>
-        {showMessageDetails ? <h2 className="backtopage" onClick={() => backtopage()}><i class="fas fa-arrow-left"></i><span>Back to page</span></h2> : ''}
+        {showMessageDetails ? <h2 className="backtopage" onClick={() => backtopage()}><i class="fas fa-arrow-left"></i></h2> : ''}
         <Col md="2" className="left-sidebar">
           <h2>Message</h2>
           <Nav vertical>
