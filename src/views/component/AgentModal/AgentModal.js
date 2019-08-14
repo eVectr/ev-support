@@ -14,14 +14,18 @@ const AgentModal = (props) => {
   //   { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
   //   { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
   // ]
+    const [inputTagValue, setInputTagValue] = useState('')
     const [errors, setErrors] = useState({})
     const [ agentUserDetails, agentUserDetailsData] = useState({
         first_name: '',
         last_name: '',
         type :'' ,
         email: '',
-        password: ''
+        password: '',
+        tags: []
     })
+    const tagsHandleChange = tags => agentUserDetailsData({ tags })
+    
     const onChangeText = e => {
       agentUserDetailsData({
           ...agentUserDetails,
@@ -92,6 +96,8 @@ const AgentModal = (props) => {
     errors,
     onChangeText,
     handleCloseOnSave,
+    inputTagValue,
+    tagsHandleChange
   }
 
   console.log("agentUserDetails =>", agentUserDetails.first_name)

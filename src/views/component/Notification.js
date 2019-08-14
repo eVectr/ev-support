@@ -118,9 +118,7 @@ const Notification = (props) => {
         }
 
     }
-    let onButtonClick = (x) => {
-        alert(x)
-    }
+    
 
     // console.log("selected Id =>", allSelectedId)
     console.log(checkValue, 'checkValue')
@@ -163,7 +161,7 @@ const Notification = (props) => {
                                             // console.log(d, 'ddddd')
 
                                             return (
-                                                <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
+                                                <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
                                                     <td className="check-table"><div className="alert"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">
                                                         <input type="checkbox" checked={d.isChecked}
                                                             onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" /></div></td>
@@ -173,7 +171,7 @@ const Notification = (props) => {
                                                     <td>{moment(d.Date).format('lll')}</td>
                                                     <td>{d.SentBy}</td>
                                                     <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx)}
-                                                        onClick={() => onButtonClick(d.Type)}>{d.Action}</Button></td>
+                                                       >{d.Action}</Button></td>
                                                 </tr>
                                             )
                                         })}

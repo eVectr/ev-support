@@ -3,7 +3,8 @@ import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap
 import AgentModal from '../AgentModal';
 import Select from 'react-select'
 
-const AgentUserDetails = ({agentUserDetails, onChangeText, errors, handleCloseOnSave,closeModal}) => {
+const AgentUserDetails = ({agentUserDetails, onChangeText, errors, handleCloseOnSave,closeModal, tagsHandleChange, inputTagValue, onTagsInputChange}) => {
+    console.log(agentUserDetails, 'agentUserDetails')
     const options = [
         { value: 'Standard', label: 'Standard' },
         { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
@@ -51,8 +52,11 @@ const AgentUserDetails = ({agentUserDetails, onChangeText, errors, handleCloseOn
             <FormGroup row>
                 <Label for="exampleSelect">Type</Label>
                 <Col sm={10}>
-                    <Select isMulti options={options} />
-                    {/* <p className="error-msg">{(errors.type && errors.type[0] || '')}</p> */}
+                    <Select isMulti options={options}
+                        value = {agentUserDetails.tags}
+                        onChange={tagsHandleChange}
+                    />
+                    <p className="error-msg">{(errors.tags && errors.tags[0] || '')}</p>
                 </Col>
             </FormGroup>
             <FormGroup check row>
