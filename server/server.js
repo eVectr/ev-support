@@ -789,6 +789,7 @@ app.post('/usertousermessage', (req, res) => {
   let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
   let date = Date.now()
+  console.log("receiver id ==>", ReceiverId)
   var usermessage = new UserMessage({
     Id: Id,
     SenderName: SenderName,

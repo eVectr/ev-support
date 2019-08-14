@@ -104,8 +104,8 @@ const ModalUi = props => {
       }, 1000)
       setSelectedUserId('')
       })
-        //axios.post(`http://localhost:7788/usertousermessage`, {
-        axios.post(`http://54.165.185.4:7788/usertousermessage`, {
+        axios.post(`http://localhost:7788/usertousermessage`, {
+        //axios.post(`http://54.165.185.4:7788/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
         ReceiverId: selectedUserId,

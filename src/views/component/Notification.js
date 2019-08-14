@@ -97,6 +97,9 @@ const Notification = (props) => {
         }
        
     }
+    let onButtonClick = (x) =>{
+        alert(x)
+    }
    
     console.log("selected Id =>", selectedId)
     return (
@@ -146,7 +149,8 @@ const Notification = (props) => {
                                                 <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}</td>
                                                 <td>{moment(d.Date).format('lll')}</td>
                                                 <td>{d.SentBy}</td>
-                                                <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx)}>{d.Action}</Button></td>
+                                                <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx)}
+                                                onClick={() =>onButtonClick(d.Type)}>{d.Action}</Button></td>
                                             </tr>)
                                     })}
                                 </tbody>
