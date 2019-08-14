@@ -39,7 +39,8 @@ const Notification = (props) => {
         setshowLoader(false)
     }, [])
 
-    let OnButtonClick = (Id, index) => {
+    let OnButtonClick = (Id, index, Type) => {
+     
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
         axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
             .then(res => {
@@ -47,6 +48,26 @@ const Notification = (props) => {
                     item => item._id === Id ? { ...item, FontStyle: true } : item
                 ))
             })
+            switch(Type) {
+                case 'Complete Client Survey':
+                    window.location="http://18.219.191.74:3000/clientsurvey"
+                     break;
+                case 'Complete Transaction Survey':
+                    window.location="http://18.219.191.74:3000/transactionsurvey"
+                     break;
+                case 'User to User Message':
+                     window.location="http://54.165.185.4:7007/messageLogs"
+                    
+                      break;
+                case 'eVectr Urgent Messages':
+                     window.location="http://54.165.185.4:7007/messageLogs"
+                      break;
+                case 'Missed Chat Message':
+                      window.location="https://reactchat.softuvo.xyz/chat"
+                      break;
+                default:
+                  break
+              }
     }
 
     let test = []
@@ -173,7 +194,7 @@ const Notification = (props) => {
                                                     <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}</td>
                                                     <td>{moment(d.Date).format('lll')}</td>
                                                     <td>{d.SentBy}</td>
-                                                    <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx)}
+                                                    <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type)}
                                                        >{d.Action}</Button></td>
                                                 </tr>
                                             )
