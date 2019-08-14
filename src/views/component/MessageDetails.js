@@ -116,7 +116,6 @@ const MessageDetails = (props) => {
     setReplyMessage(e.target.value)
   }
   
-  console.log('usermessage logs ===>', userMessage.ReceiverId)
 
   return (
     <div className="messagedetail">
@@ -137,7 +136,7 @@ const MessageDetails = (props) => {
                 <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
             </div>
             <div className="head-mess">
-            <h3>{userMessage.SenderName}</h3><span>{moment(userMessage.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+            <h3>{userMessage.SenderName}</h3><span>{moment(userMessage.Date).format('lll')}</span>
             </div>
             <div className="summay-message">
                     <p>

@@ -70,7 +70,7 @@ const MessageLogs = (props) => {
             for (let i = 0; i < res.data.length; i++) {
               if (res.data[i].SenderId === JSON.parse(localStorage.user)._id) {
                 setSentMessage(prev => {
-                  const updated = prev.concat(res.data[i])
+                  const updated = prev.concat(res.data.reverse())
                   return updated
                 })
               }
