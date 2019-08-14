@@ -96,7 +96,7 @@ const AgentModal = (props) => {
     errors,
     onChangeText,
     handleCloseOnSave,
-    inputTagValue,
+      inputTagValue,
     tagsHandleChange
   }
 
