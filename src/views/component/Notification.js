@@ -101,8 +101,8 @@ const Notification = (props) => {
         }
         else {
             for (let i = 0; i < allSelectedId.length; i++) {
-               // axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
-                    axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:selectedId[i]})
+                axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
+                    //axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:selectedId[i]})
                     .then(res => {
                         console.log(res, 'res')
                         setAllSelectedId([])
@@ -116,6 +116,10 @@ const Notification = (props) => {
                     })
             }
         }
+       
+    }
+    let onButtonClick = (x) =>{
+    
     }
     
 
