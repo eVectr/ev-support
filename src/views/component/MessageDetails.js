@@ -39,7 +39,8 @@ const MessageDetails = (props) => {
             setUserMessageLogs(res.data)
           })
       })
-      axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
+      axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
+      //axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
       .then(res => {
         setConversation(res.data)
       })
@@ -68,7 +69,8 @@ const MessageDetails = (props) => {
     if (replyMessage == '') {
       setErrors('Please fill in this filed')
     } else {
-      axios.post(`http://localhost:7788/createconversation`, {
+      axios.post(`http://54.165.185.4:7788/createconversation`, {
+       // axios.post(`http://localhost:7788/createconversation`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName:JSON.parse(localStorage.user).Name,
         ConvId:sentMessage._id,
@@ -77,12 +79,14 @@ const MessageDetails = (props) => {
         Message:replyMessage
       })
       .then(res =>{
-        axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
+        axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
+       // axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
         .then(res => {
           setConversation(res.data)
         })
       })
       axios.post(`http://54.165.185.4:7788/savenotification`, {
+       // axios.post(`http://54.165.185.4:7788/savenotification`, {
         Type: 'User to User Message',
         SentBy: JSON.parse(localStorage.user).Name,
         SentTo: userMessage.ReceiverId,
