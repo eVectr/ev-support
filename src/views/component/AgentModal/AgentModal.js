@@ -63,29 +63,42 @@ const AgentModal = (props) => {
           }, 1000)
            setErrors(errors)
         return 
-      }
-      else{
-        props.onAgentCloseModal()
-        axios.post(`http://localhost:7788/saveagent`, {
-        agentUserDetails
+    }
+    else {
+      props.onAgentCloseModal()
+      axios.post(`http://54.165.185.4:7788/saveagent`, {
+      //axios.post(`http://localhost:7788/saveagent`, {
+        FirstName: agentUserDetails.first_name,
+        LastName: agentUserDetails.last_name,
+        Password: agentUserDetails.password,
+        Type: agentUserDetails.type,
+        Email: agentUserDetails.email,
+        TicketId: []
       })
-     
+        .then(res => {
+          console.log("res ==>", res)
+        })
+
         .then(res => {
           setErrors('')
-          console.log("agentUserDetails ==>", res)
-    
-         
+          console.log("agentUser ==>", res)
+
+
         })
-      } 
     }
+  }
   const AgentModalProps = {
     agentUserDetails,
     errors,
     onChangeText,
     handleCloseOnSave,
   }
-  console.log("ispoen =>", isOpen)
-  console.log("props.open =>", props.open)
+
+  console.log("agentUserDetails =>", agentUserDetails.first_name)
+  console.log("agentUserDetails =>", agentUserDetails.last_name)
+  console.log("agentUserDetails =>", agentUserDetails.type)
+  console.log("agentUserDetails =>", agentUserDetails.email)
+  console.log("agentUserDetails =>", agentUserDetails.password)
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}

@@ -223,7 +223,7 @@ li.page-item.active {
     margin-bottom: 0 !important;
     border: 0 !important;
     width: 180px !important;
-    border-top: 3px solid #000 !important;
+    
 }
 /* .notify-table .table tbody {
     font-size: 15px;
@@ -252,9 +252,8 @@ td.check-table {
 .check-table .check-list-notifi {
     font-size: 20px;
     margin-top: 4px;
-    text-align: center;
+    text-align: center !important;
     margin: auto;
-    transform: translate(8px, 0px);
 }
 .alert {
     float: left;
@@ -267,8 +266,8 @@ td.check-table {
 }
 .check-alert {
     float: right;
-    width: 80%;
-    text-align: center;
+    width: 70%;
+    text-align: center !important;
     padding: 0 !important;
     margin: 0 !important;
     transform: translate(10px, 6px);
@@ -302,8 +301,7 @@ button.Transactionbtn {
     font-size: 15px;
 }
 th.select-list{
-    padding-left: 80px !important;
-    padding-right: 1% !important;
+    text-align: center !important;
 }
 .select-list .select-list-check {
     display: inline;
@@ -332,4 +330,18 @@ th.select-list{
 }
 .notification-list .pagination {
     margin-bottom: 30px;
+}
+.delete-select button {
+    background: #4c6eb3;
+    color: #fff;
+    padding: 10px;
+    width: 150px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.heading-noti th {
+    font-size: 1.5rem !important;
+}
+.heading-noti th i {
+    font-size: 20px;
 }

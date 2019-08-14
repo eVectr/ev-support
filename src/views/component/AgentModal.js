@@ -46,6 +46,7 @@ const options = [
   }
    
   let onSelectFirstName = (e) => {
+    alert("kh")
     console.log('first value ==>', e.target.value)
     setSelectedFirstName(e.target.value)
   }
@@ -68,8 +69,8 @@ const options = [
     //   setErrors('Please enter required fields')
     // }
    // else {
-      axios.post(`http://54.165.185.4:7788/saveagent`, {FirstName:selectedFirstName,
-      //axios.post(`http://localhost:7788/saveagent`, {FirstName:selectedFirstName,
+     axios.post(`http://54.165.185.4:7788/saveagent`, {FirstName:selectedFirstName,
+     // axios.post(`http://localhost:7788/saveagent`, {FirstName:selectedFirstName,
       LastName: selectedLastName,
       Password: selectedPassword,
       Type:selectedType,
@@ -81,14 +82,17 @@ const options = [
       props.onAgentCloseModal()
    // }
   }
-
+  console.log("selectedFirstName ==>", selectedFirstName)
+  console.log(" selectedLastName==>", selectedLastName)
+  console.log("selectedPassword ==>", selectedPassword)
+  console.log("selectedEmail ==>", selectedEmail)
 
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal}  classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
-          <h2>Create Agent</h2>
+          <h2>Create SubAdmin</h2>
           <div className='modal-inner'>
              
                     <FormGroup row>

@@ -67,6 +67,11 @@ const MessageDetails = (props) => {
     if (replyMessage == '') {
       setErrors('Please fill in this filed')
     } else {
+      axios.post(`http://54.165.185.4:7788/savenotification`, {
+        Type: 'User to User Message',
+        SentBy: JSON.parse(localStorage.user).Name,
+        SentTo: userMessage.ReceiverId,
+      })
       setErrors('success')
      // axios.post(`http://localhost:7788/usermessagelogs`, {
         axios.post(`http://54.165.185.4:7788/usermessagelogs`, {
@@ -111,7 +116,7 @@ const MessageDetails = (props) => {
     setReplyMessage(e.target.value)
   }
   
-  console.log('usermessage logs ===>', userMessageLogs)
+  console.log('usermessage logs ===>', userMessage.ReceiverId)
 
   return (
     <div className="messagedetail">

@@ -789,6 +789,7 @@ app.post('/usertousermessage', (req, res) => {
   let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
   let date = Date.now()
+  console.log("receiver id ==>", ReceiverId)
   var usermessage = new UserMessage({
     Id: Id,
     SenderName: SenderName,
@@ -817,6 +818,30 @@ app.post('/usertousermessage', (req, res) => {
     isChecked: false
   })
   notification.save()
+})
+
+app.post('/savenotification', (req, res) => {
+  let Type = req.body.Type
+  let SentBy = req.body.SentBy
+  let SentTo = req.body.SentTo
+  let date = Date.now()
+  
+  var notification = new Notification({
+    Type: Type,
+    Date: date,
+    SentBy: SentBy,
+    SentTo: SentTo,
+    Action: 'SEE MESSAGE',
+    FontStyle: false,
+    isChecked: false
+  })
+  notification.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
 })
 
 app.get('/getnotification', (req, res) => {
@@ -1079,13 +1104,15 @@ app.post('/saveagent', (req, res) => {
   let Type = req.body.Type
   let Email = req.body.Email
   let TicketId = req.body.TicketId
+  let date = Date.now()
   var supportagent = new  SupportAgent({
     FirstName: FirstName,
     LastName: LastName,
     Password:Password,
     Type:Type,
     Email: Email,
-    TicketId:TicketId
+    TicketId:TicketId,
+    Date: date
   })
   supportagent.save((err, data)=>{
     if(err){
@@ -1098,15 +1125,28 @@ app.post('/saveagent', (req, res) => {
 })
 
 app.get('/findagent', (req, res) => {
-  SupportAgent.find({}, (err, data) =>{
-    if(err){
-      res.send(err)
-    }else{
-      console.log("data ==>", data)
-      res.send(data)
-    }
-  })
+  SupportAgent.find({}, null,
+    {sort: { Date: -1 } }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    })
 })
+
+// app.get('/findagent', (req, res) => {
+//   SupportAgent.find({}, (err, data) =>{
+//     if(err){
+//       res.send(err)
+//     }else{
+//       console.log("data ==>", data)
+//       res.send(data)
+//     }
+//   })
+// })
 
 app.post('/test', (req, res) => {
   let Id = req.body.Id

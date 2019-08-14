@@ -6,6 +6,7 @@ var SupportAgent = new mongoose.Schema({
   Password: String,
   Email: String,
   TicketId: [],
-  Type: []
+  Type: [],
+  Date:Date
 })
 module.exports = mongoose.model('SupportAgent', SupportAgent)
