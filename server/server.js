@@ -790,7 +790,8 @@ app.post('/usertousermessage', (req, res) => {
   let ReceiverName = req.body.ReceiverName
   let Message = req.body.Message
   let date = Date.now()
-  console.log("receiver id ==>", ReceiverId)
+  let Document = filepaths
+  
   var usermessage = new UserMessage({
     Id: Id,
     SenderName: SenderName,
@@ -798,14 +799,17 @@ app.post('/usertousermessage', (req, res) => {
     ReceiverId: ReceiverId,
     ReceiverName: ReceiverName,
     Message: Message,
-    Date: date
+    Date: date,
+    Document: Document
   })
   usermessage.save((err, data) => {
     if (err) {
       console.log(err)
       res.send(err)
     } else {
-      console.log('user message ==>', data)
+      while (filepaths.length > 0) {
+        filepaths.pop()
+      }
       res.send(data)
     }
   }) 
