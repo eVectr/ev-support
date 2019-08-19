@@ -15,6 +15,7 @@ const MessageDetails = (props) => {
   const [showLoader, setshowLoader] = useState(true)
   const [conversation, setConversation] = useState([])
   const [Errors, setErrors] = useState('')
+
   useEffect(() => {
     // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
     //   .then(res => {
@@ -45,6 +46,10 @@ const MessageDetails = (props) => {
         setConversation(res.data)
       })
   }, [])
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [conversation.length])
 
   useEffect(() => {
     if (props.showCase === 1) {
@@ -101,6 +106,10 @@ const MessageDetails = (props) => {
   let onReplyChange = (e) => {
     setReplyMessage(e.target.value)
   }
+
+  const scrollToBottom = () => {
+    document.getElementById('last-msg') && document.getElementById('last-msg').scrollIntoView();
+    }
   
 console.log("reply message =>", replyMessage)
 console.log("admin message =>", adminMessage)
@@ -118,7 +127,7 @@ console.log("admin message =>", adminMessage)
               </div> :
               <Col md="10" className="message-deatil-inner">
                 <div className="message-outer">
-                  <div className="conversation-mess ">
+                  <div className="conversation-mess">
                     <div className="detail-images">
                       <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                     </div>
@@ -168,7 +177,7 @@ console.log("admin message =>", adminMessage)
                   </div> */}
                   {conversation.map((message, index) => {
                     return (
-                      <div className= 'conversation-mess'>
+                      <div className= 'conversation-mess' id="last-msg" key= {index}  id={index == conversation.length - 1 ? 'last-msg' : ''}>
                         <div className="detail-images">
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
@@ -278,7 +287,7 @@ console.log("admin message =>", adminMessage)
 
                     {conversation.map((message, index) => {
                     return (
-                      <div className= 'conversation-mess'>
+                      <div className= 'conversation-mess'id="last-msg" key= {index}  id={index == conversation.length - 1 ? 'last-msg' : ''} >
                         <div className="detail-images">
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>

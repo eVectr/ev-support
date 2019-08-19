@@ -47,7 +47,7 @@ body {
 }
 
 .submit-btn {
-  background-color: #00d1b2!important;
+  background: #4c6eb3 !important;
   width: 100% !important;
   margin-bottom: 10px;
 }
@@ -101,7 +101,10 @@ body {
   width: 80%;
   margin-bottom: 8%;
   margin-top: 3%;
-  background-color: #00d1b2;
+  background: #4c6eb3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
 .form-container {
@@ -215,11 +218,11 @@ form {
   .input:focus {
     box-shadow: none;
     outline: 0;
-    border-color:#00d1b2;
+    border-color:#4c6eb3 !important;
   }
 
   .btn {
-    background-color: #4CAF50;
+   
     border: none;
     color: white;
     padding: 15px 32px;

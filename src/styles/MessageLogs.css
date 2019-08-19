@@ -293,16 +293,21 @@ svg.styles_closeIcon__1QwbI path {
     padding-left: 1%;
 }
 .conversation-mess .summay-message {
-    padding: 0px 58px;
+    padding: 0px;
     transform: translate(0px, -15px);
+    display: inline-block;
 }
 .conversation-mess {
     padding: 5px 10px;
     background: #edf2fa;
     margin-bottom: 20px;
     width: 100%;
-    height: 80px;
     max-height: 100%;
+}
+.conversation-mess  ul {
+    line-height: 20px;
+    margin: 0px;
+    padding-left: 15px;
 }
 .name-table {
     width: 200px;
@@ -483,8 +488,9 @@ svg.styles_closeIcon__1QwbI path {
     margin-top: 10px;
 }
 .messagelogs .col-md-10 {
-    /* overflow: scroll;
-    height: calc(100vh - 200px); */
+    height: 380px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .admin-input {
     outline: none;
@@ -559,4 +565,9 @@ button:focus {
 }
 .sent-modal button:hover {
     background: #f5f5f5;
+}
+.reply-detail-text {
+    position: fixed;
+    width: 66%;
+    bottom: 40px;
 }
