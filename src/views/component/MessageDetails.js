@@ -79,6 +79,7 @@ const MessageDetails = (props) => {
         Message:replyMessage
       })
       .then(res =>{
+        setReplyMessage('')
         axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
        // axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
         .then(res => {
@@ -100,9 +101,9 @@ const MessageDetails = (props) => {
   let onReplyChange = (e) => {
     setReplyMessage(e.target.value)
   }
-
- 
-console.log("conversation --->  ", conversation) 
+  
+console.log("reply message =>", replyMessage)
+console.log("admin message =>", adminMessage)
   return (
     <div className="messagedetail">
       <Row className="message-mail">
@@ -129,6 +130,28 @@ console.log("conversation --->  ", conversation)
                         {userMessage.Message}
                       </p>
                     </div>
+                    {
+                          userMessage.Document.length > 0?
+                        <Fragment>
+                        {
+                          userMessage.Document.map((doc, index )=>{
+                            let getdoc = doc.split('/')[1]
+                            let url = 'http://54.165.185.4:7788/'
+                           // let url = 'http://localhost:7788/'
+                            let docurl = url.concat(getdoc)
+                            return (
+                            
+                                <ul>
+                                  <li>
+                                   <a href ={docurl}>Attachment</a>
+                                  </li>
+                                </ul>
+                          )
+                          })
+                        }
+                        </Fragment>
+                        :''
+                        }
                   </div>
                   {/* <div className="conversation-mess receiver ">
                     <div className="detail-images">
@@ -167,7 +190,7 @@ console.log("conversation --->  ", conversation)
                 </div>
                 {
                   showTextArea ? <div className="reply-detail-text">
-                    <textarea placeholder="input reply" onChange={(e) => onReplyChange(e)}></textarea>
+                    <textarea placeholder="input reply" value ={replyMessage} onChange={(e) => onReplyChange(e)}></textarea>
                     <button className="message-btn btn btn-secondary" onClick={sendReply}>Reply</button>
                     <Fragment>
                       {
@@ -201,6 +224,28 @@ console.log("conversation --->  ", conversation)
                             {adminMessage.Message}
                           </p>
                         </div>
+                        {
+                          adminMessage.Document?
+                        <Fragment>
+                        {
+                          adminMessage.Document.map((doc, index )=>{
+                            let getdoc = doc.split('/')[1]
+                            let url = 'http://54.165.185.4:7788/'
+                            //let url = 'http://localhost:7788/'
+                            let docurl = url.concat(getdoc)
+                            return (
+                            
+                                <ul>
+                                  <li>
+                                   <a href ={docurl}>Attachment</a>
+                                  </li>
+                                </ul>
+                          )
+                          })
+                        }
+                        </Fragment>
+                        :''
+                        }
                       </div>
                     </div>
                     </div>
@@ -254,7 +299,7 @@ console.log("conversation --->  ", conversation)
                 </div>
                 {
                   showTextArea ? <div className="reply-detail-text">
-                    <textarea placeholder="input reply" onChange={(e) => onReplyChange(e)}></textarea>
+                    <textarea placeholder="input reply" value ={replyMessage} onChange={(e) => onReplyChange(e)}></textarea>
                     <button className="message-btn btn btn-secondary" onClick={sendReply}>Reply</button>
                     <Fragment>
                       {

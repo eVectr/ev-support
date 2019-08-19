@@ -45,21 +45,27 @@ const AdminPanel = (props) => {
   //var socket = io.connect('http://localhost:7777')
 
   useEffect(() => {
+
    // axios.get(`http://localhost:7788/getcontactslength`)
     axios.get(`http://54.165.185.4:7788/getcontactslength`)
       .then(res => {
         setTotalContact(res.data.length)
       })
+      let user = JSON.parse(localStorage.getItem('user'))
+    if (localStorage.length > 0) {
+      let { Type = '' } = user || {}
+      if (Type !== 'admin') {
+        props.history.push('/contact')
+      }
+    }else{
+      props.history.push('/')
+    }
   }, [])
 
   useEffect(() => {
     authRoutes(props)
-    let user = JSON.parse(localStorage.getItem('user'))
-    console.log(user, 'user')
-    let { Type = '' } = user || {}
-    if (Type !== 'admin') {
-      props.history.push('/contact')
-    }
+    
+    
     setLoader(true)
     if (!isFilterBySelected && !isSortBySelected) {
       //axios.post(`http://localhost:7788/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })

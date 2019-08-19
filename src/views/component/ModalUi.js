@@ -31,28 +31,33 @@ const ModalUi = props => {
     textAlign: 'center'
   }
   useEffect(() => {
-    //axios.get(`http://localhost:7788/getalluser`)
-    axios.get(`http://54.165.185.4:7788/getalluser`)
-      .then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i].Name === 'Admin' || res.data[i].Name === JSON.parse(localStorage.user).Name) {
-          
-          } else {
-            setUserIds(prev => {
-              const updated = prev.concat(res.data[i]._id)
-              return updated
-            })
-            let data = {
-              Id: res.data[i]._id,
-              Name: res.data[i].Name
+    console.log("local =>", localStorage)
+    if(localStorage !== undefined){
+     // axios.get(`http://localhost:7788/getalluser`)
+      axios.get(`http://54.165.185.4:7788/getalluser`)
+        .then(res => {
+          for (let i = 0; i < res.data.length; i++) {
+            if(localStorage.length > 0){
+            if (res.data[i].Name === 'Admin' || res.data[i].Name === JSON.parse(localStorage.user).Name) {
+            
+            } else {
+              setUserIds(prev => {
+                const updated = prev.concat(res.data[i]._id)
+                return updated
+              })
+              let data = {
+                Id: res.data[i]._id,
+                Name: res.data[i].Name
+              }
+              setOptions(prev => {
+                const updated = prev.concat({ value:res.data[i]._id, label:res.data[i].Name})
+                return updated
+              })
             }
-            setOptions(prev => {
-              const updated = prev.concat({ value:res.data[i]._id, label:res.data[i].Name})
-              return updated
-            })
           }
-        }
-      })
+          }
+        })
+    }
   }, [])
 
   let onCloseModal = () => {
@@ -100,10 +105,18 @@ const ModalUi = props => {
       changeUserStatue().then(res => {
         setTimeout(() => {
           setSuccessModal(false)
+          props.closeModal()
          
       }, 1000)
       setSelectedUserId('')
       })
+      let formData = new FormData()
+      for (let i = 0; i < FileNames.length; i++) {
+        formData.append('SelectedImage', FileNames[i])
+      }
+     // axios.post(`http://localhost:7788/fileupload`, formData,
+       axios.post(`http://54.165.185.4:7788/fileupload`, formData,
+       ).then(res => {
        // axios.post(`http://localhost:7788/usertousermessage`, {
         axios.post(`http://54.165.185.4:7788/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
@@ -113,10 +126,13 @@ const ModalUi = props => {
         Message: Message
       })
         .then(res => {
+          
+          props.handleSentMessage()
           setUsermessagesend(true)
-          console.log('res ==>', res)
           setMessage('')
+          setFileNames([])
         })
+      })
     }
   }
 
@@ -157,11 +173,11 @@ const ModalUi = props => {
       for (let i = 0; i < FileNames.length; i++) {
         formData.append('SelectedImage', FileNames[i])
       }
-        //axios.post(`http://localhost:7788/fileupload`, formData,
+      // axios.post(`http://localhost:7788/fileupload`, formData,
        axios.post(`http://54.165.185.4:7788/fileupload`, formData,
        ).then(res => {
          axios.post(`http://54.165.185.4:7788/admintousermessage`, { ReceiverId: userIds,
-       // axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
+        //axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
         Subject:adminSubject,
          Message: AdminMessage })
          .then(res => {

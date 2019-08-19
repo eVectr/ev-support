@@ -47,30 +47,37 @@ const Notification = (props) => {
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
         axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
             .then(res => {
+                
                 setNotification(prevState => prevState.map(
                     item => item._id === Id ? { ...item, FontStyle: true } : item
                 ))
+                switch(Type) {
+                    case 'Complete Client Survey':
+                            window.open('http://18.219.191.74:3000/clientsurvey')
+                        //window.location="http://18.219.191.74:3000/clientsurvey"
+                         break;
+                    case 'Complete Transaction Survey':
+                            window.open('http://18.219.191.74:3000/transactionsurvey')
+                       // window.location="http://18.219.191.74:3000/transactionsurvey"
+                         break;
+                    case 'User to User Message':
+                            window.open('http://54.165.185.4:7007/messageLogs')
+                       //  window.location="http://54.165.185.4:7007/messageLogs"
+                        
+                          break;
+                    case 'eVectr Urgent Messages':
+                            window.open('http://54.165.185.4:7007/messageLogs')
+                       //  window.location="http://54.165.185.4:7007/messageLogs"
+                          break;
+                    case 'Missed Chat Message':
+                            window.open('https://reactchat.softuvo.xyz/chat')
+                         // window.location="https://reactchat.softuvo.xyz/chat"
+                          break;
+                    default:
+                      break
+                  }
             })
-            switch(Type) {
-                case 'Complete Client Survey':
-                    window.location="http://18.219.191.74:3000/clientsurvey"
-                     break;
-                case 'Complete Transaction Survey':
-                    window.location="http://18.219.191.74:3000/transactionsurvey"
-                     break;
-                case 'User to User Message':
-                     window.location="http://54.165.185.4:7007/messageLogs"
-                    
-                      break;
-                case 'eVectr Urgent Messages':
-                     window.location="http://54.165.185.4:7007/messageLogs"
-                      break;
-                case 'Missed Chat Message':
-                      window.location="https://reactchat.softuvo.xyz/chat"
-                      break;
-                default:
-                  break
-              }
+           
     }
 
     let test = []

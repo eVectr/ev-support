@@ -7,7 +7,6 @@ const Navbar = (props) => {
   let logout = () => {
     localStorage.clear()
     props.history.push('/')
-    window.location.reload()
   }
   const [show, setShow] = useState(false)
   let admin = () => {

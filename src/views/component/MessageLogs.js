@@ -95,7 +95,13 @@ const MessageLogs = (props) => {
     setShowMessageDetails(!showMessageDetails)
   }
 
-  console.log("sent message =>", sentMessage)
+  let handleSentMessage = () => {
+    axios.post(`http://54.165.185.4:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+      .then(res => {
+        setSentMessage(res.data.reverse())
+      })
+  }
+  console.log("sent messa =>", sentMessagePagination)
   return (
     <div className="messagelogs">
       <Row className="message-mail">
@@ -116,7 +122,8 @@ const MessageLogs = (props) => {
           <h2>Message</h2>
           <Nav vertical>
             <NavItem>
-              <ModalUi type={'user'} open={open} closeModal={closeModal} className="sent-modal"></ModalUi>
+              <ModalUi type={'user'} open={open} closeModal={closeModal} className="sent-modal"
+              handleSentMessage={handleSentMessage}></ModalUi>
               <Button className="message-btn" onClick={sendMessage}>Compose</Button>
             </NavItem>
           </Nav>

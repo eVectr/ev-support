@@ -21,6 +21,7 @@ const Routes = (props) => {
   let { notificationreducer = {} } = props
   let { notification = {} } = notificationreducer
   let { text = '', show = false } = notification
+ 
   return (
     <BrowserRouter>
       <RouterChangeObserver>
@@ -47,4 +48,24 @@ const Routes = (props) => {
     </BrowserRouter>
   )
 }
+
+// function PrivateRoute({ component: Component, ...rest }) {
+//   return (
+//     <Route
+//       {...rest}
+//       render={props =>
+//         fakeAuth.isAuthenticated ? (
+//           <Component {...props} />
+//         ) : (
+//             <Redirect
+//               to={{
+//                 pathname: "/login",
+//                 state: { from: props.location }
+//               }}
+//             />
+//           )
+//       }
+//     />
+//   )
+// }
 export default connect(({ dispatch, notificationReducer }) => ({ dispatch, notificationReducer }))(Routes)
