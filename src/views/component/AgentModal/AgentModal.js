@@ -17,6 +17,7 @@ const AgentModal = (props) => {
   // const [inputTagValue, setInputTagValue] = useState('')
   const [errors, setErrors] = useState({})
   const [select, setSelect] = useState([])
+  const [createAgentSuccess, setcreateAgentSuccess] = useState(false)
   const [agentUserDetails, agentUserDetailsData] = useState({
     first_name: '',
     last_name: '',
@@ -69,13 +70,19 @@ const AgentModal = (props) => {
   //     }
   //   }
   // 
+  let agentsucces = () =>{
+    setcreateAgentSuccess (true)
+  }
+
   let handleCloseOnSave = () => {
     const errors = adminModalValidation(agentUserDetails)
       if (!is.empty(errors)) {
         setTimeout(() => {
               setErrors(false)
               setErrors('')
+              setcreateAgentSuccess (true)
           }, 1000)
+         
            setErrors(errors)
         return 
     }
@@ -126,7 +133,8 @@ const AgentModal = (props) => {
     errors,
     onChangeText,
     handleCloseOnSave,
-    onChangeSelect
+    onChangeSelect,
+    agentsucces
     // inputTagValue,
     // tagsHandleChange,
     // onTagsInputChange
@@ -140,7 +148,7 @@ const AgentModal = (props) => {
         <div className='sent-modal agent-modal-inner'>
           <h2>Create Agent</h2>
           <AgentUserDetails {...AgentModalProps}
-          />
+          agentsucces = {agentsucces}/>
         </div>
 
       </Modal>
