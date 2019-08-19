@@ -14,27 +14,38 @@ const AgentModal = (props) => {
   //   { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
   //   { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
   // ]
-    const [inputTagValue, setInputTagValue] = useState('')
-    const [errors, setErrors] = useState({})
-    const [ agentUserDetails, agentUserDetailsData] = useState({
-        first_name: '',
-        last_name: '',
-        type :'' ,
-        email: '',
-        password: '',
-        tags: []
+  // const [inputTagValue, setInputTagValue] = useState('')
+  const [errors, setErrors] = useState({})
+  const [select, setSelect] = useState([])
+  const [agentUserDetails, agentUserDetailsData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    type: ''
+  })
+  // const tagsHandleChange = tags => agentUserDetailsData({ tags })
+
+  // const onTagsInputChange = inputTagValue => {
+  //   setInputTagValue(inputTagValue)
+  //   setErrors({
+  //     tags: []
+  //   })
+  // }
+
+  const onChangeText = e => {
+    agentUserDetailsData({
+      ...agentUserDetails,
+      [e.target.name]: e.target.value
     })
-    const tagsHandleChange = tags => agentUserDetailsData({ tags })
-    
-    const onChangeText = e => {
-      agentUserDetailsData({
-          ...agentUserDetails,
-          [e.target.name] : e.target.value,
-      })
-      setErrors({
-          [e.target.name] : []
-      })
-     }
+    setErrors({
+      [e.target.name]: []
+    })
+  }
+  const onChangeSelect = e => {
+    console.log("select ee =>", e)
+   setSelect(e)
+  }
   // const [selectedFirstName, setSelectedFirstName] = useState('')
   // const [selectedLastName, setSelectedLastName] = useState('')
   // const [selectedEmail, setSelectedEmail] = useState('')
@@ -46,7 +57,7 @@ const AgentModal = (props) => {
     textAlign: 'center'
   }
 
-  let selectedArray = []
+  // let selectedArray = []
 
   // let onAgentChange = (e) => {
   //   console.log("agent ===>", e)
@@ -75,7 +86,7 @@ const AgentModal = (props) => {
         FirstName: agentUserDetails.first_name,
         LastName: agentUserDetails.last_name,
         Password: agentUserDetails.password,
-        Type: agentUserDetails.type,
+        Type: select,
         Email: agentUserDetails.email,
         TicketId: []
       })
@@ -91,30 +102,47 @@ const AgentModal = (props) => {
         })
     }
   }
+  // const handleOnSave = () => {
+  //   const errors = adminModalValidation(agentUserDetails)
+  //   console.log(errors, 'errors')
+  //   if(!is.empty(errors)) {
+  //     setErrors(errors)
+  //     return
+  //   }
+  //     axios.post(`http://54.165.185.4:7788/saveagent`, {
+  //       FirstName: agentUserDetails.first_name,
+  //       LastName: agentUserDetails.last_name,
+  //       Password: agentUserDetails.password,
+  //       Type: agentUserDetails.tags,
+  //       Email: agentUserDetails.email,
+  //       TicketId: []
+  //     })
+  //       .then(res => {
+  //         console.log(res, 'res')
+  //       })
+  // }
   const AgentModalProps = {
     agentUserDetails,
     errors,
     onChangeText,
     handleCloseOnSave,
-      inputTagValue,
-    tagsHandleChange
+    onChangeSelect
+    // inputTagValue,
+    // tagsHandleChange,
+    // onTagsInputChange
   }
 
-  console.log("agentUserDetails =>", agentUserDetails.first_name)
-  console.log("agentUserDetails =>", agentUserDetails.last_name)
-  console.log("agentUserDetails =>", agentUserDetails.type)
-  console.log("agentUserDetails =>", agentUserDetails.email)
-  console.log("agentUserDetails =>", agentUserDetails.password)
+
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal} classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
           <h2>Create Agent</h2>
-            <AgentUserDetails {...AgentModalProps}
-              />
+          <AgentUserDetails {...AgentModalProps}
+          />
         </div>
-       
+
       </Modal>
     </div>
   )

@@ -20,47 +20,20 @@ const UserList = props => {
     axios.get(`http://54.165.185.4:7788/findagent`)
     //axios.get(`http://localhost:7788/findagent`)
       .then(res => {
-        // console.log("res data ==>", data)
-        setSubAdmin(res.data)
+         
+         setSubAdmin(res.data)
       })
   }, [])
 
-  const data = [
-    {
-      "Firstname": "John",
-      "Lastname": "Doe",
-      "Email": "Johan@gmail.com",
-      "TicketAssignTo": "Assigned To Standard"
-    },
-    {
-      "Firstname": "Rohan",
-      "Lastname": "Damndadasd",
-      "Email": "Rohan@gmail.com",
-      "TicketAssignTo": "Assigned To Mandatory Uploads"
-    },
-    {
-      "Firstname": "Rohaniya",
-      "Lastname": "Damniihs",
-      "Email": "Rohanjdhk@gmail.com",
-      "TicketAssignTo": "Assigned To Optional+Transaction Type"
-    },
-    {
-      "Firstname": "damn",
-      "Lastname": "damniya",
-      "Email": "pankajjdhk@gmail.com",
-      "TicketAssignTo": "Assigned To Assigned To Standard, Assigned To Mandatory Uploads, Optional+Transaction Type"
-    },
 
-
-  ];
 
   let handlePageChange = (pageNumber) => {
     setactivePage(pageNumber)
   }
 
   let adminListPagination = subAdmin.slice((activePage * 5) - 5, (activePage * 5))
+ 
 
-  console.log("page no  =>", activePage)
   return (
     <div style={styles} className="userlist-show" >
       <Table>
@@ -80,12 +53,17 @@ const UserList = props => {
               <td>{d.FirstName}</td>
               <td>{d.LastName}</td>
               <td>{d.Email}</td>
-              <td>{d.Type}</td>
+              {d.Type.map((type, index)=>{
+                let Type = type.label
+                console.log("Type ===", Type)
+                return(
+                  <div>
+                     {Type}
+                  </div>
+                  
+                )
+              })}
               <td className="edit-icons"> <i class="fas fa-edit"></i></td>
-
-
-
-
             </tr>)
         })}
 
