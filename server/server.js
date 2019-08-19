@@ -810,19 +810,23 @@ app.post('/usertousermessage', (req, res) => {
       while (filepaths.length > 0) {
         filepaths.pop()
       }
+      console.log("data ===>", data)
+      var notification = new Notification({
+        Type: 'User to User Message',
+        Date: date,
+        SentBy: SenderName,
+        SentTo: ReceiverId,
+        Action: 'SEE MESSAGE',
+        FontStyle: false,
+        isChecked: false,
+        NotificationId: data._id,
+        CaseNo: '1'
+      })
+      notification.save()
       res.send(data)
     }
   }) 
-  var notification = new Notification({
-    Type: 'User to User Message',
-    Date: date,
-    SentBy: SenderName,
-    SentTo: ReceiverId,
-    Action: 'SEE MESSAGE',
-    FontStyle: false,
-    isChecked: false
-  })
-  notification.save()
+  
 })
 
 app.post('/savenotification', (req, res) => {
@@ -908,20 +912,22 @@ app.post('/admintousermessage', (req, res) => {
       console.log(err)
       res.send(err)
     } else {
+      let Type = 'eVectr Urgent Message'
+      var notification = new Notification({
+        Type: Type,
+        Date: date,
+        SentBy: 'eVectrInc',
+        SentTo: ReceiverId,
+        Action: 'SEE MESSAGE',
+        FontStyle: false,
+        isChecked: false,
+        NotificationId: data._id,
+        CaseNo: '0'
+      })
+      notification.save()
       res.send('done')
     }
   })
-  let Type = 'eVectr Urgent Message'
-  var notification = new Notification({
-    Type: Type,
-    Date: date,
-    SentBy: 'eVectrInc',
-    SentTo: ReceiverId,
-    Action: 'SEE MESSAGE',
-    FontStyle: false,
-    isChecked:false
-  })
-  notification.save()
   while (filepaths.length > 0) {
     filepaths.pop()
   }

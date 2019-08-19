@@ -5,7 +5,6 @@ import moment from 'moment'
 import { Row, Col } from 'reactstrap'
 
 const MessageDetails = (props) => {
-
   const [userMessage, setUserMessage] = useState([])
   const [userMessageLogs, setUserMessageLogs] = useState([])
   const [adminMessage, setAdminMessage] = useState([])
@@ -15,6 +14,8 @@ const MessageDetails = (props) => {
   const [showLoader, setshowLoader] = useState(true)
   const [conversation, setConversation] = useState([])
   const [Errors, setErrors] = useState('')
+  const [testcase, setCase] = useState(1)
+ // const [mid, setmid] = useState('5d5a46bfa45e307d62ad3ebf')
 
   useEffect(() => {
     // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
@@ -31,6 +32,7 @@ const MessageDetails = (props) => {
     // axios.post(`http://localhost:7788/getsentmessagebyId`, { Id: props.messageId })
     axios.post(`http://54.165.185.4:7788/getsentmessagebyId`, { Id: props.messageId })
       .then(res => {
+        console.log("message id ==>", res)
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
         setshowLoader(false)
@@ -53,6 +55,7 @@ const MessageDetails = (props) => {
 
   useEffect(() => {
     if (props.showCase === 1) {
+      //if (testcase === 1) {
       //  axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
       axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
@@ -60,10 +63,10 @@ const MessageDetails = (props) => {
         })
       setshowLoader(false)
       // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: props.logsId })
-      axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: props.logsId })
-        .then(res => {
-          setUserMessageLogs(res.data)
-        })
+      // axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: props.logsId })
+      //   .then(res => {
+      //     setUserMessageLogs(res.data)
+      //   })
     }
   }, [userMessage])
 
@@ -111,8 +114,8 @@ const MessageDetails = (props) => {
     document.getElementById('last-msg') && document.getElementById('last-msg').scrollIntoView();
     }
   
-console.log("reply message =>", replyMessage)
-console.log("admin message =>", adminMessage)
+console.log("propppp =>", props.messageId)
+
   return (
     <div className="messagedetail">
       <Row className="message-mail">
@@ -120,6 +123,7 @@ console.log("admin message =>", adminMessage)
 
       </Col>  */}
         {props.showCase == '1' ?
+        //  {testcase == '1' ?
           <Fragment>
             {showLoader ?
               <div className='loader-img'>
@@ -139,7 +143,7 @@ console.log("admin message =>", adminMessage)
                         {userMessage.Message}
                       </p>
                     </div>
-                    {
+                    {/* {
                           userMessage.Document.length > 0?
                         <Fragment>
                         {
@@ -160,9 +164,9 @@ console.log("admin message =>", adminMessage)
                         }
                         </Fragment>
                         :''
-                        }
+                        } */}
                   </div>
-                  {/* <div className="conversation-mess receiver ">
+                  <div className="conversation-mess receiver ">
                     <div className="detail-images">
                       <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                     </div>
@@ -174,7 +178,7 @@ console.log("admin message =>", adminMessage)
                         {userMessage.Message}
                       </p>
                     </div>
-                  </div> */}
+                  </div>
                   {conversation.map((message, index) => {
                     return (
                       <div className= 'conversation-mess' id="last-msg" key= {index}  id={index == conversation.length - 1 ? 'last-msg' : ''}>
@@ -212,6 +216,7 @@ console.log("admin message =>", adminMessage)
           </Fragment>
           : <Fragment>{
             props.showCase == '0' ?
+            // testcase == '0' ?
               <Fragment>
                 {showLoader ?
                   <div className='loader-img'>
@@ -267,7 +272,7 @@ console.log("admin message =>", adminMessage)
                     <img src={require('../../images/loader.gif')} />
                   </div> :
                   <Col md="10" className='message-deatil-inner'>
-                     <div className="message-deatil-section">
+                     {/* <div className="message-deatil-section">
                     <div className='conversation-mess'>
                       <div className='message-section'>
                         <div className='detail-images'>
@@ -283,7 +288,7 @@ console.log("admin message =>", adminMessage)
                         </div>
                       </div>
                     </div>
-                    </div>
+                    </div> */}
 
                     {conversation.map((message, index) => {
                     return (

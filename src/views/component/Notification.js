@@ -42,7 +42,7 @@ const Notification = (props) => {
        
     }, [])
 
-    let OnButtonClick = (Id, index, Type) => {
+    let OnButtonClick = (Id, index, Type, NotificationId, CaseNo) => {
      
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
         axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
@@ -61,13 +61,16 @@ const Notification = (props) => {
                        // window.location="http://18.219.191.74:3000/transactionsurvey"
                          break;
                     case 'User to User Message':
-                            window.open('http://54.165.185.4:7007/messageLogs')
+                        let url = (NotificationId.concat('&',CaseNo)).concat('?','true') 
+                        props.history.push('/messageLogs/' + url)
+                 
+                           // window.open('http://54.165.185.4:7007/messageLogs')
                        //  window.location="http://54.165.185.4:7007/messageLogs"
                         
                           break;
-                    case 'eVectr Urgent Messages':
-                            window.open('http://54.165.185.4:7007/messageLogs')
-                       //  window.location="http://54.165.185.4:7007/messageLogs"
+                    case 'eVectr Urgent Message':
+                            let adminurl = (NotificationId.concat('&',CaseNo)).concat('?','true') 
+                            props.history.push('/messageLogs/' + adminurl)
                           break;
                     case 'Missed Chat Message':
                             window.open('https://reactchat.softuvo.xyz/chat')
@@ -150,7 +153,7 @@ const Notification = (props) => {
        
     }
     // console.log("selected Id =>", allSelectedId)
-    console.log(checkValue, 'checkValue')
+    console.log('notification ===>', notification)
     return (
         <Container fluid>
                 <Row className="notify-table">
@@ -204,7 +207,7 @@ const Notification = (props) => {
                                                     <td>{moment(d.Date).format('lll')}</td>
                                                     <td>{d.SentBy}</td>
                                                     <td>
-                                                        <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type)}
+                                                        <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type, d.NotificationId, d.CaseNo)}
                                                        >{d.Action}</Button>
                                                     </td>
                                               

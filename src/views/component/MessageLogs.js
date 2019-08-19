@@ -49,6 +49,11 @@ const MessageLogs = (props) => {
     setshowCase(c)
   }
   useEffect(() => {
+    if(props.location.search == '?true'){
+      setShowMessageDetails(true)
+      setshowCase(props.location.pathname.split('&')[1])
+      setMessageId((props.match.params.id).split('&')[0])
+    }
    // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     axios.post(`http://54.165.185.4:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     .then(res => {
@@ -85,8 +90,9 @@ const MessageLogs = (props) => {
       })
   }, [])
 
-  let onMessageClick = (id, detailId) => {
-
+  let onMessageClick = (id, detailId, getCase) => {
+    let url = (id.concat('&', getCase)).concat('?','true')
+    props.history.push('/messageLogs/' +  url)
     setLogsId(detailId)
     setMessageId(id)
     setShowMessageDetails(!showMessageDetails)
@@ -101,7 +107,7 @@ const MessageLogs = (props) => {
         setSentMessage(res.data.reverse())
       })
   }
-  console.log("sent messa =>", sentMessagePagination)
+  //console.log("props     =============>", props.location.search)
   return (
     <div className="messagelogs">
       <Row className="message-mail">
@@ -186,7 +192,7 @@ const MessageLogs = (props) => {
                             </div> :
                             <tbody>
                               {userMessagePagination.map((message, index) => {
-                                return (<tr onClick={() => onMessageClick(message._id,  message.Id)}>
+                                return (<tr onClick={() => onMessageClick(message._id,  message.Id, '1')}>
                                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                                   <td className="name-table">{message.SenderName}</td>
                                   <td class="message-detail">{message.Message}</td>
