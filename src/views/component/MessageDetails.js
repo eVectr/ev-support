@@ -119,9 +119,9 @@ console.log("propppp =>", props.messageId)
   return (
     <div className="messagedetail">
       <Row className="message-mail">
-        {/* <Col md="2" className="left-sidebar">
-
-      </Col>  */}
+        <div className="subject-mail-head">
+          <label>Subject:</label><span>hi their is subject</span>
+        </div>
         {props.showCase == '1' ?
         //  {testcase == '1' ?
           <Fragment>

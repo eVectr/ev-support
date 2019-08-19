@@ -20,9 +20,7 @@ const AgentUserDetails = ({
     ]
     const [createAgentSuccess, setcreateAgentSuccess] = useState(false)
 
-    let onChangeS = (e) =>{
-        console.log("eeeeee =>", e)
-    }
+
     return (
         <Fragment>
             {createAgentSuccess ?

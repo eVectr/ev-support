@@ -157,14 +157,10 @@ const Notification = (props) => {
     return (
         <Container fluid>
                 <Row className="notify-table">
-               
                     <Col>
                         <div className="notification-list">
-                       
                             <Col className='col-12'>    
-                           
                                 <Table>
-                               
                                     <thead>
                                         <tr className="table-head heading-noti">
                                             <th><i class="fa fa-cog" aria-hidden="true"></i>Notification</th>

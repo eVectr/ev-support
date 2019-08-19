@@ -11,25 +11,31 @@
     border-bottom:none !important;
 }
 .userlist-show .table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-    color: #545353 !important;
-    padding: 3px;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 2px;
 }
 .userlist-show .table td i {
     color: #3fb99d;
     font-size: 20px;
-    text-align: right;
-    float: right;
     vertical-align: top;
 }
+th.head-text {
+    padding-bottom: 22px !important;
+}
+.userlist-show .table thead tr {
+    border-bottom: none !important;
+}
 .userlist-show .table td {
-    /* width: 820px; */
+    padding: 10px 4px !important;
+   
+}
+.type-subadmin {
+    text-align: left;
+    vertical-align: middle;
+    line-height: 18px;
     overflow: hidden;
-    font-size: 17px;
-    padding: 12px 15px;
-    color: #000;
+    font-size: 15px;
+    padding-top: 13px !important;
 }
 .edit-icons {
     text-align: center !important;
@@ -38,6 +44,12 @@
     border-bottom: 1px solid #efebeb !important;
 }
 .userlist-show .table {
-    max-width: 80%;
-    margin: 40px auto;
+    margin: auto;
+    margin-top: 110px;
+}
+.subadmin-table {
+    height: calc(100vh - 182px);
+}
+.agent-modal-admin {
+    margin-top: 50px;
 }

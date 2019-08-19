@@ -335,12 +335,12 @@ const AdminPanel = (props) => {
           </div>
         </Col>
       </Row>
-      <Row className="agent-modal-admin">
+      {/* <Row className="agent-modal-admin">
       <Col>
           <AgentModal className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
           <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>
       </Col>
-      </Row>
+      </Row> */}
       {loader
         ? <Row>
           <Col>
