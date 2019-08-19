@@ -64,9 +64,9 @@ io.on('connection', socket => {
 // })
 
 // var user = new User({
-//   Name: 'Admin',
-//   Password: 'admin@123',
-//   Type: 'admin'
+//   Name: 'Joshua',
+//   Password: 'joshua@123',
+//   Type: 'user'
 // })
 // user.save()
 
@@ -830,10 +830,13 @@ app.post('/usertousermessage', (req, res) => {
 })
 
 app.post('/savenotification', (req, res) => {
+  console.log("save")
   let Type = req.body.Type
   let SentBy = req.body.SentBy
   let SentTo = req.body.SentTo
   let date = Date.now()
+  let NotificationId = req.body.NotificationId
+  let CaseNo = req.body.CaseNo
   
   var notification = new Notification({
     Type: Type,
@@ -842,7 +845,9 @@ app.post('/savenotification', (req, res) => {
     SentTo: SentTo,
     Action: 'SEE MESSAGE',
     FontStyle: false,
-    isChecked: false
+    isChecked: false,
+    CaseNo:CaseNo,
+    NotificationId:NotificationId
   })
   notification.save((err, data)=>{
     if(err){

@@ -91,7 +91,7 @@ const AgentModal = (props) => {
         TicketId: []
       })
         .then(res => {
-          console.log("res ==>", res)
+          props.fetchadmin()
         })
 
         .then(res => {

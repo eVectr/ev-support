@@ -23,9 +23,10 @@ const Notification = (props) => {
         setValueData(e.target.checked)
     }
     useEffect(() => {
-        //  axios.get(`http://localhost:7788/getnotification`)
-        axios.get(`http://54.165.185.4:7788/getnotification`)
+          axios.get(`http://localhost:7788/getnotification`)
+        //axios.get(`http://54.165.185.4:7788/getnotification`)
             .then(res => {
+                console.log("res ==>", res)
                 for (let i = 0; i < res.data.length; i++) {
 
                     if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
@@ -43,6 +44,7 @@ const Notification = (props) => {
     }, [])
 
     let OnButtonClick = (Id, index, Type, NotificationId, CaseNo) => {
+        
      
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
         axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
@@ -152,7 +154,7 @@ const Notification = (props) => {
         }
        
     }
-    // console.log("selected Id =>", allSelectedId)
+    console.log("local st =>", localStorage)
     console.log('notification ===>', notification)
     return (
         <Container fluid>

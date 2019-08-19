@@ -14,7 +14,7 @@ const MessageDetails = (props) => {
   const [showLoader, setshowLoader] = useState(true)
   const [conversation, setConversation] = useState([])
   const [Errors, setErrors] = useState('')
-  const [testcase, setCase] = useState(1)
+  const [sendId, setSendId] = useState('')
  // const [mid, setmid] = useState('5d5a46bfa45e307d62ad3ebf')
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const MessageDetails = (props) => {
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea)
   }
-  let sendReply = () => {
+  let sendReply = (caseNo) => {
     if (replyMessage == '') {
       setErrors('Please fill in this filed')
     } else {
@@ -94,12 +94,26 @@ const MessageDetails = (props) => {
           setConversation(res.data)
         })
       })
-      axios.post(`http://54.165.185.4:7788/savenotification`, {
-       // axios.post(`http://54.165.185.4:7788/savenotification`, {
-        Type: 'User to User Message',
-        SentBy: JSON.parse(localStorage.user).Name,
-        SentTo: userMessage.ReceiverId,
-      })
+      if(caseNo == '1'){
+         //axios.post(`http://54.165.185.4:7788/savenotification`, {
+          axios.post(`http://localhost:7788/savenotification`, {
+            Type: 'User to User Message',
+            SentBy: JSON.parse(localStorage.user).Name,
+            SentTo: userMessage.SenderId,
+            NotificationId:props.messageId,
+            CaseNo:'2'
+          })
+      }else{
+         //axios.post(`http://54.165.185.4:7788/savenotification`, {
+          axios.post(`http://localhost:7788/savenotification`, {
+            Type: 'User to User Message',
+            SentBy: JSON.parse(localStorage.user).Name,
+            SentTo: userMessage.ReceiverId,
+            NotificationId:props.messageId,
+            CaseNo:'1'
+          })
+      }
+     
       setErrors('success')
       setshowLoader(false)
     }
@@ -166,7 +180,7 @@ console.log("propppp =>", props.messageId)
                         :''
                         } */}
                   </div>
-                  <div className="conversation-mess receiver ">
+                  {/* <div className="conversation-mess receiver ">
                     <div className="detail-images">
                       <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                     </div>
@@ -178,7 +192,7 @@ console.log("propppp =>", props.messageId)
                         {userMessage.Message}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                   {conversation.map((message, index) => {
                     return (
                       <div className= 'conversation-mess' id="last-msg" key= {index}  id={index == conversation.length - 1 ? 'last-msg' : ''}>
@@ -204,7 +218,7 @@ console.log("propppp =>", props.messageId)
                 {
                   showTextArea ? <div className="reply-detail-text">
                     <textarea placeholder="input reply" value ={replyMessage} onChange={(e) => onReplyChange(e)}></textarea>
-                    <button className="message-btn btn btn-secondary" onClick={sendReply}>Reply</button>
+                    <button className="message-btn btn btn-secondary" onClick={() =>sendReply('1')}>Reply</button>
                     <Fragment>
                       {
                         setErrors ? <p className="error-msg">{Errors != 'success' ? Errors : ''}</p> : <p>Success</p>
@@ -272,7 +286,7 @@ console.log("propppp =>", props.messageId)
                     <img src={require('../../images/loader.gif')} />
                   </div> :
                   <Col md="10" className='message-deatil-inner'>
-                     {/* <div className="message-deatil-section">
+                     <div className="message-deatil-section">
                     <div className='conversation-mess'>
                       <div className='message-section'>
                         <div className='detail-images'>
@@ -288,7 +302,7 @@ console.log("propppp =>", props.messageId)
                         </div>
                       </div>
                     </div>
-                    </div> */}
+                    </div>
 
                     {conversation.map((message, index) => {
                     return (
@@ -314,7 +328,7 @@ console.log("propppp =>", props.messageId)
                 {
                   showTextArea ? <div className="reply-detail-text">
                     <textarea placeholder="input reply" value ={replyMessage} onChange={(e) => onReplyChange(e)}></textarea>
-                    <button className="message-btn btn btn-secondary" onClick={sendReply}>Reply</button>
+                    <button className="message-btn btn btn-secondary" onClick={() => sendReply(2)}>Reply</button>
                     <Fragment>
                       {
                         setErrors ? <p className="error-msg">{Errors != 'success' ? Errors : ''}</p> : <p>Success</p>

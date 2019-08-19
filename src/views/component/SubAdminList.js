@@ -47,12 +47,20 @@ const UserList = props => {
     setAgentOpen(false)
   } 
  
+  let fetchadmin = () =>{
+    axios.get(`http://54.165.185.4:7788/findagent`)
+    // axios.get(`http://localhost:7788/findagent`)
+      .then(res => {
+       
+         setSubAdmin(res.data)
+      })
+  }
 
   return (
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
         <Col>
-            <AgentModal className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
+            <AgentModal fetchadmin={fetchadmin} className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
             <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>
         </Col>
       </div>
