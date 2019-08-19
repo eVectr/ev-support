@@ -17,7 +17,7 @@ const Notification = (props) => {
     const [activePage, setactivePage] = useState(1)
     const [limit, setLimit] = useState(0)
     const [showLoader, setshowLoader] = useState(true)
-    const [isNoNotificationData, setisNoNotificationData] = useState(false)
+    const [isNoNotificationData, setisNoNotificationData] = useState(true)
 
     const onChangeText = e => {
         setValueData(e.target.checked)
@@ -29,7 +29,7 @@ const Notification = (props) => {
                 for (let i = 0; i < res.data.length; i++) {
 
                     if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                        setisNoNotificationData(true)
+                        setisNoNotificationData(false)
                         setNotification(prev => {
                             const updated = prev.concat(res.data[i])
                             return updated
@@ -37,7 +37,7 @@ const Notification = (props) => {
                         setshowLoader(false)
                     }
                 }
-                //setTotalItemsCount(res.data.length)
+                setTotalItemsCount(res.data.length)
             })
        
     }, [])
@@ -153,10 +153,10 @@ const Notification = (props) => {
     console.log(checkValue, 'checkValue')
     return (
         <Container fluid>
-                <Row className="notify-table">
-                    <Col>
-                        <div className="notification-list">
-                            <Col className='col-12'>    
+           <Row className="notify-table">
+           {usersListPagination.length > 0 &&<Col>
+                <div className="notification-list">
+                    <Col className='col-12'>    
                                 <Table>
                                     <thead>
                                         <tr className="table-head heading-noti">
@@ -183,8 +183,7 @@ const Notification = (props) => {
                                       
                                       
                                         {usersListPagination.map(function (d, idx) {
-                                            // console.log(d, 'ddddd')
-
+                                         
                                             return (
                                                 <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
                                                     
@@ -203,28 +202,22 @@ const Notification = (props) => {
                                                         <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type)}
                                                        >{d.Action}</Button>
                                                     </td>
-                                              
-                                                </tr>
-                                            
-                                                 
+                                                </tr>     
                                             )
                                         })}
                                     </tbody>
                                  }</Fragment>
-                           
                                 </Table>
-                              
-                          
                             </Col>
-
                             <div className="delete-select">
                                 <button onClick={deleteNotice}>Delete Selected</button>
                             </div>
-                        <NoticePagination totalItemsCount={notification.length} handlePageChange={handlePageChange}
+                            <NoticePagination totalItemsCount={notification.length} handlePageChange={handlePageChange}
                                 activePage={activePage}></NoticePagination>
                         </div>
                   
-                    </Col>
+                                </Col>}
+                                {isNoNotificationData && !usersListPagination.length && <div className="no-msg-list">No Message</div>}
           
                 </Row>
         </Container>

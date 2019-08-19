@@ -130,9 +130,7 @@ const Navbar = (props) => {
                 {(localStorage.user !== undefined)
                   ? <a class='button is-link  ' onClick={logout}>
                     Logout
-                  </a> : <a class='button is-link' onClick={logout}>
-                    Login
-                  </a>
+                  </a> : ''
                 }
               </div>
             </div>

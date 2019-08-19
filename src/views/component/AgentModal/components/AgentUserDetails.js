@@ -11,6 +11,8 @@ const AgentUserDetails = ({
     onChangeSelect,
     closeModal,
     tagsHandleChange,
+    createAgentSuccess,
+    agentsucces
     }) => {
 
     const options = [
@@ -18,7 +20,7 @@ const AgentUserDetails = ({
         { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
         { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
     ]
-    const [createAgentSuccess, setcreateAgentSuccess] = useState(false)
+    
 
 
     return (
@@ -72,7 +74,7 @@ const AgentUserDetails = ({
                     </FormGroup>
                     <FormGroup check row>
                         <Col sm={{ size: 12 }}>
-                            <Button className="sendmessage-btn btn btn-secondary" onClick={handleCloseOnSave} >Save</Button>
+                            <Button className="sendmessage-btn btn btn-secondary" onClick={handleCloseOnSave} agentsucces= {agentsucces} >Save</Button>
                         </Col>
                     </FormGroup>
                 </div>}
