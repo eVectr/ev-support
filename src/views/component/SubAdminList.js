@@ -3,8 +3,11 @@ import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
 import NoticePagination from './NoticePagination'
-import { Col, Button, Row, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap'
+import { Col, Button, Row, Form, FormGroup, Label, Input, FormText, Table,Container } from 'reactstrap'
 import '../../styles/Userlist.css'
+import AgentModal from './AgentModal/AgentModal';
+
+
 
 
 
@@ -16,13 +19,16 @@ const UserList = props => {
   const [isActive, setIsActive] = useState(false)
   const [subAdmin, setSubAdmin] = useState([])
   const [activePage, setactivePage] = useState(1)
+  const [AgentOpen, setAgentOpen] = useState(false)
+   const [showLoader, setshowLoader] = useState(true)
   useEffect(() => {
     axios.get(`http://54.165.185.4:7788/findagent`)
-    //axios.get(`http://localhost:7788/findagent`)
+    // axios.get(`http://localhost:7788/findagent`)
       .then(res => {
-         
+       
          setSubAdmin(res.data)
       })
+      setshowLoader(false)
   }, [])
 
 
@@ -32,17 +38,43 @@ const UserList = props => {
   }
 
   let adminListPagination = subAdmin.slice((activePage * 5) - 5, (activePage * 5))
+
+  let AgentUserMessage = () => {
+    setAgentOpen(true)
+  }
+ 
+  let onAgentCloseModal = () =>{
+    setAgentOpen(false)
+  } 
  
 
   return (
-    <div style={styles} className="userlist-show" >
-      <Table>
+    <Container style={styles} className="userlist-show" >
+       <div className="agent-modal-admin">
+        <Col>
+            <AgentModal className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
+            <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>
+        </Col>
+      </div>
+      <Row>
+      {showLoader
+        ? <Row>
+          <Col>
+            <div className='loader-img'>
+              <img src={require('../../images/loader.gif')} />
+            </div>
+          </Col>
+        </Row> : ''}
+       
+
+        <Col className="subadmin-table">
+        <Table>
         <thead>
           <tr>
-            <th>First name </th>
-            <th>Last name </th>
-            <th>Email</th>
-            <th>Assigned Ticket </th>
+            <th className="head-text">First name </th>
+            <th className="head-text">Last name </th>
+            <th className="head-text">Email</th>
+            <th className="head-text">Assigned Ticket </th>
             <th></th>
 
           </tr>
@@ -57,7 +89,7 @@ const UserList = props => {
                 let Type = type.label
                 console.log("Type ===", Type)
                 return(
-                  <div>
+                  <div className="type-subadmin">
                      {Type}
                   </div>
                   
@@ -69,6 +101,10 @@ const UserList = props => {
 
 
       </Table>
+        </Col>
+        
+      </Row>
+     
       <Row>
         <Col>
           <NoticePagination totalItemsCount={subAdmin.length} handlePageChange ={handlePageChange}
@@ -76,7 +112,7 @@ const UserList = props => {
         </Col>
 
       </Row>
-    </div>
+    </Container>
   )
 }
 export default UserList
