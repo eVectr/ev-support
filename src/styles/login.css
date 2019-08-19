@@ -117,7 +117,7 @@ body {
 }
 
 .contact-form .header {
-  background-color: #00d1b2;
+  background-color: #020e39;
   text-align: center;
   width: 100%;
   margin-top:0;
@@ -144,12 +144,12 @@ body {
 
 .contact-form {
   border: 1px solid;
-    border-color: #00d1b2;
+    border-color: #020e39;
     top: 30%;
     margin-bottom: 5%;
     width: 50%;
     background: #fff;
-    box-shadow: 0px 2px 5px rgba(0,0,0,.25);
+    box-shadow: 0px 2px 5px #020e39;
     margin-top: 30px;
     margin: auto;
 }
@@ -158,11 +158,11 @@ body {
   width: 100%;
   font-size: 22px;
   margin-top:6%;
-  background-color: #00d1b2;
+  background-color: #4c6eb3;
 }
 
 .contact-form .button:hover {
-  background-color: #00d1b2;
+  background-color: #4c6eb3;
 }
 
 .contact-form img{
@@ -476,10 +476,9 @@ form {
       color: #fff !important;
   }
   .button.is-link:hover {
-    background-color: #fff;
-      border-color: #020e3a;
-      color: #020e3a;
-      color: #020e3a !important;
+    border-color: #4c6eb3;
+    color: #4c6eb3 !important;
+    background: #fff !important;
   }
   a.navbar-item, .navbar-link {
     cursor: pointer;
@@ -499,13 +498,13 @@ a.navbar-item:hover {
 }
 .home-user {
   overflow: scroll;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 150px);
     margin-top: 20px;
     margin-bottom: 20px;
 }
 .homeForms {
   overflow: scroll;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 150px);
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -514,4 +513,15 @@ a.navbar-item:hover {
   display: inline-block;
   vertical-align: middle;
   line-height: 48px;
+}
+.button.is-success:hover, .button.is-success.is-hovered {
+  background-color: #4c6eb3;
+  border-color: #4c6eb3;
+  color: #4c6eb3 !important;
+  background: #fff !important;
+}
+.button.is-primary:hover, .button.is-primary.is-hovered {
+  border-color: #4c6eb3;
+  color: #4c6eb3 !important;
+  background: #fff !important;
 }
