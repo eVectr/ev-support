@@ -12,11 +12,12 @@ const Notification = (props) => {
     const [notification, setNotification] = useState([])
     const [selectedId, setSelectedId] = useState([])
     const [allSelectedId, setAllSelectedId] = useState([])
-    const [showLoader, setshowLoader] = useState(true)
     const [ checkValue , setValueData ] = useState(false)
     const [totalItemsCount, setTotalItemsCount] = useState()
     const [activePage, setactivePage] = useState(1)
     const [limit, setLimit] = useState(0)
+    const [showLoader, setshowLoader] = useState(true)
+    const [isNoNotificationData, setisNoNotificationData] = useState(false)
 
     const onChangeText = e => {
         setValueData(e.target.checked)
@@ -28,15 +29,17 @@ const Notification = (props) => {
                 for (let i = 0; i < res.data.length; i++) {
 
                     if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
+                        setisNoNotificationData(true)
                         setNotification(prev => {
                             const updated = prev.concat(res.data[i])
                             return updated
                         })
+                        setshowLoader(false)
                     }
                 }
                 //setTotalItemsCount(res.data.length)
             })
-        setshowLoader(false)
+       
     }, [])
 
     let OnButtonClick = (Id, index, Type) => {
@@ -139,25 +142,19 @@ const Notification = (props) => {
         }
        
     }
-    let onButtonClick = (x) =>{
-    
-    }
-    
-
     // console.log("selected Id =>", allSelectedId)
     console.log(checkValue, 'checkValue')
     return (
         <Container fluid>
-            {showLoader ?
-                <div className='loader-img'>
-                    <img src={require('../../images/loader.gif')} />
-                </div> :
                 <Row className="notify-table">
+               
                     <Col>
-
                         <div className="notification-list">
-                            <Col className='col-12'>
+                       
+                            <Col className='col-12'>    
+                           
                                 <Table>
+                               
                                     <thead>
                                         <tr className="table-head heading-noti">
                                             <th><i class="fa fa-cog" aria-hidden="true"></i>Notification</th>
@@ -166,42 +163,55 @@ const Notification = (props) => {
                                             <th></th>
                                             <th></th>
                                         </tr>
-                                        {showLoader ?
-                                            <div className='loader-img'>
-                                                <img src={require('../../images/loader.gif')} />
-                                            </div> :
                                             <tr className="table-head">
                                                 <th className="select-list"><input type="checkbox" checked={checkValue} onChange={onChangeText} class="select-list-check" onClick={onCheckall} />Select <hr /></th>
                                                 <th>Notification Type <hr /></th>
                                                 <th>Data Received <hr /></th>
                                                 <th>Sent by <hr /></th>
                                                 <th>Action <hr /></th>
-
                                             </tr>
-                                        }
                                     </thead>
+                                    <Fragment>
+                                                {showLoader ?
+                                                <div className='loader-img'>
+                                                <img src={require('../../images/loader.gif')} />
+                                                </div> :
                                     <tbody>
+                                      
+                                      
                                         {usersListPagination.map(function (d, idx) {
                                             // console.log(d, 'ddddd')
 
                                             return (
                                                 <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
-                                                    <td className="check-table"><div className="alert"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">
-                                                        <input type="checkbox" checked={d.isChecked}
-                                                            onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" /></div></td>
-                                                    {/* <td ><i class="fa fa-envelope" aria-hidden="true"></i>{d.Type}</td> */}
-
-                                                    <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}</td>
+                                                    
+                                                    <td className="check-table">
+                                                        <div className="alert">
+                                                            <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">
+                                                                <input type="checkbox" checked={d.isChecked}
+                                                            onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" />
+                                                         </div>
+                                                     </td>
+                                                    <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}
+                                                    </td>
                                                     <td>{moment(d.Date).format('lll')}</td>
                                                     <td>{d.SentBy}</td>
-                                                    <td><Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type)}
-                                                       >{d.Action}</Button></td>
+                                                    <td>
+                                                        <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type)}
+                                                       >{d.Action}</Button>
+                                                    </td>
+                                              
                                                 </tr>
+                                            
+                                                 
                                             )
                                         })}
                                     </tbody>
-
+                                 }</Fragment>
+                           
                                 </Table>
+                              
+                          
                             </Col>
 
                             <div className="delete-select">
@@ -210,8 +220,10 @@ const Notification = (props) => {
                         <NoticePagination totalItemsCount={notification.length} handlePageChange={handlePageChange}
                                 activePage={activePage}></NoticePagination>
                         </div>
+                  
                     </Col>
-                </Row>}
+          
+                </Row>
         </Container>
     )
 }

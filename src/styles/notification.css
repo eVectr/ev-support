@@ -302,6 +302,7 @@ button.Transactionbtn {
 }
 th.select-list{
     text-align: center !important;
+    font-weight: 800 !important;
 }
 .select-list .select-list-check {
     display: inline;
@@ -325,7 +326,7 @@ th.select-list{
 }
 .notify-table {
     overflow: scroll;
-    height: calc(100vh - 90px);
+    height: calc(100vh - 120px);
     z-index: 0;
 }
 .notification-list .pagination {
@@ -344,4 +345,9 @@ th.select-list{
 }
 .heading-noti th i {
     font-size: 20px;
+}
+.no-notify-msg {
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
 }
