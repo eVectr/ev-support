@@ -25,11 +25,11 @@ function adminModalValidation (data) {
                 errorMsg: `Enter a valid email`
             }
         },
-        tags : {
-            required: {
-                errorMsg: 'Type is required'
-            }
-        }
+        // tags : {
+        //     required: {
+        //         errorMsg: 'Type is required'
+        //     }
+        // }
     }, data)
     return errors
 }
