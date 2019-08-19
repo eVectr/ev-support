@@ -154,8 +154,7 @@ const Notification = (props) => {
         }
        
     }
-    console.log("local st =>", localStorage)
-    console.log('notification ===>', notification)
+ 
     return (
         <Container fluid>
            <Row className="notify-table">
@@ -222,7 +221,7 @@ const Notification = (props) => {
                         </div>
                   
                                 </Col>}
-                                {isNoNotificationData && !usersListPagination.length && <div className="no-msg-list">No Message</div>}
+                                {isNoNotificationData && !usersListPagination.length && <div className="no-msg-list"></div>}
           
                 </Row>
         </Container>
