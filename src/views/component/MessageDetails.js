@@ -25,24 +25,24 @@ const MessageDetails = (props) => {
     //     }
     //   })
     //axios.post(`http://localhost:7788/getadminmessagebyId`, { Id: props.messageId })
-    axios.post(`http://54.165.185.4:7788/getadminmessagebyId`, { Id: props.messageId })
+    axios.post(`https://ev2.softuvo.xyz/getadminmessagebyId`, { Id: props.messageId })
       .then(res => {
         setAdminMessage(res.data[0])
       })
     // axios.post(`http://localhost:7788/getsentmessagebyId`, { Id: props.messageId })
-    axios.post(`http://54.165.185.4:7788/getsentmessagebyId`, { Id: props.messageId })
+    axios.post(`https://ev2.softuvo.xyz/getsentmessagebyId`, { Id: props.messageId })
       .then(res => {
         console.log("message id ==>", res)
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
         setshowLoader(false)
         // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
-        axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
+        axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
           .then(res => {
             setUserMessageLogs(res.data)
           })
       })
-      axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
+      axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
       //axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
       .then(res => {
         setConversation(res.data)
@@ -57,7 +57,7 @@ const MessageDetails = (props) => {
     if (props.showCase === 1) {
       //if (testcase === 1) {
       //  axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
-      axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
+      axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
           setUserMessageLogs(res.data)
         })
@@ -77,7 +77,7 @@ const MessageDetails = (props) => {
     if (replyMessage == '') {
       setErrors('Please fill in this filed')
     } else {
-      axios.post(`http://54.165.185.4:7788/createconversation`, {
+      axios.post(`https://ev2.softuvo.xyz/createconversation`, {
        // axios.post(`http://localhost:7788/createconversation`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName:JSON.parse(localStorage.user).Name,
@@ -88,15 +88,15 @@ const MessageDetails = (props) => {
       })
       .then(res =>{
         setReplyMessage('')
-        axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
+        axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
        // axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
         .then(res => {
           setConversation(res.data)
         })
       })
       if(caseNo == '1'){
-         //axios.post(`http://54.165.185.4:7788/savenotification`, {
-          axios.post(`http://localhost:7788/savenotification`, {
+         axios.post(`https://ev2.softuvo.xyz/savenotification`, {
+         // axios.post(`http://localhost:7788/savenotification`, {
             Type: 'User to User Message',
             SentBy: JSON.parse(localStorage.user).Name,
             SentTo: userMessage.SenderId,
@@ -104,8 +104,8 @@ const MessageDetails = (props) => {
             CaseNo:'2'
           })
       }else{
-         //axios.post(`http://54.165.185.4:7788/savenotification`, {
-          axios.post(`http://localhost:7788/savenotification`, {
+         axios.post(`https://ev2.softuvo.xyz/savenotification`, {
+         // axios.post(`http://localhost:7788/savenotification`, {
             Type: 'User to User Message',
             SentBy: JSON.parse(localStorage.user).Name,
             SentTo: userMessage.ReceiverId,
@@ -134,7 +134,7 @@ console.log("propppp =>", props.messageId)
     <div className="messagedetail">
       <Row className="message-mail">
         <div className="subject-mail-head">
-          <label>Subject:</label><span>hi their is subject</span>
+          {/* <label>Subject:</label><span>hi their is subject</span> */}
         </div>
         {props.showCase == '1' ?
         //  {testcase == '1' ?
@@ -258,7 +258,7 @@ console.log("propppp =>", props.messageId)
                         {
                           adminMessage.Document.map((doc, index )=>{
                             let getdoc = doc.split('/')[1]
-                            let url = 'http://54.165.185.4:7788/'
+                            let url = 'https://ev2.softuvo.xyz/'
                             //let url = 'http://localhost:7788/'
                             let docurl = url.concat(getdoc)
                             return (

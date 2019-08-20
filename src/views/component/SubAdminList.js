@@ -22,7 +22,7 @@ const UserList = props => {
   const [AgentOpen, setAgentOpen] = useState(false)
    const [showLoader, setshowLoader] = useState(true)
   useEffect(() => {
-    axios.get(`http://54.165.185.4:7788/findagent`)
+    axios.get(`https://ev2.softuvo.xyz/findagent`)
     // axios.get(`http://localhost:7788/findagent`)
       .then(res => {
        
@@ -48,7 +48,7 @@ const UserList = props => {
   } 
  
   let fetchadmin = () =>{
-    axios.get(`http://54.165.185.4:7788/findagent`)
+    axios.get(`https://ev2.softuvo.xyz/findagent`)
     // axios.get(`http://localhost:7788/findagent`)
       .then(res => {
        

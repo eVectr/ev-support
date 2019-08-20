@@ -23,8 +23,8 @@ const Notification = (props) => {
         setValueData(e.target.checked)
     }
     useEffect(() => {
-          axios.get(`http://localhost:7788/getnotification`)
-        //axios.get(`http://54.165.185.4:7788/getnotification`)
+          //axios.get(`http://localhost:7788/getnotification`)
+         axios.get(`https://ev2.softuvo.xyz/getnotification`)
             .then(res => {
                 console.log("res ==>", res)
                 for (let i = 0; i < res.data.length; i++) {
@@ -47,7 +47,7 @@ const Notification = (props) => {
         
      
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
-        axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
+        axios.post(`https://ev2.softuvo.xyz/changenotificationstatus`, { Id: Id })
             .then(res => {
                 
                 setNotification(prevState => prevState.map(
@@ -55,11 +55,11 @@ const Notification = (props) => {
                 ))
                 switch(Type) {
                     case 'Complete Client Survey':
-                            window.open('http://18.219.191.74:3000/clientsurvey')
+                            window.open('https://ev2.softuvo.xyz/clientsurvey')
                         //window.location="http://18.219.191.74:3000/clientsurvey"
                          break;
                     case 'Complete Transaction Survey':
-                            window.open('http://18.219.191.74:3000/transactionsurvey')
+                            window.open('https://ev2.softuvo.xyz/transactionsurvey')
                        // window.location="http://18.219.191.74:3000/transactionsurvey"
                          break;
                     case 'User to User Message':
@@ -123,11 +123,11 @@ const Notification = (props) => {
         if (selectedId.length > 0) {
             for (let i = 0; i < selectedId.length; i++) {
                 // axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
-                axios.post(`http://54.165.185.4:7788/deletenotification`, { Id: selectedId[i] })
+             axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
                     .then(res => {
                         setSelectedId([])
                         setValueData(false)
-                        axios.get(`http://54.165.185.4:7788/getnotification`)
+                        axios.get(`https://ev2.softuvo.xyz/getnotification`)
                             .then(res => {
                                 const { data } = res
                                 setNotification(data)
@@ -137,12 +137,12 @@ const Notification = (props) => {
         }
         else {
             for (let i = 0; i < allSelectedId.length; i++) {
-                axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
-                    //axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:selectedId[i]})
+                //axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
+                    axios.post(`https://ev2.softuvo.xyz/deletenotification`, {Id:selectedId[i]})
                     .then(res => {
                         console.log(res, 'res')
                         setAllSelectedId([])
-                        axios.get(`http://54.165.185.4:7788/getnotification`)
+                        axios.get(`https://ev2.softuvo.xyz/getnotification`)
                             .then(res => {
                                 console.log(res, 'resres')
                                 const { data } = res

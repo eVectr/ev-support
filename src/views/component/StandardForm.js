@@ -57,7 +57,7 @@ const ContactForm = (props) => {
       let Case_No = res
       let Link = []
      // axios.post(`http://localhost:7788/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
-      axios.post(`http://54.165.185.4:7788/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+      axios.post(`https://ev2.softuvo.xyz/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
       Transaction_Number,
         Name,
         Email,
@@ -83,7 +83,7 @@ const ContactForm = (props) => {
             message: ''
           })
          // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-          axios.post(`http://54.165.185.4:7788/logentry`,{Id:res.data.Case_No,
+          axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
           log:'Ticket Created' }) 
         })
       setShowFlashMsg(false)

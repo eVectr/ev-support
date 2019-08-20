@@ -55,7 +55,7 @@ const MessageLogs = (props) => {
       setMessageId((props.match.params.id).split('&')[0])
     }
    // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
-    axios.post(`http://54.165.185.4:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    axios.post(`https://ev2.softuvo.xyz/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     .then(res => {
         if (res.data.length < 1) {
           setIsNoUserData(true)

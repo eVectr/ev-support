@@ -34,7 +34,7 @@ const ModalUi = props => {
     console.log("local =>", localStorage)
     if(localStorage !== undefined){
      // axios.get(`http://localhost:7788/getalluser`)
-      axios.get(`http://54.165.185.4:7788/getalluser`)
+      axios.get(`https://ev2.softuvo.xyz/getalluser`)
         .then(res => {
           for (let i = 0; i < res.data.length; i++) {
             if(localStorage.length > 0){
@@ -115,10 +115,10 @@ const ModalUi = props => {
         formData.append('SelectedImage', FileNames[i])
       }
      // axios.post(`http://localhost:7788/fileupload`, formData,
-       axios.post(`http://54.165.185.4:7788/fileupload`, formData,
+       axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
        // axios.post(`http://localhost:7788/usertousermessage`, {
-        axios.post(`http://54.165.185.4:7788/usertousermessage`, {
+        axios.post(`https://ev2.softuvo.xyz/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
         ReceiverId: selectedUserId,
@@ -174,9 +174,9 @@ const ModalUi = props => {
         formData.append('SelectedImage', FileNames[i])
       }
        //axios.post(`http://localhost:7788/fileupload`, formData,
-       axios.post(`http://54.165.185.4:7788/fileupload`, formData,
+       axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
-         axios.post(`http://54.165.185.4:7788/admintousermessage`, { ReceiverId: userIds,
+         axios.post(`https://ev2.softuvo.xyz/admintousermessage`, { ReceiverId: userIds,
         //axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
         Subject:adminSubject,
          Message: AdminMessage })
