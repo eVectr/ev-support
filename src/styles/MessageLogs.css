@@ -428,6 +428,7 @@ svg.styles_closeIcon__1QwbI path {
 .messagedetail {
     width: 83%;
     left: 0;
+    z-index: 1;
    
 }
 .message-outer {
@@ -583,8 +584,8 @@ button:focus {
 .subject-mail-head {
     width: 100%;
     display: block;
-    padding: 0px 45px;
     z-index: 1;
+    cursor:none !important;
 }
 .subject-mail-head label {
     font-size: 18px;

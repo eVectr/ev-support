@@ -29,7 +29,7 @@ const Notification = (props) => {
                 for (let i = 0; i < res.data.length; i++) {
 
                     if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                        setisNoNotificationData(false)
+                       
                         setNotification(prev => {
                             const updated = prev.concat(res.data[i])
                             return updated
@@ -150,11 +150,12 @@ const Notification = (props) => {
        
     }
     // console.log("selected Id =>", allSelectedId)
-    console.log(checkValue, 'checkValue')
+    console.log(isNoNotificationData, 'isNoNotificationData12312312312')
+
     return (
         <Container fluid>
            <Row className="notify-table">
-           {usersListPagination.length > 0 &&<Col>
+           {usersListPagination.length === 0 &&<Col>
                 <div className="notification-list">
                     <Col className='col-12'>    
                                 <Table>
@@ -217,7 +218,7 @@ const Notification = (props) => {
                         </div>
                   
                                 </Col>}
-                                {isNoNotificationData && !usersListPagination.length && <div className="no-msg-list">No Message</div>}
+                                {!showLoader && !usersListPagination.length && <div className="no-msg-list">No Message</div>}
           
                 </Row>
         </Container>
