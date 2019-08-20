@@ -362,11 +362,16 @@ svg.styles_closeIcon__1QwbI path {
     margin-left: 0 !important;
     transform: translate(-24px, 0px);
 }
+.check-label {
+    margin-bottom: 0px;
+    padding: 8px 25px;
+}
 .check-label label {
-    line-height: 18px;
-    color: #ff0505;
+    line-height: 40px;
+    color: #000;
     font-size: 16px;
     font-weight: bold;
+    margin-bottom: 0px;
 }
 .admin-area {
     margin-top: 20px;
@@ -466,10 +471,11 @@ svg.styles_closeIcon__1QwbI path {
     color: black;
 }
 .pagination-msg {
-    position: absolute;
+   position: absolute;
     right: 20px;
     pointer-events: auto;
-    z-index: 1;
+    z-index: 99;
+    cursor: pointer !important;
     
 }
 .message-box.table{
@@ -502,6 +508,7 @@ svg.styles_closeIcon__1QwbI path {
 .messagelogs .message-mail.row .message-deatil-inner.col-md-10 {
     max-width: 100% !important;
     flex: 100% !important;
+    margin-top: 30px;
 }
 #toggler {
     border-bottom: none;
@@ -528,7 +535,7 @@ svg.styles_closeIcon__1QwbI path {
     height: 35px;
 }
 .modal-inner textarea {
-    margin-top: 28px;
+    margin-top: 6px;
 }
 .subject-describe {
     padding: 5px;

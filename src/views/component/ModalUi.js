@@ -293,10 +293,10 @@ const onDrop = (files) => {
                     <span>Subject :</span> 
                     <input type = 'text' className="subject-describe" onChange={(e) =>onAdminSubjectChange(e)}></input>
                 </div>
-              {/* <div className="check-label">
+              <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>
                   <label>Mark as a Urgent</label>
-              </div> */}
+              </div>
               <textarea placeholder='write a message .....' onChange = {(e) => onAdminMessage(e)} className="admin-area"></textarea>
               <div> {
                     FileNames.map((file, index) => {
