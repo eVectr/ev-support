@@ -24,6 +24,8 @@ const AgentUserDetails = ({
 
     
 
+    console.log(agentsucces, 'agentsucces')
+    
     return (
         <Fragment>
             {createAgentSuccess ?

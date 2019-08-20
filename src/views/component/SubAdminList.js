@@ -60,8 +60,8 @@ const UserList = props => {
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
         <Col>
-            <AgentModal fetchadmin={fetchadmin} className="sent-modal" open = {AgentOpen} onAgentCloseModal={onAgentCloseModal}></AgentModal>
-            <Button onClick={AgentUserMessage}> <i class="fas fa-user-plus"></i></Button>
+            <AgentModal className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
+            <Button onClick={() => setAgentOpen(!AgentOpen)}> <i class="fas fa-user-plus"></i></Button>
         </Col>
       </div>
       <Row>
@@ -103,7 +103,7 @@ const UserList = props => {
                   
                 )
               })}
-              <td className="edit-icons"> <i class="fas fa-edit"></i></td>
+              <td className="edit-icons"> <i class="fas fa-edit" onClick={() => setAgentOpen(!AgentOpen)}></i></td>
             </tr>)
         })}
 

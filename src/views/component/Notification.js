@@ -1,13 +1,9 @@
-import React, { Component, useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import { Container, Row, Col, Table, checkBox, Button } from 'reactstrap'
 import NoticePagination from './NoticePagination'
 import '../../styles/notification.css'
-import { set } from 'mongoose'
-
-
-//class Notification extends Component{
 const Notification = (props) => {
     const [notification, setNotification] = useState([])
     const [selectedId, setSelectedId] = useState([])
@@ -17,8 +13,7 @@ const Notification = (props) => {
     const [activePage, setactivePage] = useState(1)
     const [limit, setLimit] = useState(0)
     const [showLoader, setshowLoader] = useState(true)
-    const [isNoNotificationData, setisNoNotificationData] = useState(true)
-
+    const [isNoNotification, setisNoNotification] = useState(false)
     const onChangeText = e => {
         setValueData(e.target.checked)
     }
@@ -26,21 +21,22 @@ const Notification = (props) => {
           //axios.get(`http://localhost:7788/getnotification`)
          axios.get(`https://ev2.softuvo.xyz/getnotification`)
             .then(res => {
-                console.log("res ==>", res)
-                for (let i = 0; i < res.data.length; i++) {
-
-                    if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                        setisNoNotificationData(false)
-                        setNotification(prev => {
-                            const updated = prev.concat(res.data[i])
-                            return updated
-                        })
-                        setshowLoader(false)
+                if(res.data.length < 1){
+                    setisNoNotification(true)
+                }else{
+                    for (let i = 0; i < res.data.length; i++) {
+                        if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
+                            setNotification(prev => {
+                                const updated = prev.concat(res.data[i])
+                                return updated
+                            })
+                            setshowLoader(false)
+                        }
                     }
+                    setTotalItemsCount(res.data.length)
                 }
-                setTotalItemsCount(res.data.length)
+            
             })
-       
     }, [])
 
     let OnButtonClick = (Id, index, Type, NotificationId, CaseNo) => {
@@ -49,7 +45,6 @@ const Notification = (props) => {
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
         axios.post(`https://ev2.softuvo.xyz/changenotificationstatus`, { Id: Id })
             .then(res => {
-                
                 setNotification(prevState => prevState.map(
                     item => item._id === Id ? { ...item, FontStyle: true } : item
                 ))
@@ -80,12 +75,9 @@ const Notification = (props) => {
                     default:
                       break
                   }
-            })
-           
+            })    
     }
-
     let test = []
-
     let handleCheckBoxChange = (Id) => {
         setNotification(prevState => prevState.map(
             item => {
@@ -97,7 +89,6 @@ const Notification = (props) => {
         ))
         setSelectedId([...selectedId, Id])
     }
-
     let onCheckall = () => {
         let allselectedarray = []
         let i = (activePage * 5) - 5
@@ -112,11 +103,9 @@ const Notification = (props) => {
             setAllSelectedId(allselectedarray)
         }
     }
-
     let handlePageChange = (pageNumber) => {
         setactivePage(pageNumber)
     }
-
     let usersListPagination = notification.slice((activePage * 5) - 5, (activePage * 5))
     let deleteNotice = () => {
         if (selectedId.length > 0) {
@@ -157,9 +146,16 @@ const Notification = (props) => {
     return (
         <Container fluid>
            <Row className="notify-table">
-           {usersListPagination.length > 0 &&<Col>
-                <div className="notification-list">
-                    <Col className='col-12'>    
+           <Fragment>{isNoNotification ?
+                <div className="no-msg-list"><h3>No Notification</h3></div> :
+            <Col>
+                <Fragment>
+                    {showLoader ?
+                        <div className='loader-img'>
+                            <img src={require('../../images/loader.gif')} />
+                        </div> :
+                        <div className="notification-list">
+                            <Col className='col-12'>    
                                 <Table>
                                     <thead>
                                         <tr className="table-head heading-noti">
@@ -169,62 +165,58 @@ const Notification = (props) => {
                                             <th></th>
                                             <th></th>
                                         </tr>
-                                            <tr className="table-head">
-                                                <th className="select-list"><input type="checkbox" checked={checkValue} onChange={onChangeText} class="select-list-check" onClick={onCheckall} />Select <hr /></th>
-                                                <th>Notification Type <hr /></th>
-                                                <th>Data Received <hr /></th>
-                                                <th>Sent by <hr /></th>
-                                                <th>Action <hr /></th>
-                                            </tr>
+                                        <tr className="table-head">
+                                            <th className="select-list"><input type="checkbox" checked={checkValue} onChange={onChangeText} class="select-list-check" onClick={onCheckall} />Select <hr /></th>
+                                            <th>Notification Type <hr /></th>
+                                            <th>Data Received <hr /></th>
+                                            <th>Sent by <hr /></th>
+                                            <th>Action <hr /></th>
+                                        </tr>
                                     </thead>
-                                    <Fragment>
-                                                {showLoader ?
-                                                <div className='loader-img'>
-                                                <img src={require('../../images/loader.gif')} />
-                                                </div> :
+                                
                                     <tbody>
-                                      
-                                      
-                                        {usersListPagination.map(function (d, idx) {
-                                         
-                                            return (
-                                                <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
-                                                    
-                                                    <td className="check-table">
-                                                        <div className="alert">
-                                                            <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">
-                                                                <input type="checkbox" checked={d.isChecked}
-                                                            onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" />
-                                                         </div>
-                                                     </td>
-                                                    <td className="typeicons"><i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}
+                                    {usersListPagination.map(function (d, idx) {
+                                        return (
+                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
+                                                <td className="check-table">
+                                                    <div className="alert">
+                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">
+                                                            <input type="checkbox" checked={d.isChecked}
+                                                        onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" />
+                                                        </div>
                                                     </td>
-                                                    <td>{moment(d.Date).format('lll')}</td>
-                                                    <td>{d.SentBy}</td>
+                                                    <td className="typeicons">
+                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}
+                                                    </td>
+                                                    <td>
+                                                        {moment(d.Date).format('lll')}
+                                                    </td>
+                                                    <td>
+                                                        {d.SentBy}
+                                                    </td>
                                                     <td>
                                                         <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type, d.NotificationId, d.CaseNo)}
                                                        >{d.Action}</Button>
                                                     </td>
-                                                </tr>     
+                                            </tr>     
                                             )
                                         })}
                                     </tbody>
-                                 }</Fragment>
                                 </Table>
-                            </Col>
-                            <div className="delete-select">
-                                <button onClick={deleteNotice}>Delete Selected</button>
-                            </div>
-                            <NoticePagination totalItemsCount={notification.length} handlePageChange={handlePageChange}
-                                activePage={activePage}></NoticePagination>
-                        </div>
-                  
-                                </Col>}
-                                {isNoNotificationData && !usersListPagination.length && <div className="no-msg-list"></div>}
-          
-                </Row>
+                             </Col>
+                                <div className="delete-select">
+                                    <button onClick={deleteNotice}>Delete Selected</button>
+                                </div>
+                                <div>
+                                   <NoticePagination totalItemsCount={notification.length} handlePageChange={handlePageChange}
+                                    activePage={activePage}></NoticePagination>
+                                </div>   
+                            </div>  
+                      }</Fragment>     
+             </Col>
+            }</Fragment>
+            </Row>    
         </Container>
     )
 }
-
 export default Notification

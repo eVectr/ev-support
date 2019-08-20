@@ -774,6 +774,7 @@ li.docs-details-inner.right-side {
     width: 50px;
     padding-left: 0;
     padding-right: 0;
+    padding: 8px 0px !important;
 }
 .inner-containers button.sendmessage-btn.btn.btn-secondary {
     width: 100% !important;

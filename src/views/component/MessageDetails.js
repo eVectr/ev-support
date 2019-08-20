@@ -133,9 +133,6 @@ console.log("propppp =>", props.messageId)
   return (
     <div className="messagedetail">
       <Row className="message-mail">
-        <div className="subject-mail-head">
-          {/* <label>Subject:</label><span>hi their is subject</span> */}
-        </div>
         {props.showCase == '1' ?
         //  {testcase == '1' ?
           <Fragment>
@@ -144,6 +141,9 @@ console.log("propppp =>", props.messageId)
                 <img src={require('../../images/loader.gif')} />
               </div> :
               <Col md="10" className="message-deatil-inner">
+                  <div className="subject-mail-head">
+                    <label>Subject:</label><span>hi their is subject</span>
+                  </div>
                 <div className="message-outer">
                   <div className="conversation-mess">
                     <div className="detail-images">
@@ -195,7 +195,12 @@ console.log("propppp =>", props.messageId)
                   </div> */}
                   {conversation.map((message, index) => {
                     return (
+                      <div>
+                          {/* <div className="subject-mail-head">
+                            <label>Subject:</label><span>hi their is subject</span>
+                          </div> */}
                       <div className= 'conversation-mess' id="last-msg" key= {index}  id={index == conversation.length - 1 ? 'last-msg' : ''}>
+                        
                         <div className="detail-images">
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
@@ -207,6 +212,7 @@ console.log("propppp =>", props.messageId)
                             {message.Message}
                           </p>
                         </div>
+                      </div>
                       </div>
                     )
                   })}
@@ -236,7 +242,10 @@ console.log("propppp =>", props.messageId)
                   <div className='loader-img'>
                     <img src={require('../../images/loader.gif')} />
                   </div> :
-                  <Col md="10" className='message-deatil-inner'>
+                  <Col md="10" className='message-deatil-inner 567890'>
+                    <div className="subject-mail-head">
+                      <label>Subject:</label><span>hi their is subject</span>
+                    </div>
                    <div className="message-outer">
                     <div className="conversation-mess">
 
@@ -286,6 +295,9 @@ console.log("propppp =>", props.messageId)
                     <img src={require('../../images/loader.gif')} />
                   </div> :
                   <Col md="10" className='message-deatil-inner'>
+                      <div className="subject-mail-head">
+                        <label>Subject:</label><span>hi their is subject</span>
+                      </div>
                      <div className="message-deatil-section">
                     <div className='conversation-mess'>
                       <div className='message-section'>

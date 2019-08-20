@@ -71,23 +71,32 @@ const AgentModal = (props) => {
   //   }
   // 
   let agentsucces = () =>{
-    setcreateAgentSuccess (true)
+    return new Promise((resolve, reject)=>{
+      resolve(setcreateAgentSuccess(!createAgentSuccess))
+    })
   }
 
   let handleCloseOnSave = () => {
-    const errors = adminModalValidation(agentUserDetails)
+     const errors = adminModalValidation(agentUserDetails)
       if (!is.empty(errors)) {
         setTimeout(() => {
               setErrors(false)
               setErrors('')
-              setcreateAgentSuccess (true)
+              setcreateAgentSuccess(false)
           }, 1000)
          
            setErrors(errors)
         return 
     }
-    else {
-      props.onAgentCloseModal()
+    else { 
+      agentsucces().then(res => {
+        setTimeout(() => {
+          setcreateAgentSuccess(false)
+          props.onAgentCloseModal()
+         
+      }, 1000)
+      agentUserDetailsData('')
+      })
       axios.post(`https://ev2.softuvo.xyz/saveagent`, {
       //axios.post(`http://localhost:7788/saveagent`, {
         FirstName: agentUserDetails.first_name,
@@ -96,6 +105,7 @@ const AgentModal = (props) => {
         Type: select,
         Email: agentUserDetails.email,
         TicketId: []
+
       })
         .then(res => {
           props.fetchadmin()
@@ -109,6 +119,7 @@ const AgentModal = (props) => {
         })
     }
   }
+
   // const handleOnSave = () => {
   //   const errors = adminModalValidation(agentUserDetails)
   //   console.log(errors, 'errors')
@@ -134,7 +145,8 @@ const AgentModal = (props) => {
     onChangeText,
     handleCloseOnSave,
     onChangeSelect,
-    agentsucces
+    agentsucces,
+    createAgentSuccess
     // inputTagValue,
     // tagsHandleChange,
     // onTagsInputChange
@@ -148,7 +160,7 @@ const AgentModal = (props) => {
         <div className='sent-modal agent-modal-inner'>
           <h2>Create Agent</h2>
           <AgentUserDetails {...AgentModalProps}
-          agentsucces = {agentsucces}/>
+          />
         </div>
 
       </Modal>
