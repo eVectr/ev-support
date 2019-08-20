@@ -66,7 +66,7 @@ const MessageLogs = (props) => {
           return updated
         })
        // axios.post(`http://localhost:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
-        axios.post(`http://54.165.185.4:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
         .then(res => {
             if (res.data.length < 1) {
               setIsNoSentData(true)
@@ -77,7 +77,7 @@ const MessageLogs = (props) => {
       })
 
     //axios.get(`http://localhost:7788/getadminmessage`)
-    axios.get(`http://54.165.185.4:7788/getadminmessage`)
+    axios.get(`https://ev2.softuvo.xyz/getadminmessage`)
       .then(res => {
         if (res.data.length < 1) {
           setIsNoAdminData(true)
@@ -102,7 +102,7 @@ const MessageLogs = (props) => {
   }
 
   let handleSentMessage = () => {
-    axios.post(`http://54.165.185.4:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+    axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
       .then(res => {
         setSentMessage(res.data.reverse())
       })

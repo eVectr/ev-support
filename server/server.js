@@ -858,6 +858,35 @@ app.post('/savenotification', (req, res) => {
   })
 })
 
+
+app.post('/chatnotification', (req, res) => {
+  let Type = req.body.Type
+  let SentBy = req.body.SentBy
+  let SentTo = req.body.SentTo
+  let date = Date.now()
+  let NotificationId = ''
+  let CaseNo = ''
+  
+  var notification = new Notification({
+    Type: Type,
+    Date: date,
+    SentBy: SentBy,
+    SentTo: SentTo,
+    Action: 'SEE MESSAGE',
+    FontStyle: false,
+    isChecked: false,
+    CaseNo:CaseNo,
+    NotificationId:NotificationId
+  })
+  notification.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+})
+
 app.get('/getnotification', (req, res) => {
   Notification.find({}, null,
     {sort: { Date: -1 } }, function (err, data) {
