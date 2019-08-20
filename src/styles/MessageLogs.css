@@ -117,7 +117,9 @@
     background: #4c6eb3;
     width: 100%;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
+    padding: 7px;
+    margin-top: 5px;
 }
 /* .message-mail {
     margin-top: 25px;
@@ -130,6 +132,7 @@
     z-index: 1;
     margin-top: 15px;
     padding: 5px !important;
+    font-weight: bold !important;
 }
 .adminlink {
     text-align: left;
@@ -185,6 +188,7 @@ i.fa.fa-angle-down {
     color: white;
     font-size: 22px;
     text-transform: capitalize;
+    font-weight: 800 !important;
 }
 svg.styles_closeIcon__1QwbI path {
     fill: white;

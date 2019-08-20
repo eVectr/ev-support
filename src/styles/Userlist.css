@@ -53,3 +53,6 @@ th.head-text {
 .agent-modal-admin {
     margin-top: 50px;
 }
+.edit-icons i {
+    cursor: pointer;
+}

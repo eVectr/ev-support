@@ -95,7 +95,7 @@ const UserList = props => {
                   
                 )
               })}
-              <td className="edit-icons"> <i class="fas fa-edit"></i></td>
+              <td className="edit-icons"> <i class="fas fa-edit" onClick={() => setAgentOpen(!AgentOpen)}></i></td>
             </tr>)
         })}
 
