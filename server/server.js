@@ -830,7 +830,7 @@ app.post('/usertousermessage', (req, res) => {
 })
 
 app.post('/savenotification', (req, res) => {
-  console.log("save")
+
   let Type = req.body.Type
   let SentBy = req.body.SentBy
   let SentTo = req.body.SentTo
@@ -860,7 +860,7 @@ app.post('/savenotification', (req, res) => {
 
 
 app.post('/chatnotification', (req, res) => {
-  let Type = (req.body.Type)
+  let Type = 'Missed Chat Message'
   let SentBy = req.body.SentBy
   let SentTo = req.body.SentTo
   let date = Date.now()
