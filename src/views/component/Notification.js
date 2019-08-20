@@ -75,7 +75,7 @@ const Notification = (props) => {
                             props.history.push('/messageLogs/' + adminurl)
                           break;
                     case 'Missed Chat Message':
-                            window.open('https://reactchat.softuvo.xyz/chat')
+                            window.open('https://reactchat.softuvo.xyz/')
                          // window.location="https://reactchat.softuvo.xyz/chat"
                           break;
                     default:

@@ -64,8 +64,8 @@ io.on('connection', socket => {
 // })
 
 // var user = new User({
-//   Name: 'Joshua',
-//   Password: 'joshua@123',
+//   Name: 'Trivedi',
+//   Password: 'trivedi@123',
 //   Type: 'user'
 // })
 // user.save()
