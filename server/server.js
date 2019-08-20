@@ -864,11 +864,8 @@ app.post('/chatnotification', (req, res) => {
   let SentBy = req.body.SentBy
   let SentTo = req.body.SentTo
   let date = Date.now()
-  let NotificationId = ''
+  let NotificationId = req.body.NotificationId
   let CaseNo = ''
-  console.log("Type ==>", Type)
-  console.log("SentBy ==>",SentBy)
-  console.log("SentTo ==>", SentTo)
   
   var notification = new Notification({
     Type: Type,
