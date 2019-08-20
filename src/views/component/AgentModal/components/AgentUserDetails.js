@@ -20,9 +20,9 @@ const AgentUserDetails = ({
         { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
         { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
     ]
+
+    console.log(agentsucces, 'agentsucces')
     
-
-
     return (
         <Fragment>
             {createAgentSuccess ?
