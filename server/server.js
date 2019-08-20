@@ -860,12 +860,15 @@ app.post('/savenotification', (req, res) => {
 
 
 app.post('/chatnotification', (req, res) => {
-  let Type = (req.body.Type).toString()
-  let SentBy = req.body.SentBy.toString()
-  let SentTo = req.body.SentTo.toString()
+  let Type = (req.body.Type)
+  let SentBy = req.body.SentBy
+  let SentTo = req.body.SentTo
   let date = Date.now()
   let NotificationId = ''
   let CaseNo = ''
+  console.log("Type ==>", Type)
+  console.log("SentBy ==>",SentBy)
+  console.log("SentTo ==>", SentTo)
   
   var notification = new Notification({
     Type: Type,
