@@ -860,9 +860,9 @@ app.post('/savenotification', (req, res) => {
 
 
 app.post('/chatnotification', (req, res) => {
-  let Type = req.body.Type
-  let SentBy = req.body.SentBy
-  let SentTo = req.body.SentTo
+  let Type = (req.body.Type).toString()
+  let SentBy = req.body.SentBy.toString()
+  let SentTo = req.body.SentTo.toString()
   let date = Date.now()
   let NotificationId = ''
   let CaseNo = ''
