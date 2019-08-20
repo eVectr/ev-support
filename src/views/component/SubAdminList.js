@@ -56,6 +56,14 @@ const UserList = props => {
       })
   }
 
+  let editAdmin = (id, firstname, lastname, email) =>{
+    setAgentOpen(!AgentOpen)
+    console.log("id ==>", id)
+    console.log("firstname ==>", firstname)
+    console.log(" lastname ==>", lastname)
+    console.log(" email ==>", email)
+  }
+
   return (
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
@@ -103,7 +111,8 @@ const UserList = props => {
                   
                 )
               })}
-              <td className="edit-icons"> <i class="fas fa-edit" onClick={() => setAgentOpen(!AgentOpen)}></i></td>
+              <td className="edit-icons"> <i class="fas fa-edit" onClick={() => editAdmin(d._id,d.FirstName,
+                d.LastName, d.Email, d.Password)}></i></td>
             </tr>)
         })}
 

@@ -6,6 +6,7 @@ import Select from 'react-select';
 const AgentUserDetails = ({
     agentUserDetails,
     onChangeText,
+    onEdit,
     errors,
     handleCloseOnSave,
     onChangeSelect,

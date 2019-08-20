@@ -101,6 +101,7 @@ const Notification = (props) => {
                 index === i ? { ...item, isChecked: true } : item
             ))
             allselectedarray.push(notification[i]._id)
+            console.log("all selected array =>", allselectedarray)
             setAllSelectedId(allselectedarray)
         }
     }
@@ -111,38 +112,30 @@ const Notification = (props) => {
     let deleteNotice = () => {
         if (selectedId.length > 0) {
             for (let i = 0; i < selectedId.length; i++) {
-                // axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
-             axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
+               //  axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
+                 axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
                     .then(res => {
-                        setSelectedId([])
                         setValueData(false)
-                        axios.get(`https://ev2.softuvo.xyz/getnotification`)
-                            .then(res => {
-                                const { data } = res
-                                setNotification(data)
-                            })
+                        let filteredArray = notification.filter(item => item._id !== selectedId[i])
+                        setNotification(filteredArray)
+                        setSelectedId([])
                     })
             }
         }
         else {
-            for (let i = 0; i < allSelectedId.length; i++) {
-                //axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
-                    axios.post(`https://ev2.softuvo.xyz/deletenotification`, {Id:selectedId[i]})
+               // axios.post(`http://localhost:7788/deletemanynotification`, { Id: allSelectedId })
+                    axios.post(`https://ev2.softuvo.xyz/deletemanynotification`, {Id:allSelectedId})
                     .then(res => {
-                        console.log(res, 'res')
+                        setValueData(false)
+                        let filteredArray = notification.filter(item => allSelectedId.indexOf(item._id) == -1)
+                        setNotification(filteredArray)
                         setAllSelectedId([])
-                        axios.get(`https://ev2.softuvo.xyz/getnotification`)
-                            .then(res => {
-                                console.log(res, 'resres')
-                                const { data } = res
-                                setNotification(data)
-                                setValueData(false)
-                            })
+                      
                     })
-            }
         }
        
     }
+
  
     return (
         <Container fluid>

@@ -925,6 +925,17 @@ app.post('/deletenotification', (req, res) => {
   })
 })
 
+app.post('/deletemanynotification', (req, res) => {
+  let Id = req.body.Id
+  Notification.deleteMany({ _id: { $in: Id } }, (err,data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+})
+
 app.post('/admintousermessage', (req, res) => {
 
   let SenderName = 'eVectr'

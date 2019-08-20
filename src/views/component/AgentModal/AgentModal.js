@@ -47,11 +47,15 @@ const AgentModal = (props) => {
     console.log("select ee =>", e)
    setSelect(e)
   }
-  // const [selectedFirstName, setSelectedFirstName] = useState('')
-  // const [selectedLastName, setSelectedLastName] = useState('')
-  // const [selectedEmail, setSelectedEmail] = useState('')
-  // const [selectedPassword, setSelectedPassword] = useState('')
-  // const [selectedType, setSelectedType] = useState([])
+  
+  let onEdit = (firstName , LastName, email, password) =>{
+    agentUserDetailsData({
+      first_name: firstName,
+      last_name: LastName,
+      email: email,
+      password: password
+    })
+  }
 
   const styles = {
     fontFamily: 'sans-serif',
@@ -146,7 +150,8 @@ const AgentModal = (props) => {
     handleCloseOnSave,
     onChangeSelect,
     agentsucces,
-    createAgentSuccess
+    createAgentSuccess,
+    onEdit
     // inputTagValue,
     // tagsHandleChange,
     // onTagsInputChange
