@@ -137,6 +137,7 @@ const Notification = (props) => {
         }
        
     }
+    console.log (selectedId.length, 'selectedId.length863871263871637861238612873687126387126378')
     return (
         <Container fluid>
            <Row className="notify-table">
