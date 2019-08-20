@@ -381,9 +381,7 @@ const AdminPanel = (props) => {
                       <button className='view' onClick={() => showAdminTicket(contact.Case_No)}>
                         View
                       </button>
-                      <div />
-                      <button className='assign'>Assign</button>
-                      <div />
+                     
                     </div>
                   </td>
                 </tr>
