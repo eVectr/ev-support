@@ -870,7 +870,7 @@ app.post('/chatnotification', (req, res) => {
   var notification = new Notification({
     Type: Type,
     Date: date,
-    SentBy: SentBy[0],
+    SentBy: SentBy,
     SentTo: SentTo,
     Action: 'SEE MESSAGE',
     FontStyle: false,
