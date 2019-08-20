@@ -22,6 +22,7 @@ const Notification = (props) => {
           //axios.get(`http://localhost:7788/getnotification`)
           axios.get(`https://ev2.softuvo.xyz/getnotification`)
           .then(res => {
+            setshowLoader(false)
               if(res.data.length < 1){
                   setisNoNotification(true)
               }else{
@@ -31,7 +32,7 @@ const Notification = (props) => {
                               const updated = prev.concat(res.data[i])
                               return updated
                           })
-                          setshowLoader(false)
+                          
                       }
                   }
                   setTotalItemsCount(res.data.length)
