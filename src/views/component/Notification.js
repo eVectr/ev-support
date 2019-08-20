@@ -18,12 +18,10 @@ const Notification = (props) => {
         setValueData(e.target.checked)
     }
     useEffect(() => {
+        setshowLoader(true)
           //axios.get(`http://localhost:7788/getnotification`)
          axios.get(`https://ev2.softuvo.xyz/getnotification`)
             .then(res => {
-                if(res.data.length < 1){
-                    setisNoNotification(true)
-                }else{
                     for (let i = 0; i < res.data.length; i++) {
                         if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
                             setNotification(prev => {
@@ -34,7 +32,7 @@ const Notification = (props) => {
                         }
                     }
                     setTotalItemsCount(res.data.length)
-                }
+                
             
             })
     }, [])
@@ -146,11 +144,11 @@ const Notification = (props) => {
     return (
         <Container fluid>
            <Row className="notify-table">
-           <Fragment>{isNoNotification ?
-                <div className="no-msg-list"><h3>No Notification</h3></div> :
+           {/* <Fragment>{isNoNotification ?
+                <div className="no-msg-list"><h3>No Notification</h3></div> : */}
             <Col>
                 <Fragment>
-                    {showLoader ?
+                    {showLoader?
                         <div className='loader-img'>
                             <img src={require('../../images/loader.gif')} />
                         </div> :
@@ -214,7 +212,7 @@ const Notification = (props) => {
                             </div>  
                       }</Fragment>     
              </Col>
-            }</Fragment>
+            {/* }</Fragment> */}
             </Row>    
         </Container>
     )
