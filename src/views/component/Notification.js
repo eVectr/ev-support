@@ -20,7 +20,7 @@ const Notification = (props) => {
     useEffect(() => {
         setshowLoader(true)
           //axios.get(`http://localhost:7788/getnotification`)
-          axios.get(`http://54.165.185.4:7788/getnotification`)
+          axios.get(`https://ev2.softuvo.xyz/getnotification`)
           .then(res => {
               if(res.data.length < 1){
                   setisNoNotification(true)
