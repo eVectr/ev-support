@@ -89,9 +89,9 @@ const UserList = props => {
                 let Type = type.label
                 console.log("Type ===", Type)
                 return(
-                  <div className="type-subadmin">
+                  <td className="type-subadmin">
                      {Type}
-                  </div>
+                  </td>
                   
                 )
               })}

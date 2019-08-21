@@ -443,3 +443,6 @@ select{
     padding: 0 !important;
     vertical-align: middle;
 }
+.inner-containers .col {
+    padding: 0;
+}
