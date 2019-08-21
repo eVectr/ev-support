@@ -66,8 +66,8 @@ const ContactForm = (props) => {
         date,
         Case_No,
         Link,
-        Reason: props.notificationreducer.selectedReason.name,
-        Template: props.notificationreducer.selectedReason.template })
+        Reason: props.showNotificationReducer.selectedReason.data.name,
+        Template: props.showNotificationReducer.selectedReason.data.template })
         .then(res => {
           console.log('res ===========>', res)
           setShowFlashMsg(true)
@@ -171,4 +171,4 @@ const ContactForm = (props) => {
     </div>
   )
 }
-export default connect(state => state)(ContactForm)
+export default connect(state => ({showNotificationReducer: state.showNotificationReducer}))(ContactForm)

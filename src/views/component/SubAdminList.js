@@ -9,10 +9,6 @@ import '../../styles/Userlist.css'
 import AgentModal from './AgentModal/AgentModal';
 import { subAdminDetail } from '../../redux/actions/SubAdminDetail/SubAdminDetails';
 
-
-
-
-
 const UserList = props => {
   const styles = {
     fontFamily: 'sans-serif',
@@ -68,18 +64,16 @@ const UserList = props => {
   let editAdmin = (selectedItem) =>{
     setSelectedItem(selectedItem)
     setAgentOpen(!AgentOpen)
-    // let data = {
-    //   id:id,
-    //   first_name:firstname,
-    //   last_name:lastname,
-    //   email:email,
-    //   password:Password
-    // }
-    // props.dispatch(subAdminDetail(data))
-    // console.log("id ==>", id)
-    // console.log("firstname ==>", firstname)
-    // console.log(" lastname ==>", lastname)
-    // console.log(" email ==>", email)
+  }
+  let emptyItem  = () => {
+    setSelectedItem('')
+  }
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(!user){
+    
+    return null
+  }else if(user.Type == 'user'){
+    props.history.push('/contact')
   }
   let user = JSON.parse(localStorage.getItem('user'))
   if(!user){
@@ -91,7 +85,7 @@ const UserList = props => {
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
         <Col>
-            <AgentModal selectedItem = {selectedItem} editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
+            <AgentModal selectedItem = {selectedItem} emptyItem={ emptyItem } editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
             <Button onClick={() => setAgentOpen(!AgentOpen)}> <i class="fas fa-user-plus"></i></Button>
         </Col>
       </div>

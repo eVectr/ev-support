@@ -118,13 +118,14 @@ const ModalUi = props => {
        axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
         setFileNames([])
-       // axios.post(`http://localhost:7788/usertousermessage`, {
+        //axios.post(`http://localhost:7788/usertousermessage`, {
         axios.post(`https://ev2.softuvo.xyz/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
         ReceiverId: selectedUserId,
         ReceiverName: selectedUserName,
-        Message: Message
+        Message: Message,
+        Subject:subject
       })
         .then(res => {
           props.handleSentMessage()

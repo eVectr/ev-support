@@ -783,6 +783,7 @@ app.post('/messagelogs', (req, res) => {
 // })
 
 app.post('/usertousermessage', (req, res) => {
+  let Subject = req.body.Subject
   let Id = req.body.Id
   let SenderName = req.body.SenderName
   let SenderId = req.body.SenderId
@@ -800,7 +801,8 @@ app.post('/usertousermessage', (req, res) => {
     ReceiverName: ReceiverName,
     Message: Message,
     Date: date,
-    Document: Document
+    Document: Document,
+    Subject:Subject
   })
   usermessage.save((err, data) => {
     if (err) {
@@ -1202,6 +1204,23 @@ app.post('/saveagent', (req, res) => {
     }else{
       console.log("data ==>", data)
       res.send(data)
+    }
+  })
+})
+
+app.post('/updateAgent', (req, res) => {
+  let Id = req.body.Id
+  let FirstName = req.body.FirstName 
+  let LastName = req.body.LastName
+  let Password = req.body.Password
+  let Email = req.body.Email
+  let Type = req.body.Type
+  SupportAgent.findOneAndUpdate({_id: Id}, {$set:{FirstName:  FirstName, LastName: LastName,
+    Password: Password, Email:Email, Type:Type}}, {new: true}, (err, doc) => {
+    if(err){
+      res.send(err)
+    }else{
+      res.send("done")
     }
   })
 })

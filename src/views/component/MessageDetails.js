@@ -132,6 +132,10 @@ const MessageDetails = (props) => {
       window.open(url)
     }
 
+    console.log("sent message =>", sentMessage)
+    console.log("user message =>", userMessage)
+    console.log("admin message =>", adminMessage)
+
   return (
     <div className="messagedetail">
       <Row className="message-mail">
@@ -314,6 +318,28 @@ const MessageDetails = (props) => {
                             {sentMessage.Message}
                           </p>
                         </div>
+                        {
+                          sentMessage.Document?
+                        <Fragment>
+                        {
+                          sentMessage.Document.map((doc, index )=>{
+                            let getdoc = doc.split('/')[1]
+                            let url = 'https://ev2.softuvo.xyz/'
+                            //let url = 'http://localhost:7788/'
+                            let docurl = url.concat(getdoc)
+                            return (
+                            
+                                <ul>
+                                  <li>
+                                   <a  onClick ={() => openAttachement(docurl)}>Attachment</a>
+                                  </li>
+                                </ul>
+                          )
+                          })
+                        }
+                        </Fragment>
+                        :''
+                        }
                       </div>
                     </div>
                     </div>

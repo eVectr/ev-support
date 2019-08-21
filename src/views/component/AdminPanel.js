@@ -51,13 +51,8 @@ const AdminPanel = (props) => {
       .then(res => {
         setTotalContact(res.data.length)
       })
-      let user = JSON.parse(localStorage.getItem('user'))
-    if (localStorage.length > 0) {
-      let { Type = '' } = user || {}
-      if (Type == 'admin') {
-        props.history.push('/admin')
-      }
-    }
+     
+
   }, [])
 
   useEffect(() => {

@@ -21,18 +21,6 @@ const AgentModal = (props) => {
     type: ''
   })
 
-  // useEffect(() => {
-  //   const { subAdminDetailsReducer } = props
-  //   const { adminDetails } = subAdminDetailsReducer
-  //   const { first_name, last_name, email, password } = adminDetails
-  //   agentUserDetailsData({
-  //     first_name,
-  //     last_name,
-  //     email,
-  //     password
-  //   })
-  //  }, [])
-  
   const onChangeText = e => {
     agentUserDetailsData({
       ...agentUserDetails,
@@ -45,15 +33,6 @@ const AgentModal = (props) => {
   const onChangeSelect = e => {
     console.log("select ee =>", e)
    setSelect(e)
-  }
-  
-  let onEdit = (firstName , LastName, email, password) =>{
-    agentUserDetailsData({
-      FirstName: firstName,
-      LastName: LastName,
-      Email: email,
-      Password: password
-    })
   }
 
   const styles = {
@@ -87,24 +66,46 @@ const AgentModal = (props) => {
       }, 1000)
       agentUserDetailsData('')
       })
-      axios.post(`https://ev2.softuvo.xyz/saveagent`, {
-      //axios.post(`http://localhost:7788/saveagent`, {
-        FirstName: agentUserDetails.FirstName,
-        LastName: agentUserDetails.LastName,
-        Password: agentUserDetails.Password,
-        Type: select,
-        Email: agentUserDetails.Email,
-        TicketId: []
-
-      })
-        .then(res => {
-          props.fetchadmin()
-        })
-
-        .then(res => {
-          setErrors('')
-          console.log("agentUser ==>", res)
-        })
+      if(props.selectedItem._id == ''){
+        axios.post(`https://ev2.softuvo.xyz/saveagent`, {
+        //  axios.post(`http://localhost:7788/saveagent`, {
+            FirstName: agentUserDetails.FirstName,
+            LastName: agentUserDetails.LastName,
+            Password: agentUserDetails.Password,
+            Type: select,
+            Email: agentUserDetails.Email,
+            TicketId: []
+          })
+            .then(res => {
+              props.fetchadmin()
+              // agentUserDetailsData('')
+              props.emptyItem()
+            })
+            .then(res => {
+              setErrors('')
+              console.log("agentUser ==>", res)
+            })
+      }else{
+        axios.post(`https://ev2.softuvo.xyz/saveagent`, {
+        //  axios.post(`http://localhost:7788/saveagent`, {
+            Id: props.selectedItem._id,
+            FirstName: agentUserDetails.FirstName,
+            LastName: agentUserDetails.LastName,
+            Password: agentUserDetails.Password,
+            Type: select,
+            Email: agentUserDetails.Email,
+            TicketId: []
+          })
+            .then(res => {
+              props.fetchadmin()
+              // agentUserDetailsData('')
+              props.emptyItem()
+            })
+            .then(res => {
+              setErrors('')
+              console.log("agentUser ==>", res)
+            })
+      }
     }
   }
 
@@ -116,15 +117,16 @@ const AgentModal = (props) => {
     onChangeSelect,
     agentsucces,
     createAgentSuccess,
-    onEdit
+    agentUserDetailsData,
   }
+  console.log("selected ite m ==>", props.selectedItem._id)
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal} classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
-          <h2>Create SubAdmin</h2>
-          <AgentUserDetails  onEdit ={props.editAdmin} {...AgentModalProps}
+          <h2>Create Agent</h2>
+          <AgentUserDetails selectedItem={props.selectedItem} {...AgentModalProps}
           />
         </div>
 

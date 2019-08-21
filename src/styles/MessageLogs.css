@@ -300,6 +300,8 @@ svg.styles_closeIcon__1QwbI path {
     padding: 0px;
     transform: translate(0px, -15px);
     display: inline-block;
+    line-height: 0px;
+
 }
 .conversation-mess {
     padding: 5px 10px;
@@ -308,10 +310,18 @@ svg.styles_closeIcon__1QwbI path {
     width: 100%;
     max-height: 100%;
     margin-top: 15px;
+    padding-bottom: 25px;
 }
 .conversation-mess  ul {
+<<<<<<< HEAD
     line-height: 20px;
     padding-left: 14px;
+=======
+    margin: 0px;
+    padding-left: 15px;
+    padding: 0;
+    line-height: 0px;
+>>>>>>> support-test
 }
 .name-table {
     width: 200px;
@@ -614,4 +624,8 @@ button:focus {
     cursor: pointer;
     color: #124bbf !important;
     font-size: 18px !important;
+<<<<<<< HEAD
 }
+=======
+ }
+>>>>>>> support-test
