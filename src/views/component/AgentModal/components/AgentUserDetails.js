@@ -33,7 +33,7 @@ const AgentUserDetails = ({
         { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
         { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
     ]
-    console.log(agentsucces, 'agentsucces')
+ 
     
     return (
         <Fragment>
@@ -45,16 +45,11 @@ const AgentUserDetails = ({
                     </div>
                 </div> :
                 <div className='modal-inner'>
-                    <FormGroup row>
-                        <Col sm={10}>
-                            <Input hidden/>
-                            {/* <p className="error-msg">{(errors.first_name && errors.first_name[0] || '')}</p> */}
-                        </Col>
-                    </FormGroup>
+                    
                     <FormGroup row>
                         <Label for="exampleEmail">First Name</Label>
                         <Col sm={10}>
-                        <Input type="First name" name="Id" id="Id" value={agentUserDetails.Id} />
+                        <input type="text" id="custId" name="custId" value={selectedItem._id}></input>
                             <Input type="First name" name="FirstName" id="exampleEmail" placeholder="First Name" value={agentUserDetails.FirstName} onChange={onChangeText} />
                             <p className="error-msg">{(errors.FirstName && errors.FirstName[0] || '')}</p>
                         </Col>

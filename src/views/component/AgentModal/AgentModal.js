@@ -66,25 +66,46 @@ const AgentModal = (props) => {
       }, 1000)
       agentUserDetailsData('')
       })
-      axios.post(`https://ev2.softuvo.xyz/saveagent`, {
-      //axios.post(`http://localhost:7788/saveagent`, {
-        FirstName: agentUserDetails.FirstName,
-        LastName: agentUserDetails.LastName,
-        Password: agentUserDetails.Password,
-        Type: select,
-        Email: agentUserDetails.Email,
-        TicketId: []
-      })
-        .then(res => {
-          props.fetchadmin()
-          // agentUserDetailsData('')
-          props.emptyItem()
-        })
-
-        .then(res => {
-          setErrors('')
-          console.log("agentUser ==>", res)
-        })
+      if(props.selectedItem._id == ''){
+        axios.post(`https://ev2.softuvo.xyz/saveagent`, {
+        //  axios.post(`http://localhost:7788/saveagent`, {
+            FirstName: agentUserDetails.FirstName,
+            LastName: agentUserDetails.LastName,
+            Password: agentUserDetails.Password,
+            Type: select,
+            Email: agentUserDetails.Email,
+            TicketId: []
+          })
+            .then(res => {
+              props.fetchadmin()
+              // agentUserDetailsData('')
+              props.emptyItem()
+            })
+            .then(res => {
+              setErrors('')
+              console.log("agentUser ==>", res)
+            })
+      }else{
+        axios.post(`https://ev2.softuvo.xyz/saveagent`, {
+        //  axios.post(`http://localhost:7788/saveagent`, {
+            Id: props.selectedItem._id,
+            FirstName: agentUserDetails.FirstName,
+            LastName: agentUserDetails.LastName,
+            Password: agentUserDetails.Password,
+            Type: select,
+            Email: agentUserDetails.Email,
+            TicketId: []
+          })
+            .then(res => {
+              props.fetchadmin()
+              // agentUserDetailsData('')
+              props.emptyItem()
+            })
+            .then(res => {
+              setErrors('')
+              console.log("agentUser ==>", res)
+            })
+      }
     }
   }
 
@@ -98,6 +119,7 @@ const AgentModal = (props) => {
     createAgentSuccess,
     agentUserDetailsData,
   }
+  console.log("selected ite m ==>", props.selectedItem._id)
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}

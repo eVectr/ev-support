@@ -1208,6 +1208,23 @@ app.post('/saveagent', (req, res) => {
   })
 })
 
+app.post('/updateAgent', (req, res) => {
+  let Id = req.body.Id
+  let FirstName = req.body.FirstName 
+  let LastName = req.body.LastName
+  let Password = req.body.Password
+  let Email = req.body.Email
+  let Type = req.body.Type
+  SupportAgent.findOneAndUpdate({_id: Id}, {$set:{FirstName:  FirstName, LastName: LastName,
+    Password: Password, Email:Email, Type:Type}}, {new: true}, (err, doc) => {
+    if(err){
+      res.send(err)
+    }else{
+      res.send("done")
+    }
+  })
+})
+
 app.get('/findagent', (req, res) => {
   SupportAgent.find({}, null,
     {sort: { Date: -1 } }, function (err, data) {

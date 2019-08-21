@@ -3,9 +3,7 @@ import { Container, Row, Col, Card,Input } from 'reactstrap'
 
 const Document = ({ contacts }) => {
 
-  let openLink = (url) =>{
-    window.open(url)
-  }
+  
 
   return (
     <Container>
@@ -95,7 +93,7 @@ const Document = ({ contacts }) => {
               <Col md='6' className='links-data'>
                   <ul>
                     <li>
-                    <a href = {newurl}>{newurl}</a>
+                    <a href = {url}>{url}</a>
                     </li>
                   </ul>
               </Col>
