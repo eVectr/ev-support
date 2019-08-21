@@ -18,6 +18,13 @@ const Notification = (props) => {
         setValueData(e.target.checked)
     }
     useEffect(() => {
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (localStorage.length > 0) {
+          let { Type = '' } = user || {}
+          if (Type == 'admin') {
+            props.history.push('/admin')
+          }
+        }
         setshowLoader(true)
           //axios.get(`http://localhost:7788/getnotification`)
           axios.get(`https://ev2.softuvo.xyz/getnotification`)
@@ -26,16 +33,16 @@ const Notification = (props) => {
               if(res.data.length < 1){
                   setisNoNotification(true)
               }else{
-                  for (let i = 0; i < res.data.length; i++) {
-                      if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                          setNotification(prev => {
-                              const updated = prev.concat(res.data[i])
-                              return updated
-                          })
+                //   for (let i = 0; i < res.data.length; i++) {
+                //       if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
+                //           setNotification(prev => {
+                //               const updated = prev.concat(res.data[i])
+                //               return updated
+                //           })
                           
-                      }
-                  }
-                  setTotalItemsCount(res.data.length)
+                //       }
+                //   }
+                //   setTotalItemsCount(res.data.length)
               }
           })
     }, [])
@@ -136,6 +143,13 @@ const Notification = (props) => {
        
     }
 
+    let user = JSON.parse(localStorage.getItem('user'))
+    if(!user){
+        props.history.push('/')
+     }
+    //else{
+    //     props.history.push('/')
+    // }
  
     return (
         <Container fluid>

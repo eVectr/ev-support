@@ -35,7 +35,7 @@ th.head-text {
     line-height: 18px;
     overflow: hidden;
     font-size: 15px;
-    padding-top: 13px !important;
+    padding-top: 3px !important;
 }
 .edit-icons {
     text-align: center !important;
@@ -55,4 +55,7 @@ th.head-text {
 }
 .edit-icons i {
     cursor: pointer;
+}
+.userlist-show .row {
+    display: inherit;
 }

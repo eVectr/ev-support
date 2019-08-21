@@ -98,7 +98,12 @@ const ContactForm = (props) => {
   // if (props.notificationreducer.selectedReason == undefined) {
   //   props.history.push('/contact')
   // }
-
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(!user) {
+    props.history.push('/')
+  }else if(user.Type == 'admin'){
+    props.history.push('/admin')
+  }
   return (
     <div className='form-container homeForms'>
       <div className='contact-form'>

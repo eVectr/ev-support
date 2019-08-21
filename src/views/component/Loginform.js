@@ -27,18 +27,18 @@ const Loginform = (props) => {
     setErrors({})
   }
 
-  useEffect(() => {
-    let user = JSON.parse(localStorage.getItem('user'))
-    let { Type = '' } = user || {}
+  // useEffect(() => {
+    // let user = JSON.parse(localStorage.getItem('user'))
+    // let { Type = '' } = user || {}
 
-    if (Type == 'admin') {
-      props.history.push('/contact')
-    }
+    // if (Type == 'admin') {
+    //   props.history.push('/admin')
+    // }
 
-    if (Type == 'user') {
-      props.history.push('/contact')
-    }
-  }, [])
+    // if (Type == 'user') {
+    //   props.history.push('/contact')
+    // }
+  // }, [])
 
   const onLogin = () => {
     const errors = loginValidation(data)
@@ -58,6 +58,7 @@ const Loginform = (props) => {
         if (res.data.check) {
           if (res.data.data[0].Type == 'user') {
             localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+            
             props.history.push('/contact')
             props.dispatch(userDetailsAction(res.data))
             props.dispatch(showNotificationAction({
@@ -81,6 +82,16 @@ const Loginform = (props) => {
       })
   }
 
+  let user = JSON.parse(localStorage.getItem('user'))
+  console.log(user,'user00')
+  if(user){
+   if(user.Type == 'user'){
+    props.history.push('/contact')
+  }
+  else if(user.Type == 'admin'){
+    props.history.push('/admin')
+  }
+  }
   return (
     <div className='login-form'>
       <div className="log-form">

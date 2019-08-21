@@ -31,6 +31,12 @@ const UserList = props => {
         setshowLoader(false)
          setSubAdmin(res.data)
       })
+      let user = JSON.parse(localStorage.getItem('user'))
+      if (localStorage.length < 1) {
+        props.history.push('/')
+      }else{
+      
+      }
      
   }, [])
 
@@ -75,7 +81,12 @@ const UserList = props => {
     // console.log(" lastname ==>", lastname)
     // console.log(" email ==>", email)
   }
-
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(!user){
+    return null
+  } else if(user.Type == 'user'){
+    props.history.push('/contact')
+  }
   return (
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">

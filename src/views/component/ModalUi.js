@@ -234,7 +234,7 @@ const onDrop = (files) => {
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={onCloseModal} classNames={'sent-modal'} center >
         { props.type == 'user' && !showSuccessModal ?
-        <div className='sent-modal'>
+        <div className='sent-modal compose-message'>
           <h2>New Message</h2>
           <div className='modal-inner'>
           <div className="send-user-details-inner">
