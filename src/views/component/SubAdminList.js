@@ -62,6 +62,13 @@ const UserList = props => {
   let emptyItem  = () => {
     setSelectedItem('')
   }
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(!user){
+    
+    return null
+  }else if(user.Type == 'user'){
+    props.history.push('/contact')
+  }
 
   return (
     <Container style={styles} className="userlist-show" >

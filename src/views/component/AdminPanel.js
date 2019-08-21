@@ -51,15 +51,8 @@ const AdminPanel = (props) => {
       .then(res => {
         setTotalContact(res.data.length)
       })
-      let user = JSON.parse(localStorage.getItem('user'))
-    if (localStorage.length > 0) {
-      let { Type = '' } = user || {}
-      if (Type !== 'admin') {
-        props.history.push('/contact')
-      }
-    }else{
-      props.history.push('/')
-    }
+     
+
   }, [])
 
   useEffect(() => {
@@ -279,6 +272,14 @@ const AdminPanel = (props) => {
  
   let totalPages = Math.ceil(totalContact / limit)
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
+
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(!user){
+    return null
+  }else if(user.Type == 'user'){
+    
+    props.history.push('/contact')
+  }
  
   return (
     <div className="containers">
