@@ -90,12 +90,12 @@ const Document = ({ contacts }) => {
         </Fragment>
          {contacts[0].Link.length ? (
             contacts[0].Link.map(url => {
-              console.log("url ==>", url)
+              let newurl = 'http://'.concat(url)
               return (
               <Col md='6' className='links-data'>
                   <ul>
                     <li>
-                    <a onClick = {() =>openLink(url)}>{url}</a>
+                    <a href = {newurl}>{newurl}</a>
                     </li>
                   </ul>
               </Col>
