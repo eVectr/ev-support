@@ -64,7 +64,6 @@ const UserList = props => {
   }
   let user = JSON.parse(localStorage.getItem('user'))
   if(!user){
-    
     return null
   }else if(user.Type == 'user'){
     props.history.push('/contact')
