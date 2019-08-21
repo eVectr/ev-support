@@ -21,10 +21,6 @@ const AgentUserDetails = ({
         { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
         { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
     ]
-    
-
-    
-
     console.log(agentsucces, 'agentsucces')
     
     return (
@@ -37,6 +33,12 @@ const AgentUserDetails = ({
                     </div>
                 </div> :
                 <div className='modal-inner'>
+                    <FormGroup row>
+                        <Col sm={10}>
+                            <Input hidden/>
+                            <p className="error-msg">{(errors.first_name && errors.first_name[0] || '')}</p>
+                        </Col>
+                    </FormGroup>
                     <FormGroup row>
                         <Label for="exampleEmail">First Name</Label>
                         <Col sm={10}>

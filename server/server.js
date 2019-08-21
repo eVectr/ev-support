@@ -912,6 +912,20 @@ app.get('/getnotification', (req, res) => {
 //   })
 // })
 
+
+app.post('/updatenotification', (req, res) => {
+  let Id = req.body.Id
+  let SentId = req.body.SentId
+  SupportAgent.findByIdAndUpdate({_id: Id}, {$pull: {SentTo: SentId}}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
+
 app.post('/deletenotification', (req, res) => {
   let Id = req.body.Id
   Notification.findOneAndRemove({ _id: Id }, (err, data) => {
@@ -927,10 +941,10 @@ app.post('/deletenotification', (req, res) => {
 
 app.post('/deletemanynotification', (req, res) => {
   let Id = req.body.Id
-  Notification.deleteMany({ _id: { $in: Id } }, (err,data) =>{
-    if(err){
+  Notification.deleteMany({ _id: { $in: Id } }, (err, data) => {
+    if (err) {
       res.send(err)
-    }else{
+    } else {
       res.send(data)
     }
   })

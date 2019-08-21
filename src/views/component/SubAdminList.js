@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
@@ -6,6 +7,7 @@ import NoticePagination from './NoticePagination'
 import { Col, Button, Row, Form, FormGroup, Label, Input, FormText, Table,Container } from 'reactstrap'
 import '../../styles/Userlist.css'
 import AgentModal from './AgentModal/AgentModal';
+import { subAdminDetail } from '../../redux/actions/SubAdminDetail/SubAdminDetails';
 
 
 
@@ -56,8 +58,16 @@ const UserList = props => {
       })
   }
 
-  let editAdmin = (id, firstname, lastname, email) =>{
+  let editAdmin = (id, firstname, lastname, email, Password) =>{
     setAgentOpen(!AgentOpen)
+    let data = {
+      id:id,
+      firstname:firstname,
+      lastname:lastname,
+      email:email,
+      Password:Password
+    }
+    props.dispatch(subAdminDetail(data))
     console.log("id ==>", id)
     console.log("firstname ==>", firstname)
     console.log(" lastname ==>", lastname)
@@ -68,7 +78,7 @@ const UserList = props => {
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
         <Col>
-            <AgentModal fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
+            <AgentModal editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
             <Button onClick={() => setAgentOpen(!AgentOpen)}> <i class="fas fa-user-plus"></i></Button>
         </Col>
       </div>
@@ -101,16 +111,21 @@ const UserList = props => {
               <td>{d.FirstName}</td>
               <td>{d.LastName}</td>
               <td>{d.Email}</td>
-              {d.Type.map((type, index)=>{
-                let Type = type.label
-                console.log("Type ===", Type)
-                return(
-                  <div className="type-subadmin">
-                     {Type}
-                  </div>
-                  
-                )
-              })}
+              <td>{d.Type.length < 1? 'Not Assigned':
+                <Fragment>
+                 {d.Type.map((type, index)=>{
+                  let Type = type.label
+                  console.log("Type ===", Type)
+                  return(
+                    <div className="type-subadmin">
+                       {Type}
+                    </div>
+                    
+                  )
+                })}
+                </Fragment>
+              }</td>
+             
               <td className="edit-icons"> <i class="fas fa-edit" onClick={() => editAdmin(d._id,d.FirstName,
                 d.LastName, d.Email, d.Password)}></i></td>
             </tr>)
@@ -132,4 +147,8 @@ const UserList = props => {
     </Container>
   )
 }
-export default UserList
+export default connect(
+  state => ({
+    dispatch: state.dispatch
+  })
+)(UserList)

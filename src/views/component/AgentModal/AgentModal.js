@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
@@ -7,7 +8,7 @@ import is from 'is_js'
 import AgentUserDetails from './components/AgentUserDetails';
 
 const AgentModal = (props) => {
-  console.log(props, 'props')
+  console.log(props, 'props1234')
   const [isOpen, setIsOpen] = useState(false)
   // const options = [
   //   { value: 'Standard', label: 'Standard' },
@@ -25,15 +26,10 @@ const AgentModal = (props) => {
     password: '',
     type: ''
   })
-  // const tagsHandleChange = tags => agentUserDetailsData({ tags })
 
-  // const onTagsInputChange = inputTagValue => {
-  //   setInputTagValue(inputTagValue)
-  //   setErrors({
-  //     tags: []
-  //   })
-  // }
-
+  useEffect(() => {
+   }, [])
+  
   const onChangeText = e => {
     agentUserDetailsData({
       ...agentUserDetails,
@@ -118,8 +114,6 @@ const AgentModal = (props) => {
         .then(res => {
           setErrors('')
           console.log("agentUser ==>", res)
-
-
         })
     }
   }
@@ -156,15 +150,13 @@ const AgentModal = (props) => {
     // tagsHandleChange,
     // onTagsInputChange
   }
-
-
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal} classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
           <h2>Create Agent</h2>
-          <AgentUserDetails {...AgentModalProps}
+          <AgentUserDetails  onEdit ={props.editAdmin} {...AgentModalProps}
           />
         </div>
 
@@ -173,4 +165,8 @@ const AgentModal = (props) => {
   )
 }
 
-export default AgentModal
+export default connect(
+  state => ({
+    subAdminDetailsReducer: state.subAdminDetailsReducer
+  })
+)(AgentModal)
