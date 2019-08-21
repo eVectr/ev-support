@@ -5,7 +5,6 @@ import moment from 'moment'
 import { Row, Col } from 'reactstrap'
 
 const MessageDetails = (props) => {
-
   const [userMessage, setUserMessage] = useState([])
   const [userMessageLogs, setUserMessageLogs] = useState([])
   const [adminMessage, setAdminMessage] = useState([])
@@ -15,6 +14,8 @@ const MessageDetails = (props) => {
   const [showLoader, setshowLoader] = useState(true)
   const [conversation, setConversation] = useState([])
   const [Errors, setErrors] = useState('')
+  const [sendId, setSendId] = useState('')
+ // const [mid, setmid] = useState('5d5a46bfa45e307d62ad3ebf')
 
   useEffect(() => {
     // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverName: JSON.parse(localStorage.user).Name })
@@ -24,23 +25,24 @@ const MessageDetails = (props) => {
     //     }
     //   })
     //axios.post(`http://localhost:7788/getadminmessagebyId`, { Id: props.messageId })
-    axios.post(`http://54.165.185.4:7788/getadminmessagebyId`, { Id: props.messageId })
+    axios.post(`https://ev2.softuvo.xyz/getadminmessagebyId`, { Id: props.messageId })
       .then(res => {
         setAdminMessage(res.data[0])
       })
     // axios.post(`http://localhost:7788/getsentmessagebyId`, { Id: props.messageId })
-    axios.post(`http://54.165.185.4:7788/getsentmessagebyId`, { Id: props.messageId })
+    axios.post(`https://ev2.softuvo.xyz/getsentmessagebyId`, { Id: props.messageId })
       .then(res => {
+        console.log("message id ==>", res)
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
         setshowLoader(false)
         // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
-        axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
+        axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
           .then(res => {
             setUserMessageLogs(res.data)
           })
       })
-      axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
+      axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
       //axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
       .then(res => {
         setConversation(res.data)
@@ -53,28 +55,29 @@ const MessageDetails = (props) => {
 
   useEffect(() => {
     if (props.showCase === 1) {
+      //if (testcase === 1) {
       //  axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
-      axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: userMessage._id })
+      axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
           setUserMessageLogs(res.data)
         })
       setshowLoader(false)
       // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: props.logsId })
-      axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: props.logsId })
-        .then(res => {
-          setUserMessageLogs(res.data)
-        })
+      // axios.post(`http://54.165.185.4:7788/getusermessagelogs`, { Id: props.logsId })
+      //   .then(res => {
+      //     setUserMessageLogs(res.data)
+      //   })
     }
   }, [userMessage])
 
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea)
   }
-  let sendReply = () => {
+  let sendReply = (caseNo) => {
     if (replyMessage == '') {
       setErrors('Please fill in this filed')
     } else {
-      axios.post(`http://54.165.185.4:7788/createconversation`, {
+      axios.post(`https://ev2.softuvo.xyz/createconversation`, {
        // axios.post(`http://localhost:7788/createconversation`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName:JSON.parse(localStorage.user).Name,
@@ -85,18 +88,32 @@ const MessageDetails = (props) => {
       })
       .then(res =>{
         setReplyMessage('')
-        axios.post(`http://54.165.185.4:7788/findconversation`, { ConvId: props.messageId })
+        axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
        // axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
         .then(res => {
           setConversation(res.data)
         })
       })
-      axios.post(`http://54.165.185.4:7788/savenotification`, {
-       // axios.post(`http://54.165.185.4:7788/savenotification`, {
-        Type: 'User to User Message',
-        SentBy: JSON.parse(localStorage.user).Name,
-        SentTo: userMessage.ReceiverId,
-      })
+      if(caseNo == '1'){
+         axios.post(`https://ev2.softuvo.xyz/savenotification`, {
+         // axios.post(`http://localhost:7788/savenotification`, {
+            Type: 'User to User Message',
+            SentBy: JSON.parse(localStorage.user).Name,
+            SentTo: userMessage.SenderId,
+            NotificationId:props.messageId,
+            CaseNo:'2'
+          })
+      }else{
+         axios.post(`https://ev2.softuvo.xyz/savenotification`, {
+         // axios.post(`http://localhost:7788/savenotification`, {
+            Type: 'User to User Message',
+            SentBy: JSON.parse(localStorage.user).Name,
+            SentTo: userMessage.ReceiverId,
+            NotificationId:props.messageId,
+            CaseNo:'1'
+          })
+      }
+     
       setErrors('success')
       setshowLoader(false)
     }
@@ -111,12 +128,15 @@ const MessageDetails = (props) => {
     document.getElementById('last-msg') && document.getElementById('last-msg').scrollIntoView();
     }
   
-console.log("reply message =>", replyMessage)
-console.log("admin message =>", adminMessage)
+    let openAttachement =(url) =>{
+      window.open(url)
+    }
+
   return (
     <div className="messagedetail">
       <Row className="message-mail">
         {props.showCase == '1' ?
+        //  {testcase == '1' ?
           <Fragment>
             {showLoader ?
               <div className='loader-img'>
@@ -124,7 +144,7 @@ console.log("admin message =>", adminMessage)
               </div> :
               <Col md="10" className="message-deatil-inner">
                   <div className="subject-mail-head">
-                    <label>Subject:</label><span>hi their is subject</span>
+                    <label>Subject:</label><span>{userMessage.Subject == undefined ?'N/A':userMessage.Subject }</span>
                   </div>
                 <div className="message-outer">
                   <div className="conversation-mess">
@@ -152,7 +172,7 @@ console.log("admin message =>", adminMessage)
                             
                                 <ul>
                                   <li>
-                                   <a href ={docurl}>Attachment</a>
+                                   <a href onClick ={() => openAttachement(docurl)}>Attachment</a>
                                   </li>
                                 </ul>
                           )
@@ -187,7 +207,7 @@ console.log("admin message =>", adminMessage)
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className="head-mess">
-                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -206,7 +226,7 @@ console.log("admin message =>", adminMessage)
                 {
                   showTextArea ? <div className="reply-detail-text">
                     <textarea placeholder="input reply" value ={replyMessage} onChange={(e) => onReplyChange(e)}></textarea>
-                    <button className="message-btn btn btn-secondary" onClick={sendReply}>Reply</button>
+                    <button className="message-btn btn btn-secondary" onClick={() =>sendReply('1')}>Reply</button>
                     <Fragment>
                       {
                         setErrors ? <p className="error-msg">{Errors != 'success' ? Errors : ''}</p> : <p>Success</p>
@@ -218,6 +238,7 @@ console.log("admin message =>", adminMessage)
           </Fragment>
           : <Fragment>{
             props.showCase == '0' ?
+            // testcase == '0' ?
               <Fragment>
                 {showLoader ?
                   <div className='loader-img'>
@@ -225,7 +246,7 @@ console.log("admin message =>", adminMessage)
                   </div> :
                   <Col md="10" className='message-deatil-inner 567890'>
                     <div className="subject-mail-head">
-                      <label>Subject:</label><span>hi their is subject</span>
+                      <label>Subject:</label><span>{adminMessage.Subject == undefined? 'N/A':adminMessage.Subject}</span>
                     </div>
                    <div className="message-outer">
                     <div className="conversation-mess">
@@ -235,7 +256,7 @@ console.log("admin message =>", adminMessage)
                           <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className='head-mess'>
-                          <h3>{adminMessage.SenderName}</h3><span> {moment(adminMessage.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{adminMessage.SenderName}</h3><span> {moment(adminMessage.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -248,14 +269,14 @@ console.log("admin message =>", adminMessage)
                         {
                           adminMessage.Document.map((doc, index )=>{
                             let getdoc = doc.split('/')[1]
-                            let url = 'http://54.165.185.4:7788/'
+                            let url = 'https://ev2.softuvo.xyz/'
                             //let url = 'http://localhost:7788/'
                             let docurl = url.concat(getdoc)
                             return (
                             
                                 <ul>
                                   <li>
-                                   <a href ={docurl}>Attachment</a>
+                                   <a  onClick ={() => openAttachement(docurl)}>Attachment</a>
                                   </li>
                                 </ul>
                           )
@@ -277,7 +298,7 @@ console.log("admin message =>", adminMessage)
                   </div> :
                   <Col md="10" className='message-deatil-inner'>
                       <div className="subject-mail-head">
-                        <label>Subject:</label><span>hi their is subject</span>
+                        <label>Subject:</label><span>{sentMessage.Subject == undefined? 'N/A':sentMessage.Subject}</span>
                       </div>
                      <div className="message-deatil-section">
                     <div className='conversation-mess'>
@@ -286,7 +307,7 @@ console.log("admin message =>", adminMessage)
                           <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className='head-mess'>
-                          <h3>{sentMessage.SenderName}</h3><span> {moment(sentMessage.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{sentMessage.SenderName}</h3><span> {moment(sentMessage.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -304,7 +325,7 @@ console.log("admin message =>", adminMessage)
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className="head-mess">
-                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -321,7 +342,7 @@ console.log("admin message =>", adminMessage)
                 {
                   showTextArea ? <div className="reply-detail-text">
                     <textarea placeholder="input reply" value ={replyMessage} onChange={(e) => onReplyChange(e)}></textarea>
-                    <button className="message-btn btn btn-secondary" onClick={sendReply}>Reply</button>
+                    <button className="message-btn btn btn-secondary" onClick={() => sendReply(2)}>Reply</button>
                     <Fragment>
                       {
                         setErrors ? <p className="error-msg">{Errors != 'success' ? Errors : ''}</p> : <p>Success</p>

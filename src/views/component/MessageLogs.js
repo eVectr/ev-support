@@ -49,8 +49,13 @@ const MessageLogs = (props) => {
     setshowCase(c)
   }
   useEffect(() => {
+    if(props.location.search == '?true'){
+      setShowMessageDetails(true)
+      setshowCase(props.location.pathname.split('&')[1])
+      setMessageId((props.match.params.id).split('&')[0])
+    }
    // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
-    axios.post(`http://54.165.185.4:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    axios.post(`https://ev2.softuvo.xyz/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     .then(res => {
         if (res.data.length < 1) {
           setIsNoUserData(true)
@@ -61,7 +66,7 @@ const MessageLogs = (props) => {
           return updated
         })
        // axios.post(`http://localhost:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
-        axios.post(`http://54.165.185.4:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
         .then(res => {
             if (res.data.length < 1) {
               setIsNoSentData(true)
@@ -72,7 +77,7 @@ const MessageLogs = (props) => {
       })
 
     //axios.get(`http://localhost:7788/getadminmessage`)
-    axios.get(`http://54.165.185.4:7788/getadminmessage`)
+    axios.get(`https://ev2.softuvo.xyz/getadminmessage`)
       .then(res => {
         if (res.data.length < 1) {
           setIsNoAdminData(true)
@@ -85,8 +90,9 @@ const MessageLogs = (props) => {
       })
   }, [])
 
-  let onMessageClick = (id, detailId) => {
-
+  let onMessageClick = (id, detailId, getCase) => {
+    let url = (id.concat('&', getCase)).concat('?','true')
+    props.history.push('/messageLogs/' +  url)
     setLogsId(detailId)
     setMessageId(id)
     setShowMessageDetails(!showMessageDetails)
@@ -96,12 +102,12 @@ const MessageLogs = (props) => {
   }
 
   let handleSentMessage = () => {
-    axios.post(`http://54.165.185.4:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+    axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
       .then(res => {
         setSentMessage(res.data.reverse())
       })
   }
-  console.log("sent messa =>", sentMessagePagination)
+  //console.log("props     =============>", props.location.search)
   return (
     <div className="messagelogs">
       <Row className="message-mail">
@@ -186,7 +192,7 @@ const MessageLogs = (props) => {
                             </div> :
                             <tbody>
                               {userMessagePagination.map((message, index) => {
-                                return (<tr onClick={() => onMessageClick(message._id,  message.Id)}>
+                                return (<tr onClick={() => onMessageClick(message._id,  message.Id, '1')}>
                                   <th scope="row"><span className="circleborder"><i class="far fa-circle"></i></span></th>
                                   <td className="name-table">{message.SenderName}</td>
                                   <td class="message-detail">{message.Message}</td>

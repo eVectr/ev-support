@@ -64,9 +64,9 @@ io.on('connection', socket => {
 // })
 
 // var user = new User({
-//   Name: 'Admin',
-//   Password: 'admin@123',
-//   Type: 'admin'
+//   Name: 'Trivedi',
+//   Password: 'trivedi@123',
+//   Type: 'user'
 // })
 // user.save()
 
@@ -810,26 +810,33 @@ app.post('/usertousermessage', (req, res) => {
       while (filepaths.length > 0) {
         filepaths.pop()
       }
+      console.log("data ===>", data)
+      var notification = new Notification({
+        Type: 'User to User Message',
+        Date: date,
+        SentBy: SenderName,
+        SentTo: ReceiverId,
+        Action: 'SEE MESSAGE',
+        FontStyle: false,
+        isChecked: false,
+        NotificationId: data._id,
+        CaseNo: '1'
+      })
+      notification.save()
       res.send(data)
     }
   }) 
-  var notification = new Notification({
-    Type: 'User to User Message',
-    Date: date,
-    SentBy: SenderName,
-    SentTo: ReceiverId,
-    Action: 'SEE MESSAGE',
-    FontStyle: false,
-    isChecked: false
-  })
-  notification.save()
+  
 })
 
 app.post('/savenotification', (req, res) => {
+
   let Type = req.body.Type
   let SentBy = req.body.SentBy
   let SentTo = req.body.SentTo
   let date = Date.now()
+  let NotificationId = req.body.NotificationId
+  let CaseNo = req.body.CaseNo
   
   var notification = new Notification({
     Type: Type,
@@ -838,7 +845,38 @@ app.post('/savenotification', (req, res) => {
     SentTo: SentTo,
     Action: 'SEE MESSAGE',
     FontStyle: false,
-    isChecked: false
+    isChecked: false,
+    CaseNo:CaseNo,
+    NotificationId:NotificationId
+  })
+  notification.save((err, data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+})
+
+
+app.post('/chatnotification', (req, res) => {
+  let Type = 'Missed Chat Message'
+  let SentBy = req.body.SentBy
+  let SentTo = req.body.SentTo
+  let date = Date.now()
+  let NotificationId = req.body.NotificationId
+  let CaseNo = ''
+  
+  var notification = new Notification({
+    Type: Type,
+    Date: date,
+    SentBy: SentBy,
+    SentTo: SentTo,
+    Action: 'SEE MESSAGE',
+    FontStyle: false,
+    isChecked: false,
+    CaseNo:CaseNo,
+    NotificationId:NotificationId
   })
   notification.save((err, data)=>{
     if(err){
@@ -874,6 +912,20 @@ app.get('/getnotification', (req, res) => {
 //   })
 // })
 
+
+app.post('/updatenotification', (req, res) => {
+  let Id = req.body.Id
+  let SentId = req.body.SentId
+  SupportAgent.findByIdAndUpdate({_id: Id}, {$pull: {SentTo: SentId}}, (err, data) =>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("data ==>", data)
+      res.send(data)
+    }
+  })
+})
+
 app.post('/deletenotification', (req, res) => {
   let Id = req.body.Id
   Notification.findOneAndRemove({ _id: Id }, (err, data) => {
@@ -882,6 +934,17 @@ app.post('/deletenotification', (req, res) => {
       res.send(err)
     } else {
       console.log(data)
+      res.send(data)
+    }
+  })
+})
+
+app.post('/deletemanynotification', (req, res) => {
+  let Id = req.body.Id
+  Notification.deleteMany({ _id: { $in: Id } }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
       res.send(data)
     }
   })
@@ -908,20 +971,22 @@ app.post('/admintousermessage', (req, res) => {
       console.log(err)
       res.send(err)
     } else {
+      let Type = 'eVectr Urgent Message'
+      var notification = new Notification({
+        Type: Type,
+        Date: date,
+        SentBy: 'eVectrInc',
+        SentTo: ReceiverId,
+        Action: 'SEE MESSAGE',
+        FontStyle: false,
+        isChecked: false,
+        NotificationId: data._id,
+        CaseNo: '0'
+      })
+      notification.save()
       res.send('done')
     }
   })
-  let Type = 'eVectr Urgent Message'
-  var notification = new Notification({
-    Type: Type,
-    Date: date,
-    SentBy: 'eVectrInc',
-    SentTo: ReceiverId,
-    Action: 'SEE MESSAGE',
-    FontStyle: false,
-    isChecked:false
-  })
-  notification.save()
   while (filepaths.length > 0) {
     filepaths.pop()
   }

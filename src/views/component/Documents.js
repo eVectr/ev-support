@@ -3,6 +3,10 @@ import { Container, Row, Col, Card,Input } from 'reactstrap'
 
 const Document = ({ contacts }) => {
 
+  let openLink = (url) =>{
+    window.open(url)
+  }
+
   return (
     <Container>
       <Row>
@@ -43,7 +47,7 @@ const Document = ({ contacts }) => {
             contacts[0].Image.map(img => {
             let getimg = img.split('/')[1]
             //let url = 'http://localhost:7788/'
-            let url = 'http://54.165.185.4:7788/'
+            let url = 'https://ev2.softuvo.xyz/'
             let imgurl = url.concat(getimg)
             return (
                 <Col md='4' className='inner-image-section-data'>
@@ -66,7 +70,7 @@ const Document = ({ contacts }) => {
             contacts[0].Document.map(img => {
             let getimg = img.split('/')[1]
            // let url = 'http://localhost:7788/'
-            let url = 'http://54.165.185.4:7788/'
+            let url = 'https://ev2.softuvo.xyz/'
             let imgurl = url.concat(getimg)
             return (
               <Col md='3' className='image-section-data'>
@@ -91,7 +95,7 @@ const Document = ({ contacts }) => {
               <Col md='6' className='links-data'>
                   <ul>
                     <li>
-                    <a href = {url}>{url}</a>
+                    <a onClick = {() =>openLink(url)}>{url}</a>
                     </li>
                   </ul>
               </Col>

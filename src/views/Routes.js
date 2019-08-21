@@ -14,6 +14,7 @@ import SuccessfulNotification from './component/SuccessfulNotification'
 import Survey from './component/Survey'
 import TransactionSurvey from './component/TransactionSurvey'
 import MessageLogs from './component/MessageLogs'
+import MessageDetails from './component/MessageDetails'
 import AdminTicket from './component/AdminTicket'
 import SubAdminList from './component/SubAdminList'
 import Notification from './component/Notification'
@@ -40,6 +41,7 @@ const Routes = (props) => {
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
           <Route exact path='/adminticket/:id' component={AdminTicket} />
           <Route exact path='/messageLogs' component={MessageLogs} />
+          <Route exact path='/messageLogs/:id' component={MessageLogs} />
           <Route exact path='/subAdminList' component={SubAdminList} />
           <Route exact path="/notification" component={Notification} />          
         </Switch>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
@@ -7,33 +8,31 @@ import is from 'is_js'
 import AgentUserDetails from './components/AgentUserDetails';
 
 const AgentModal = (props) => {
-  console.log(props, 'props')
+  console.log(props, 'props1234')
   const [isOpen, setIsOpen] = useState(false)
-  // const options = [
-  //   { value: 'Standard', label: 'Standard' },
-  //   { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
-  //   { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
-  // ]
-  // const [inputTagValue, setInputTagValue] = useState('')
   const [errors, setErrors] = useState({})
   const [select, setSelect] = useState([])
   const [createAgentSuccess, setcreateAgentSuccess] = useState(false)
   const [agentUserDetails, agentUserDetailsData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
+    FirstName: '',
+    LastName: '',
+    Email: '',
+    Password: '',
     type: ''
   })
-  // const tagsHandleChange = tags => agentUserDetailsData({ tags })
 
-  // const onTagsInputChange = inputTagValue => {
-  //   setInputTagValue(inputTagValue)
-  //   setErrors({
-  //     tags: []
+  // useEffect(() => {
+  //   const { subAdminDetailsReducer } = props
+  //   const { adminDetails } = subAdminDetailsReducer
+  //   const { first_name, last_name, email, password } = adminDetails
+  //   agentUserDetailsData({
+  //     first_name,
+  //     last_name,
+  //     email,
+  //     password
   //   })
-  // }
-
+  //  }, [])
+  
   const onChangeText = e => {
     agentUserDetailsData({
       ...agentUserDetails,
@@ -47,29 +46,20 @@ const AgentModal = (props) => {
     console.log("select ee =>", e)
    setSelect(e)
   }
-  // const [selectedFirstName, setSelectedFirstName] = useState('')
-  // const [selectedLastName, setSelectedLastName] = useState('')
-  // const [selectedEmail, setSelectedEmail] = useState('')
-  // const [selectedPassword, setSelectedPassword] = useState('')
-  // const [selectedType, setSelectedType] = useState([])
+  
+  let onEdit = (firstName , LastName, email, password) =>{
+    agentUserDetailsData({
+      FirstName: firstName,
+      LastName: LastName,
+      Email: email,
+      Password: password
+    })
+  }
 
   const styles = {
     fontFamily: 'sans-serif',
     textAlign: 'center'
   }
-
-  // let selectedArray = []
-
-  // let onAgentChange = (e) => {
-  //   console.log("agent ===>", e)
-
-  //   if (e) {
-  //     for (let i = 0; i < e.length; i++) {
-  //       selectedArray.push(e[i].value)
-  //       setSelectedType(selectedArray)
-  //     }
-  //   }
-  // 
   let agentsucces = () =>{
     return new Promise((resolve, reject)=>{
       resolve(setcreateAgentSuccess(!createAgentSuccess))
@@ -97,49 +87,27 @@ const AgentModal = (props) => {
       }, 1000)
       agentUserDetailsData('')
       })
-      axios.post(`http://54.165.185.4:7788/saveagent`, {
+      axios.post(`https://ev2.softuvo.xyz/saveagent`, {
       //axios.post(`http://localhost:7788/saveagent`, {
-        FirstName: agentUserDetails.first_name,
-        LastName: agentUserDetails.last_name,
-        Password: agentUserDetails.password,
+        FirstName: agentUserDetails.FirstName,
+        LastName: agentUserDetails.LastName,
+        Password: agentUserDetails.Password,
         Type: select,
-        Email: agentUserDetails.email,
+        Email: agentUserDetails.Email,
         TicketId: []
 
       })
         .then(res => {
-          console.log("res ==>", res)
-         
+          props.fetchadmin()
         })
 
         .then(res => {
           setErrors('')
           console.log("agentUser ==>", res)
-
-
         })
     }
   }
 
-  // const handleOnSave = () => {
-  //   const errors = adminModalValidation(agentUserDetails)
-  //   console.log(errors, 'errors')
-  //   if(!is.empty(errors)) {
-  //     setErrors(errors)
-  //     return
-  //   }
-  //     axios.post(`http://54.165.185.4:7788/saveagent`, {
-  //       FirstName: agentUserDetails.first_name,
-  //       LastName: agentUserDetails.last_name,
-  //       Password: agentUserDetails.password,
-  //       Type: agentUserDetails.tags,
-  //       Email: agentUserDetails.email,
-  //       TicketId: []
-  //     })
-  //       .then(res => {
-  //         console.log(res, 'res')
-  //       })
-  // }
   const AgentModalProps = {
     agentUserDetails,
     errors,
@@ -147,20 +115,16 @@ const AgentModal = (props) => {
     handleCloseOnSave,
     onChangeSelect,
     agentsucces,
-    createAgentSuccess
-    // inputTagValue,
-    // tagsHandleChange,
-    // onTagsInputChange
+    createAgentSuccess,
+    onEdit
   }
-
-
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal} classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
-          <h2>Create Agent</h2>
-          <AgentUserDetails {...AgentModalProps}
+          <h2>Create SubAdmin</h2>
+          <AgentUserDetails  onEdit ={props.editAdmin} {...AgentModalProps}
           />
         </div>
 
@@ -169,4 +133,8 @@ const AgentModal = (props) => {
   )
 }
 
-export default AgentModal
+export default connect(
+  state => ({
+    subAdminDetailsReducer: state.subAdminDetailsReducer
+  })
+)(AgentModal)

@@ -6,6 +6,7 @@ import Select from 'react-select';
 const AgentUserDetails = ({
     agentUserDetails,
     onChangeText,
+    onEdit,
     errors,
     handleCloseOnSave,
     onChangeSelect,
@@ -14,13 +15,12 @@ const AgentUserDetails = ({
     createAgentSuccess,
     agentsucces
     }) => {
-
+    console.log(agentUserDetails, 'agentUserDetails')
     const options = [
         { value: 'Standard', label: 'Standard' },
         { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
         { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
     ]
-
     console.log(agentsucces, 'agentsucces')
     
     return (
@@ -29,21 +29,27 @@ const AgentUserDetails = ({
                 <div>
                     <div className='modal-inner'>
                         <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
-                        <p className="succes-text">Send Message Successfully</p>
+                        <p className="succes-text">SubAdmin Created Successfully</p>
                     </div>
                 </div> :
                 <div className='modal-inner'>
                     <FormGroup row>
+                        <Col sm={10}>
+                            <Input hidden/>
+                            {/* <p className="error-msg">{(errors.first_name && errors.first_name[0] || '')}</p> */}
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
                         <Label for="exampleEmail">First Name</Label>
                         <Col sm={10}>
-                            <Input type="First name" name="first_name" id="exampleEmail" placeholder="First Name" value={agentUserDetails.first_name} onChange={onChangeText} />
-                            <p className="error-msg">{(errors.first_name && errors.first_name[0] || '')}</p>
+                            <Input type="First name" name="FirstName" id="exampleEmail" placeholder="First Name" value={agentUserDetails.FirstName} onChange={onChangeText} />
+                            <p className="error-msg">{(errors.FirstName && errors.FirstName[0] || '')}</p>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
                         <Label for="exampleEmail">Last Name</Label>
                         <Col sm={10}>
-                            <Input type="Last name" name="last_name" id="exampleEmail" placeholder="Last Name" value={agentUserDetails.last_name} onChange={onChangeText} />
+                            <Input type="Last name" name="LastName" id="exampleEmail" placeholder="Last Name" value={agentUserDetails.LastName} onChange={onChangeText} />
                             <p className="error-msg">{(errors.last_name && errors.last_name[0] || '')}</p>
                         </Col>
                     </FormGroup>

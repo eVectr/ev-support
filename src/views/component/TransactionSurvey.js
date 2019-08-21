@@ -137,7 +137,7 @@ const SurveyCard = (props) => {
     const { Type = '' } = user || {}
     setLoader(true)
    // axios.get(`http://localhost:7788/gettransactionsurvey`)
-    axios.get(`http://54.165.185.4:7788/gettransactionsurvey`)
+    axios.get(`https://ev2.softuvo.xyz/gettransactionsurvey`)
       .then(res => {
         let { data = [] } = res
         console.log('data ==>', data)

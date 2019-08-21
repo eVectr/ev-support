@@ -44,12 +44,12 @@ const AdminTicket = (props) => {
 
   useEffect(() => {
    // axios.post(`http://localhost:7788/messagelogs`, { ID: props.match.params.id })
-    axios.post(`http://54.165.185.4:7788/messagelogs`, { ID: props.match.params.id })
+    axios.post(`https://ev2.softuvo.xyz/messagelogs`, { ID: props.match.params.id })
       .then(res => {
         setMessageLogs(res.data.reverse())
       })
     // axios.post(`http://localhost:7788/getcontactbycaseno`, { caseno: props.match.params.id })
-    axios.post(`http://54.165.185.4:7788/getcontactbycaseno`, { caseno: props.match.params.id })
+    axios.post(`https://ev2.softuvo.xyz/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
         setLoader(false)
         setContacts(res.data)
@@ -59,14 +59,14 @@ const AdminTicket = (props) => {
         }
 
       })
-      axios.post(`http://54.165.185.4:7788/findlogentry`,{Id:props.match.params.id})
+      axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
      // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
       .then(res =>{
         setActivityLog(res.data.reverse())
       })
 
       let agentArray = []
-      axios.get(`http://54.165.185.4:7788/findagent`,{Id:props.match.params.id})
+      axios.get(`https://ev2.softuvo.xyz/findagent`,{Id:props.match.params.id})
       .then(res =>{
           console.log("res ===>", res.data)
         for(let i = 0 ; i < res.data.length; i++){
@@ -80,7 +80,7 @@ const AdminTicket = (props) => {
          }
       })
      
-      axios.post(`http://54.165.185.4:7788/findagentbytickeid`,{TicketId:props.match.params.id})
+      axios.post(`https://ev2.softuvo.xyz/findagentbytickeid`,{TicketId:props.match.params.id})
       //axios.post(`http://localhost:7788/findagentbytickeid`,{TicketId:props.match.params.id})
       .then(res => {
           setSubAdmin(res.data[0])
@@ -97,7 +97,7 @@ const AdminTicket = (props) => {
     }
     else{
     //  axios.post(`http://localhost:7788/adminreply`, { ID: props.match.params.id, Message: reply })
-      axios.post(`http://54.165.185.4:7788/adminreply`, { ID: props.match.params.id, Message: reply })
+      axios.post(`https://ev2.softuvo.xyz/adminreply`, { ID: props.match.params.id, Message: reply })
       .then(res => {
         // setContacts([res.data])
         setReply('')
@@ -149,21 +149,21 @@ const AdminTicket = (props) => {
     } else {
       setshowTextArea(!showTextArea)
      // axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
-      axios.post(`http://54.165.185.4:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
+      axios.post(`https://ev2.softuvo.xyz/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
       setSelectedStatus('Active')
     
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
-     axios.post(`http://54.165.185.4:7788/logentry`,{Id:contacts[0].Case_No,
+     axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
     log:'Ticket assigned to ' + name })
     .then(res => {
-      axios.post(`http://54.165.185.4:7788/findlogentry`,{Id:props.match.params.id})
+      axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
       //axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{  
           setActivityLog(res.data.reverse())
         })
     })
     // axios.post(`http://localhost:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
-     axios.post(`http://54.165.185.4:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
+     axios.post(`https://ev2.softuvo.xyz/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
      .then(res =>{
        console.log("res ==>", res.data)
        setSubAdmin(res.data)
@@ -175,14 +175,14 @@ const AdminTicket = (props) => {
   
   let Status = (e) => {
     console.log("e.target.value ==>", e.target.value)
-     axios.post(`http://54.165.185.4:7788/logentry`,{Id:contacts[0].Case_No,
+     axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
      log:'Ticket Status Changed to ' + e.target.value })
     setSelectedStatus(e.target.value)
    // axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
-    axios.post(`http://54.165.185.4:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+    axios.post(`https://ev2.softuvo.xyz/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
-         axios.post(`http://54.165.185.4:7788/findlogentry`,{Id:props.match.params.id})
+         axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
        //axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
         .then(res =>{
           setActivityLog(res.data.reverse())

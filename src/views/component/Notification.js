@@ -18,54 +18,60 @@ const Notification = (props) => {
         setValueData(e.target.checked)
     }
     useEffect(() => {
-        //  axios.get(`http://localhost:7788/getnotification`)
-        axios.get(`http://54.165.185.4:7788/getnotification`)
-            .then(res => {
-                if(res.data.length < 1){
-                    setisNoNotification(true)
-                }else{
-                    for (let i = 0; i < res.data.length; i++) {
-                        if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                            setNotification(prev => {
-                                const updated = prev.concat(res.data[i])
-                                return updated
-                            })
-                            setshowLoader(false)
-                        }
-                    }
-                    setTotalItemsCount(res.data.length)
-                }
-            
-            })
+        setshowLoader(true)
+          //axios.get(`http://localhost:7788/getnotification`)
+          axios.get(`https://ev2.softuvo.xyz/getnotification`)
+          .then(res => {
+            setshowLoader(false)
+              if(res.data.length < 1){
+                  setisNoNotification(true)
+              }else{
+                  for (let i = 0; i < res.data.length; i++) {
+                      if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
+                          setNotification(prev => {
+                              const updated = prev.concat(res.data[i])
+                              return updated
+                          })
+                          
+                      }
+                  }
+                  setTotalItemsCount(res.data.length)
+              }
+          })
     }, [])
-    let OnButtonClick = (Id, index, Type) => {
+
+    let OnButtonClick = (Id, index, Type, NotificationId, CaseNo) => {
+        
+     
         // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
-        axios.post(`http://54.165.185.4:7788/changenotificationstatus`, { Id: Id })
+        axios.post(`https://ev2.softuvo.xyz/changenotificationstatus`, { Id: Id })
             .then(res => {
                 setNotification(prevState => prevState.map(
                     item => item._id === Id ? { ...item, FontStyle: true } : item
                 ))
                 switch(Type) {
                     case 'Complete Client Survey':
-                            window.open('http://18.219.191.74:3000/clientsurvey')
+                            window.open('https://ev2.softuvo.xyz/clientsurvey')
                         //window.location="http://18.219.191.74:3000/clientsurvey"
                          break;
                     case 'Complete Transaction Survey':
-                            window.open('http://18.219.191.74:3000/transactionsurvey')
+                            window.open('https://ev2.softuvo.xyz/transactionsurvey')
                        // window.location="http://18.219.191.74:3000/transactionsurvey"
                          break;
                     case 'User to User Message':
-                            window.open('http://54.165.185.4:7007/messageLogs')
+                        let url = (NotificationId.concat('&',CaseNo)).concat('?','true') 
+                        props.history.push('/messageLogs/' + url)
+                 
+                           // window.open('http://54.165.185.4:7007/messageLogs')
                        //  window.location="http://54.165.185.4:7007/messageLogs"
                         
                           break;
-                    case 'eVectr Urgent Messages':
-                            window.open('http://54.165.185.4:7007/messageLogs')
-                       //  window.location="http://54.165.185.4:7007/messageLogs"
+                    case 'eVectr Urgent Message':
+                            let adminurl = (NotificationId.concat('&',CaseNo)).concat('?','true') 
+                            props.history.push('/messageLogs/' + adminurl)
                           break;
                     case 'Missed Chat Message':
-                            window.open('https://reactchat.softuvo.xyz/chat')
-                         // window.location="https://reactchat.softuvo.xyz/chat"
+                            window.open('https://reactchat.softuvo.xyz/chat/' + NotificationId)
                           break;
                     default:
                       break
@@ -95,6 +101,7 @@ const Notification = (props) => {
                 index === i ? { ...item, isChecked: true } : item
             ))
             allselectedarray.push(notification[i]._id)
+            console.log("all selected array =>", allselectedarray)
             setAllSelectedId(allselectedarray)
         }
     }
@@ -105,39 +112,31 @@ const Notification = (props) => {
     let deleteNotice = () => {
         if (selectedId.length > 0) {
             for (let i = 0; i < selectedId.length; i++) {
-                // axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
-                axios.post(`http://54.165.185.4:7788/deletenotification`, { Id: selectedId[i] })
+               //  axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
+                 axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
                     .then(res => {
-                        setSelectedId([])
                         setValueData(false)
-                        axios.get(`http://54.165.185.4:7788/getnotification`)
-                            .then(res => {
-                                const { data } = res
-                                setNotification(data)
-                            })
+                        let filteredArray = notification.filter(item => item._id !== selectedId[i])
+                        setNotification(filteredArray)
+                        setSelectedId([])
                     })
             }
         }
         else {
-            for (let i = 0; i < allSelectedId.length; i++) {
-                axios.post(`http://localhost:7788/deletenotification`, { Id: allSelectedId[i] })
-                    //axios.post(`http://54.165.185.4:7788/deletenotification`, {Id:selectedId[i]})
+               // axios.post(`http://localhost:7788/deletemanynotification`, { Id: allSelectedId })
+                    axios.post(`https://ev2.softuvo.xyz/deletemanynotification`, {Id:allSelectedId})
                     .then(res => {
-                        console.log(res, 'res')
+                        setValueData(false)
+                        let filteredArray = notification.filter(item => allSelectedId.indexOf(item._id) == -1)
+                        setNotification(filteredArray)
                         setAllSelectedId([])
-                        axios.get(`http://54.165.185.4:7788/getnotification`)
-                            .then(res => {
-                                console.log(res, 'resres')
-                                const { data } = res
-                                setNotification(data)
-                                setValueData(false)
-                            })
+                      
                     })
-            }
         }
        
     }
-    console.log (selectedId.length, 'selectedId.length863871263871637861238612873687126387126378')
+
+ 
     return (
         <Container fluid>
            <Row className="notify-table">
@@ -145,7 +144,7 @@ const Notification = (props) => {
                 <div className="no-msg-list"><h3>No Notification</h3></div> :
             <Col>
                 <Fragment>
-                    {showLoader ?
+                    {showLoader?
                         <div className='loader-img'>
                             <img src={require('../../images/loader.gif')} />
                         </div> :
@@ -190,8 +189,8 @@ const Notification = (props) => {
                                                         {d.SentBy}
                                                     </td>
                                                     <td>
-                                                        <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type)}
-                                                        >{d.Action}</Button>
+                                                        <Button className={` ${d.Type == 'eVectr Urgent Message' ? "activeurgentMessage" : d.Type == 'Missed Chat Message' ? "missedchatbtn" : d.Type == 'Complete Client Survey' ? "Surveybtn" : d.Type == 'User to User Message' ? "missedchatbtn" : d.Type == 'Complete Transaction Survey' ? "Transactionbtn" : ""}`} onClick={() => OnButtonClick(d._id, idx, d.Type, d.NotificationId, d.CaseNo)}
+                                                       >{d.Action}</Button>
                                                     </td>
                                             </tr>     
                                             )
@@ -209,7 +208,7 @@ const Notification = (props) => {
                             </div>  
                       }</Fragment>     
              </Col>
-            }</Fragment>
+             }</Fragment> 
             </Row>    
         </Container>
     )

@@ -20,7 +20,7 @@ const Loginform = (props) => {
       props.history.push('/admin')
     }
    // axios.get(`http://localhost:7788/findcontact`)
-    axios.get(`http://54.165.185.4:7788/findcontact`)
+    axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
         setReason(res.data)
       })
