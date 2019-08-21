@@ -10,25 +10,28 @@ import AgentUserDetails from './components/AgentUserDetails';
 const AgentModal = (props) => {
   console.log(props, 'props1234')
   const [isOpen, setIsOpen] = useState(false)
-  // const options = [
-  //   { value: 'Standard', label: 'Standard' },
-  //   { value: 'Optional Uploads + Transaction Number', label: 'Optional Uploads + Transaction Number' },
-  //   { value: 'Mandatory Uploads', label: 'Mandatory Uploads' }
-  // ]
-  // const [inputTagValue, setInputTagValue] = useState('')
   const [errors, setErrors] = useState({})
   const [select, setSelect] = useState([])
   const [createAgentSuccess, setcreateAgentSuccess] = useState(false)
   const [agentUserDetails, agentUserDetailsData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
+    FirstName: '',
+    LastName: '',
+    Email: '',
+    Password: '',
     type: ''
   })
 
-  useEffect(() => {
-   }, [])
+  // useEffect(() => {
+  //   const { subAdminDetailsReducer } = props
+  //   const { adminDetails } = subAdminDetailsReducer
+  //   const { first_name, last_name, email, password } = adminDetails
+  //   agentUserDetailsData({
+  //     first_name,
+  //     last_name,
+  //     email,
+  //     password
+  //   })
+  //  }, [])
   
   const onChangeText = e => {
     agentUserDetailsData({
@@ -46,10 +49,10 @@ const AgentModal = (props) => {
   
   let onEdit = (firstName , LastName, email, password) =>{
     agentUserDetailsData({
-      first_name: firstName,
-      last_name: LastName,
-      email: email,
-      password: password
+      FirstName: firstName,
+      LastName: LastName,
+      Email: email,
+      Password: password
     })
   }
 
@@ -57,19 +60,6 @@ const AgentModal = (props) => {
     fontFamily: 'sans-serif',
     textAlign: 'center'
   }
-
-  // let selectedArray = []
-
-  // let onAgentChange = (e) => {
-  //   console.log("agent ===>", e)
-
-  //   if (e) {
-  //     for (let i = 0; i < e.length; i++) {
-  //       selectedArray.push(e[i].value)
-  //       setSelectedType(selectedArray)
-  //     }
-  //   }
-  // 
   let agentsucces = () =>{
     return new Promise((resolve, reject)=>{
       resolve(setcreateAgentSuccess(!createAgentSuccess))
@@ -99,11 +89,11 @@ const AgentModal = (props) => {
       })
       axios.post(`https://ev2.softuvo.xyz/saveagent`, {
       //axios.post(`http://localhost:7788/saveagent`, {
-        FirstName: agentUserDetails.first_name,
-        LastName: agentUserDetails.last_name,
-        Password: agentUserDetails.password,
+        FirstName: agentUserDetails.FirstName,
+        LastName: agentUserDetails.LastName,
+        Password: agentUserDetails.Password,
         Type: select,
-        Email: agentUserDetails.email,
+        Email: agentUserDetails.Email,
         TicketId: []
 
       })
@@ -118,25 +108,6 @@ const AgentModal = (props) => {
     }
   }
 
-  // const handleOnSave = () => {
-  //   const errors = adminModalValidation(agentUserDetails)
-  //   console.log(errors, 'errors')
-  //   if(!is.empty(errors)) {
-  //     setErrors(errors)
-  //     return
-  //   }
-  //     axios.post(`http://54.165.185.4:7788/saveagent`, {
-  //       FirstName: agentUserDetails.first_name,
-  //       LastName: agentUserDetails.last_name,
-  //       Password: agentUserDetails.password,
-  //       Type: agentUserDetails.tags,
-  //       Email: agentUserDetails.email,
-  //       TicketId: []
-  //     })
-  //       .then(res => {
-  //         console.log(res, 'res')
-  //       })
-  // }
   const AgentModalProps = {
     agentUserDetails,
     errors,
@@ -146,9 +117,6 @@ const AgentModal = (props) => {
     agentsucces,
     createAgentSuccess,
     onEdit
-    // inputTagValue,
-    // tagsHandleChange,
-    // onTagsInputChange
   }
   return (
     <div style={styles} >

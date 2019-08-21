@@ -3,8 +3,8 @@ import { SUB_ADMIN_DETAILS } from '../../types/subAdminDetail';
 let initialState = {
     adminDetails: {
         id: '',
-        firstname: '',
-        lastname: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: ''
   }
@@ -13,7 +13,7 @@ let initialState = {
 const subAdminDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SUB_ADMIN_DETAILS:
-      return { ...state, adminDetails: action.payload.adminDetails }
+      return { ...state, adminDetails: action.payload }
     default:
       return state
   }

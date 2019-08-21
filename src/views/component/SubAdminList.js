@@ -20,6 +20,7 @@ const UserList = props => {
   }
   const [isActive, setIsActive] = useState(false)
   const [subAdmin, setSubAdmin] = useState([])
+  const [selectedItem, setSelectedItem] = useState({})
   const [activePage, setactivePage] = useState(1)
   const [AgentOpen, setAgentOpen] = useState(false)
    const [showLoader, setshowLoader] = useState(true)
@@ -58,27 +59,28 @@ const UserList = props => {
       })
   }
 
-  let editAdmin = (id, firstname, lastname, email, Password) =>{
+  let editAdmin = (selectedItem) =>{
+    setSelectedItem(selectedItem)
     setAgentOpen(!AgentOpen)
-    let data = {
-      id:id,
-      firstname:firstname,
-      lastname:lastname,
-      email:email,
-      Password:Password
-    }
-    props.dispatch(subAdminDetail(data))
-    console.log("id ==>", id)
-    console.log("firstname ==>", firstname)
-    console.log(" lastname ==>", lastname)
-    console.log(" email ==>", email)
+    // let data = {
+    //   id:id,
+    //   first_name:firstname,
+    //   last_name:lastname,
+    //   email:email,
+    //   password:Password
+    // }
+    // props.dispatch(subAdminDetail(data))
+    // console.log("id ==>", id)
+    // console.log("firstname ==>", firstname)
+    // console.log(" lastname ==>", lastname)
+    // console.log(" email ==>", email)
   }
 
   return (
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
         <Col>
-            <AgentModal editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
+            <AgentModal selectedItem = {selectedItem} editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
             <Button onClick={() => setAgentOpen(!AgentOpen)}> <i class="fas fa-user-plus"></i></Button>
         </Col>
       </div>
@@ -126,8 +128,7 @@ const UserList = props => {
                 </Fragment>
               }</td>
              
-              <td className="edit-icons"> <i class="fas fa-edit" onClick={() => editAdmin(d._id,d.FirstName,
-                d.LastName, d.Email, d.Password)}></i></td>
+              <td className="edit-icons"> <i class="fas fa-edit" onClick={() => editAdmin(d)}></i></td>
             </tr>)
         })}
 

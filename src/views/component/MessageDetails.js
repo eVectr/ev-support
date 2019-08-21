@@ -142,7 +142,7 @@ console.log("propppp =>", props.messageId)
               </div> :
               <Col md="10" className="message-deatil-inner">
                   <div className="subject-mail-head">
-                    <label>Subject:</label><span>hi their is subject</span>
+                    <label>Subject:</label><span>{userMessage.Subject == undefined ?'N/A':userMessage.Subject }</span>
                   </div>
                 <div className="message-outer">
                   <div className="conversation-mess">
@@ -244,7 +244,7 @@ console.log("propppp =>", props.messageId)
                   </div> :
                   <Col md="10" className='message-deatil-inner 567890'>
                     <div className="subject-mail-head">
-                      <label>Subject:</label><span>hi their is subject</span>
+                      <label>Subject:</label><span>{adminMessage.Subject == undefined? 'N/A':adminMessage.Subject}</span>
                     </div>
                    <div className="message-outer">
                     <div className="conversation-mess">
@@ -296,7 +296,7 @@ console.log("propppp =>", props.messageId)
                   </div> :
                   <Col md="10" className='message-deatil-inner'>
                       <div className="subject-mail-head">
-                        <label>Subject:</label><span>hi their is subject</span>
+                        <label>Subject:</label><span>{sentMessage.Subject == undefined? 'N/A':sentMessage.Subject}</span>
                       </div>
                      <div className="message-deatil-section">
                     <div className='conversation-mess'>
