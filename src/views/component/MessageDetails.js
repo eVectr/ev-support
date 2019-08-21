@@ -132,6 +132,10 @@ const MessageDetails = (props) => {
       window.open(url)
     }
 
+    console.log("sent message =>", sentMessage)
+    console.log("user message =>", userMessage)
+    console.log("admin message =>", adminMessage)
+
   return (
     <div className="messagedetail">
       <Row className="message-mail">

@@ -783,6 +783,7 @@ app.post('/messagelogs', (req, res) => {
 // })
 
 app.post('/usertousermessage', (req, res) => {
+  let Subject = req.body.Subject
   let Id = req.body.Id
   let SenderName = req.body.SenderName
   let SenderId = req.body.SenderId
@@ -800,7 +801,8 @@ app.post('/usertousermessage', (req, res) => {
     ReceiverName: ReceiverName,
     Message: Message,
     Date: date,
-    Document: Document
+    Document: Document,
+    Subject:Subject
   })
   usermessage.save((err, data) => {
     if (err) {
