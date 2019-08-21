@@ -54,6 +54,7 @@ const AgentUserDetails = ({
                     <FormGroup row>
                         <Label for="exampleEmail">First Name</Label>
                         <Col sm={10}>
+                        <Input type="First name" name="Id" id="Id" value={agentUserDetails.Id} />
                             <Input type="First name" name="FirstName" id="exampleEmail" placeholder="First Name" value={agentUserDetails.FirstName} onChange={onChangeText} />
                             <p className="error-msg">{(errors.FirstName && errors.FirstName[0] || '')}</p>
                         </Col>
