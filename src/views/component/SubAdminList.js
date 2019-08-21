@@ -24,10 +24,10 @@ const UserList = props => {
     axios.get(`https://ev2.softuvo.xyz/findagent`)
     // axios.get(`http://localhost:7788/findagent`)
       .then(res => {
-       
+        setshowLoader(false)
          setSubAdmin(res.data)
       })
-      setshowLoader(false)
+     
   }, [])
 
 

@@ -128,7 +128,9 @@ const MessageDetails = (props) => {
     document.getElementById('last-msg') && document.getElementById('last-msg').scrollIntoView();
     }
   
-console.log("propppp =>", props.messageId)
+    let openAttachement =(url) =>{
+      window.open(url)
+    }
 
   return (
     <div className="messagedetail">
@@ -157,7 +159,7 @@ console.log("propppp =>", props.messageId)
                         {userMessage.Message}
                       </p>
                     </div>
-                    {/* {
+                    {
                           userMessage.Document.length > 0?
                         <Fragment>
                         {
@@ -170,7 +172,7 @@ console.log("propppp =>", props.messageId)
                             
                                 <ul>
                                   <li>
-                                   <a href ={docurl}>Attachment</a>
+                                   <a href onClick ={() => openAttachement(docurl)}>Attachment</a>
                                   </li>
                                 </ul>
                           )
@@ -178,7 +180,7 @@ console.log("propppp =>", props.messageId)
                         }
                         </Fragment>
                         :''
-                        } */}
+                        }
                   </div>
                   {/* <div className="conversation-mess receiver ">
                     <div className="detail-images">
@@ -205,7 +207,7 @@ console.log("propppp =>", props.messageId)
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className="head-mess">
-                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -254,7 +256,7 @@ console.log("propppp =>", props.messageId)
                           <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className='head-mess'>
-                          <h3>{adminMessage.SenderName}</h3><span> {moment(adminMessage.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{adminMessage.SenderName}</h3><span> {moment(adminMessage.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -274,7 +276,7 @@ console.log("propppp =>", props.messageId)
                             
                                 <ul>
                                   <li>
-                                   <a href ={docurl}>Attachment</a>
+                                   <a  onClick ={() => openAttachement(docurl)}>Attachment</a>
                                   </li>
                                 </ul>
                           )
@@ -305,7 +307,7 @@ console.log("propppp =>", props.messageId)
                           <span className='detail-images'><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className='head-mess'>
-                          <h3>{sentMessage.SenderName}</h3><span> {moment(sentMessage.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{sentMessage.SenderName}</h3><span> {moment(sentMessage.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>
@@ -323,7 +325,7 @@ console.log("propppp =>", props.messageId)
                           <span className="detail-images"><img src={require('../../images/head-659652_960_720.png')} /></span>
                         </div>
                         <div className="head-mess">
-                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+                          <h3>{message.SenderName} </h3><span>{moment(message.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
                           <p>

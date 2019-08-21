@@ -95,7 +95,7 @@ const ModalUi = props => {
   }
 
   let composeMessage = () => {
-    if (Message == '' || selectedUserId === '') {
+    if (Message == '' || selectedUserId == '') {
       setTimeout(() => {
         setErrors(false)
         setErrors('')
@@ -117,6 +117,7 @@ const ModalUi = props => {
      // axios.post(`http://localhost:7788/fileupload`, formData,
        axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
+        setFileNames([])
        // axios.post(`http://localhost:7788/usertousermessage`, {
         axios.post(`https://ev2.softuvo.xyz/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
@@ -126,11 +127,10 @@ const ModalUi = props => {
         Message: Message
       })
         .then(res => {
-          
           props.handleSentMessage()
           setUsermessagesend(true)
           setMessage('')
-          setFileNames([])
+          setSelectedUserId([])
         })
       })
     }
@@ -293,10 +293,10 @@ const onDrop = (files) => {
                     <span>Subject :</span> 
                     <input type = 'text' className="subject-describe" onChange={(e) =>onAdminSubjectChange(e)}></input>
                 </div>
-              {/* <div className="check-label">
+              <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>
                   <label>Mark as a Urgent</label>
-              </div> */}
+              </div>
               <textarea placeholder='write a message .....' onChange = {(e) => onAdminMessage(e)} className="admin-area"></textarea>
               <div> {
                     FileNames.map((file, index) => {

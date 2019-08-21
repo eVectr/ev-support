@@ -41,7 +41,7 @@ const AgentUserDetails = ({
                 <div>
                     <div className='modal-inner'>
                         <h3 className="succes-msg"><i class="far fa-check-circle"></i></h3>
-                        <p className="succes-text">Send Message Successfully</p>
+                        <p className="succes-text">SubAdmin Created Successfully</p>
                     </div>
                 </div> :
                 <div className='modal-inner'>

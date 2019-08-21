@@ -95,9 +95,9 @@ const ContactForm = (props) => {
     }, 3000)
   }
 
-  if (props.notificationreducer.selectedReason == undefined) {
-    props.history.push('/contact')
-  }
+  // if (props.notificationreducer.selectedReason == undefined) {
+  //   props.history.push('/contact')
+  // }
 
   return (
     <div className='form-container homeForms'>

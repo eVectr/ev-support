@@ -434,12 +434,12 @@ const ContactForm = (props) => {
             })
         }
     }
-    if (props.notificationreducer.selectedReason == undefined) {
-        props.history.push('/contact')
-      }
-    else{
+    // if (props.notificationreducer.selectedReason == undefined) {
+    //     props.history.push('/contact')
+    //   }
+    // else{
         
-     }
+    //  }
 
     return (
         <div className="home-user">
