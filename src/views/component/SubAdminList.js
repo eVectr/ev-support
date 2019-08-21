@@ -25,10 +25,10 @@ const UserList = props => {
     axios.get(`http://54.165.185.4:7788/findagent`)
     // axios.get(`http://localhost:7788/findagent`)
       .then(res => {
-       
+        setshowLoader(false)
          setSubAdmin(res.data)
       })
-      setshowLoader(false)
+     
   }, [])
 
 
