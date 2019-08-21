@@ -14,3 +14,13 @@ export let authRoutes = (props) => {
     props.history.push('/')
   }
 }
+
+export const isLogin = () => {
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(user && user.Type === "admin" || "user"){
+    return true
+  }else{
+    return false
+  }
+}
+

@@ -313,6 +313,8 @@ svg.styles_closeIcon__1QwbI path {
     padding-bottom: 25px;
 }
 .conversation-mess  ul {
+    line-height: 20px;
+    padding-left: 14px;
     margin: 0px;
     padding-left: 15px;
     padding: 0;
@@ -611,9 +613,12 @@ button:focus {
     padding: 5px;
     font-weight: 500;
 }
+.compose-message .modal-inner textarea {
+    margin-top: 30px;
+}
 .message-outer a {
     text-decoration: underline !important;
     cursor: pointer;
     color: #124bbf !important;
     font-size: 18px !important;
- }
+}

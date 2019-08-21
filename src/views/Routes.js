@@ -35,7 +35,7 @@ const Routes = (props) => {
           <Route exact path='/contact/2' component={OptionalForm} />
           <Route exact path='/contact/3' component={OptionalForm} />
           <Route exact path='/admin' component={AdminPanel} />
-          <Route exact path='/support' component={Support} />
+          {/* <Route exact path='/support' component={Support} /> */}
           <Route exact path='/contact/4' component={Survey} />
           <Route exact path='/clientsurvey' component={Survey} />
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />

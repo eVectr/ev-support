@@ -14,11 +14,10 @@ const Loginform = (props) => {
   useEffect(() => {
     authRoutes(props)
     let user = JSON.parse(localStorage.getItem('user'))
-    console.log(user, 'user')
     let { Type = '' } = user || {}
-    if (Type !== 'user') {
-      props.history.push('/admin')
-    }
+    // if (Type !== 'user') {
+    //   props.history.push('/admin')
+    // }
    // axios.get(`http://localhost:7788/findcontact`)
     axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
@@ -43,7 +42,13 @@ const Loginform = (props) => {
       props.history.push('/contact')
     }
   }
-  console.log('selected template => ', selectedReason)
+
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(!user) {
+    return null
+  }else if(user.Type == 'admin'){
+    props.history.push('/admin')
+  }
   return (
     <div className='select-reason'>
       <div className='sel-reason'>

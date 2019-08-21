@@ -274,10 +274,10 @@ const AdminPanel = (props) => {
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
 
   let user = JSON.parse(localStorage.getItem('user'))
+  console.log(user,'user00')
   if(!user){
     return null
-  }else if(user.Type == 'user'){
-    
+  } else if(user.Type == 'user'){
     props.history.push('/contact')
   }
  
