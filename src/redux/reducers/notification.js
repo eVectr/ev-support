@@ -13,7 +13,7 @@ const showNotificationReducer = (state = initialState, action) => {
     case SHOW_NOTIFICATION:
       return { ...state, notification: action.payload.notification }
     case SELECTED_REASON:
-      return { ...state, selectedReason: action.payload.data }
+      return { ...state, selectedReason: action.payload }
     case CASE_NO:
       return { ...state, caseNo: action.payload.caseno }
     default:
