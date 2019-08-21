@@ -95,9 +95,9 @@ const ContactForm = (props) => {
     }, 3000)
   }
 
-  // if (props.notificationreducer.selectedReason == undefined) {
-  //   props.history.push('/contact')
-  // }
+  if (props.showNotificationReducer.selectedReason == undefined) {
+    props.history.push('/contact')
+  }
   let user = JSON.parse(localStorage.getItem('user'))
   if(!user) {
     props.history.push('/')

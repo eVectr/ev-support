@@ -107,7 +107,15 @@ const MessageLogs = (props) => {
         setSentMessage(res.data.reverse())
       })
   }
-  //console.log("props     =============>", props.location.search)
+  
+  let user = JSON.parse(localStorage.getItem('user'))
+  if(user) {  
+   if(user.Type == 'admin'){
+    props.history.push('/admin')
+  }
+}else{
+  return null
+}
   return (
     <div className="messagelogs">
       <Row className="message-mail">

@@ -313,15 +313,12 @@ svg.styles_closeIcon__1QwbI path {
     padding-bottom: 25px;
 }
 .conversation-mess  ul {
-<<<<<<< HEAD
     line-height: 20px;
     padding-left: 14px;
-=======
     margin: 0px;
     padding-left: 15px;
     padding: 0;
     line-height: 0px;
->>>>>>> support-test
 }
 .name-table {
     width: 200px;
@@ -624,8 +621,4 @@ button:focus {
     cursor: pointer;
     color: #124bbf !important;
     font-size: 18px !important;
-<<<<<<< HEAD
 }
-=======
- }
->>>>>>> support-test

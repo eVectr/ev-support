@@ -205,7 +205,11 @@ const AdminTicket = (props) => {
   // if(contacts.length){
   //   console.log('contacts  =======> ', contacts[0].Case_No)
   // }
-  console.log("name ===>", name)
+  let user = JSON.parse(localStorage.getItem('user'))
+  console.log(user,'user00')
+  if(!user){
+    return null
+  } 
   return (
     <Col className='container-fluid'>
       {loader ?
