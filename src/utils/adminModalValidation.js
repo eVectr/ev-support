@@ -2,22 +2,22 @@ import microValidator from 'micro-validator'
 
 function adminModalValidation (data) {
     const errors = microValidator.validate({
-        first_name : {
+        FirstName : {
             required: {
                 errorMsg: 'First Name is required'
             }
         },
-        last_name : {
+        LastName : {
             required: {
                 errorMsg: 'Last Name is required'
             }
         },
-        password : {
+        Password : {
             required: {
                 errorMsg: 'Password is required'
             }
         },
-        email : {
+        Email : {
             required: {
                 errorMsg: 'Email is required'
             },

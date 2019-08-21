@@ -21,18 +21,6 @@ const AgentModal = (props) => {
     type: ''
   })
 
-  // useEffect(() => {
-  //   const { subAdminDetailsReducer } = props
-  //   const { adminDetails } = subAdminDetailsReducer
-  //   const { first_name, last_name, email, password } = adminDetails
-  //   agentUserDetailsData({
-  //     first_name,
-  //     last_name,
-  //     email,
-  //     password
-  //   })
-  //  }, [])
-  
   const onChangeText = e => {
     agentUserDetailsData({
       ...agentUserDetails,
@@ -45,15 +33,6 @@ const AgentModal = (props) => {
   const onChangeSelect = e => {
     console.log("select ee =>", e)
    setSelect(e)
-  }
-  
-  let onEdit = (firstName , LastName, email, password) =>{
-    agentUserDetailsData({
-      FirstName: firstName,
-      LastName: LastName,
-      Email: email,
-      Password: password
-    })
   }
 
   const styles = {
@@ -95,10 +74,11 @@ const AgentModal = (props) => {
         Type: select,
         Email: agentUserDetails.Email,
         TicketId: []
-
       })
         .then(res => {
           props.fetchadmin()
+          // agentUserDetailsData('')
+          props.emptyItem()
         })
 
         .then(res => {
@@ -116,7 +96,7 @@ const AgentModal = (props) => {
     onChangeSelect,
     agentsucces,
     createAgentSuccess,
-    onEdit
+    agentUserDetailsData,
   }
   return (
     <div style={styles} >
@@ -124,7 +104,7 @@ const AgentModal = (props) => {
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal} classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
           <h2>Create Agent</h2>
-          <AgentUserDetails  onEdit ={props.editAdmin} {...AgentModalProps}
+          <AgentUserDetails selectedItem={props.selectedItem} {...AgentModalProps}
           />
         </div>
 
