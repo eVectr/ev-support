@@ -60,7 +60,7 @@ const Navbar = (props) => {
   let onNotification = () => {
     props.history.push('/notification')
   }
-
+  
   return (
     <div>
       <nav class='navbar header-main' role='navigation' aria-label='main navigation'>
@@ -129,6 +129,16 @@ const Navbar = (props) => {
                   <strong>Notification</strong>
                 </a> : ''
             }
+          </div>
+          <div class='navbar-end'>
+            <div class='navbar-item'>
+                {(localStorage.user !== undefined)
+                  ? <p className="logedinUser">
+                    Logged in as  {JSON.parse(localStorage.user).Name}
+                  </p> : ''
+                }
+             
+            </div>
           </div>
           <div class='navbar-end'>
             <div class='navbar-item'>

@@ -977,7 +977,12 @@ app.post('/admintousermessage', (req, res) => {
       console.log(err)
       res.send(err)
     } else {
-      let Type = 'eVectr Urgent Message'
+      let Type
+      if (isUrgent) {
+        Type = 'eVectr Urgent Message'
+      } else {
+        Type = 'eVectr Message'
+      }
       var notification = new Notification({
         Type: Type,
         Date: date,

@@ -177,8 +177,8 @@ const ModalUi = props => {
        //axios.post(`http://localhost:7788/fileupload`, formData,
        axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
-         axios.post(`https://ev2.softuvo.xyz/admintousermessage`, { ReceiverId: userIds,
-        //axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
+         //axios.post(`https://ev2.softuvo.xyz/admintousermessage`, { ReceiverId: userIds,
+         axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
         Subject:adminSubject,
          Message: AdminMessage,
           isUrgent:isChecked })

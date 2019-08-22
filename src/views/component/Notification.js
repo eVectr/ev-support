@@ -74,9 +74,15 @@ const Notification = (props) => {
                         
                           break;
                     case 'eVectr Urgent Message':
+                            let urgentadminurl = (NotificationId.concat('&',CaseNo)).concat('?','true') 
+                            props.history.push('/messageLogs/' + urgentadminurl)
+                          break;
+
+                    case 'eVectr Message':
                             let adminurl = (NotificationId.concat('&',CaseNo)).concat('?','true') 
                             props.history.push('/messageLogs/' + adminurl)
                           break;
+
                     case 'Missed Chat Message':
                             window.open('https://reactchat.softuvo.xyz/chat/' + NotificationId)
                           break;
@@ -181,10 +187,10 @@ const Notification = (props) => {
                                     <tbody>
                                     {usersListPagination.map(function (d, idx) {
                                         return (
-                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent && d.FontStyle == true ? "redBold normallistText" : "normaltext"  : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText" ? d.isUrgent == true ? "redBold" : "normaltext" : 'normaltext' }`}   >{d.name}
+                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ?  d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
                                                 <td className="check-table">
                                                     <div className="alert">
-                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "fa fa-exclamation-triangle redBold" : "normaltext": d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert">
+                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "fa fa-exclamation-triangle activeurgentMessage" : "normaltext": d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert">
                                                             <input type="checkbox" checked={d.isChecked}
                                                         onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" />
                                                         </div>
