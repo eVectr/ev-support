@@ -31,7 +31,6 @@ const ModalUi = props => {
     textAlign: 'center'
   }
   useEffect(() => {
-    console.log("local =>", localStorage)
     if(localStorage !== undefined){
      // axios.get(`http://localhost:7788/getalluser`)
       axios.get(`https://ev2.softuvo.xyz/getalluser`)
@@ -225,13 +224,10 @@ const onDrop = (files) => {
   }
   let deleteFile = (file) => {
     let files = FileNames.filter((filename, index) => {
-      console.log(filename, 'filename')
       return filename.name !== file
     })
     setFileNames(files)
   }
-
-  console.log("is checked =>", isChecked)
 
   return (
     <div style={styles} >

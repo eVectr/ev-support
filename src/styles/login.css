@@ -502,12 +502,18 @@ a.navbar-item:hover {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.homeForms {
+.form-container.homeForms {
   overflow: scroll;
-  /* height: calc(100vh - 150px); */
+  height: calc(100vh - 150px);
   margin-top: 20px;
   margin-bottom: 20px;
 }
+/* .homeForms {
+  overflow: scroll;
+  height: calc(100vh - 150px);
+  margin-top: 20px;
+  margin-bottom: 20px;
+} */
 .navbar-start li {
   list-style: none;
   display: inline-block;
@@ -526,8 +532,8 @@ a.navbar-item:hover {
   background: #fff !important;
 }
 .homeForms .contact-form {
-  height: calc(100vh - 150px);
-    overflow: scroll;
+  /* height: calc(100vh - 150px);
+    overflow: scroll; */
 }
 .homeForms .button.is-success:focus:not(:active) {
   box-shadow:none !important;

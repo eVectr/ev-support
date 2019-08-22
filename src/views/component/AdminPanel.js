@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import {Row, Col, Input, Table,Button } from 'reactstrap'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import axios from 'axios'
 import { filterArray, authRoutes } from '../../utils/Common'
 import adminValidation from '../../utils/adminValidation'
 import PaginationAdmin from '../component/Pagination'
+import NoticePagination from './NoticePagination'
 import is from 'is_js'
 import '../../styles/adminpanel.css'
 import ModalUi from './ModalUi'
@@ -20,6 +22,7 @@ const AdminPanel = (props) => {
   const [loader, setLoader] = useState(false)
   const [show, setShow] = useState(false)
   const [start, setStart] = useState(0)
+  const [activePage, setactivePage] = useState(1)
   const [limit, setLimit] = useState(5)
   const [emailStatus, setEmailStatus] = useState('')
   const [emailCheck, setEmailCheck] = useState(false)
@@ -35,6 +38,7 @@ const AdminPanel = (props) => {
   const [sortData, setSortData] = useState('')
   const [test, setTest] = useState([])
   const [AgentOpen, setAgentOpen] = useState(false)
+  const [showLoader, setshowLoader] = useState(true)
   const [filterData1, setFilterData1] = useState({
     filterValue: '',
     filterName: ''
@@ -45,69 +49,70 @@ const AdminPanel = (props) => {
   //var socket = io.connect('http://localhost:7777')
 
   useEffect(() => {
-
-   // axios.get(`http://localhost:7788/getcontactslength`)
-    axios.get(`https://ev2.softuvo.xyz/getcontactslength`)
+    setLoader(true)
+     axios.get(`http://localhost:7788/findcontact`)
+    //axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
+        setContacts(res.data)
         setTotalContact(res.data.length)
+        setLoader(false)
       })
      
-
   }, [])
 
   useEffect(() => {
-    authRoutes(props)
-    
-    
-    setLoader(true)
-    if (!isFilterBySelected && !isSortBySelected) {
-      //axios.post(`http://localhost:7788/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
-        axios.post(`https://ev2.softuvo.xyz/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
-      .then(res => {
-          let { data = [] } = res
-          setContacts(data)
-          setLoader(false)
-          setShow(true)
-        })
-    }
-    else if (isFilterBySelected && isSortBySelected) {
+  //   authRoutes(props)
+  //   setLoader(true)
+  //   if (!isFilterBySelected && !isSortBySelected) {
+  //     //axios.post(`http://localhost:7788/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
+  //       axios.post(`https://ev2.softuvo.xyz/getcontactsbypage`, { Pagenumber: pageNumber, size: limit })
+  //     .then(res => {
+  //         let { data = [] } = res
+  //         setContacts(data)
+  //         setLoader(false)
+  //         setShow(true)
+  //       })
+  //   }
+  //   else if (isFilterBySelected && isSortBySelected) {
 
-  // axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-     axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit }) 
-    .then(res => {
-          let { data = {} } = res
-          console.log('filter data data ===>', data)
-          setContacts(data.data)
-          setLoader(false)
-          setShow(true)
-        })
+  // // axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+  //    axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit }) 
+  //   .then(res => {
+  //         let { data = {} } = res
+  //         setContacts(data.data)
+  //         setLoader(false)
+  //         setShow(true)
+  //       })
 
-    } else if (isFilterBySelected) {
-    // axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-       axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-      .then(res => {
-          let { data = {} } = res
-          setContacts(data)
-          setLoader(false)
-          setShow(true)
-        })
-    }
-    else if (isSortBySelected) {
-     // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-       axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-      .then(res => {
-          let { data = {} } = res
-          setContacts(data.data)
-          setLoader(false)
-          setShow(true)
-        })
-    }
+  //   } else if (isFilterBySelected) {
+  //   // axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+  //      axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+  //     .then(res => {
+  //         let { data = {} } = res
+  //         setContacts(data)
+  //         setLoader(false)
+  //         setShow(true)
+  //       })
+  //   }
+  //   else if (isSortBySelected) {
+  //    // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+  //      axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+  //     .then(res => {
+  //         let { data = {} } = res
+  //         setContacts(data.data)
+  //         setLoader(false)
+  //         setShow(true)
+  //       })
+  //   }
   }, [pageNumber, limit])
 
+  let paginationContact = contacts.slice((activePage * limit) - limit, (activePage * limit))
+
   let handleSearchChange = (e) => {
+    console.log(e.target.value, 'e.target.value')
     setCaseNo(e.target.value)
-    const searchedProduct = filterArray(contacts, 'Case_No', caseNo)
-    setContacts(searchedProduct)
+    // const searchedProduct = filterArray(contacts, 'Case_No', caseNo)
+    // setContacts(searchedProduct)
   }
 
   let onCloseModal = () => {
@@ -117,6 +122,9 @@ const AdminPanel = (props) => {
 
   let clearEmailCheck = () => {
     setTimeout(function () { setEmailStatus('') }, 3000)
+  }
+  let handlePageChange = (pageNumber) => {
+    setactivePage(pageNumber)
   }
 
   const handleMessageChange = e => {
@@ -132,8 +140,8 @@ const AdminPanel = (props) => {
       return
     }
     setLoader(true)
-    //axios.post(`http://localhost:7788/sendmail`, { message: message, email: contact.Email })
-     axios.post(`https://ev2.softuvo.xyz/sendmail`, { message: message, email: contact.Email })
+    axios.post(`http://localhost:7788/sendmail`, { message: message, email: contact.Email })
+    // axios.post(`https://ev2.softuvo.xyz/sendmail`, { message: message, email: contact.Email })
       .then(res => {
         setLoader(false)
         setShowFlashMsg(true)
@@ -192,11 +200,14 @@ const AdminPanel = (props) => {
     if (e.target.value > 0 && e.target.value < 31) {
       setLimit(e.target.value)
     }
+    if(e.target.value == ''){
+      setLimit(5)
+    }
   }
   useEffect(() => {
     if (isFilterBySelected && !isSortBySelected) {
-    // axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-       axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+     axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+       //axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           setContacts(data)
@@ -207,12 +218,13 @@ const AdminPanel = (props) => {
   }, [filterData1.filterValue])
 
   useEffect(() => {
+
     if (isSortBySelected && !isFilterBySelected) {
-     // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-       axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+      
+      axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+       //axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
-          console.log('sort by response ====>', res.data)
           setContacts(data.data)
          
           setShow(true)
@@ -221,37 +233,76 @@ const AdminPanel = (props) => {
   }, [sortData])
 
   useEffect(() => {
+  
     if (isSortBySelected && isFilterBySelected) {
+      console.log("filter data ==>", filterData1.filterValue)
+      console.log("sortData data ==>", sortData)
       setLoader(false)
-     // axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-       axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-      .then(res => {
-          let { data = {} } = res
-          console.log('filter data data ===>', data)
-          setContacts(data.data)
-         
-          setShow(true)
-        })
+      if(filterData1.filterValue == 'null'){
+        
+        axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+        //axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+       .then(res => {
+           let { data = {} } = res
+           setContacts(data.data)
+           setShow(true)
+         })
+      }else{
+        axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, 
+        filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+       // axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+       .then(res => {
+           let { data = {} } = res
+           setContacts(data.data)
+          
+           setShow(true)
+         })
+      } 
     }
   }, [sortData, filterData1.filterValue])
 
   async function setfilterType (e) {
-    setisFilterBySelected(true)
-    let filterArrayData = e.target.value
-    let splitFilterArrayData = filterArrayData.split(',')
-    return (
-      setFilterData1({
-        filterName: splitFilterArrayData[1],
-        filterValue: splitFilterArrayData[0]
+
+    if(e.target.value == 'Status, Open' && !isSortBySelected){
+      setisSortBySelected(false)
+      setLoader(true)
+      axios.get(`http://localhost:7788/findcontact`)
+    //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+      .then(res => {
+        setContacts(res.data)
+        setTotalContact(res.data.length)
+        setLoader(false)
       })
-    )
+    }else{
+      setisFilterBySelected(true)
+      let filterArrayData = e.target.value
+      let splitFilterArrayData = filterArrayData.split(',')
+      return (
+        setFilterData1({
+          filterName: splitFilterArrayData[1],
+          filterValue: splitFilterArrayData[0]
+        })
+      )
+    }
 }
 
   async function getDataByFilter (e) {
-    setisSortBySelected(true)
-    return (
-      setSortData(e.target.value)
-    )
+   
+    if(e.target.value == 'Status,Open' && !isFilterBySelected){
+      
+      setisFilterBySelected(false)
+      axios.get(`http://localhost:7788/findcontact`)
+      //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+        .then(res => {
+          setContacts(res.data)
+          setTotalContact(res.data.length)
+        })
+    }else{
+      setisSortBySelected(true)
+      return (
+        setSortData(e.target.value)
+      )
+    }
   }
   let showTestMsgBox = () => {
     setshowTextArea(!showTextArea)
@@ -274,13 +325,15 @@ const AdminPanel = (props) => {
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
 
   let user = JSON.parse(localStorage.getItem('user'))
-  console.log(user,'user00')
   if(!user){
     return null
   } else if(user.Type == 'user'){
     props.history.push('/contact')
   }
- 
+  console.log(paginationContact, 'paginationContact')
+  const searchedProduct = filterArray(paginationContact, 'Case_No', caseNo)
+  console.log('search pr =>', searchedProduct)
+  
   return (
     <div className="containers">
       <div className="inner-containers">
@@ -299,22 +352,25 @@ const AdminPanel = (props) => {
         <Col>
           <div className='admin-panel-search-section'>
             <div className='searching'>
-              <div className='select-option' >
+              <div className='select-option'>
                 <select onChange={(e) => setfilterType(e)}>
-                  <option value='Filter by'>Filter By</option>
+                 
+                  <option value='null,Status'>Filter By</option>
                   <option value='Open,Status'> Open Status</option>
                   <option value='Active,Status'> Active Status</option>
                   <option value='Closed,Status'> Closed Status</option>
-                  <option value='Standard,Type'>Standard Type</option>
-                  <option value='Mandatory Uploads,Type'>Mandatory Uploads</option>
-                  <option value='Optional Uploads + Transaction Number,Type'>Optional+Transaction Type</option>
+                  <option value='Standard,Template'>Standard</option>
+                  <option value='Mandatory Uploads,Template'>Mandatory Uploads</option>
+                  <option value='Optional Uploads + Transaction Number,Template'>Optional+Transaction</option>
+                      
                 </select>
+                
               </div>
               <div>
                 <select onChange={(e) => getDataByFilter(e)}>
-                  <option value='Filter by'>Sort By</option>
-                  <option value='CaseNo'>CaseNumber</option>
-                  <option value='Date'>Date</option>
+                  <option value='Filter, by'>Sort By</option>
+                  <option value='Case_No'>CaseNumber</option>
+                  <option value='date'>Date</option>
                 </select>
               </div>
             </div>
@@ -366,14 +422,14 @@ const AdminPanel = (props) => {
                 <th>Actions</th>
               </tr>
             </thead>
-            {searchedResult.map(contact => {
+            {searchedProduct.map(contact => {
               return (
                 <tr>
                   <td className='admin-data'>{contact.Case_No}</td>
                   <td className={`${(contact.Status === 'Open' ? 'open' : contact.Status === 'Active'
                     ? 'active' : 'closed')}`}>
                     {contact.Status}</td>
-                  <td className='admin-data'>{contact.date.split('T')[0]}</td>
+                  <td className='admin-data'>{moment(contact.date).format('lll')}</td>
                   <td className='admin-data'>{contact.Subject}</td>
                   <td className='admin-data'>{contact.Template}</td>
                   <td className='admin-data'>Not Assign</td>
@@ -389,20 +445,20 @@ const AdminPanel = (props) => {
               )
             })}
           </Table>
-          {
+          {/* {
             show ? <Row>
-              <Col>
-                <PaginationAdmin
-                  paginate={paginate}
-                  nextPage={nextPage}
-                  pageNumber={pageNumber}
-                  totalPages={totalPages}
-                  isActive={isActive}
-
-                />
+              <Col className="admin-pagination">
+              <NoticePagination totalItemsCount={totalContact} handlePageChange ={handlePageChange}
+              activePage={activePage}></NoticePagination>
               </Col>
             </Row> : ''
-          }
+          } */}
+          <Row>
+              <Col className="admin-pagination">
+              <NoticePagination totalItemsCount={totalContact} handlePageChange ={handlePageChange}
+              activePage={activePage}></NoticePagination>
+              </Col>
+            </Row>
         </Col>
       </Row>
       </div>

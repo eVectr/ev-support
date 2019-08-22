@@ -336,14 +336,16 @@ app.post('/saveContact', (req, res) => {
 })
 
 app.get('/findcontact', (req, res) => {
-  ContactCategory.find({}, function (err, docs) {
-    if (err) {
-      console.log("error")
-      res.send(err)
-    } else {
-      res.send(docs)
-    }
-  })
+  ContactForm.find({ }, null,
+    { sort: { date: -1 } }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    })
 })
 
 app.get('/getclientsurvey', (req, res) => {
@@ -479,15 +481,14 @@ app.post('/getcontactsbyfilter', (req, res) => {
   let Name = req.body.filterName
   console.log("Name ====>", Name)
   console.log("value ====>", value)
-  if (Name == 'Type') {
+  if (Name == 'Template') {
     ContactForm.find({ Template: value }, null,
-      { limit: Limit, skip: Skip, sort: { date: -1 } }, function (err, data) {
+      {  sort: { date: 1 } }, function (err, data) {
         if (err) {
           console.log("error")
           res.send(err)
         } else {
-          console.log(data)
-
+          console.log("check2")
           res.send(data)
         }
       })
@@ -522,6 +523,19 @@ app.get('/getcontactslength', (req, res) => {
     }
   })
 })
+
+// app.get('/findcontacts', (req, res) => {
+//   ContactForm.find({}, function (err, docs) {
+//     if (err) {
+//       console.log("error")
+//       res.send(err)
+//     } else {
+//       console.log(docs.length)
+       
+//       res.send({length:docs.length})
+//     }
+//   })
+// })
 
 ////////////////////////////////////////
 
@@ -638,12 +652,12 @@ app.post('/getcontactsbypage', (req, res) => {
     console.log("filtevaleu ===>", value)
     if(Name == 'Type'){
       ContactForm.find({Template:value}, null,
-        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+        {  sort: { date: 1 } }, function (err, data) {
         if (err) {
           console.log("error")
           res.send(err)
         } else {
-          console.log(data)
+          console.log("check3")
    
           res.send({data})
         }
@@ -674,12 +688,12 @@ app.post('/getcontactsbyfilter', (req, res) => {
   let Name = req.body.filterName
 
   ContactForm.find({ [Name]: value }, null,
-    { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+    {  sort: { date: 1 } }, function (err, data) {
       if (err) {
         console.log('error')
         res.send(err)
       } else {
-        console.log(data)
+        console.log("check 1")
         res.send({ data })
       }
     })
@@ -705,16 +719,15 @@ app.post('/getcontactsbyfilter&sort', (req, res) => {
   let value = req.body.filterValue
   let Name = req.body.filterName
   let query = { [req.body.sortName]: 1 }
-  console.log(query)
+  console.log("sort name ===>", req.body.sortName)
+  console.log(" Name ===>", Name)
 
   ContactForm.find({ [Name]: value }, null,
-    { limit: Limit, skip: Skip, sort: query }, function (err, data) {
+    { sort: query }, function (err, data) {
       if (err) {
         console.log('error')
         res.send(err)
       } else {
-        console.log(data)
-       console.log("sor and filter")
         res.send({ data })
       }
     })
@@ -730,7 +743,7 @@ app.post('/getcontactsbysort', (req, res) => {
   let query = { [req.body.sortName]: 1 }
   console.log('query ===>', query)
   ContactForm.find({}, null,
-    { limit: Limit, skip: Skip, sort: query }, (err, data) => {
+    { sort: query }, (err, data) => {
       if (err) {
         console.log('errrrrrrrr      ====>', err)
         res.send(err)

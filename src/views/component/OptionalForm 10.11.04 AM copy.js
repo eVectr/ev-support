@@ -401,7 +401,7 @@ const ContactForm = (props) => {
     return (
         <div className="form-container homeForms">
             <Loader />
-            <div className="contact-form">
+            <div className="contact-form 1">
                 <div className="header"> <span>Contact Us</span> </div>
                 <div className="pading">
 
