@@ -50,8 +50,8 @@ const AdminPanel = (props) => {
 
   useEffect(() => {
     setLoader(true)
-     axios.get(`http://localhost:7788/findcontact`)
-    //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+    // axios.get(`http://localhost:7788/findcontact`)
+    axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
         setContacts(res.data)
         setTotalContact(res.data.length)
@@ -140,8 +140,8 @@ const AdminPanel = (props) => {
       return
     }
     setLoader(true)
-    axios.post(`http://localhost:7788/sendmail`, { message: message, email: contact.Email })
-    // axios.post(`https://ev2.softuvo.xyz/sendmail`, { message: message, email: contact.Email })
+  //  axios.post(`http://localhost:7788/sendmail`, { message: message, email: contact.Email })
+     axios.post(`https://ev2.softuvo.xyz/sendmail`, { message: message, email: contact.Email })
       .then(res => {
         setLoader(false)
         setShowFlashMsg(true)
@@ -206,8 +206,8 @@ const AdminPanel = (props) => {
   }
   useEffect(() => {
     if (isFilterBySelected && !isSortBySelected) {
-     axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-       //axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+     //axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+       axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           setContacts(data)
@@ -221,8 +221,8 @@ const AdminPanel = (props) => {
 
     if (isSortBySelected && !isFilterBySelected) {
       
-      axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-       //axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+     // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+       axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
       .then(res => {
           let { data = {} } = res
           setContacts(data.data)
@@ -240,17 +240,17 @@ const AdminPanel = (props) => {
       setLoader(false)
       if(filterData1.filterValue == 'null'){
         
-        axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-        //axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+       // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+        axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
        .then(res => {
            let { data = {} } = res
            setContacts(data.data)
            setShow(true)
          })
       }else{
-        axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, 
-        filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-       // axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+       // axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, 
+        //filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+        axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
        .then(res => {
            let { data = {} } = res
            setContacts(data.data)
@@ -266,8 +266,8 @@ const AdminPanel = (props) => {
     if(e.target.value == 'Status, Open' && !isSortBySelected){
       setisSortBySelected(false)
       setLoader(true)
-      axios.get(`http://localhost:7788/findcontact`)
-    //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+      //axios.get(`http://localhost:7788/findcontact`)
+     axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
         setContacts(res.data)
         setTotalContact(res.data.length)
@@ -291,8 +291,8 @@ const AdminPanel = (props) => {
     if(e.target.value == 'Status,Open' && !isFilterBySelected){
       
       setisFilterBySelected(false)
-      axios.get(`http://localhost:7788/findcontact`)
-      //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+      //axios.get(`http://localhost:7788/findcontact`)
+      axios.get(`https://ev2.softuvo.xyz/findcontact`)
         .then(res => {
           setContacts(res.data)
           setTotalContact(res.data.length)
