@@ -48,7 +48,7 @@ th.head-text {
     margin-top: 50px;
 }
 .subadmin-table {
-    height: calc(100vh - 182px);
+    margin-bottom: 175px;
 }
 .agent-modal-admin {
     margin-top: 50px;
