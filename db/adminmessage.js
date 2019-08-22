@@ -6,6 +6,7 @@ var AdminMessage = new mongoose.Schema({
   ReceiverId: [],
   Message: String,
   Document: [],
+  isUrgent: Boolean,
   Date: Date
 })
 module.exports = mongoose.model('AdminMessage', AdminMessage)

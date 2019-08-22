@@ -983,6 +983,7 @@ app.post('/admintousermessage', (req, res) => {
     ReceiverId: ReceiverId,
     Message: Message,
     Document: Document,
+    isUrgent:isUrgent,
     Date: date
   })
   adminmessage.save((err, data) => {

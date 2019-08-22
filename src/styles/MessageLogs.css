@@ -294,14 +294,21 @@ svg.styles_closeIcon__1QwbI path {
 }
 .conversation-mess .head-mess span {
     line-height: 48px;
-    padding-left: 1%;
+    text-align: right;
+    float: right;
 }
 .conversation-mess .summay-message {
     padding: 0px;
-    transform: translate(0px, -15px);
+    transform: translate(2px, -27px);
     display: inline-block;
     line-height: 0px;
 
+}
+.summay-message p {
+    max-width: 800px;
+    line-height: 24px;
+    margin-bottom: 0;
+    margin-top: 20px;
 }
 .conversation-mess {
     padding: 5px 10px;
@@ -310,15 +317,16 @@ svg.styles_closeIcon__1QwbI path {
     width: 100%;
     max-height: 100%;
     margin-top: 15px;
-    padding-bottom: 25px;
+    padding-bottom: 1%;
+    position: relative;
 }
 .conversation-mess  ul {
-    line-height: 20px;
-    padding-left: 14px;
     margin: 0px;
     padding-left: 15px;
     padding: 0;
     line-height: 0px;
+    position: absolute;
+    bottom: 22px;
 }
 .name-table {
     width: 200px;
@@ -447,9 +455,9 @@ svg.styles_closeIcon__1QwbI path {
    
 }
 .message-outer {
-    height: 380px;
-    overflow: scroll;
-    overflow-x: hidden;
+    height: 240px;
+    /* overflow: scroll;
+    overflow-x: hidden; */
 }
 .error-msg {
     text-align: center;
@@ -596,7 +604,7 @@ button:focus {
 .reply-detail-text {
    position: fixed;
     width: 80.7%;
-    bottom: 70px;
+    bottom: 40px;
 }
 .subject-mail-head {
     width: 100%;

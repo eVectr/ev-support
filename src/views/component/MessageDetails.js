@@ -132,9 +132,8 @@ const MessageDetails = (props) => {
       window.open(url)
     }
 
-    console.log("sent message =>", sentMessage)
-    console.log("user message =>", userMessage)
-    console.log("admin message =>", adminMessage)
+  
+ 
 
   return (
     <div className="messagedetail">
@@ -176,7 +175,7 @@ const MessageDetails = (props) => {
                             
                                 <ul>
                                   <li>
-                                   <a href onClick ={() => openAttachement(docurl)}>Attachment</a>
+                                  <span className="attach-docs"> <a href onClick ={() => openAttachement(docurl)}>Attachment</a></span>
                                   </li>
                                 </ul>
                           )
@@ -263,8 +262,8 @@ const MessageDetails = (props) => {
                           <h3>{adminMessage.SenderName}</h3><span> {moment(adminMessage.Date).format('lll')}</span>
                         </div>
                         <div className="summay-message">
-                          <p>
-                            {adminMessage.Message}
+                          <p 
+                           className={`${adminMessage.isUrgent ? 'red':'normal'}`} >{adminMessage.Message}
                           </p>
                         </div>
                         {
@@ -304,6 +303,7 @@ const MessageDetails = (props) => {
                       <div className="subject-mail-head">
                         <label>Subject:</label><span>{sentMessage.Subject == undefined? 'N/A':sentMessage.Subject}</span>
                       </div>
+                    <div className="12">
                      <div className="message-deatil-section">
                     <div className='conversation-mess'>
                       <div className='message-section'>
@@ -341,6 +341,7 @@ const MessageDetails = (props) => {
                         :''
                         }
                       </div>
+                    </div>
                     </div>
                     </div>
 
