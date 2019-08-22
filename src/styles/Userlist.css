@@ -45,10 +45,10 @@ th.head-text {
 }
 .userlist-show .table {
     margin: auto;
-    margin-top: 110px;
+    margin-top: 50px;
 }
 .subadmin-table {
-    height: calc(100vh - 182px);
+    margin-bottom: 175px;
 }
 .agent-modal-admin {
     margin-top: 50px;
@@ -59,3 +59,7 @@ th.head-text {
 /* .userlist-show .row {
     display: inherit;
 } */
+.userlist-show.container .row {
+    width: 100%;
+    margin: 0 !important;
+}
