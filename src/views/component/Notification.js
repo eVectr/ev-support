@@ -33,16 +33,16 @@ const Notification = (props) => {
               if(res.data.length < 1){
                   setisNoNotification(true)
               }else{
-                //   for (let i = 0; i < res.data.length; i++) {
-                //       if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                //           setNotification(prev => {
-                //               const updated = prev.concat(res.data[i])
-                //               return updated
-                //           })
+                  for (let i = 0; i < res.data.length; i++) {
+                      if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
+                          setNotification(prev => {
+                              const updated = prev.concat(res.data[i])
+                              return updated
+                          })
                           
-                //       }
-                //   }
-                //   setTotalItemsCount(res.data.length)
+                      }
+                  }
+                  setTotalItemsCount(res.data.length)
               }
           })
     }, [])
@@ -184,17 +184,18 @@ const Notification = (props) => {
                                 
                                     <tbody>
                                     {usersListPagination.map(function (d, idx) {
+                                        console.log("d.isUrgent ==>", d.isUrgent)
                                         return (
-                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.FontStyle == true ? "normallistText activeurgentMessage" : "boldlistText activeurgentMessage" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText"}`}   >{d.name}
+                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "redBold" : "normaltext" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText" ? d.isUrgent == true ? "redBold" : "normaltext" : 'normaltext' }`}   >{d.name}
                                                 <td className="check-table">
                                                     <div className="alert">
-                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-exclamation-triangle activeurgentMessage" : d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : ''}`} aria-hidden="true"></i></div><div className="check-alert">
+                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "fa fa-exclamation-triangle redBold" : "normaltext": d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert">
                                                             <input type="checkbox" checked={d.isChecked}
                                                         onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" />
                                                         </div>
                                                     </td>
                                                     <td className="typeicons">
-                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt"}`} aria-hidden="true"></i>{d.Type}
+                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt" ? d.isUrgent == true ? "redBold" : "normaltext"  : ''}`} aria-hidden="true"></i>{d.Type}
                                                     </td>
                                                     <td>
                                                         {moment(d.Date).format('lll')}

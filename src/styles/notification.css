@@ -357,3 +357,11 @@ th.select-list{
     font-size: 35px;
     margin-top: 190px;
 }
+.normaltext {
+    color: #000;
+    font-weight: bold;
+}
+.redBold {
+    color: red;
+    font-weight: bold;
+}
