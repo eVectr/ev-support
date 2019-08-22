@@ -8,6 +8,7 @@ var Notification = new mongoose.Schema({
   Action: String,
   FontStyle: Boolean,
   isChecked: Boolean,
+  isUrgent: Boolean,
   NotificationId: String,
   CaseNo: String
 })
