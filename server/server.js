@@ -821,6 +821,7 @@ app.post('/usertousermessage', (req, res) => {
         Action: 'SEE MESSAGE',
         FontStyle: false,
         isChecked: false,
+        isUrgent: false,
         NotificationId: data._id,
         CaseNo: '1'
       })
@@ -849,6 +850,7 @@ app.post('/savenotification', (req, res) => {
     FontStyle: false,
     isChecked: false,
     CaseNo:CaseNo,
+    isUrgent:false,
     NotificationId:NotificationId
   })
   notification.save((err, data)=>{
@@ -877,6 +879,7 @@ app.post('/chatnotification', (req, res) => {
     Action: 'SEE MESSAGE',
     FontStyle: false,
     isChecked: false,
+    isUrgent:false,
     CaseNo:CaseNo,
     NotificationId:NotificationId
   })
@@ -960,6 +963,7 @@ app.post('/admintousermessage', (req, res) => {
   let Message = req.body.Message
   let Document = filepaths
   let date = Date.now()
+  let isUrgent = req.body.isUrgent
   var adminmessage = new AdminMessage({
     SenderName: SenderName,
     Subject: Subject,
@@ -982,6 +986,7 @@ app.post('/admintousermessage', (req, res) => {
         Action: 'SEE MESSAGE',
         FontStyle: false,
         isChecked: false,
+        isUrgent: isUrgent,
         NotificationId: data._id,
         CaseNo: '0'
       })
@@ -1095,6 +1100,7 @@ app.post('/missedchatmessage', (req, res) => {
     SentBy: req.body.SenderId,
     SentTo: req.body.ReceiverId,
     Message: req.body.Message,
+    isUrgent: false,
     Date: Date.now()
   })
   notification.save((err, data) => {
