@@ -151,7 +151,7 @@ const Notification = (props) => {
 
     let user = JSON.parse(localStorage.getItem('user'))
     if(!user){
-        props.history.push('/')
+        return null
      }
     return (
         <Container fluid>
