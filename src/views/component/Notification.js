@@ -149,10 +149,10 @@ const Notification = (props) => {
        
     }
 
-    let user = JSON.parse(localStorage.getItem('user'))
-    if(!user){
-        return null
-     }
+    // let user = JSON.parse(localStorage.getItem('user'))
+    // if(!user){
+    //     return null
+    //  }
     return (
         <Container fluid>
            <Row className="notify-table">

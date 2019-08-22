@@ -83,15 +83,15 @@ const Loginform = (props) => {
   }
 
    let user = JSON.parse(localStorage.getItem('user'))
-  // console.log(user,'user00')
-  // if(user){
-  //  if(user.Type == 'user'){
-  //   props.history.push('/contact')
-  // }
-  // else if(user.Type == 'admin'){
-  //   props.history.push('/admin')
-  // }
-  // }
+  console.log(user,'user00')
+  if(user){
+   if(user.Type == 'user'){
+    props.history.push('/contact')
+  }
+  else if(user.Type == 'admin'){
+    props.history.push('/admin')
+  }
+  }
   // if(!user){
   //   return null
   // }
