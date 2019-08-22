@@ -147,10 +147,6 @@ const Notification = (props) => {
     if(!user){
         props.history.push('/')
      }
-    //else{
-    //     props.history.push('/')
-    // }
- 
     return (
         <Container fluid>
            <Row className="notify-table">
@@ -184,9 +180,8 @@ const Notification = (props) => {
                                 
                                     <tbody>
                                     {usersListPagination.map(function (d, idx) {
-                                        console.log("d.isUrgent ==>", d.isUrgent)
                                         return (
-                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "redBold" : "normaltext" : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText" ? d.isUrgent == true ? "redBold" : "normaltext" : 'normaltext' }`}   >{d.name}
+                                            <tr key={idx} className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent && d.FontStyle == true ? "redBold normallistText" : "normaltext"  : d.Type == 'Missed Chat Message' ? d.FontStyle == true ? "normallistText" : "boldlistText" : d.FontStyle == true ? "normallistText" : "boldlistText" ? d.isUrgent == true ? "redBold" : "normaltext" : 'normaltext' }`}   >{d.name}
                                                 <td className="check-table">
                                                     <div className="alert">
                                                         <i className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "fa fa-exclamation-triangle redBold" : "normaltext": d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert">
