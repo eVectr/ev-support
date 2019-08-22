@@ -33,16 +33,16 @@ const Notification = (props) => {
               if(res.data.length < 1){
                   setisNoNotification(true)
               }else{
-                //   for (let i = 0; i < res.data.length; i++) {
-                //       if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
-                //           setNotification(prev => {
-                //               const updated = prev.concat(res.data[i])
-                //               return updated
-                //           })
+                  for (let i = 0; i < res.data.length; i++) {
+                      if (res.data[i].SentTo.includes(JSON.parse(localStorage.user)._id)) {
+                          setNotification(prev => {
+                              const updated = prev.concat(res.data[i])
+                              return updated
+                          })
                           
-                //       }
-                //   }
-                //   setTotalItemsCount(res.data.length)
+                      }
+                  }
+                  setTotalItemsCount(res.data.length)
               }
           })
     }, [])

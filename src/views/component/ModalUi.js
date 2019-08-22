@@ -183,7 +183,7 @@ const ModalUi = props => {
          Message: AdminMessage,
           isUrgent:isChecked })
          .then(res => {
-           console.log('res ==>', res)
+           setIsChecked(false)
            if (props.closeModal) {
              props.closeModal()
            } else {
@@ -231,6 +231,7 @@ const onDrop = (files) => {
     setFileNames(files)
   }
 
+  console.log("is checked =>", isChecked)
 
   return (
     <div style={styles} >
