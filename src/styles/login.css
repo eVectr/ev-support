@@ -532,3 +532,15 @@ a.navbar-item:hover {
 .homeForms .button.is-success:focus:not(:active) {
   box-shadow:none !important;
 }
+.navbar-end {
+  justify-content: flex-end;
+  margin-left: inherit;
+}
+.logedinUser {
+  color: #04bf04;
+    vertical-align: middle;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 18px;
+   
+}

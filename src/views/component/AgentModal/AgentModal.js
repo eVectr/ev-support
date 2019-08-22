@@ -66,7 +66,7 @@ const AgentModal = (props) => {
       }, 1000)
       agentUserDetailsData('')
       })
-      if(props.selectedItem._id == ''){
+      if(props.selectedItem._id == undefined){
         axios.post(`https://ev2.softuvo.xyz/saveagent`, {
         //  axios.post(`http://localhost:7788/saveagent`, {
             FirstName: agentUserDetails.FirstName,
@@ -86,7 +86,8 @@ const AgentModal = (props) => {
               console.log("agentUser ==>", res)
               props.savePageChange()
             })
-      }else{
+      }
+      else{
         axios.post(`https://ev2.softuvo.xyz/updateAgent`, {
         //  axios.post(`http://localhost:7788/updateAgent`, {
             Id: props.selectedItem._id,

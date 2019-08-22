@@ -177,12 +177,13 @@ const ModalUi = props => {
        //axios.post(`http://localhost:7788/fileupload`, formData,
        axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
-         axios.post(`https://ev2.softuvo.xyz/admintousermessage`, { ReceiverId: userIds,
-        //axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
+         //axios.post(`https://ev2.softuvo.xyz/admintousermessage`, { ReceiverId: userIds,
+         axios.post(`http://localhost:7788/admintousermessage`, { ReceiverId: userIds,
         Subject:adminSubject,
-         Message: AdminMessage })
+         Message: AdminMessage,
+          isUrgent:isChecked })
          .then(res => {
-           console.log('res ==>', res)
+           setIsChecked(false)
            if (props.closeModal) {
              props.closeModal()
            } else {
@@ -229,6 +230,7 @@ const onDrop = (files) => {
     })
     setFileNames(files)
   }
+
 
   return (
     <div style={styles} >
@@ -296,7 +298,7 @@ const onDrop = (files) => {
                 </div>
               <div className="check-label">
                   <input type="checkbox" className="checkbox" onChange ={handleChecked}></input>
-                  <label>Mark as a Urgent</label>
+                  <label>Mark as  Urgent</label>
               </div>
               <textarea placeholder='write a message .....' onChange = {(e) => onAdminMessage(e)} className="admin-area"></textarea>
               <div> {
