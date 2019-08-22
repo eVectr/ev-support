@@ -36,6 +36,9 @@ const UserList = props => {
   let handlePageChange = (pageNumber) => {
     setactivePage(pageNumber)
   }
+  let savePageChange = () => {
+    setactivePage(1)
+  }
 
   let adminListPagination = subAdmin.slice((activePage * 5) - 5, (activePage * 5))
 
@@ -80,7 +83,7 @@ const UserList = props => {
     <Container style={styles} className="userlist-show" >
        <div className="agent-modal-admin">
         <Col>
-            <AgentModal selectedItem = {selectedItem} emptyItem={ emptyItem } editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
+            <AgentModal savePageChange={savePageChange} selectedItem = {selectedItem} emptyItem={ emptyItem } editAdmin={editAdmin} fetchadmin={fetchadmin} className="sent-modal" open={AgentOpen} onAgentCloseModal={() => setAgentOpen(!AgentOpen)}></AgentModal>
             <Button onClick={() => setAgentOpen(!AgentOpen)}> <i class="fas fa-user-plus"></i></Button>
         </Col>
       </div>

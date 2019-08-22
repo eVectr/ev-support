@@ -84,10 +84,11 @@ const AgentModal = (props) => {
             .then(res => {
               setErrors('')
               console.log("agentUser ==>", res)
+              props.savePageChange()
             })
       }else{
-        axios.post(`https://ev2.softuvo.xyz/saveagent`, {
-        //  axios.post(`http://localhost:7788/saveagent`, {
+        axios.post(`https://ev2.softuvo.xyz/updateAgent`, {
+        //  axios.post(`http://localhost:7788/updateAgent`, {
             Id: props.selectedItem._id,
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,
