@@ -524,18 +524,16 @@ app.get('/getcontactslength', (req, res) => {
   })
 })
 
-// app.get('/findcontacts', (req, res) => {
-//   ContactForm.find({}, function (err, docs) {
-//     if (err) {
-//       console.log("error")
-//       res.send(err)
-//     } else {
-//       console.log(docs.length)
-       
-//       res.send({length:docs.length})
-//     }
-//   })
-// })
+app.get('/findcontactreason', (req, res) => {
+  ContactCategory.find({}, function (err, docs) {
+    if (err) {
+      console.log("error")
+      res.send(err)
+    } else {
+      res.send(docs)
+    }
+  })
+})
 
 ////////////////////////////////////////
 

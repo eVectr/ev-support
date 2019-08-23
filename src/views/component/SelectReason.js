@@ -18,8 +18,8 @@ const Loginform = (props) => {
     // if (Type !== 'user') {
     //   props.history.push('/admin')
     // }
-   // axios.get(`http://localhost:7788/findcontact`)
-    axios.get(`https://ev2.softuvo.xyz/findcontact`)
+   // axios.get(`http://localhost:7788/findcontactreason`)
+    axios.get(`https://ev2.softuvo.xyz/findcontactreason`)
       .then(res => {
         setReason(res.data)
       })
