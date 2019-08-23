@@ -156,7 +156,7 @@ const Notification = (props) => {
         }
         else {
                // axios.post(`http://localhost:7788/deleteselectednotification`, { Id: allSelectedId, SentTo: JSON.parse(localStorage.user)._id} )
-                    axios.post(`https://ev2.softuvo.xyz/deletetestnotification`, {Id:allSelectedId, SentTo: JSON.parse(localStorage.user)._id})
+                    axios.post(`https://ev2.softuvo.xyz/deleteselectednotification`, {Id:allSelectedId, SentTo: JSON.parse(localStorage.user)._id})
                     .then(res => {
                         setValueData(false)
                         let filteredArray = notification.filter(item => allSelectedId.indexOf(item._id) == -1)
