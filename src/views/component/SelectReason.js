@@ -49,6 +49,7 @@ const Loginform = (props) => {
   // }else if(user.Type == 'admin'){
   //   props.history.push('/admin')
   // }
+  console.log("local storage ==>", localStorage)
   return (
     <div className='select-reason'>
       <div className='sel-reason'>
