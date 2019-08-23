@@ -141,13 +141,15 @@ const Notification = (props) => {
     }
     let usersListPagination = notification.slice((activePage * 5) - 5, (activePage * 5))
     let deleteNotice = () => {
+        setshowLoader(true)
         if (selectedId.length) {
             for (let i = 0; i < selectedId.length; i++) {
-                  //axios.post(`http://localhost:7788/updatenotification`, { Id:selectedId, SentTo: JSON.parse(localStorage.user)._id })
-                 axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
+                //axios.post(`http://localhost:7788/updatenotification`, { Id:selectedId, SentTo: JSON.parse(localStorage.user)._id })
+                axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
                     .then(res => {
+                        setshowLoader(false)
                         setValueData(false)
-                      //  console.log("deleted item =>", )
+                        //  console.log("deleted item =>", )
                         let filteredArray = notification.filter(item => !selectedId.includes(item._id))
                         setNotification(filteredArray)
                         setSelectedId([])
@@ -155,14 +157,15 @@ const Notification = (props) => {
             }
         }
         else {
-               // axios.post(`http://localhost:7788/deleteselectednotification`, { Id: allSelectedId, SentTo: JSON.parse(localStorage.user)._id} )
-                    axios.post(`https://ev2.softuvo.xyz/deleteselectednotification`, {Id:allSelectedId, SentTo: JSON.parse(localStorage.user)._id})
-                    .then(res => {
-                        setValueData(false)
-                        let filteredArray = notification.filter(item => allSelectedId.indexOf(item._id) == -1)
-                        setNotification(filteredArray)
-                        setAllSelectedId([])
-                      
+            // axios.post(`http://localhost:7788/deleteselectednotification`, { Id: allSelectedId, SentTo: JSON.parse(localStorage.user)._id} )
+            axios.post(`https://ev2.softuvo.xyz/deleteselectednotification`, { Id: allSelectedId, SentTo: JSON.parse(localStorage.user)._id })
+                .then(res => {
+                    setshowLoader(false)
+                    setValueData(false)
+                    let filteredArray = notification.filter(item => allSelectedId.indexOf(item._id) == -1)
+                    setNotification(filteredArray)
+                    setAllSelectedId([])
+
                     })
         }
        
