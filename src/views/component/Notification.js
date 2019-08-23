@@ -196,7 +196,7 @@ const Notification = (props) => {
                                                         </div>
                                                     </td>
                                                     <td className="typeicons">
-                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-list-alt" ? d.isUrgent == true ? "redBold" : "normaltext"  : ''}`} aria-hidden="true"></i>{d.Type}
+                                                        <i className={` ${d.Type == 'eVectr Urgent Message' ? "fa fa-envelope activeurgentMessage" : d.Type == 'Missed Chat Message' ? "fa fa-comment" : d.Type == 'User to User Message' ? "fa fa-envelope" : d.Type == 'Complete Client Survey' ? "fa fa-list-alt clientblue" : "fa fa-envelope"}`} aria-hidden="true"></i>{d.Type}
                                                     </td>
                                                     <td>
                                                         {moment(d.Date).format('lll')}
