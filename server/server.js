@@ -266,8 +266,22 @@ let userlogs = (name, message, id, date) => {
 }
 app.post('/updateStatus', (req, res) => {
   let Id = req.body.Id
-  let changedStatus = req.body.changedStatus
-  ContactForm.findOneAndUpdate({ _id: Id }, { $set: { Status: changedStatus } }, function (err, doc) {
+  let AssignTo = req.body.changedStatus
+  ContactForm.findOneAndUpdate({ _id: Id }, { $set: {AssignTo: AssignTo } }, function (err, doc) {
+    if (err) {
+      console.log("Something wrong when updating data!");
+    }
+    else {
+      console.log("up ==>", doc)
+      res.send(doc)
+    }
+  })
+})
+
+app.post('/updateContactAssign', (req, res) => {
+  let Id = req.body.Id
+  let AssignTo = req.body.AssignTo
+  ContactForm.findOneAndUpdate({ _id: Id }, { $set: { AssignTo : AssignTo } }, function (err, doc) {
     if (err) {
       console.log("Something wrong when updating data!");
     }
@@ -311,7 +325,8 @@ app.post('/saveContact', (req, res) => {
     Link: Link,
     Status: 'Open',
     Reason: Reason,
-    Template: Template
+    Template: Template,
+    AssignTo:[]
   })
   contactForm.save((err, data) => {
     if (err) {
@@ -334,6 +349,7 @@ app.post('/saveContact', (req, res) => {
     imagepaths.pop()
   }
 })
+
 
 app.get('/findcontact', (req, res) => {
   ContactForm.find({ }, null,

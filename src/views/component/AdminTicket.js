@@ -190,6 +190,7 @@ const AdminTicket = (props) => {
       })
   }
   let onAssignChange = (e) =>{
+    console.log("eeeee    =====>", e)
     if (setAssignto == '') {
       setErrors('Please fill in this filed')
     } else {
@@ -247,7 +248,7 @@ const AdminTicket = (props) => {
                   <div className='setting-tab-list'>
                     <ul>
                       <li className="assign-task" >
-                        <span onClick={showTestMsgBox}>Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true" onClick={showTestMsgBox}></i></span>
+                        <span >Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true" onClick={showTestMsgBox}></i></span>
                         {
                           showTextArea ?
                             <div>
