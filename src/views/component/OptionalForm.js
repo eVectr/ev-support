@@ -184,11 +184,17 @@ const ContactForm = (props) => {
 
     let showLinkData = () => {
         let links = showLinks
-        links = [
-            ...showLinks,
-            linkData
-        ]
-        setShowLinks(links)
+        if(linkData != ''){
+            links = [
+                ...showLinks,
+                linkData
+            ]
+            setShowLinks(links)
+            setlinkData('')
+        }else{
+            return
+        }
+     
     }
 
     const Documents = () => {
@@ -247,7 +253,7 @@ const ContactForm = (props) => {
                          return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
                      }) 
                 }
-                <input type="text" className='link-data links' name='textdata' placeholder="Input link here" onChange={ e => setlinkData(e.target.value) }/>
+                <input type="text" className='link-data links' name='textdata' value ={linkData} placeholder="Input link here" onChange={ e => e.target.value != ''?setlinkData(e.target.value):null }/>
                 <p>{selectDocument}</p>
                 <button className='link-btn'  onClick= {()=> showLinkData()}>Add</button> 
             </div>         
@@ -310,7 +316,7 @@ const ContactForm = (props) => {
                     
                    // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                  axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
-                    Case_No, Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                    Case_No, Link:showLinks, Reason: props.showNotificationReducer.selectedReason.data.name, Template: props.showNotificationReducer.selectedReason.data.template })
                         .then(res => {
                             setloader(false)
                             setData({
@@ -320,13 +326,16 @@ const ContactForm = (props) => {
                                 subject: '',
                                 message: '',
                             })
+                            setFileNames([])
+                            setSelectedImage([])
+                            setlinkData('')
+                            setShowLinks([])
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
                             //axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
                             axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created'})    
                             if(res.status == 200){
-                                setFileNames([])
                                 setsuccessmsg('Your query has been recorded ')
                             }
                         })
@@ -363,7 +372,7 @@ const ContactForm = (props) => {
                 // .then(res => {})
                    // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
                    axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                   Link:showLinks, Reason: props.notificationreducer.selectedReason.name, Template: props.notificationreducer.selectedReason.template })
+                   Link:showLinks, Reason: props.showNotificationReducer.selectedReason.data.name, Template:  props.showNotificationReducer.selectedReason.data.template })
                         .then(res => {
                             setSelectedImage([])
                             setloader(false)
@@ -374,13 +383,16 @@ const ContactForm = (props) => {
                                 subject: '',
                                 message: '',
                             })
+                            setFileNames([])
+                            setSelectedImage([])
+                            setlinkData('')
+                            setShowLinks([])
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
                           //  axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
                           axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created' })
                             if(res.status == 200){
-                                setSelectedImage([])
                                 setsuccessmsg('Your query has been recorded')
                             }
                         })
@@ -420,11 +432,15 @@ const ContactForm = (props) => {
                             subject: '',
                             message: '',
                         })
+                        setFileNames([])
+                        setSelectedImage([])
+                        setlinkData('')
+                        setShowLinks([])
                         setshowFlashMsg(true)
                         
                         if(res.data == 'saved'){
                             setsuccessmsg('Your query has been recorded')
-                            setShowLinks([])
+                           
                         }
                         //axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
                         axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,

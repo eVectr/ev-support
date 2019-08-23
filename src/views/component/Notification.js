@@ -91,53 +91,72 @@ const Notification = (props) => {
                   }
             })    
     }
-    let test = []
-    let handleCheckBoxChange = (Id) => {
+   
+   
+    let handleCheckBoxChange = (Id, check) => {
+        let selectedarray = []
         setNotification(prevState => prevState.map(
             item => {
-                console.log(item, 'item')
                 return (
                     item._id === Id ? { ...item, isChecked: !item.isChecked } : item
                 )
             }
         ))
-        setSelectedId([...selectedId, Id])
+        if(check == false){
+            setSelectedId([...selectedId, Id])
+        }else{
+            let filteredArray = selectedId.filter(item => item !== Id)
+            setSelectedId(filteredArray)
+        }
     }
-    let onCheckall = () => {
+    let onCheckall = (check) => {
         let allselectedarray = []
         let i = (activePage * 5) - 5
-        let l = (activePage * 5)
         let usersListPagination = notification.slice((activePage * 5) - 5, (activePage * 5))
-        for (i; i < usersListPagination.length; i++) {
-            notification[i].isChecked = !notification[i].isChecked
-            setNotification(prevState => prevState.map((item, index) =>
-                index === i ? { ...item, isChecked: true } : item
-            ))
-            allselectedarray.push(notification[i]._id)
-            console.log("all selected array =>", allselectedarray)
-            setAllSelectedId(allselectedarray)
-        }
+        let l = activePage * 5
+        console.log("i  ==>", i)
+        console.log("l  ==>", l)
+        try {
+            for (i; i < l; i++) {
+                notification[i].isChecked = !notification[i].isChecked
+                // setNotification(prevState => prevState.map((item, index) =>
+                //     index === i ? { ...item, isChecked: true } : item
+                // ))
+                if(check == false){
+                    allselectedarray.push(notification[i]._id)
+                    setAllSelectedId(allselectedarray)
+                }else{
+                    setAllSelectedId([]) 
+                }
+               
+            }
+          }
+          catch(err) {
+            return
+          }
+      
     }
     let handlePageChange = (pageNumber) => {
         setactivePage(pageNumber)
     }
     let usersListPagination = notification.slice((activePage * 5) - 5, (activePage * 5))
     let deleteNotice = () => {
-        if (selectedId.length > 0) {
+        if (selectedId.length) {
             for (let i = 0; i < selectedId.length; i++) {
-               //  axios.post(`http://localhost:7788/deletenotification`, { Id: selectedId[i] })
+                  //axios.post(`http://localhost:7788/updatenotification`, { Id:selectedId, SentTo: JSON.parse(localStorage.user)._id })
                  axios.post(`https://ev2.softuvo.xyz/deletenotification`, { Id: selectedId[i] })
                     .then(res => {
                         setValueData(false)
-                        let filteredArray = notification.filter(item => item._id !== selectedId[i])
+                      //  console.log("deleted item =>", )
+                        let filteredArray = notification.filter(item => !selectedId.includes(item._id))
                         setNotification(filteredArray)
                         setSelectedId([])
                     })
             }
         }
         else {
-               // axios.post(`http://localhost:7788/deletemanynotification`, { Id: allSelectedId })
-                    axios.post(`https://ev2.softuvo.xyz/deletemanynotification`, {Id:allSelectedId})
+               // axios.post(`http://localhost:7788/deleteselectednotification`, { Id: allSelectedId, SentTo: JSON.parse(localStorage.user)._id} )
+                    axios.post(`https://ev2.softuvo.xyz/deletetestnotification`, {Id:allSelectedId, SentTo: JSON.parse(localStorage.user)._id})
                     .then(res => {
                         setValueData(false)
                         let filteredArray = notification.filter(item => allSelectedId.indexOf(item._id) == -1)
@@ -153,6 +172,8 @@ const Notification = (props) => {
     // if(!user){
     //     return null
     //  }
+    console.log("all select Id ====>", allSelectedId)
+    console.log(" select Id ====>", selectedId)
     return (
         <Container fluid>
            <Row className="notify-table">
@@ -176,7 +197,7 @@ const Notification = (props) => {
                                             <th></th>
                                         </tr>
                                         <tr className="table-head">
-                                            <th className="select-list"><input type="checkbox" checked={checkValue} onChange={onChangeText} class="select-list-check" onClick={onCheckall} />Select <hr /></th>
+                                            <th className="select-list"><input type="checkbox" checked={checkValue} onChange={onChangeText} class="select-list-check" onClick={()=> onCheckall(checkValue)} />Select <hr /></th>
                                             <th>Notification Type <hr /></th>
                                             <th>Date Received <hr /></th>
                                             <th>Sent by <hr /></th>
@@ -192,7 +213,7 @@ const Notification = (props) => {
                                                     <div className="alert">
                                                         <i className={` ${d.Type == 'eVectr Urgent Message' ? d.isUrgent == true ? "fa fa-exclamation-triangle activeurgentMessage" : "normaltext": d.Type == 'Complete Transaction Survey' ? "fa fa-exclamation-triangle" : d.Type == 'Complete Client Survey' ? "fa fa-exclamation-triangle" : '' }`} aria-hidden="true"></i></div><div className="check-alert">
                                                             <input type="checkbox" checked={d.isChecked}
-                                                        onClick={() => handleCheckBoxChange(d._id)} className="check-list-notifi" />
+                                                        onClick={() => handleCheckBoxChange(d._id, d.isChecked)} className="check-list-notifi" />
                                                         </div>
                                                     </td>
                                                     <td className="typeicons">
