@@ -226,7 +226,7 @@ const AdminPanel = (props) => {
       .then(res => {
           let { data = {} } = res
           setContacts(data.data)
-         
+         setLoader(false)
           setShow(true)
         })
     }
@@ -243,6 +243,7 @@ const AdminPanel = (props) => {
        // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
         axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
        .then(res => {
+        setLoader(false)
            let { data = {} } = res
            setContacts(data.data)
            setShow(true)
@@ -265,16 +266,16 @@ const AdminPanel = (props) => {
 
     if(e.target.value == 'Status, Open' && !isSortBySelected){
       setisSortBySelected(false)
-      setLoader(true)
       //axios.get(`http://localhost:7788/findcontact`)
      axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
         setContacts(res.data)
         setTotalContact(res.data.length)
-        setLoader(false)
+       
       })
     }else{
       setisFilterBySelected(true)
+      setLoader(true)
       let filterArrayData = e.target.value
       let splitFilterArrayData = filterArrayData.split(',')
       return (
@@ -289,8 +290,8 @@ const AdminPanel = (props) => {
   async function getDataByFilter (e) {
    
     if(e.target.value == 'Status,Open' && !isFilterBySelected){
-      
       setisFilterBySelected(false)
+      setLoader(true)
       //axios.get(`http://localhost:7788/findcontact`)
       axios.get(`https://ev2.softuvo.xyz/findcontact`)
         .then(res => {
@@ -299,6 +300,7 @@ const AdminPanel = (props) => {
         })
     }else{
       setisSortBySelected(true)
+      setLoader(true)
       return (
         setSortData(e.target.value)
       )
@@ -354,7 +356,6 @@ const AdminPanel = (props) => {
             <div className='searching'>
               <div className='select-option'>
                 <select onChange={(e) => setfilterType(e)}>
-                 
                   <option value='null,Status'>Filter By</option>
                   <option value='Open,Status'> Open Status</option>
                   <option value='Active,Status'> Active Status</option>

@@ -155,12 +155,16 @@ body {
 }
 
 .contact-form .button {
-  width: 100%;
-  font-size: 22px;
-  margin-top:6%;
-  background-color: #4c6eb3;
+    width: 100%;
+    font-size: 18px;
+    padding: 8px;
+    margin-top: 0%;
+    background-color: #4c6eb3;
+    line-height: 0px;
 }
-
+.homeForms.otherlistshow .contact-form .button {
+  margin-top: 20px;
+}
 .contact-form .button:hover {
   background-color: #4c6eb3;
 }
@@ -308,7 +312,11 @@ form {
       justify-content: space-between;
       align-items: center;
    }
-
+   .contact-form .uploding-file {
+      background: #f8f8fb;
+      padding: 2px 20px 0px 2px;
+     
+    }
    .file-name { 
      border-style: none;
    }
@@ -325,8 +333,8 @@ form {
    }
 
    .uploaded-images img{
-     width: 30%;
-     height:120px!important;
+    width: 150px;
+    height: 80px;
    }
 
    /* ---------------------------------Mandatory-Upload-css-------------------------------- */
@@ -366,9 +374,23 @@ form {
     justify-content: space-between;
     margin-bottom: 10px;
     border-bottom: 1px solid #4c6eb3;
-    color:#4c6eb3;
+    padding: 2px 20px 10px 2px;
+    border-style: none;
+    background: #f8f8fb;
+    border: none;
+    border-radius: 0px;
+    color: #2c68e2;
+    text-decoration: underline;
     word-break: break-all;
   }
+  .link-list i {
+    text-decoration: none !important;
+    color: black;
+  }
+.link-list-view {
+  padding: 15px;
+  line-height: 0px;
+}
 
   .link-btn { 
     padding: 10px 30px !important;
