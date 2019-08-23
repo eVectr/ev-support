@@ -630,3 +630,9 @@ button:focus {
     color: #124bbf !important;
     font-size: 18px !important;
 }
+.message-section ul li a {
+    text-decoration: underline !important;
+    cursor: pointer;
+    color: #124bbf !important;
+    font-size: 18px !important;
+}

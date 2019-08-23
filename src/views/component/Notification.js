@@ -169,7 +169,7 @@ const Notification = (props) => {
                                 <Table>
                                     <thead>
                                         <tr className="table-head heading-noti">
-                                            <th><i class="fa fa-cog" aria-hidden="true"></i>Notification</th>
+                                            <th><i class="fa fa-cog" aria-hidden="true"></i><span>Notification</span></th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -177,10 +177,10 @@ const Notification = (props) => {
                                         </tr>
                                         <tr className="table-head">
                                             <th className="select-list"><input type="checkbox" checked={checkValue} onChange={onChangeText} class="select-list-check" onClick={onCheckall} />Select <hr /></th>
-                                            <th>Notification Type <hr /></th>
-                                            <th>Data Received <hr /></th>
-                                            <th>Sent by <hr /></th>
-                                            <th>Action <hr /></th>
+                                            <th>Notification Type</th>
+                                            <th>Data Received</th>
+                                            <th>Sent by</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                 
