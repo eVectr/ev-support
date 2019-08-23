@@ -198,6 +198,7 @@ const ContactForm = (props) => {
     }
 
     const Documents = () => {
+        console.log(setShowLinks, "setShowLinksqweqweewqqew")
         return (
             <div>
                 <div> {
@@ -250,7 +251,12 @@ const ContactForm = (props) => {
             <div>
                 {                    
                      showLinks.map((link, index) => {
-                         return <li key={index} className='link-list'>{link}<i class="fas fa-times" onClick={() => deleteLink(link)}></i></li>
+                         return <li key={index} className='link-list'>
+                         <div className="link-list-view">{link}</div>
+                            <span className="icon-close">
+                                <i class="fas fa-times" onClick={() => deleteLink(link)}></i>
+                            </span>
+                        </li>
                      }) 
                 }
                 <input type="text" className='link-data links' name='textdata' value ={linkData} placeholder="Input link here" onChange={ e => e.target.value != ''?setlinkData(e.target.value):null }/>
@@ -456,7 +462,6 @@ const ContactForm = (props) => {
     else{
         
      }
-
     return (
         <div className="home-user">
         <div className="homeForms otherlistshow">

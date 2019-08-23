@@ -190,7 +190,7 @@ const Notification = (props) => {
                                 <Table>
                                     <thead>
                                         <tr className="table-head heading-noti">
-                                            <th><i class="fa fa-cog" aria-hidden="true"></i>Notification</th>
+                                            <th><i class="fa fa-cog" aria-hidden="true"></i><span>Notification</span></th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
