@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Select from 'react-select'
 import { Card, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
@@ -22,6 +22,7 @@ import '../../styles/adminticket.css'
 
 const AdminTicket = (props) => {
   const [options, setOptions] = useState([])
+  const [assignedAdmin, setAssignedAdmin] = useState('')
   const [messageLogs, setMessageLogs] = useState([])
   const [contacts, setContacts] = useState([])
   const [reply, setReply] = useState('')
@@ -52,6 +53,7 @@ const AdminTicket = (props) => {
     axios.post(`https://ev2.softuvo.xyz/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
         setLoader(false)
+        console.log("res dataaa  ===>", res.data)
         setContacts(res.data)
         let findObj = item.find(itm => itm === res.data[0].Status)
         if (findObj) {
@@ -68,14 +70,12 @@ const AdminTicket = (props) => {
       let agentArray = []
       axios.get(`https://ev2.softuvo.xyz/findagent`,{Id:props.match.params.id})
       .then(res =>{
-          console.log("res ===>", res.data)
         for(let i = 0 ; i < res.data.length; i++){
           let data = {
             value: res.data[i]._id,
             label: res.data[i].FirstName
           }
           agentArray.push(data)
-          console.log("array  =>", agentArray)
           setOptions(agentArray)
          }
       })
@@ -148,9 +148,9 @@ const AdminTicket = (props) => {
       setErrors('Please enter required fields')
     } else {
       setshowTextArea(!showTextArea)
-     // axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
-      axios.post(`https://ev2.softuvo.xyz/updateStatus`, { Id:contacts[0]._id, changedStatus: 'Active' })
-      setSelectedStatus('Active')
+      // axios.post(`http://localhost:7788/updateContactAssign`, { Id:contacts[0]._id, AssignTo: assignedAdmin })
+       axios.post(`https://ev2.softuvo.xyz/updateContactAssign`, { Id:contacts[0]._id, AssignTo: assignedAdmin })
+   
     
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
      axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
@@ -165,7 +165,6 @@ const AdminTicket = (props) => {
     // axios.post(`http://localhost:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
      axios.post(`https://ev2.softuvo.xyz/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
      .then(res =>{
-       console.log("res ==>", res.data)
        setSubAdmin(res.data)
       })
     }
@@ -174,12 +173,11 @@ const AdminTicket = (props) => {
 
   
   let Status = (e) => {
-    console.log("e.target.value ==>", e.target.value)
      axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
     //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
      log:'Ticket Status Changed to ' + e.target.value })
     setSelectedStatus(e.target.value)
-   // axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+    //axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     axios.post(`https://ev2.softuvo.xyz/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
          axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
@@ -190,10 +188,11 @@ const AdminTicket = (props) => {
       })
   }
   let onAssignChange = (e) =>{
-    console.log("eeeee    =====>", e)
+ 
     if (setAssignto == '') {
       setErrors('Please fill in this filed')
     } else {
+      setAssignedAdmin(e)
       setAssignto(e.value)
       setName(e.label)
     }
@@ -207,10 +206,13 @@ const AdminTicket = (props) => {
   //   console.log('contacts  =======> ', contacts[0].Case_No)
   // }
   let user = JSON.parse(localStorage.getItem('user'))
-  console.log(user,'user00')
   if(!user){
     return null
   } 
+
+  console.log("contacts =>", contacts)
+  console.log("asgign =>", assignedAdmin)
+  
   return (
     <Col className='container-fluid'>
       {loader ?
@@ -248,7 +250,13 @@ const AdminTicket = (props) => {
                   <div className='setting-tab-list'>
                     <ul>
                       <li className="assign-task" >
-                        <span >Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true" onClick={showTestMsgBox}></i></span>
+                        { JSON.parse(localStorage.user).Type !='subadmin'?
+                        <Fragment>
+                          <span>
+                          Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true" onClick={showTestMsgBox}></i>
+                        </span>
+                        </Fragment>:null}
+                        {/* <span >Assign to </span><span className="arrow-down"><i class="fa fa-angle-down" aria-hidden="true" onClick={showTestMsgBox}></i></span> */}
                         {
                           showTextArea ?
                             <div>
@@ -265,11 +273,15 @@ const AdminTicket = (props) => {
                         }
 
                       </li>
-                      <li className="assignee-task">
+                      { JSON.parse(localStorage.user).Type !='subadmin'?
+                      <Fragment>
+                         <li className="assignee-task">
                         <div className="inner-assign">
                           <span className="assign-name">{subAdmin == undefined?'Not Assigned': (subAdmin.FirstName)}</span>
                         </div>
                       </li>
+                      </Fragment>:null}
+                     
 
                     </ul>
                   </div>

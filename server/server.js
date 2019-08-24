@@ -266,8 +266,8 @@ let userlogs = (name, message, id, date) => {
 }
 app.post('/updateStatus', (req, res) => {
   let Id = req.body.Id
-  let AssignTo = req.body.changedStatus
-  ContactForm.findOneAndUpdate({ _id: Id }, { $set: {AssignTo: AssignTo } }, function (err, doc) {
+  let Status = req.body.changedStatus
+  ContactForm.findOneAndUpdate({ _id: Id }, { $set: {Status: Status } }, function (err, doc) {
     if (err) {
       console.log("Something wrong when updating data!");
     }
@@ -281,12 +281,14 @@ app.post('/updateStatus', (req, res) => {
 app.post('/updateContactAssign', (req, res) => {
   let Id = req.body.Id
   let AssignTo = req.body.AssignTo
+  console.log("Assign to==>", AssignTo)
+  console.log("Id  =>", Id)
   ContactForm.findOneAndUpdate({ _id: Id }, { $set: { AssignTo : AssignTo } }, function (err, doc) {
     if (err) {
       console.log("Something wrong when updating data!");
     }
     else {
-      console.log("updated docs ==>", doc)
+     // console.log("updated docs ==>", doc)
       res.send(doc)
     }
   })
@@ -350,6 +352,37 @@ app.post('/saveContact', (req, res) => {
   }
 })
 
+app.post('/updateagentonassign', (req, res) => {
+  Type = req.body.Type
+  AssignTo = req.body.AssignTo
+  console.log("Type ==>",Type)
+  console.log("Assign==>",AssignTo )
+  ContactForm. updateMany({ Template: { $in: Type }}, 
+    {$set:{AssignTo :AssignTo }},  (err, data) => {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log("check =>",data)
+        res.send(data)
+      }
+    })
+})
+
+app.post('/findsubadmincontact', (req, res) => {
+  Type = req.body.Type
+  console.log("Type ==>",Type)
+  ContactForm.find({ Template: { $in: Type }}, null,
+    { sort: { date: -1 } }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        console.log(data)
+        res.send(data)
+      }
+    })
+})
 
 app.get('/findcontact', (req, res) => {
   ContactForm.find({ }, null,
@@ -450,6 +483,24 @@ app.post('/login', (req, res) => {
     }
   })
 })
+
+app.post('/subadminlogin', (req, res) => {
+  let username = req.body.username
+  let password = req.body.password
+  SupportAgent.find({ Email: username, Password: password }, function (err, docs) {
+    if (err) {
+      res.send("error")
+    } else {
+      if (docs.length > 0) {
+        console.log(docs)
+        res.send({ check: true, data: docs })
+      } else {
+        console.log(docs)
+        res.send({ check: false, data: docs })
+      }
+    }
+  })
+})
 /////////////// get contact by pagination /////
 // app.post('/getcontactsbypage', (req, res) => {
 //   let pagenumber = req.body.pagenumber
@@ -497,6 +548,7 @@ app.post('/getcontactsbyfilter', (req, res) => {
   let Name = req.body.filterName
   console.log("Name ====>", Name)
   console.log("value ====>", value)
+  console.log("hjgh")
   if (Name == 'Template') {
     ContactForm.find({ Template: value }, null,
       {  sort: { date: 1 } }, function (err, data) {
@@ -523,7 +575,7 @@ app.post('/getcontactsbyfilter', (req, res) => {
       })
   }
 })
-////////////////////////////////////
+//////////////////////////////////
 
 ////////////////get contacts length //////////
 
@@ -653,77 +705,112 @@ app.post('/getcontactsbypage', (req, res) => {
   )
  })
 
-  /////////////// get contact by filter /////
-  app.post('/getcontactsbyfilter', (req, res) => {
-
-    let pagenumber = parseInt(req.body.Pagenumber)
-    let size = parseInt(req.body.size)
-    let Skip = size * (pagenumber - 1)
-    let Limit = size
-    let value = req.body.filterValue
-    let Name = req.body.filterName
-    console.log("filtername ===>", Name)
-    console.log("filtevaleu ===>", value)
-    if(Name == 'Type'){
-      ContactForm.find({Template:value}, null,
-        {  sort: { date: 1 } }, function (err, data) {
-        if (err) {
-          console.log("error")
-          res.send(err)
-        } else {
-          console.log("check3")
-   
-          res.send({data})
-        }
-      })
-    }
-    else if (Name == 'Status'){
-      ContactForm.find({Status:value}, null,
-        { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
-        if (err) {
-          console.log("error")
-          res.send(err)
-        } else {
-          console.log(data)
-   
-          res.send({data})
-        }
-      })
-    }
-   })
- ////////////////////////////////////
-
-app.post('/getcontactsbyfilter', (req, res) => {
-  let pagenumber = parseInt(req.body.Pagenumber)
-  let size = parseInt(req.body.size)
-  let Skip = size * (pagenumber - 1)
-  let Limit = size
+ app.post('/getsubadmincontactsbyfilter', (req, res) => {
+  let Type = req.body.Type
   let value = req.body.filterValue
   let Name = req.body.filterName
-
-  ContactForm.find({ [Name]: value }, null,
-    {  sort: { date: 1 } }, function (err, data) {
+  console.log("filtername ===>", Name)
+  console.log("filtevaleu ===>", value)
+  if(Name == 'Template'){
+    console.log("hgj")
+   
+    ContactForm.find( { $and: [ { Template: value }, {Template: { $in: Type }} ] }, null,
+      {  sort: { date: 1 } }, function (err, data) {
       if (err) {
-        console.log('error')
+        console.log("error")
         res.send(err)
       } else {
-        console.log("check 1")
-        res.send({ data })
+        res.send(data)
       }
     })
-})
-app.get('/getcontactslength', (req, res) => {
-  ContactForm.find({}, function (err, docs) {
-    if (err) {
-      console.log('error')
-      res.send(err)
-    } else {
-      console.log(docs.length)
+  }
+  else if (Name == 'Status'){
+    ContactForm.find({Status:value, Template: { $in: Type }}, null,
+      {  sort: { date: 1 } }, function (err, data) {
+      if (err) {
+        console.log("error")
+        res.send(err)
+      } else {
+        console.log(data)
+ 
+        res.send(data)
+      }
+    })
+  }
+ })
 
-      res.send({ length: docs.length })
-    }
-  })
-})
+
+  /////////////// get contact by filter /////
+  // app.post('/getcontactsbyfilter', (req, res) => {
+
+  //   let pagenumber = parseInt(req.body.Pagenumber)
+  //   let size = parseInt(req.body.size)
+  //   let Skip = size * (pagenumber - 1)
+  //   let Limit = size
+  //   let value = req.body.filterValue
+  //   let Name = req.body.filterName
+  //   console.log("filtername ===>", Name)
+  //   console.log("filtevaleu ===>", value)
+  //   if(Name == 'Type'){
+  //     ContactForm.find({Template:value}, null,
+  //       {  sort: { date: 1 } }, function (err, data) {
+  //       if (err) {
+  //         console.log("error")
+  //         res.send(err)
+  //       } else {
+  //         console.log("check3")
+   
+  //         res.send({data})
+  //       }
+  //     })
+  //   }
+  //   else if (Name == 'Status'){
+  //     ContactForm.find({Status:value}, null,
+  //       { limit: Limit, skip: Skip, sort: { _id: -1 } }, function (err, data) {
+  //       if (err) {
+  //         console.log("error")
+  //         res.send(err)
+  //       } else {
+  //         console.log(data)
+   
+  //         res.send({data})
+  //       }
+  //     })
+  //   }
+  //  })
+ ////////////////////////////////////
+
+// app.post('/getcontactsbyfilter', (req, res) => {
+//   let pagenumber = parseInt(req.body.Pagenumber)
+//   let size = parseInt(req.body.size)
+//   let Skip = size * (pagenumber - 1)
+//   let Limit = size
+//   let value = req.body.filterValue
+//   let Name = req.body.filterName
+
+//   ContactForm.find({ [Name]: value }, null,
+//     {  sort: { date: 1 } }, function (err, data) {
+//       if (err) {
+//         console.log('error')
+//         res.send(err)
+//       } else {
+//         console.log("check 1")
+//         res.send({ data })
+//       }
+//     })
+// })
+// app.get('/getcontactslength', (req, res) => {
+//   ContactForm.find({}, function (err, docs) {
+//     if (err) {
+//       console.log('error')
+//       res.send(err)
+//     } else {
+//       console.log(docs.length)
+
+//       res.send({ length: docs.length })
+//     }
+//   })
+// })
  
 app.post('/getcontactsbyfilter&sort', (req, res) => {
   let pagenumber = parseInt(req.body.Pagenumber)
@@ -735,8 +822,32 @@ app.post('/getcontactsbyfilter&sort', (req, res) => {
   let query = { [req.body.sortName]: 1 }
   console.log("sort name ===>", req.body.sortName)
   console.log(" Name ===>", Name)
+  
 
   ContactForm.find({ [Name]: value }, null,
+    { sort: query }, function (err, data) {
+      if (err) {
+        console.log('error')
+        res.send(err)
+      } else {
+        res.send({ data })
+      }
+    })
+})
+
+ 
+app.post('/getsubadmincontactsbyfilter&sort', (req, res) => {
+  let pagenumber = parseInt(req.body.Pagenumber)
+  let size = parseInt(req.body.size)
+  let Skip = size * (pagenumber - 1)
+  let Limit = size
+  let value = req.body.filterValue
+  let Name = req.body.filterName
+  let query = { [req.body.sortName]: 1 }
+  console.log("sort name ===>", req.body.sortName)
+  console.log(" Name ===>", Name)
+
+  ContactForm.find({  $and: [ { [Name]: value }, {Template: { $in: Type }} ] }, null,
     { sort: query }, function (err, data) {
       if (err) {
         console.log('error')
@@ -757,6 +868,22 @@ app.post('/getcontactsbysort', (req, res) => {
   let query = { [req.body.sortName]: 1 }
   console.log('query ===>', query)
   ContactForm.find({}, null,
+    { sort: query }, (err, data) => {
+      if (err) {
+        console.log('errrrrrrrr      ====>', err)
+        res.send(err)
+      } else {
+        //console.log('data =======>', data)
+        res.send({ data })
+      }
+    })
+})
+
+app.post('/getsubadmincontactsbysort', (req, res) => {
+  let Type = req.body.Type
+  let sortName = req.body.sortName
+  let query = { [req.body.sortName]: 1 }
+  ContactForm.find({Template: { $in: Type }}, null,
     { sort: query }, (err, data) => {
       if (err) {
         console.log('errrrrrrrr      ====>', err)
@@ -1252,7 +1379,8 @@ app.post('/saveagent', (req, res) => {
     FirstName: FirstName,
     LastName: LastName,
     Password:Password,
-    Type:Type,
+    TicketType:Type,
+    Type: 'subadmin',
     Email: Email,
     TicketId:TicketId,
     Date: date
@@ -1261,7 +1389,7 @@ app.post('/saveagent', (req, res) => {
     if(err){
       res.send(err)
     }else{
-      console.log("data ==>", data)
+    
       res.send(data)
     }
   })
@@ -1274,8 +1402,10 @@ app.post('/updateAgent', (req, res) => {
   let Password = req.body.Password
   let Email = req.body.Email
   let Type = req.body.Type
-  SupportAgent.findOneAndUpdate({_id: Id}, {$set:{FirstName:  FirstName, LastName: LastName,
-    Password: Password, Email:Email, Type:Type}}, {new: true}, (err, doc) => {
+  console.log("id ==>", Id)
+  console.log("Type  ==>", Type )
+  SupportAgent.findOneAndUpdate({_id: Id}, {$set:{FirstName: FirstName,LastName: LastName,
+    Password: Password,Email:Email, TicketType: Type}}, {new: true}, (err, doc) => {
     if(err){
       res.send(err)
     }else{

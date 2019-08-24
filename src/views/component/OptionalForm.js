@@ -426,7 +426,7 @@ const ContactForm = (props) => {
                     formData.append('SelectedImage', showLinks[i])
                 }
                // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
-                axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+             axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                 Link:showLinks, Reason: props.showNotificationReducer.selectedReason.data.name, Template: props.showNotificationReducer.selectedReason.data.template })
                     .then(res => {
                         setloader(false)

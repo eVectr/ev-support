@@ -50,7 +50,20 @@ const Loginform = (props) => {
     let username = data.username
     let password = data.password
 
-    //axios.post(`http://localhost:7788/login`, { username: username, password: password })
+    //axios.post(`http://localhost:7788/subadminlogin`, { username: username, password: password })
+    axios.post(`https://ev2.softuvo.xyz/subadminlogin`, { username: username, password: password })
+    .then(res =>{
+      setLoader(false)
+      if(res.data.check){
+        localStorage.setItem('user', JSON.stringify(res.data.data[0]))   
+        props.history.push('/admin')
+        props.dispatch(userDetailsAction(res.data))
+        props.dispatch(showNotificationAction({
+          text: 'Login Successfully',
+          show: true
+        }))
+      }else{
+         //axios.post(`http://localhost:7788/login`, { username: username, password: password })
     axios.post(`https://ev2.softuvo.xyz/login`, { username: username, password: password })
     .then(res => {
         // console.log("res.data =>", res.data.data[0].Type)
@@ -80,6 +93,8 @@ const Loginform = (props) => {
           setLoginCheck(['Invalid Username or Password'])
         }
       })
+      }
+    })
   }
 
    let user = JSON.parse(localStorage.getItem('user'))

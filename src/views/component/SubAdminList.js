@@ -22,7 +22,7 @@ const UserList = props => {
    const [showLoader, setshowLoader] = useState(true)
   useEffect(() => {
     axios.get(`https://ev2.softuvo.xyz/findagent`)
-    // axios.get(`http://localhost:7788/findagent`)
+   //axios.get(`http://localhost:7788/findagent`)
       .then(res => {
         setshowLoader(false)
          setSubAdmin(res.data)
@@ -52,7 +52,7 @@ const UserList = props => {
  
   let fetchadmin = () =>{
     axios.get(`https://ev2.softuvo.xyz/findagent`)
-    // axios.get(`http://localhost:7788/findagent`)
+     //axios.get(`http://localhost:7788/findagent`)
       .then(res => {
        
          setSubAdmin(res.data)
@@ -116,14 +116,14 @@ const UserList = props => {
               <td>{d.FirstName}</td>
               <td>{d.LastName}</td>
               <td>{d.Email}</td>
-              <td>{d.Type.length < 1? 'Not Assigned':
+              <td>{d.TicketType.length < 1? 'Not Assigned':
                 <Fragment>
-                 {d.Type.map((type, index)=>{
-                  let Type = type.label
-                  console.log("Type ===", Type)
+                 {d.TicketType.map((type, index)=>{
+                  
+                
                   return(
                     <div className="type-subadmin">
-                       {Type}
+                       {type}
                     </div>
                     
                   )

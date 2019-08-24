@@ -8,7 +8,6 @@ import is from 'is_js'
 import AgentUserDetails from './components/AgentUserDetails';
 
 const AgentModal = (props) => {
-  console.log(props, 'props1234')
   const [isOpen, setIsOpen] = useState(false)
   const [errors, setErrors] = useState({})
   const [select, setSelect] = useState([])
@@ -31,8 +30,14 @@ const AgentModal = (props) => {
     })
   }
   const onChangeSelect = e => {
-    console.log("select ee =>", e)
-   setSelect(e)
+    try{
+      for(let i = 0; i< e.length; i++){
+        setSelect([...select, e[i].value])
+      }
+     //setSelect(e)
+    }catch(err){
+      return
+    }
   }
 
   const styles = {
@@ -67,8 +72,9 @@ const AgentModal = (props) => {
       agentUserDetailsData('')
       })
       if(props.selectedItem._id == undefined){
-        axios.post(`https://ev2.softuvo.xyz/saveagent`, {
-        //  axios.post(`http://localhost:7788/saveagent`, {
+       
+          axios.post(`https://ev2.softuvo.xyz/saveagent`, {
+          //axios.post(`http://localhost:7788/saveagent`, {
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,
             Password: agentUserDetails.Password,
@@ -77,19 +83,24 @@ const AgentModal = (props) => {
             TicketId: []
           })
             .then(res => {
+              axios.post(`https://ev2.softuvo.xyz/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
+             // axios.post(`http://localhost:7788/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
+             
               props.fetchadmin()
               // agentUserDetailsData('')
               props.emptyItem()
             })
             .then(res => {
+              setSelect([])
               setErrors('')
               console.log("agentUser ==>", res)
               props.savePageChange()
             })
       }
       else{
+       
         axios.post(`https://ev2.softuvo.xyz/updateAgent`, {
-        //  axios.post(`http://localhost:7788/updateAgent`, {
+         // axios.post(`http://localhost:7788/updateAgent`, {
             Id: props.selectedItem._id,
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,
@@ -99,6 +110,7 @@ const AgentModal = (props) => {
             TicketId: []
           })
             .then(res => {
+              setSelect([])
               props.fetchadmin()
               // agentUserDetailsData('')
               props.emptyItem()
@@ -121,7 +133,7 @@ const AgentModal = (props) => {
     createAgentSuccess,
     agentUserDetailsData,
   }
-  console.log("selected ite m ==>", props.selectedItem._id)
+  console.log("selected  ==>", select)
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}
