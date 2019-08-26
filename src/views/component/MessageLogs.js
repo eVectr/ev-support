@@ -6,6 +6,8 @@ import TimeAgo from 'timeago-react'
 import { Row, Col, Button, Table, Nav, NavItem, NavLink, Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 import ModalUi from './ModalUi'
 import MessagePagination from './MessagePagination'
+import api_url from  '../../utils/Const'
+
 
 const MessageLogs = (props) => {
   const [userMessage, setUserMessage] = useState([])
@@ -55,8 +57,8 @@ const MessageLogs = (props) => {
       setshowCase(props.location.pathname.split('&')[1])
       setMessageId((props.match.params.id).split('&')[0])
     }
-   // axios.post(`http://localhost:7788/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
-    axios.post(`https://ev2.softuvo.xyz/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    axios.post(`${api_url}getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    //axios.post(`https://ev2.softuvo.xyz/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     .then(res => {
         if (res.data.length < 1) {
           setIsNoUserData(true)
@@ -66,8 +68,8 @@ const MessageLogs = (props) => {
           const updated = prev.concat(res.data.reverse())
           return updated
         })
-       // axios.post(`http://localhost:7788/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
-        axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        axios.post(`${api_url}getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+       // axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
         .then(res => {
             if (res.data.length < 1) {
               setIsNoSentData(true)
@@ -77,8 +79,8 @@ const MessageLogs = (props) => {
           })
       })
 
-    //axios.get(`http://localhost:7788/getadminmessage`)
-    axios.get(`https://ev2.softuvo.xyz/getadminmessage`)
+    axios.get(`${api_url}getadminmessage`)
+    //axios.get(`https://ev2.softuvo.xyz/getadminmessage`)
       .then(res => {
         if (res.data.length < 1) {
           setIsNoAdminData(true)
@@ -103,7 +105,7 @@ const MessageLogs = (props) => {
   }
 
   let handleSentMessage = () => {
-    axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+    axios.post(`${api_url}getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
       .then(res => {
         setSentMessage(res.data.reverse())
       })

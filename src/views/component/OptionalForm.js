@@ -4,6 +4,7 @@ import FlashMassage from 'react-flash-message';
 import axios from 'axios'
 import is from 'is_js'
 import '../../styles/login.css'
+
 import Validation from '../../utils/Validation'
 import contactValidation from '../../utils/contactValidation'
 import ImageUploader from './ImageUploader'
@@ -60,15 +61,15 @@ const ContactForm = (props) => {
             for (let i = 0; i < files.length; i++) {
                 formData.append('SelectedImage', files[i])
             }
-           // axios.post(`http://localhost:7788/fileupload`, formData,
-            axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
+            axios.post(`${api_url}fileupload`, formData,
+            //axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
             ).then(res => { })
             
         } else {
             let formData = new FormData()
             formData.append('SelectedImage', files[0])
-            //axios.post(`http://localhost:7788/fileupload`, formData,
-            axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
+            axios.post(`${api_url}fileupload`, formData,
+            //axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
             ).then(res => { })
             setFileNames(prev => {
                 const update = prev.concat(files[0])
@@ -86,10 +87,10 @@ const ContactForm = (props) => {
             for (let i = 0; i < files.length; i++) {
                 formData.append('SelectedImage', files[i])
             }
-            //  axios.post(`http://localhost:7788/upload`, formData,
-            //  )
-             axios.post(`https://ev2.softuvo.xyz/upload`, formData,
-            )
+             axios.post(`${api_url}upload`, formData,
+             )
+            //  axios.post(`https://ev2.softuvo.xyz/upload`, formData,
+            // )
             .then(res => {})
             setSelectedImage(files)
             for (let file of files) {
@@ -113,10 +114,10 @@ const ContactForm = (props) => {
         } else {
             let formData = new FormData()
             formData.append('SelectedImage', files[0])
-             //axios.post(`http://localhost:7788/upload`, formData,
-             //)
-            axios.post(`https://ev2.softuvo.xyz/upload`, formData,
-            )
+             axios.post(`${api_url}upload`, formData,
+             )
+            // axios.post(`https://ev2.softuvo.xyz/upload`, formData,
+            // )
             .then(res => {})
             setSelectedImage(prev => {
                 const update = prev.concat(files[0])

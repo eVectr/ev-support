@@ -3,6 +3,7 @@ import '../../styles/MessageLogs.css'
 import axios from 'axios'
 import moment from 'moment'
 import { Row, Col } from 'reactstrap'
+import api_url from  '../../utils/Const'
 
 const MessageDetails = (props) => {
   const [userMessage, setUserMessage] = useState([])
@@ -24,26 +25,26 @@ const MessageDetails = (props) => {
     //       setUserMessage(res.data)
     //     }
     //   })
-    //axios.post(`http://localhost:7788/getadminmessagebyId`, { Id: props.messageId })
-    axios.post(`https://ev2.softuvo.xyz/getadminmessagebyId`, { Id: props.messageId })
+    axios.post(`${api_url}getadminmessagebyId`, { Id: props.messageId })
+   // axios.post(`https://ev2.softuvo.xyz/getadminmessagebyId`, { Id: props.messageId })
       .then(res => {
         setAdminMessage(res.data[0])
       })
-    // axios.post(`http://localhost:7788/getsentmessagebyId`, { Id: props.messageId })
-    axios.post(`https://ev2.softuvo.xyz/getsentmessagebyId`, { Id: props.messageId })
+     axios.post(`${api_url}getsentmessagebyId`, { Id: props.messageId })
+   // axios.post(`https://ev2.softuvo.xyz/getsentmessagebyId`, { Id: props.messageId })
       .then(res => {
         console.log("message id ==>", res)
         setSentMessage(res.data[0])
         setUserMessage(res.data[0])
         setshowLoader(false)
-        // axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
-        axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
+         axios.post(`${api_url}getusermessagelogs`, { Id: userMessage._id })
+        //axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
           .then(res => {
             setUserMessageLogs(res.data)
           })
       })
-      axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
-      //axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
+      //axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
+      axios.post(`${api_url}findconversation`, { ConvId: props.messageId })
       .then(res => {
         setConversation(res.data)
       })
@@ -56,8 +57,8 @@ const MessageDetails = (props) => {
   useEffect(() => {
     if (props.showCase === 1) {
       //if (testcase === 1) {
-      //  axios.post(`http://localhost:7788/getusermessagelogs`, { Id: userMessage._id })
-      axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
+        axios.post(`${api_url}getusermessagelogs`, { Id: userMessage._id })
+      //axios.post(`https://ev2.softuvo.xyz/getusermessagelogs`, { Id: userMessage._id })
         .then(res => {
           setUserMessageLogs(res.data)
         })
@@ -77,8 +78,8 @@ const MessageDetails = (props) => {
     if (replyMessage == '') {
       setErrors('Please fill in this filed')
     } else {
-      axios.post(`https://ev2.softuvo.xyz/createconversation`, {
-       // axios.post(`http://localhost:7788/createconversation`, {
+      //axios.post(`https://ev2.softuvo.xyz/createconversation`, {
+        axios.post(`${api_url}createconversation`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName:JSON.parse(localStorage.user).Name,
         ConvId:sentMessage._id,
@@ -88,15 +89,15 @@ const MessageDetails = (props) => {
       })
       .then(res =>{
         setReplyMessage('')
-        axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
-       // axios.post(`http://localhost:7788/findconversation`, { ConvId: props.messageId })
+       // axios.post(`https://ev2.softuvo.xyz/findconversation`, { ConvId: props.messageId })
+        axios.post(`${api_url}findconversation`, { ConvId: props.messageId })
         .then(res => {
           setConversation(res.data)
         })
       })
       if(caseNo == '1'){
-         axios.post(`https://ev2.softuvo.xyz/savenotification`, {
-         // axios.post(`http://localhost:7788/savenotification`, {
+        // axios.post(`https://ev2.softuvo.xyz/savenotification`, {
+          axios.post(`${api_url}savenotification`, {
             Type: 'User to User Message',
             SentBy: JSON.parse(localStorage.user).Name,
             SentTo: userMessage.SenderId,
@@ -104,8 +105,8 @@ const MessageDetails = (props) => {
             CaseNo:'2'
           })
       }else{
-         axios.post(`https://ev2.softuvo.xyz/savenotification`, {
-         // axios.post(`http://localhost:7788/savenotification`, {
+         //axios.post(`https://ev2.softuvo.xyz/savenotification`, {
+          axios.post(`${api_url}savenotification`, {
             Type: 'User to User Message',
             SentBy: JSON.parse(localStorage.user).Name,
             SentTo: userMessage.ReceiverId,

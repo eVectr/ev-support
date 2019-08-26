@@ -3,6 +3,7 @@ import Select from 'react-select'
 import { Card, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import api_url from  '../../utils/Const'
 import moment from 'moment'
 import Document from './Documents'
 import SelectAssign from './SelectAssign'
@@ -44,13 +45,13 @@ const AdminTicket = (props) => {
   const [activityLog, setActivityLog] = useState([])
 
   useEffect(() => {
-   // axios.post(`http://localhost:7788/messagelogs`, { ID: props.match.params.id })
-    axios.post(`https://ev2.softuvo.xyz/messagelogs`, { ID: props.match.params.id })
+    axios.post(`${api_url}messagelogs`, { ID: props.match.params.id })
+    //axios.post(`https://ev2.softuvo.xyz/messagelogs`, { ID: props.match.params.id })
       .then(res => {
         setMessageLogs(res.data.reverse())
       })
-    // axios.post(`http://localhost:7788/getcontactbycaseno`, { caseno: props.match.params.id })
-    axios.post(`https://ev2.softuvo.xyz/getcontactbycaseno`, { caseno: props.match.params.id })
+     axios.post(`${api_url}getcontactbycaseno`, { caseno: props.match.params.id })
+    //axios.post(`https://ev2.softuvo.xyz/getcontactbycaseno`, { caseno: props.match.params.id })
       .then(res => {
         setLoader(false)
         console.log("res dataaa  ===>", res.data)
@@ -61,14 +62,14 @@ const AdminTicket = (props) => {
         }
 
       })
-      axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
-     // axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+     // axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
+      axios.post(`${api_url}findlogentry`,{Id:props.match.params.id})
       .then(res =>{
         setActivityLog(res.data.reverse())
       })
 
       let agentArray = []
-      axios.get(`https://ev2.softuvo.xyz/findagent`,{Id:props.match.params.id})
+      axios.get(`${api_url}findagent`,{Id:props.match.params.id})
       .then(res =>{
         for(let i = 0 ; i < res.data.length; i++){
           let data = {
@@ -80,8 +81,8 @@ const AdminTicket = (props) => {
          }
       })
      
-      axios.post(`https://ev2.softuvo.xyz/findagentbytickeid`,{TicketId:props.match.params.id})
-      //axios.post(`http://localhost:7788/findagentbytickeid`,{TicketId:props.match.params.id})
+      //axios.post(`https://ev2.softuvo.xyz/findagentbytickeid`,{TicketId:props.match.params.id})
+      axios.post(`${api_url}findagentbytickeid`,{TicketId:props.match.params.id})
       .then(res => {
           setSubAdmin(res.data[0])
       })
@@ -96,8 +97,8 @@ const AdminTicket = (props) => {
       setErrors('Please enter required fields')
     }
     else{
-    //  axios.post(`http://localhost:7788/adminreply`, { ID: props.match.params.id, Message: reply })
-      axios.post(`https://ev2.softuvo.xyz/adminreply`, { ID: props.match.params.id, Message: reply })
+      axios.post(`${api_url}adminreply`, { ID: props.match.params.id, Message: reply })
+      //axios.post(`https://ev2.softuvo.xyz/adminreply`, { ID: props.match.params.id, Message: reply })
       .then(res => {
         // setContacts([res.data])
         setReply('')
@@ -148,22 +149,22 @@ const AdminTicket = (props) => {
       setErrors('Please enter required fields')
     } else {
       setshowTextArea(!showTextArea)
-      // axios.post(`http://localhost:7788/updateContactAssign`, { Id:contacts[0]._id, AssignTo: assignedAdmin })
-       axios.post(`https://ev2.softuvo.xyz/updateContactAssign`, { Id:contacts[0]._id, AssignTo: assignedAdmin })
+       axios.post(`${api_url}updateContactAssign`, { Id:contacts[0]._id, AssignTo: assignedAdmin })
+      // axios.post(`https://ev2.softuvo.xyz/updateContactAssign`, { Id:contacts[0]._id, AssignTo: assignedAdmin })
    
     
-    //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
-     axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
+     axios.post(`${api_url}logentry`,{Id:contacts[0].Case_No,
+     //axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
     log:'Ticket assigned to ' + name })
     .then(res => {
-      axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
-      //axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+      //axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
+      axios.post(`${api_url}findlogentry`,{Id:props.match.params.id})
         .then(res =>{  
           setActivityLog(res.data.reverse())
         })
     })
-    // axios.post(`http://localhost:7788/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
-     axios.post(`https://ev2.softuvo.xyz/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
+     axios.post(`${api_url}updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
+     //axios.post(`https://ev2.softuvo.xyz/updateagentbyid`,{TicketId:props.match.params.id, Id:assignTo})
      .then(res =>{
        setSubAdmin(res.data)
       })
@@ -173,15 +174,15 @@ const AdminTicket = (props) => {
 
   
   let Status = (e) => {
-     axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
-    //axios.post(`http://localhost:7788/logentry`,{Id:contacts[0].Case_No,
+    // axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:contacts[0].Case_No,
+    axios.post(`${api_url}logentry`,{Id:contacts[0].Case_No,
      log:'Ticket Status Changed to ' + e.target.value })
     setSelectedStatus(e.target.value)
-    //axios.post(`http://localhost:7788/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
-    axios.post(`https://ev2.softuvo.xyz/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+    axios.post(`${api_url}updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
+    //axios.post(`https://ev2.softuvo.xyz/updateStatus`, { Id:contacts[0]._id, changedStatus: e.target.value })
     .then(res => {
-         axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
-       //axios.post(`http://localhost:7788/findlogentry`,{Id:props.match.params.id})
+        // axios.post(`https://ev2.softuvo.xyz/findlogentry`,{Id:props.match.params.id})
+         axios.post(`${api_url}findlogentry`,{Id:props.match.params.id})
         .then(res =>{
           setActivityLog(res.data.reverse())
         })

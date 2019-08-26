@@ -61,8 +61,8 @@ const AdminPanel = (props) => {
          setLoader(false)
        })
     } else {
-      // axios.get(`http://localhost:7788/findcontact`)
-      axios.get(`https://ev2.softuvo.xyz/findcontact`)
+       axios.get(`${api_url}findcontact`)
+      //axios.get(`https://ev2.softuvo.xyz/findcontact`)
         .then(res => {
           setContacts(res.data)
           setTotalContact(res.data.length)
@@ -151,8 +151,8 @@ const AdminPanel = (props) => {
       return
     }
     setLoader(true)
-  //  axios.post(`http://localhost:7788/sendmail`, { message: message, email: contact.Email })
-     axios.post(`https://ev2.softuvo.xyz/sendmail`, { message: message, email: contact.Email })
+    axios.post(`${api_url}sendmail`, { message: message, email: contact.Email })
+     //axios.post(`https://ev2.softuvo.xyz/sendmail`, { message: message, email: contact.Email })
       .then(res => {
         setLoader(false)
         setShowFlashMsg(true)
@@ -220,8 +220,8 @@ const AdminPanel = (props) => {
       if(JSON.parse(localStorage.user).Type == 'subadmin') {
         if (filterData1.filterValue == 'null') {
   
-          //axios.post(`http://localhost:7788/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
-          axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+          axios.post(`${api_url}findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+         // axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
           .then(res => {
               setContacts(res.data)
               setTotalContact(res.data.length)
@@ -229,8 +229,8 @@ const AdminPanel = (props) => {
             })
         }
         else{
-           //axios.post(`http://localhost:7788/getsubadmincontactsbyfilter`, {Type :JSON.parse(localStorage.user).TicketType, filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-          axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter`, {Type :JSON.parse(localStorage.user).TicketType, filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+           axios.post(`${api_url}getsubadmincontactsbyfilter`, {Type :JSON.parse(localStorage.user).TicketType, filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+         // axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter`, {Type :JSON.parse(localStorage.user).TicketType, filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
          .then(res => {
              let { data = {} } = res
              console.log("dataaaaaa= >", data)
@@ -242,8 +242,8 @@ const AdminPanel = (props) => {
       }
       else{
         if (filterData1.filterValue == 'null') {
-          // axios.get(`http://localhost:7788/findcontact`)
-          axios.get(`https://ev2.softuvo.xyz/findcontact`)
+           axios.get(`${api_url}findcontact`)
+         // axios.get(`https://ev2.softuvo.xyz/findcontact`)
             .then(res => {
               setContacts(res.data)
               setTotalContact(res.data.length)
@@ -251,8 +251,8 @@ const AdminPanel = (props) => {
             })
         }
         else{
-          // axios.post(`http://localhost:7788/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
-         axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+          axios.post(`${api_url}getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
+        // axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, Pagenumber: pageNumber, size: limit })
          .then(res => {
              let { data = {} } = res
              setContacts(data)
@@ -269,8 +269,8 @@ const AdminPanel = (props) => {
 
     if (isSortBySelected && !isFilterBySelected) {
       if(JSON.parse(localStorage.user).Type == 'subadmin') {
-         // axios.post(`http://localhost:7788/getsubadmincontactsbysort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
-          axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbysort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
+          axios.post(`${api_url}getsubadmincontactsbysort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
+          //axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbysort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
        .then(res => {
            let { data = {} } = res
            setContacts(data.data)
@@ -278,8 +278,8 @@ const AdminPanel = (props) => {
            setShow(true)
          })
       }else{
-        // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-       axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+         axios.post(`${api_url}getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+       //axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
        .then(res => {
            let { data = {} } = res
            setContacts(data.data)
@@ -297,8 +297,8 @@ const AdminPanel = (props) => {
       if(JSON.parse(localStorage.user).Type == 'subadmin') {
         if(filterData1.filterValue == 'null'){
         
-          // axios.post(`http://localhost:7788/getsubadmincontactsbyfilter&sort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
-           axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter&sort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
+           axios.post(`${api_url}getsubadmincontactsbyfilter&sort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
+          // axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter&sort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
           .then(res => {
            setLoader(false)
               let { data = {} } = res
@@ -306,11 +306,11 @@ const AdminPanel = (props) => {
               setShow(true)
             })
          }else{
-          //  axios.post(`http://localhost:7788/getsubadmincontactsbyfilter&sort`, { filterName: filterData1.filterName, 
-          //  Type:JSON.parse(localStorage.user).TicketType,filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-          axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter&sort`, { filterName: filterData1.filterName, 
-          Type:JSON.parse(localStorage.user).TicketType,filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-          .then(res => {
+            axios.post(`${api_url}getsubadmincontactsbyfilter&sort`, { filterName: filterData1.filterName, 
+            Type:JSON.parse(localStorage.user).TicketType,filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+          // axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter&sort`, { filterName: filterData1.filterName, 
+          // Type:JSON.parse(localStorage.user).TicketType,filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+           .then(res => {
               let { data = {} } = res
               setContacts(data.data)
              
@@ -321,8 +321,8 @@ const AdminPanel = (props) => {
       else{
         if(filterData1.filterValue == 'null'){
         
-          // axios.post(`http://localhost:7788/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
-           axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+           axios.post(`${api_url}getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
+           //axios.post(`https://ev2.softuvo.xyz/getcontactsbysort`, { sortName: sortData, Pagenumber: pageNumber, size: limit })
           .then(res => {
            setLoader(false)
               let { data = {} } = res
@@ -330,9 +330,9 @@ const AdminPanel = (props) => {
               setShow(true)
             })
          }else{
-          // axios.post(`http://localhost:7788/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, 
-           //filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
-           axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+          axios.post(`${api_url}getcontactsbyfilter&sort`, { filterName: filterData1.filterName, 
+           filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
+          // axios.post(`https://ev2.softuvo.xyz/getcontactsbyfilter&sort`, { filterName: filterData1.filterName, filterValue: filterData1.filterValue, sortName: sortData, Pagenumber: pageNumber, size: limit })
           .then(res => {
               let { data = {} } = res
               setContacts(data.data)
@@ -348,8 +348,8 @@ const AdminPanel = (props) => {
 
     if(e.target.value == 'Status, Open' && !isSortBySelected){
       setisSortBySelected(false)
-      //axios.get(`http://localhost:7788/findcontact`)
-     axios.get(`https://ev2.softuvo.xyz/findcontact`)
+      axios.get(`${api_url}findcontact`)
+     //axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
         setContacts(res.data)
         setTotalContact(res.data.length)
@@ -374,8 +374,8 @@ const AdminPanel = (props) => {
     if(e.target.value == 'Status,Open' && !isFilterBySelected){
       setisFilterBySelected(false)
       setLoader(true)
-      //axios.get(`http://localhost:7788/findcontact`)
-      axios.get(`https://ev2.softuvo.xyz/findcontact`)
+     axios.get(`${api_url}findcontact`)
+     // axios.get(`https://ev2.softuvo.xyz/findcontact`)
         .then(res => {
           setContacts(res.data)
           setTotalContact(res.data.length)
@@ -407,11 +407,11 @@ const AdminPanel = (props) => {
 
   let deleteTicket = (id) =>{
     setLoader(true)
-      axios.post(`http://localhost:7788/deleteticket`,{Id:id})
+      axios.post(`${api_url}deleteticket`,{Id:id})
       //axios.get(`https://ev2.softuvo.xyz/findcontact`)
       .then(res => {
         if (JSON.parse(localStorage.user).Type == 'subadmin') {
-            axios.post(`http://localhost:7788/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+            axios.post(`${api_url}findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
           //  axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
            .then(res => {
              setContacts(res.data)
@@ -419,7 +419,7 @@ const AdminPanel = (props) => {
              setLoader(false)
            })
         } else {
-           axios.get(`http://localhost:7788/findcontact`)
+           axios.get(`${api_url}findcontact`)
           //axios.get(`https://ev2.softuvo.xyz/findcontact`)
             .then(res => {
               setContacts(res.data)

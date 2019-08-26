@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 import moment from 'moment'
+import api_url from  '../../utils/Const'
 import { Container, Row, Col, Table, checkBox, Button } from 'reactstrap'
 import NoticePagination from './NoticePagination'
 import '../../styles/notification.css'
@@ -21,8 +22,8 @@ const Notification = (props) => {
     useEffect(() => {
        
         setshowLoader(true)
-          //axios.get(`http://localhost:7788/getnotification`)
-          axios.get(`https://ev2.softuvo.xyz/getnotification`)
+          axios.get(`${api_url}getnotification`)
+          //axios.get(`https://ev2.softuvo.xyz/getnotification`)
           .then(res => {
             setshowLoader(false)
               if(res.data.length < 1){
@@ -45,8 +46,8 @@ const Notification = (props) => {
     let OnButtonClick = (Id, index, Type, NotificationId, CaseNo) => {
         
      
-        // axios.post(`http://localhost:7788/changenotificationstatus`, { Id: Id })
-        axios.post(`https://ev2.softuvo.xyz/changenotificationstatus`, { Id: Id })
+         axios.post(`${api_url}changenotificationstatus`, { Id: Id })
+       // axios.post(`https://ev2.softuvo.xyz/changenotificationstatus`, { Id: Id })
             .then(res => {
                 setNotification(prevState => prevState.map(
                     item => item._id === Id ? { ...item, FontStyle: true } : item

@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
+import api_url from  '../../utils/Const'
 import { Col, Button, Form, FormGroup, Label, Input, FormText  } from 'reactstrap'
 
 
@@ -69,8 +70,8 @@ const options = [
     //   setErrors('Please enter required fields')
     // }
    // else {
-     axios.post(`https://ev2.softuvo.xyz/saveagent`, {FirstName:selectedFirstName,
-     // axios.post(`http://localhost:7788/saveagent`, {FirstName:selectedFirstName,
+    // axios.post(`https://ev2.softuvo.xyz/saveagent`, {FirstName:selectedFirstName,
+      axios.post(`${api_url}saveagent`, {FirstName:selectedFirstName,
       LastName: selectedLastName,
       Password: selectedPassword,
       Type:selectedType,
