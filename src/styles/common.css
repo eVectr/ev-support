@@ -1,0 +1,9 @@
+.padding-0 {
+    padding: 0 !important;
+}
+
+.heading{
+    height: 3px;
+    /* background-color: #5048486e; */
+    display: block;
+}
