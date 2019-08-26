@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Select from 'react-select'
 import Modal from 'react-responsive-modal'
+import api_url from  '../../../utils/Const'
 import adminModalValidation from '../../../utils/adminModalValidation'
 import is from 'is_js'
 import AgentUserDetails from './components/AgentUserDetails';
@@ -73,8 +74,8 @@ const AgentModal = (props) => {
       })
       if(props.selectedItem._id == undefined){
        
-          axios.post(`https://ev2.softuvo.xyz/saveagent`, {
-          //axios.post(`http://localhost:7788/saveagent`, {
+         // axios.post(`https://ev2.softuvo.xyz/saveagent`, {
+          axios.post(`${api_url}saveagent`, {
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,
             Password: agentUserDetails.Password,
@@ -83,8 +84,8 @@ const AgentModal = (props) => {
             TicketId: []
           })
             .then(res => {
-              axios.post(`https://ev2.softuvo.xyz/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
-             // axios.post(`http://localhost:7788/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
+             // axios.post(`https://ev2.softuvo.xyz/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
+              axios.post(`${api_url}updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
              
               props.fetchadmin()
               // agentUserDetailsData('')
@@ -99,8 +100,8 @@ const AgentModal = (props) => {
       }
       else{
        
-        axios.post(`https://ev2.softuvo.xyz/updateAgent`, {
-         // axios.post(`http://localhost:7788/updateAgent`, {
+        //axios.post(`https://ev2.softuvo.xyz/updateAgent`, {
+          axios.post(`${api_url}updateAgent`, {
             Id: props.selectedItem._id,
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,

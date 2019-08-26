@@ -6,7 +6,7 @@ import TimeAgo from 'timeago-react'
 import { Row, Col, Button, Table, Nav, NavItem, NavLink, Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 import ModalUi from './ModalUi'
 import MessagePagination from './MessagePagination'
-import { limit } from '../../utils/Const';
+
 const MessageLogs = (props) => {
   const [userMessage, setUserMessage] = useState([])
   const [adminMessage, setAdminMessage] = useState([])
@@ -15,6 +15,7 @@ const MessageLogs = (props) => {
   const [open, setOpen] = useState(false)
   const [showMessageDetails, setShowMessageDetails] = useState(false)
   const [showCase, setshowCase] = useState('0')
+  const [limit, setLimit] = useState(5)
   const [messageId, setMessageId] = useState('')
   const [logsId, setLogsId] = useState('')
   const [showLoader, setshowLoader] = useState(true)

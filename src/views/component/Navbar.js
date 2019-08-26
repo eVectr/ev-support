@@ -58,7 +58,7 @@ const Navbar = (props) => {
     props.history.push('/messageLogs')
   }
   let showUserlist = () => {
-    props.history.push('/subAdminList')
+    props.history.push('/tools')
   }
   let onNotification = () => {
   
@@ -92,7 +92,7 @@ const Navbar = (props) => {
                     <li>
                     <li>
                         <a class='navbar-item' onClick={() => showUserlist()}>
-                            <strong>SubAdmin List</strong>
+                            <strong>Tools and Credential Control</strong>
                         </a>
                     </li>
                     </li>

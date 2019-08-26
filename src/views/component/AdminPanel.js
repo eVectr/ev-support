@@ -3,6 +3,7 @@ import {Row, Col, Input, Table,Button } from 'reactstrap'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import axios from 'axios'
+import api_url from  '../../utils/Const'
 import { filterArray, authRoutes } from '../../utils/Common'
 import adminValidation from '../../utils/adminValidation'
 import PaginationAdmin from '../component/Pagination'
@@ -52,8 +53,8 @@ const AdminPanel = (props) => {
     setLoader(true)
 
     if (JSON.parse(localStorage.user).Type == 'subadmin') {
-        //axios.post(`http://localhost:7788/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
-        axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+        axios.post(`${api_url}findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+        //axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
        .then(res => {
          setContacts(res.data)
          setTotalContact(res.data.length)
@@ -298,7 +299,6 @@ const AdminPanel = (props) => {
         
           // axios.post(`http://localhost:7788/getsubadmincontactsbyfilter&sort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
            axios.post(`https://ev2.softuvo.xyz/getsubadmincontactsbyfilter&sort`, {Type:JSON.parse(localStorage.user).TicketType, sortName: sortData, Pagenumber: pageNumber, size: limit })
-          
           .then(res => {
            setLoader(false)
               let { data = {} } = res
@@ -403,6 +403,31 @@ const AdminPanel = (props) => {
   }
   let onAgentCloseModal = () =>{
     setAgentOpen(false)
+  }
+
+  let deleteTicket = (id) =>{
+    setLoader(true)
+      axios.post(`http://localhost:7788/deleteticket`,{Id:id})
+      //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+      .then(res => {
+        if (JSON.parse(localStorage.user).Type == 'subadmin') {
+            axios.post(`http://localhost:7788/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+          //  axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
+           .then(res => {
+             setContacts(res.data)
+             setTotalContact(res.data.length)
+             setLoader(false)
+           })
+        } else {
+           axios.get(`http://localhost:7788/findcontact`)
+          //axios.get(`https://ev2.softuvo.xyz/findcontact`)
+            .then(res => {
+              setContacts(res.data)
+              setTotalContact(res.data.length)
+              setLoader(false)
+            })
+        }
+      })
   }
  
   let totalPages = Math.ceil(totalContact / limit)
@@ -513,16 +538,16 @@ const AdminPanel = (props) => {
                     {contact.Status}</td>
                   <td className='admin-data'>{moment(contact.date).format('lll')}</td>
                   <td className='admin-data'>{contact.Subject}</td>
-                  <td className='admin-data'>{contact.Template}</td>
+                  <td className='admin-data'>{contact.Reason}</td>
                   <td className='admin-data'>{contact.AssignTo.length < 1? 'Not Assigned' : 'Sub Admin'}</td>
                   <td className='admin-data '>
                     <div className='actions'>
                       <button className='view' onClick={() => showAdminTicket(contact.Case_No)}>
                         View
                       </button>
-                      <button className='view'>
-                        Delete
-                      </button>
+                      <div />
+                      <button className='delete-ticket' onClick ={() =>deleteTicket(contact._id)}>Delete</button>
+                      <div />
                      
                     </div>
                   </td>

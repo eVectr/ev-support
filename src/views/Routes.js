@@ -91,7 +91,7 @@ const Routes = (props) => {
           <AuthRoute exact path='/adminticket/:id' component={AdminTicket} />
           <AuthRoute exact path='/messageLogs' component={MessageLogs} />
           <AuthRoute exact path='/messageLogs/:id' component={MessageLogs} />
-          <AuthRoute exact path='/subAdminList' component={SubAdminList} />
+          <AuthRoute exact path='/tools' component={SubAdminList} />
           <AuthRoute exact path="/notification" component= {Notification} />  
           {/* <Route exact path="/notification" component= {localStorage.user != undefined? Notification: Loginform} />           */}
         </Switch>

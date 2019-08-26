@@ -234,8 +234,8 @@
     color:rgb(19, 104, 133)
 }
 
-.actions .assign{
-    color:green
+.actions .delete-ticket{
+    color:red
 }
 
 .actions .resolve{

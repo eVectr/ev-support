@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import api_url from  '../../utils/Const'
 import '../../styles/login.css'
 import { userDetailsAction } from '../../redux/actions/auth'
 import { showNotificationAction } from '../../redux/actions/notification/notification.js'
@@ -50,8 +51,8 @@ const Loginform = (props) => {
     let username = data.username
     let password = data.password
 
-    //axios.post(`http://localhost:7788/subadminlogin`, { username: username, password: password })
-    axios.post(`https://ev2.softuvo.xyz/subadminlogin`, { username: username, password: password })
+    axios.post(`${api_url}subadminlogin`, { username: username, password: password })
+   // axios.post(`https://ev2.softuvo.xyz/subadminlogin`, { username: username, password: password })
     .then(res =>{
       setLoader(false)
       if(res.data.check){
@@ -63,8 +64,8 @@ const Loginform = (props) => {
           show: true
         }))
       }else{
-         //axios.post(`http://localhost:7788/login`, { username: username, password: password })
-    axios.post(`https://ev2.softuvo.xyz/login`, { username: username, password: password })
+         axios.post(`${api_url}login`, { username: username, password: password })
+    //axios.post(`https://ev2.softuvo.xyz/login`, { username: username, password: password })
     .then(res => {
         // console.log("res.data =>", res.data.data[0].Type)
         setLoader(false)
@@ -96,7 +97,7 @@ const Loginform = (props) => {
       }
     })
   }
-   let user = JSON.parse(localStorage.getItem('user'))
+   console.log("api url ==>", api_url)
   return (
     <div className='login-form'>
       <div className="log-form">

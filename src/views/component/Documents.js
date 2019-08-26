@@ -18,7 +18,7 @@ const Document = ({ contacts }) => {
                     <span className="des-head">{contacts.length > 0? contacts[0].Subject:''}</span>
                 </div>
                <div className="ticket-docs">
-                  <label className="des-head">Reason:</label> <span>
+                  <label className="des-head">Ticket Category:</label> <span>
                   <span className="des-head">{contacts.length > 0? contacts[0].Reason:''}</span>
                 </span>
                </div>

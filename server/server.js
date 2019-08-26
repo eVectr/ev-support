@@ -269,10 +269,9 @@ app.post('/updateStatus', (req, res) => {
   let Status = req.body.changedStatus
   ContactForm.findOneAndUpdate({ _id: Id }, { $set: {Status: Status } }, function (err, doc) {
     if (err) {
-      console.log("Something wrong when updating data!");
+      console.log("Something wrong when updating data!")
     }
     else {
-      console.log("up ==>", doc)
       res.send(doc)
     }
   })
@@ -283,12 +282,11 @@ app.post('/updateContactAssign', (req, res) => {
   let AssignTo = req.body.AssignTo
   console.log("Assign to==>", AssignTo)
   console.log("Id  =>", Id)
-  ContactForm.findOneAndUpdate({ _id: Id }, { $set: { AssignTo : AssignTo } }, function (err, doc) {
+  ContactForm.findOneAndUpdate({ _id: Id }, { $set: { AssignTo : AssignTo, Status: 'Active' } }, function (err, doc) {
     if (err) {
       console.log("Something wrong when updating data!");
     }
     else {
-     // console.log("updated docs ==>", doc)
       res.send(doc)
     }
   })
@@ -1104,6 +1102,19 @@ app.post('/deleteselectednotification', (req, res) => {
   })
 })
 
+
+app.post('/deleteticket', (req, res) => {
+  let Id = req.body.Id
+  ContactForm.findOneAndRemove({ _id: Id }, (err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send(data)
+    }
+  })
+})
 
 app.post('/deletenotification', (req, res) => {
   let Id = req.body.Id
