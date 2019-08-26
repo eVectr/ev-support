@@ -133,7 +133,7 @@ const AgentModal = (props) => {
     createAgentSuccess,
     agentUserDetailsData,
   }
-  console.log("selected  ==>", select)
+
   return (
     <div style={styles} >
       {/* <h2>react-responsive-modal</h2> */}

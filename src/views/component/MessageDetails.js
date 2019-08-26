@@ -132,9 +132,6 @@ const MessageDetails = (props) => {
       window.open(url)
     }
 
-  
- 
-
   return (
     <div className="messagedetail">
       <Row className="message-mail">

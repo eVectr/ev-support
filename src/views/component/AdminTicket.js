@@ -205,13 +205,10 @@ const AdminTicket = (props) => {
   // if(contacts.length){
   //   console.log('contacts  =======> ', contacts[0].Case_No)
   // }
-  let user = JSON.parse(localStorage.getItem('user'))
-  if(!user){
-    return null
-  } 
-
-  console.log("contacts =>", contacts)
-  console.log("asgign =>", assignedAdmin)
+  // let user = JSON.parse(localStorage.getItem('user'))
+  // if(!user){
+  //   return null
+  // } 
   
   return (
     <Col className='container-fluid'>

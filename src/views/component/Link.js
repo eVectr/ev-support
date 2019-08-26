@@ -30,8 +30,7 @@ const Link = ({ contacts }) => {
     // let { Link } = element
     return element.Link
   })
-  console.log(links.length, 'links.length')
-  console.log(contacts, 'contactsb;kjshdb;kcb')
+ 
   return (
     <Container>
       <h1 className='header-text'>Links</h1>

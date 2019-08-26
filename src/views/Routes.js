@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { Switch, Route, BrowserRouter, Redirect, withRouter } from 'react-router-dom'
 import Loginform from './component/Loginform.js'
 import StandardForm from './component/StandardForm'
 import OptionalForm from './component/OptionalForm'
@@ -20,29 +20,80 @@ const Routes = (props) => {
   let { notificationreducer = {} } = props
   let { notification = {} } = notificationreducer
   let { text = '', show = false } = notification
- 
-  console.log("not =>", localStorage)
+
+
+  const checkAuth = () => {
+    const isLoggedIn = localStorage.getItem('user')
+    return isLoggedIn
+  }
+
+  const AuthRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={props =>
+        checkAuth() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: '/' }} />
+        )
+      }
+    />
+  )
+
+  const adminAuth = () => {
+    let check = JSON.parse(localStorage.user).Type
+    if(check == 'admin'){
+      return true
+    }
+  }
+
+  const AdminAuthRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={props =>
+        adminAuth() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: '/' }} />
+        )
+      }
+    />
+  )
+  const PublicRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={props =>
+        checkAuth() ? JSON.parse(localStorage.user).user = 'user'?
+         <Redirect to={{ pathname: '/contact' }} />:
+           <Redirect to={{ pathname: '/admin' }} />
+         : (
+            <Component {...props} />
+          )
+      }
+    />
+  )
+  
   return (
     <BrowserRouter>
       <RouterChangeObserver>
         <Navbar />
         <SuccessfulNotification text={text} show={show} />
         <Switch>
-          <Route exact path='/' component={Loginform} />
-          <Route exact path='/contact' component={SelectReason} />
-          <Route exact path='/contact/1' component={StandardForm} />
-          <Route exact path='/contact/2' component={OptionalForm} />
-          <Route exact path='/contact/3' component={OptionalForm} />
-          <Route exact path='/admin' component={AdminPanel} />
-          <Route exact path='/contact/4' component={Survey} />
-          <Route exact path='/clientsurvey' component={Survey} />
-          <Route exact path='/transactionsurvey' component={TransactionSurvey} />
-          <Route exact path='/adminticket/:id' component={AdminTicket} />
-          <Route exact path='/messageLogs' component={MessageLogs} />
-          <Route exact path='/messageLogs/:id' component={MessageLogs} />
-          <Route exact path='/subAdminList' component={SubAdminList} />
-         
-          <Route exact path="/notification" component= {localStorage.user != undefined? Notification: Loginform} />          
+          <PublicRoute exact path='/' component={Loginform} />
+          <AuthRoute exact path='/contact' component={SelectReason} />
+          <AuthRoute exact path='/contact/1' component={StandardForm} />
+          <AuthRoute exact path='/contact/2' component={OptionalForm} />
+          <AuthRoute exact path='/contact/3' component={OptionalForm} />
+          <AuthRoute exact path='/admin' component={AdminPanel} />
+          <AuthRoute exact path='/contact/4' component={Survey} />
+          <AuthRoute exact path='/clientsurvey' component={Survey} />
+          <AuthRoute exact path='/transactionsurvey' component={TransactionSurvey} />
+          <AuthRoute exact path='/adminticket/:id' component={AdminTicket} />
+          <AuthRoute exact path='/messageLogs' component={MessageLogs} />
+          <AuthRoute exact path='/messageLogs/:id' component={MessageLogs} />
+          <AuthRoute exact path='/subAdminList' component={SubAdminList} />
+          <AuthRoute exact path="/notification" component= {Notification} />  
+          {/* <Route exact path="/notification" component= {localStorage.user != undefined? Notification: Loginform} />           */}
         </Switch>
         <Footer />
       </RouterChangeObserver>

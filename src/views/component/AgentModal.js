@@ -82,10 +82,6 @@ const options = [
       props.onAgentCloseModal()
    // }
   }
-  console.log("selectedFirstName ==>", selectedFirstName)
-  console.log(" selectedLastName==>", selectedLastName)
-  console.log("selectedPassword ==>", selectedPassword)
-  console.log("selectedEmail ==>", selectedEmail)
 
   return (
     <div style={styles} >

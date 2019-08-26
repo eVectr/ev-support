@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 import moment from 'moment'
 import { Container, Row, Col, Table, checkBox, Button } from 'reactstrap'
@@ -18,13 +19,7 @@ const Notification = (props) => {
         setValueData(e.target.checked)
     }
     useEffect(() => {
-        let user = JSON.parse(localStorage.getItem('user'))
-        if (localStorage.length > 0) {
-          let { Type = '' } = user || {}
-          if (Type == 'admin') {
-            props.history.push('/admin')
-          }
-        }
+       
         setshowLoader(true)
           //axios.get(`http://localhost:7788/getnotification`)
           axios.get(`https://ev2.softuvo.xyz/getnotification`)
@@ -171,6 +166,9 @@ const Notification = (props) => {
        
     }
 
+    let user = JSON.parse(localStorage.getItem('user'))
+    
+    
     return (
         <Container fluid>
            <Row className="notify-table">

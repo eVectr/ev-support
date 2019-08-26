@@ -54,7 +54,6 @@ const AdminPanel = (props) => {
     if (JSON.parse(localStorage.user).Type == 'subadmin') {
         //axios.post(`http://localhost:7788/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
         axios.post(`https://ev2.softuvo.xyz/findsubadmincontact`, {Type :JSON.parse(localStorage.user).TicketType})
-       
        .then(res => {
          setContacts(res.data)
          setTotalContact(res.data.length)
@@ -418,10 +417,6 @@ const AdminPanel = (props) => {
   // }
  
   const searchedProduct = filterArray(paginationContact, 'Case_No', caseNo)
-  // console.log('local storage =>', JSON.parse(localStorage.user).Type)
-  // console.log('local storage =>', JSON.parse(localStorage.user).TicketType)
- 
-  console.log("contacts ==>", contacts)
   return (
     <div className="containers">
       <div className="inner-containers">
@@ -524,6 +519,9 @@ const AdminPanel = (props) => {
                     <div className='actions'>
                       <button className='view' onClick={() => showAdminTicket(contact.Case_No)}>
                         View
+                      </button>
+                      <button className='view'>
+                        Delete
                       </button>
                      
                     </div>

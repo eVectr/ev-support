@@ -108,14 +108,7 @@ const MessageLogs = (props) => {
       })
   }
   
-  let user = JSON.parse(localStorage.getItem('user'))
-  if(user) {  
-   if(user.Type == 'admin'){
-    props.history.push('/admin')
-  }
-}else{
-  return null
-}
+ 
   return (
     <div className="messagelogs">
       <Row className="message-mail">
