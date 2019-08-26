@@ -108,7 +108,7 @@ const Loginform = (props) => {
   }
   }
   // if(!user){
-  //   return null
+  //   props.history.push('/')
   // }
   return (
     <div className='login-form'>

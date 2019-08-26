@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Loginform from './component/Loginform.js'
@@ -8,13 +8,11 @@ import Navbar from './component/Navbar'
 import Footer from './component/Footer'
 import SelectReason from './component/SelectReason'
 import AdminPanel from './component/AdminPanel'
-import Support from './component/Support'
 import RouterChangeObserver from './component/RouterChangeObserver'
 import SuccessfulNotification from './component/SuccessfulNotification'
 import Survey from './component/Survey'
 import TransactionSurvey from './component/TransactionSurvey'
 import MessageLogs from './component/MessageLogs'
-import MessageDetails from './component/MessageDetails'
 import AdminTicket from './component/AdminTicket'
 import SubAdminList from './component/SubAdminList'
 import Notification from './component/Notification'
@@ -23,6 +21,7 @@ const Routes = (props) => {
   let { notification = {} } = notificationreducer
   let { text = '', show = false } = notification
  
+  console.log("not =>", localStorage)
   return (
     <BrowserRouter>
       <RouterChangeObserver>
@@ -35,7 +34,6 @@ const Routes = (props) => {
           <Route exact path='/contact/2' component={OptionalForm} />
           <Route exact path='/contact/3' component={OptionalForm} />
           <Route exact path='/admin' component={AdminPanel} />
-          {/* <Route exact path='/support' component={Support} /> */}
           <Route exact path='/contact/4' component={Survey} />
           <Route exact path='/clientsurvey' component={Survey} />
           <Route exact path='/transactionsurvey' component={TransactionSurvey} />
@@ -43,7 +41,8 @@ const Routes = (props) => {
           <Route exact path='/messageLogs' component={MessageLogs} />
           <Route exact path='/messageLogs/:id' component={MessageLogs} />
           <Route exact path='/subAdminList' component={SubAdminList} />
-          <Route exact path="/notification" component={Notification} />          
+         
+          <Route exact path="/notification" component= {localStorage.user != undefined? Notification: Loginform} />          
         </Switch>
         <Footer />
       </RouterChangeObserver>
@@ -51,23 +50,4 @@ const Routes = (props) => {
   )
 }
 
-// function PrivateRoute({ component: Component, ...rest }) {
-//   return (
-//     <Route
-//       {...rest}
-//       render={props =>
-//         fakeAuth.isAuthenticated ? (
-//           <Component {...props} />
-//         ) : (
-//             <Redirect
-//               to={{
-//                 pathname: "/login",
-//                 state: { from: props.location }
-//               }}
-//             />
-//           )
-//       }
-//     />
-//   )
-// }
 export default connect(({ dispatch, notificationReducer }) => ({ dispatch, notificationReducer }))(Routes)

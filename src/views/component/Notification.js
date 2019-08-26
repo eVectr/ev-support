@@ -171,12 +171,6 @@ const Notification = (props) => {
        
     }
 
-    // let user = JSON.parse(localStorage.getItem('user'))
-    // if(!user){
-    //     return null
-    //  }
-    console.log("all select Id ====>", allSelectedId)
-    console.log(" select Id ====>", selectedId)
     return (
         <Container fluid>
            <Row className="notify-table">

@@ -139,7 +139,7 @@ const AgentModal = (props) => {
       {/* <h2>react-responsive-modal</h2> */}
       <Modal open={props.open || isOpen} onClose={props.onAgentCloseModal} classNames={'sent-modal'} center >
         <div className='sent-modal agent-modal-inner'>
-          <h2>Create Agent</h2>
+          <h2>Create SubAdmin</h2>
           <AgentUserDetails selectedItem={props.selectedItem} {...AgentModalProps}
           />
         </div>

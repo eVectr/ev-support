@@ -409,12 +409,13 @@ const AdminPanel = (props) => {
   let totalPages = Math.ceil(totalContact / limit)
   let searchedResult = filterArray(contacts, 'Case_No', caseNo)
 
-  let user = JSON.parse(localStorage.getItem('user'))
-  if(!user){
-    return null
-  } else if(user.Type == 'user'){
-    props.history.push('/contact')
-  }
+  // let user = JSON.parse(localStorage.getItem('user'))
+  // if(!user){
+    
+  //   props.history.push('/')
+  // }else if(user.Type == 'user'){
+  //   props.history.push('/contact')
+  // }
  
   const searchedProduct = filterArray(paginationContact, 'Case_No', caseNo)
   // console.log('local storage =>', JSON.parse(localStorage.user).Type)
@@ -427,7 +428,7 @@ const AdminPanel = (props) => {
       <Row>
         <Col>
           <div className='admin-panel'>
-            <h1 className='heading'>Admin Panel</h1>
+            <h1 className='heading'>{JSON.parse(localStorage.user).Type} Panel</h1>
           </div>
           <div className="msg-btn">
             <ModalUi open = {open} closeModal={closeModal} className="sent-modal"></ModalUi>

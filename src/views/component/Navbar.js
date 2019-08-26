@@ -61,6 +61,7 @@ const Navbar = (props) => {
     props.history.push('/subAdminList')
   }
   let onNotification = () => {
+  
     props.history.push('/notification')
   }
   
