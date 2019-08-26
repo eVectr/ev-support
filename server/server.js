@@ -358,7 +358,7 @@ app.post('/updateagentonassign', (req, res) => {
   console.log("Type ==>",Type)
   console.log("Assign==>",AssignTo )
   ContactForm.updateMany({ Template: { $in: Type }}, 
-    {$set:{AssignTo :AssignTo, Status: 'Open' }},  (err, data) => {
+    {$set:{AssignTo :AssignTo, Status: 'Active' }},  (err, data) => {
       if (err) {
         console.log('error')
         res.send(err)
