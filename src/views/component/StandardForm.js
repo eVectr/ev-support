@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import FlashMassage from 'react-flash-message'
-
+import api_url from '../../utils/Const'
 import axios from 'axios'
 import contactValidation from '../../utils/contactValidation'
 import '../../styles/login.css'
@@ -56,8 +56,8 @@ const ContactForm = (props) => {
       let date = Date.now()
       let Case_No = res
       let Link = []
-     // axios.post(`http://localhost:7788/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
-      axios.post(`https://ev2.softuvo.xyz/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+      axios.post(`${api_url}saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+      //axios.post(`https://ev2.softuvo.xyz/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
       Transaction_Number,
         Name,
         Email,
@@ -82,8 +82,8 @@ const ContactForm = (props) => {
             subject: '',
             message: ''
           })
-         // axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-          axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
+          axios.post(`${api_url}logentry`,{Id:res.data.Case_No,
+         // axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
           log:'Ticket Created' }) 
         })
       setShowFlashMsg(false)

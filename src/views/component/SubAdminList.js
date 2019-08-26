@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Select from 'react-select'
+import api_url from '../../utils/Const'
 import Modal from 'react-responsive-modal'
 import NoticePagination from './NoticePagination'
 import { Col, Button, Row, Form, FormGroup, Label, Input, FormText, Table,Container } from 'reactstrap'
@@ -21,8 +22,8 @@ const UserList = props => {
   const [AgentOpen, setAgentOpen] = useState(false)
    const [showLoader, setshowLoader] = useState(true)
   useEffect(() => {
-    axios.get(`https://ev2.softuvo.xyz/findagent`)
-   //axios.get(`http://localhost:7788/findagent`)
+    //axios.get(`https://ev2.softuvo.xyz/findagent`)
+    axios.get(`${api_url}findagent`)
       .then(res => {
         setshowLoader(false)
          setSubAdmin(res.data)
@@ -49,8 +50,8 @@ const UserList = props => {
   } 
  
   let fetchadmin = () =>{
-    axios.get(`https://ev2.softuvo.xyz/findagent`)
-     //axios.get(`http://localhost:7788/findagent`)
+    //axios.get(`https://ev2.softuvo.xyz/findagent`)
+     axios.get(`${api_url}findagent`)
       .then(res => {
        
          setSubAdmin(res.data)

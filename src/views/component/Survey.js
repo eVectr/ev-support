@@ -3,6 +3,7 @@ import axios from 'axios'
 import FlashMassage from 'react-flash-message'
 import { connect } from 'react-redux'
 import '../../styles/surveycard.css'
+import api_url from '../../utils/Const'
 import { SelectedReason } from '../../redux/actions/notification/notification'
 import { authRoutes } from '../../utils/Common'
 
@@ -77,8 +78,8 @@ const SurveyCard = props => {
     let { Type = '' } = user || {}
     authRoutes(props)
     setLoader(true)
-   // axios.get(`http://localhost:7788/getclientsurvey`).then(res => {
-    axios.get(`https://ev2.softuvo.xyz/getclientsurvey`).then(res => {
+    axios.get(`${api_url}getclientsurvey`).then(res => {
+    //axios.get(`https://ev2.softuvo.xyz/getclientsurvey`).then(res => {
       let { data = [] } = res
       console.log('data ==>', data)
 
@@ -142,8 +143,8 @@ const SurveyCard = props => {
     }
     setLoading(true)
     axios
-    //.post(`http://localhost:7788/clientSurveyResponse`
-      .post(`https://ev2.softuvo.xyz/clientSurveyResponse`, {
+     .post(`${api_url}clientSurveyResponse`,{
+     // .post(`https://ev2.softuvo.xyz/clientSurveyResponse`, {
         Question1Response,
         Question2Response,
         Question3Response,

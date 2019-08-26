@@ -4,7 +4,6 @@ import FlashMassage from 'react-flash-message';
 import axios from 'axios'
 import is from 'is_js'
 import '../../styles/login.css'
-
 import Validation from '../../utils/Validation'
 import contactValidation from '../../utils/contactValidation'
 import ImageUploader from './ImageUploader'
@@ -321,8 +320,8 @@ const ContactForm = (props) => {
                 // axios.post(`http://3.83.23.220:7788/fileupload`, formData,
                 // ).then(res => { 
                     
-                   // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
-                 axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                axios.post(`${api_url}saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
+                 //axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message,
                     Case_No, Link:showLinks, Reason: props.showNotificationReducer.selectedReason.data.name, Template: props.showNotificationReducer.selectedReason.data.template })
                         .then(res => {
                             setloader(false)
@@ -339,8 +338,8 @@ const ContactForm = (props) => {
                             setShowLinks([])
                             console.log(res.data, 'Document Response')
                             setshowFlashMsg(true)
-                            //axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                            axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
+                            axios.post(`${api_url}logentry`,{Id:res.data.Case_No,
+                           // axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created'})    
                             if(res.status == 200){
                                 setsuccessmsg('Your query has been recorded ')
@@ -377,8 +376,8 @@ const ContactForm = (props) => {
                 // axios.post(`http://3.83.23.220:7788/upload`, formData,
                 // )
                 // .then(res => {})
-                   // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
-                   axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                    axios.post(`${api_url}saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
+                   //axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No, 
                    Link:showLinks, Reason: props.showNotificationReducer.selectedReason.data.name, Template:  props.showNotificationReducer.selectedReason.data.template })
                         .then(res => {
                             setSelectedImage([])
@@ -396,8 +395,8 @@ const ContactForm = (props) => {
                             setShowLinks([])
                             console.log(res.data, 'Image')
                             setshowFlashMsg(true)
-                          //  axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                          axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
+                            axios.post(`${api_url}logentry`,{Id:res.data.Case_No,
+                         // axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
                             log:'Ticket Created' })
                             if(res.status == 200){
                                 setsuccessmsg('Your query has been recorded')
@@ -426,8 +425,8 @@ const ContactForm = (props) => {
                 for (let i = 0; i < showLinks.length; i++) {
                     formData.append('SelectedImage', showLinks[i])
                 }
-               // axios.post(`http://localhost:7788/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
-             axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+                axios.post(`${api_url}saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
+            // axios.post(`https://ev2.softuvo.xyz/saveContact`, {UserId:JSON.parse(localStorage.user)._id, Transaction_Number, Name, Email, Subject, Message, Case_No,
                 Link:showLinks, Reason: props.showNotificationReducer.selectedReason.data.name, Template: props.showNotificationReducer.selectedReason.data.template })
                     .then(res => {
                         setloader(false)
@@ -449,8 +448,8 @@ const ContactForm = (props) => {
                             setsuccessmsg('Your query has been recorded')
                            
                         }
-                        //axios.post(`http://localhost:7788/logentry`,{Id:res.data.Case_No,
-                        axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
+                        axios.post(`${api_url}logentry`,{Id:res.data.Case_No,
+                        //axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
                         log:'Ticket Created' }) 
                     })
                     setshowFlashMsg(false)                

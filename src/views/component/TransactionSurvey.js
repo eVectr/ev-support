@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import api_url from '../../utils/Const'
 import transactionValidation from '../../utils/transactionValidation'
 import '../../styles/surveycard.css'
 import { SelectedReason } from '../../redux/actions/notification/notification'
@@ -136,8 +137,8 @@ const SurveyCard = (props) => {
     let user = JSON.parse(localStorage.getItem('user'))
     const { Type = '' } = user || {}
     setLoader(true)
-   // axios.get(`http://localhost:7788/gettransactionsurvey`)
-    axios.get(`https://ev2.softuvo.xyz/gettransactionsurvey`)
+    axios.get(`${api_url}gettransactionsurvey`)
+    //axios.get(`https://ev2.softuvo.xyz/gettransactionsurvey`)
       .then(res => {
         let { data = [] } = res
         console.log('data ==>', data)
