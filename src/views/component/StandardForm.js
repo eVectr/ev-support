@@ -56,7 +56,7 @@ const ContactForm = (props) => {
       let date = Date.now()
       let Case_No = res
       let Link = []
-      axios.post(`${api_url}saveContact`, { UserId: JSON.parse(localStorage.user)._id,
+      axios.post(`${api_url}/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
       //axios.post(`https://ev2.softuvo.xyz/saveContact`, { UserId: JSON.parse(localStorage.user)._id,
       Transaction_Number,
         Name,
@@ -82,7 +82,7 @@ const ContactForm = (props) => {
             subject: '',
             message: ''
           })
-          axios.post(`${api_url}logentry`,{Id:res.data.Case_No,
+          axios.post(`${api_url}/logentry`,{Id:res.data.Case_No,
          // axios.post(`https://ev2.softuvo.xyz/logentry`,{Id:res.data.Case_No,
           log:'Ticket Created' }) 
         })

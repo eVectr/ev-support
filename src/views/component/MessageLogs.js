@@ -57,7 +57,7 @@ const MessageLogs = (props) => {
       setshowCase(props.location.pathname.split('&')[1])
       setMessageId((props.match.params.id).split('&')[0])
     }
-    axios.post(`${api_url}getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
+    axios.post(`${api_url}/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     //axios.post(`https://ev2.softuvo.xyz/getusertousermessage`, { ReceiverId: JSON.parse(localStorage.user)._id })
     .then(res => {
         if (res.data.length < 1) {
@@ -68,7 +68,7 @@ const MessageLogs = (props) => {
           const updated = prev.concat(res.data.reverse())
           return updated
         })
-        axios.post(`${api_url}getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+        axios.post(`${api_url}/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
        // axios.post(`https://ev2.softuvo.xyz/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
         .then(res => {
             if (res.data.length < 1) {
@@ -79,7 +79,7 @@ const MessageLogs = (props) => {
           })
       })
 
-    axios.get(`${api_url}getadminmessage`)
+    axios.get(`${api_url}/getadminmessage`)
     //axios.get(`https://ev2.softuvo.xyz/getadminmessage`)
       .then(res => {
         if (res.data.length < 1) {
@@ -105,7 +105,7 @@ const MessageLogs = (props) => {
   }
 
   let handleSentMessage = () => {
-    axios.post(`${api_url}getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
+    axios.post(`${api_url}/getallusertousermessage`, { SenderId: JSON.parse(localStorage.user)._id })
       .then(res => {
         setSentMessage(res.data.reverse())
       })

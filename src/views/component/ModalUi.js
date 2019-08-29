@@ -33,7 +33,7 @@ const ModalUi = props => {
   }
   useEffect(() => {
     if(localStorage !== undefined){
-      axios.get(`${api_url}getalluser`)
+      axios.get(`${api_url}/getalluser`)
       //axios.get(`https://ev2.softuvo.xyz/getalluser`)
         .then(res => {
           for (let i = 0; i < res.data.length; i++) {
@@ -114,11 +114,11 @@ const ModalUi = props => {
       for (let i = 0; i < FileNames.length; i++) {
         formData.append('SelectedImage', FileNames[i])
       }
-      axios.post(`${api_url}fileupload`, formData,
+      axios.post(`${api_url}/fileupload`, formData,
        //axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
         setFileNames([])
-        axios.post(`${api_url}usertousermessage`, {
+        axios.post(`${api_url}/usertousermessage`, {
         //axios.post(`https://ev2.softuvo.xyz/usertousermessage`, {
         SenderId: JSON.parse(localStorage.user)._id,
         SenderName: JSON.parse(localStorage.user).Name,
@@ -174,11 +174,11 @@ const ModalUi = props => {
       for (let i = 0; i < FileNames.length; i++) {
         formData.append('SelectedImage', FileNames[i])
       }
-       axios.post(`${api_url}fileupload`, formData,
+       axios.post(`${api_url}/fileupload`, formData,
       // axios.post(`https://ev2.softuvo.xyz/fileupload`, formData,
        ).then(res => {
          //axios.post(`https://ev2.softuvo.xyz/admintousermessage`, { ReceiverId: userIds,
-         axios.post(`${api_url}admintousermessage`, { ReceiverId: userIds,
+         axios.post(`${api_url}/admintousermessage`, { ReceiverId: userIds,
         Subject:adminSubject,
          Message: AdminMessage,
           isUrgent:isChecked })

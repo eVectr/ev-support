@@ -78,7 +78,7 @@ const SurveyCard = props => {
     let { Type = '' } = user || {}
     authRoutes(props)
     setLoader(true)
-    axios.get(`${api_url}getclientsurvey`).then(res => {
+    axios.get(`${api_url}/getclientsurvey`).then(res => {
     //axios.get(`https://ev2.softuvo.xyz/getclientsurvey`).then(res => {
       let { data = [] } = res
       console.log('data ==>', data)
@@ -143,7 +143,7 @@ const SurveyCard = props => {
     }
     setLoading(true)
     axios
-     .post(`${api_url}clientSurveyResponse`,{
+     .post(`${api_url}/clientSurveyResponse`,{
      // .post(`https://ev2.softuvo.xyz/clientSurveyResponse`, {
         Question1Response,
         Question2Response,

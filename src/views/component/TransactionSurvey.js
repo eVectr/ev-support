@@ -137,7 +137,7 @@ const SurveyCard = (props) => {
     let user = JSON.parse(localStorage.getItem('user'))
     const { Type = '' } = user || {}
     setLoader(true)
-    axios.get(`${api_url}gettransactionsurvey`)
+    axios.get(`${api_url}/gettransactionsurvey`)
     //axios.get(`https://ev2.softuvo.xyz/gettransactionsurvey`)
       .then(res => {
         let { data = [] } = res

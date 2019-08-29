@@ -71,7 +71,7 @@ const options = [
     // }
    // else {
     // axios.post(`https://ev2.softuvo.xyz/saveagent`, {FirstName:selectedFirstName,
-      axios.post(`${api_url}saveagent`, {FirstName:selectedFirstName,
+      axios.post(`${api_url}/saveagent`, {FirstName:selectedFirstName,
       LastName: selectedLastName,
       Password: selectedPassword,
       Type:selectedType,

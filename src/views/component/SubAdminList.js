@@ -23,7 +23,7 @@ const UserList = props => {
    const [showLoader, setshowLoader] = useState(true)
   useEffect(() => {
     //axios.get(`https://ev2.softuvo.xyz/findagent`)
-    axios.get(`${api_url}findagent`)
+    axios.get(`${api_url}/findagent`)
       .then(res => {
         setshowLoader(false)
          setSubAdmin(res.data)
@@ -51,7 +51,7 @@ const UserList = props => {
  
   let fetchadmin = () =>{
     //axios.get(`https://ev2.softuvo.xyz/findagent`)
-     axios.get(`${api_url}findagent`)
+     axios.get(`${api_url}/findagent`)
       .then(res => {
        
          setSubAdmin(res.data)

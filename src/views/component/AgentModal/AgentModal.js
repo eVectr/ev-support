@@ -75,7 +75,7 @@ const AgentModal = (props) => {
       if(props.selectedItem._id == undefined){
        
          // axios.post(`https://ev2.softuvo.xyz/saveagent`, {
-          axios.post(`${api_url}saveagent`, {
+          axios.post(`${api_url}/saveagent`, {
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,
             Password: agentUserDetails.Password,
@@ -85,7 +85,7 @@ const AgentModal = (props) => {
           })
             .then(res => {
              // axios.post(`https://ev2.softuvo.xyz/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
-              axios.post(`${api_url}updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
+              axios.post(`${api_url}/updateagentonassign`, { Type:select, AssignTo: [{label:res.data.FirstName, value: res.data._id }] })
              
               props.fetchadmin()
               // agentUserDetailsData('')
@@ -101,7 +101,7 @@ const AgentModal = (props) => {
       else{
        
         //axios.post(`https://ev2.softuvo.xyz/updateAgent`, {
-          axios.post(`${api_url}updateAgent`, {
+          axios.post(`${api_url}/updateAgent`, {
             Id: props.selectedItem._id,
             FirstName: agentUserDetails.FirstName,
             LastName: agentUserDetails.LastName,

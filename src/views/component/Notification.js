@@ -22,7 +22,7 @@ const Notification = (props) => {
     useEffect(() => {
        
         setshowLoader(true)
-          axios.get(`${api_url}getnotification`)
+          axios.get(`${api_url}/getnotification`)
           //axios.get(`https://ev2.softuvo.xyz/getnotification`)
           .then(res => {
             setshowLoader(false)
@@ -46,7 +46,7 @@ const Notification = (props) => {
     let OnButtonClick = (Id, index, Type, NotificationId, CaseNo) => {
         
      
-         axios.post(`${api_url}changenotificationstatus`, { Id: Id })
+         axios.post(`${api_url}/changenotificationstatus`, { Id: Id })
        // axios.post(`https://ev2.softuvo.xyz/changenotificationstatus`, { Id: Id })
             .then(res => {
                 setNotification(prevState => prevState.map(

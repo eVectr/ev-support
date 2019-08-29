@@ -14,7 +14,7 @@ const Loginform = (props) => {
   useEffect(() => {
     authRoutes(props)
    
-    axios.get(`${api_url}findcontactreason`)
+    axios.get(`${api_url}/findcontactreason`)
    // axios.get(`https://ev2.softuvo.xyz/findcontactreason`)
       .then(res => {
         setReason(res.data)
