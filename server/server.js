@@ -31,11 +31,7 @@ app.use(express.static('uploads'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// let client = redis.createClient();
-// client.on('connect', ()=>{
-//     console.log("Redis database Connected")
-// })
-mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact', (err) => {
+mongoose.connect('mongodb://contact:contact123@ds337377.mlab.com:37377/contact', (err) => {  //// put your mondo DB link here
   if (err) throw err
   console.log('Mongoose connected')
 })
@@ -48,39 +44,25 @@ app.use((req, res, next) => {
     next();
 })
 
-io.on('connection', socket => {
-  console.log("socket connected")
-    socket.on('test', data =>{
-      console.log("socket data")
-    })
-  })
+//xxxxx IMPORTANT xxxxxxxx  re-comment this code after using it
 
-
-// socket.on('sendMessage', data => {
-//   console.log("socket data ===>", data)
-//   data.map((user, index) => {
-
-//   })
-// })
-
-// var user = new User({
-//   Name: 'Trivedi',
+// var user = new User({       ///////   Create user and admin from here 
+//   Name: 'Trivedi',          
 //   Password: 'trivedi@123',
-//   Type: 'user'
+//   Type: 'user'    ////// Type == 'user' for user and Type ==  'admin' for admin
 // })
 // user.save()
 
-// let option1data = {
-//   Option1Type: 'CheckBox',
-//   OptionValue: ['YES', 'NO']
-// }
 
 
-// var transactionSurvey = new TransactionSurvey({
-//   Question: 'f NO would you like to file a complaint?',
-//   Option1:option1data
+// var contactCategory = new ContactCategory({       ///////   Create contact template and reason here
+//   Category_name: 'General Help Request',          
+//   Subcategory_name: [{name:'Request to Deactivate Account', Tempate_name:'Standard'}]
 // })
-// transactionSurvey.save()
+// contactCategory.save()
+
+
+
 
 
 app.post('/clientSurveyResponse', (req, res) => {
