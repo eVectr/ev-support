@@ -51,7 +51,7 @@ const Loginform = (props) => {
     let username = data.username
     let password = data.password
 
-    axios.post(`${api_url}subadminlogin`, { username: username, password: password })
+    axios.post(`${api_url}/subadminlogin`, { username: username, password: password })
    // axios.post(`https://ev2.softuvo.xyz/subadminlogin`, { username: username, password: password })
     .then(res =>{
       setLoader(false)
@@ -64,7 +64,7 @@ const Loginform = (props) => {
           show: true
         }))
       }else{
-         axios.post(`${api_url}login`, { username: username, password: password })
+         axios.post(`${api_url}/login`, { username: username, password: password })
     //axios.post(`https://ev2.softuvo.xyz/login`, { username: username, password: password })
     .then(res => {
         // console.log("res.data =>", res.data.data[0].Type)
